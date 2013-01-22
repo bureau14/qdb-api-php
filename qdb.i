@@ -42,15 +42,15 @@ enum qdb_error_t
     qdb_e_invalid_argument = 24,
     qdb_e_out_of_bounds = 25,
     qdb_e_conflict = 26,
-    qdb_e_not_connected = 27
+    qdb_e_not_connected = 27,
+    qdb_e_invalid_handle = 28
 } ;
 
 enum qdb_option_t
 {
-    qdb_o_log_function = 0,    /* qdb_log_function */
-    qdb_o_log_context,         /* void * */
-    qdb_o_operation_timeout,   /* int */
-} ;
+    qdb_o_operation_timeout = 0,                /* int */
+    qdb_o_stream_buffer_size
+};
 
 qdb_handle_t qdb_open_tcp();
 
