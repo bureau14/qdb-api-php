@@ -1,0 +1,32 @@
+ARG_WITH("qdb", "QUASARDB support", "no");
+
+if (PHP_QDB != "no") {
+    var qdb_sources="php_qdb.c batch.c batch_result.c cluster.c cluster_params.c common_params.c exceptions.c globals.c log.c settings.c";
+
+    if (FSO.FolderExists(PHP_QDB))
+    {
+        var incfolder = PHP_QDB + "\\include";
+        var libfolder = PHP_QDB + (X64 ? "\\lib\\x64" : "\\lib\\x86");
+
+        if (!CHECK_LIB("qdb_api.lib", "qdb", libfolder)) {
+            ERROR("wrong qdb_capi folder: " + PHP_QDB);
+        }
+
+        if(!CHECK_HEADER_ADD_INCLUDE("qdb\\client.h", "CFLAGS_QDB", incfolder)) {
+            ERROR("wrong qdb_capi folder: " + PHP_QDB);
+        }
+    }
+    else
+    {
+        if (!CHECK_LIB("qdb_api.lib", "qdb") &&
+            !CHECK_LIB("qdb_apid.lib", "qdb") ) {
+            ERROR("qdb_api not found, please try --with-qdb=/path/to/qdb_capi");
+        }
+
+        if(!CHECK_HEADER_ADD_INCLUDE("qdb\\client.h", "CFLAGS_QDB")) {
+            ERROR("qdb\\client.h not found, please try --with-extra-includes=/path/to/include");
+        }
+    }
+
+    EXTENSION("qdb", qdb_sources, true);
+}
