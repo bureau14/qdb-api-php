@@ -88,14 +88,13 @@ class QdbClusterPutTest extends QdbTestBase
     }
 
     /**
-     * @expectedException               QdbAliasNotFoundException
+     * @expectedException               QdbInvalidArgumentException
      */
     public function testWithExpiryInThePast()
     {
         $alias = 'put past';
 
         $this->cluster->put($alias, 'content', time() - 60);
-        $content = $this->cluster->get($alias);
     }
 }
 

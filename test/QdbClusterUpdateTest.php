@@ -87,15 +87,13 @@ class QdbClusterUpdateTest extends QdbTestBase
     }
 
     /**
-     * @expectedException               QdbAliasNotFoundException
+     * @expectedException               QdbInvalidArgumentException
      */
     public function testWithExpiryInThePast()
     {
         $alias = 'update past';
 
         $this->cluster->update($alias, 'some content', time() - 60);
-        
-        $content = $this->cluster->get($alias);
     }
 }
 

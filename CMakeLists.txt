@@ -62,7 +62,7 @@ if (WIN32)
         add_custom_command(
             COMMENT "Building PHP extension (${label})"
             COMMAND buildconf.bat --add-modules-dir=${CMAKE_CURRENT_SOURCE_DIR}/..
-            COMMAND configure.bat --disable-all ${flags} --enable-cli --enable-phar --with-qdb --with-extra-libs=$<TARGET_FILE_DIR:qdb_api> --with-extra-includes=${CMAKE_CURRENT_SOURCE_DIR}/../../..
+            COMMAND configure.bat --disable-all ${flags} --enable-cli --enable-phar --with-qdb --with-extra-libs=$<TARGET_FILE_DIR:qdb_api> --with-extra-includes=${CMAKE_CURRENT_SOURCE_DIR}/../include
             COMMAND nmake
             COMMAND ${CMAKE_COMMAND} -E copy "${builddir}/php_qdb.dll" "${output}"
             DEPENDS ${PHP_API_SRCS} config.w32 CMakeLists.txt
@@ -100,7 +100,7 @@ else()
         COMMENT "Generating PHP extension's Makefile"
         COMMAND phpize
         COMMAND cd ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/configure CFLAGS="-I${CMAKE_CURRENT_SOURCE_DIR}/../../.." LDFLAGS="-L$<TARGET_FILE_DIR:qdb_api>"
+        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/configure CFLAGS="-I${CMAKE_CURRENT_SOURCE_DIR}/../include" LDFLAGS="-L$<TARGET_FILE_DIR:qdb_api>"
         DEPENDS config.m4 CMakeLists.txt
         OUTPUT ${MAKEFILE}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
