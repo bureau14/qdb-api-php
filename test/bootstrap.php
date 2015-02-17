@@ -2,8 +2,7 @@
 
 $PROJECT_ROOT = dirname(__FILE__) . '/../../../..';
 
-$LICENSE = "$PROJECT_ROOT/scripts/tests/qdb_test_license.txt";
-$DAEMON_FLAGS = "--transient --log-console --license-file $LICENSE --address 127.0.0.1:20552";
+$DAEMON_FLAGS = "--transient --log-console --address 127.0.0.1:20552";
 
 echo 'Check daemon... ';
 if (is_executable('qdbd')) {
