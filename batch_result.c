@@ -31,15 +31,16 @@
 
 */
 
-#include "batch_result.h"
-
-#include <php.h>
-#include <qdb/client.h>
+#include <php.h>  // include first to avoid conflict with stdint.h 
 #include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
+
+#include "batch_result.h"
 #include "class_definition.h"
 #include "exceptions.h"
 #include "common_params.h"
+
+#include <qdb/client.h> 
 
 #define class_name          QdbBatchResult
 #define class_storage       batch_result_t

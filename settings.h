@@ -34,7 +34,7 @@
 #ifndef QDB_SETTINGS_H
 #define QDB_SETTINGS_H
 
-#include <php.h>
+#include <php.h> // include first to avoid conflict with stdint.h 
 
 void settings_init(int module_number TSRMLS_DC);
 void settings_shutdown(int module_number TSRMLS_DC);

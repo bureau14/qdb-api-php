@@ -34,8 +34,9 @@
 #ifndef QDB_CLUSTER_PARAMS_H
 #define QDB_CLUSTER_PARAMS_H
 
+#include <php.h> // include first to avoid conflict with stdint.h 
+
 #include <qdb/client.h>
-#include <php.h>
 
 int parse_node_list_n(int num_args, qdb_remote_node_t** nodes, int* node_count TSRMLS_DC);
 

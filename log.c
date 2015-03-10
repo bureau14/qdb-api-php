@@ -31,12 +31,11 @@
 
 */
 
-#include "log.h"
-
-#include <php.h>
+#include <php.h> // include first to avoid conflict with stdint.h 
 #include <php_ini.h>
 
 #include "globals.h"
+#include "log.h"
 
 
 int log_level_to_int(const char* level, int def)

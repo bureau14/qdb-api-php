@@ -31,12 +31,11 @@
 
 */
 
-#include "cluster_params.h"
+#include <php.h>  // include first to avoid conflict with stdint.h 
 
 #include "batch.h"
+#include "cluster_params.h"
 #include "exceptions.h"
-
-#include <php.h>
 
 static void extract_operations(qdb_operation_t** operations, size_t* operation_count, zval *zbatch TSRMLS_DC);
 static void extract_one_operation(qdb_operation_t *dst, batch_operation_t* src);

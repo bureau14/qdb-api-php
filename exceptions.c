@@ -31,10 +31,11 @@
 
 */
 
-#include "exceptions.h"
-
+#include <php.h> // include first to avoid conflict with stdint.h 
 #include <spl/spl_exceptions.h>
 #include <zend_exceptions.h>
+
+#include "exceptions.h"
 
 typedef struct {
     qdb_error_t code;

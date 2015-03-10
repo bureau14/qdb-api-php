@@ -31,14 +31,16 @@
 
 */
 
-#include <php.h>
-#include <qdb/client.h>
+#include <php.h> // include first to avoid conflict with stdint.h 
+ 
 #include "batch_result.h"
 #include "cluster_params.h"
 #include "exceptions.h"
 #include "common_params.h"
 #include "class_definition.h"
 #include "log.h"
+
+#include <qdb/client.h>
 
 #define class_name      QdbCluster
 #define class_storage   cluster_t

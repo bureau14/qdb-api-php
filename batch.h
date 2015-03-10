@@ -34,8 +34,9 @@
 #ifndef QDB_BATCH_H
 #define QDB_BATCH_H
 
+#include <zend.h>  // include first to avoid conflict with stdint.h 
+
 #include <qdb/client.h>
-#include <zend.h>
 
 typedef struct {
     qdb_operation_type_t type;

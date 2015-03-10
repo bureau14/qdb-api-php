@@ -31,10 +31,10 @@
 
 */
 
+#include <php.h> // include first to avoid conflict with stdint.h 
+
 #include "common_params.h"
 #include "exceptions.h"
-
-#include <php.h>
 
 int parse_alias_n(int num_args, zval** alias TSRMLS_DC)
 {

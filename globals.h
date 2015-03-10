@@ -31,7 +31,7 @@
 
 */
 
-#include <php.h>
+#include <php.h> // include first to avoid conflict with stdint.h 
 
 ZEND_BEGIN_MODULE_GLOBALS(qdb)
     int log_level;

@@ -31,10 +31,11 @@
 
 */
 
-#include "settings.h"
+#include <php.h> // include first to avoid conflict with stdint.h 
 
 #include "globals.h"
 #include "log.h"
+#include "settings.h"
 
 static ZEND_INI_MH(OnUpdateLogLevel)
 {

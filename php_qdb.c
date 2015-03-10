@@ -31,9 +31,11 @@
 
 */
 
+#include <php.h> // include first to avoid conflict with stdint.h 
+#include <standard/info.h>
+ 
 #include "php_qdb.h"
 
-#include <standard/info.h>
 #include "batch.h"
 #include "batch_result.h"
 #include "cluster.h"

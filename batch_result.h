@@ -34,8 +34,9 @@
 #ifndef QDB_BATCH_RESULT_H
 #define QDB_BATCH_RESULT_H
 
+#include <zend.h> // include first to avoid conflict with stdint.h 
+
 #include <qdb/client.h>
-#include <zend.h>
 
 void register_QdbBatchResult(TSRMLS_D);
 

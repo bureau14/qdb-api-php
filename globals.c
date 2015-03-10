@@ -31,9 +31,9 @@
 
 */
 
-#include "globals.h"
+#include <php.h> // include first to avoid conflict with stdint.h 
 
-#include <php.h>
+#include "globals.h"
 #include "log.h"
 
 ZEND_DECLARE_MODULE_GLOBALS(qdb);
