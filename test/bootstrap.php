@@ -40,6 +40,8 @@ sleep(5);
 $status = proc_get_status($process);
 if (!$status['running']) {
     echo 'Failed', PHP_EOL;
+    echo file_get_contents("daemon-stdout.txt");
+    echo file_get_contents("daemon-stderr.txt");
     exit(2);
 }
 echo 'OK', PHP_EOL;
@@ -49,7 +51,7 @@ function kill($process) {
         $status = proc_get_status($process);
         return exec('taskkill /F /T /PID '.$status['pid']);
     } else {
-        return proc_terminate($process);
+        return proc_terminate($process, 9);
     }
 }
 
