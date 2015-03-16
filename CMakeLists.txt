@@ -47,8 +47,8 @@ if (WIN32)
     endif()
 
     set(MAKEFILE "${PHP_SRC_DIR}/Makefile")
-    set(PHP_QDB_EXT "${LIBRARY_OUTPUT_PATH}/${CMAKE_BUILD_TYPE}/php_qdb.dll")
-    set(PHPTS_QDB_EXT "${LIBRARY_OUTPUT_PATH}/${CMAKE_BUILD_TYPE}/php_qdb_ts.dll")
+    set(PHP_QDB_EXT "${QDB_OUTPUT_DIRECTORY}/php_qdb.dll")
+    set(PHPTS_QDB_EXT "${QDB_OUTPUT_DIRECTORY}/php_qdb_ts.dll")
 
     if(QDB_CPU_ARCH STREQUAL "64bit")
         set(PHP_BUILD_DIR "${PHP_SRC_DIR}/x64/Release/")
