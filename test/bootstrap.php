@@ -51,7 +51,7 @@ function kill($process) {
         $status = proc_get_status($process);
         return exec('taskkill /F /T /PID '.$status['pid']);
     } else {
-        return proc_terminate($process, 9);
+        return exec('kill -9 '.$status['pid']);
     }
 }
 
