@@ -44,22 +44,22 @@ if (!$status['running']) {
     echo file_get_contents("daemon-stderr.txt");
     exit(2);
 }
-echo 'OK', PHP_EOL;
+echo 'OK, pid=', $status['pid'], PHP_EOL;
 
-function kill($process) {
+function kill($pid) {    
     if (strncasecmp(PHP_OS, 'WIN', 3) == 0) {
-        $status = proc_get_status($process);
-        return exec('taskkill /F /T /PID '.$status['pid']);
+        return exec("taskkill /F /T /PID $pid");
     } else {
-        return exec('kill -9 '.$status['pid']);
+        return exec("kill -9 $pid") == 0;
     }
 }
 
 register_shutdown_function(
     function () use ($process) 
     {
-        echo 'Stopping qdb daemon... ';
-        if (!kill($process)) {
+        $pid = proc_get_status($process)['pid'];
+        echo "Stopping qdb daemon (pid=$pid)... ";
+        if (!kill($pid)) {
             echo "Failed", PHP_EOL;
             exit(3);
         }
