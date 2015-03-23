@@ -50,7 +50,7 @@ function kill($pid) {
     if (strncasecmp(PHP_OS, 'WIN', 3) == 0) {
         return exec("taskkill /F /T /PID $pid");
     } else {
-        return exec("kill -9 $pid") == 0;
+        return exec("pkill -KILL -P $pid") == 0 | exec("kill -9 $pid") == 0;
     }
 }
 
