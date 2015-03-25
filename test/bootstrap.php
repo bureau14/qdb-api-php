@@ -4,21 +4,6 @@ $PROJECT_ROOT = dirname(__FILE__) . '/../../../..';
 
 $DAEMON_FLAGS = "--transient --log-console --address 127.0.0.1:20552";
 
-echo 'Check daemon... ';
-if (is_executable('qdbd')) {
-    $DAEMON = 'qdbd';
-} else if (is_executable('qdbdd')) {
-    $DAEMON = 'qdbdd';
-} else if (is_executable('qdbd.exe')) {
-    $DAEMON = 'qdbd.exe';
-} else if (is_executable('qdbdd.exe')) {
-    $DAEMON = 'qdbdd.exe';
-} else {
-    echo 'Failed (cwd=', getcwd(), ')', PHP_EOL;
-    exit(1);
-}
-echo 'OK', PHP_EOL;
-
 echo 'Check extension... ';
 if (!extension_loaded('qdb')) {
     echo "Failed", PHP_EOL;
