@@ -19,8 +19,7 @@ $descriptorspec = array(
     2 => array("file", "daemon-stderr.txt", "w")
 );
 
-$cmdline = '"' . realpath($DAEMON) . '" ' . $DAEMON_FLAGS;
-$process = proc_open($cmdline, $descriptorspec, $pipes);
+$process = proc_open("qdbd $DAEMON_FLAGS", $descriptorspec, $pipes);
 sleep(5);
 $status = proc_get_status($process);
 if (!$status['running']) {
