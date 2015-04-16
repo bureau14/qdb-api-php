@@ -21,8 +21,8 @@ class QdbClusterConstructorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /nodes/i
+     * @expectedException               PHPUnit_Framework_Error
+     * @expectedExceptionMessageRegExp  /must be of the type array/
      */
     public function testWrongArgumentype()
     {

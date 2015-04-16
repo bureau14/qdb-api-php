@@ -50,7 +50,7 @@ typedef struct {
     qdb_handle_t handle;
 } cluster_t;
 
-CLASS_METHOD_1(__construct, nodes)
+CLASS_METHOD_1(__construct, ARRAY_ARG(nodes))
 {
     cluster_t *this = get_this();
     qdb_remote_node_t* nodes;
@@ -87,7 +87,7 @@ CLASS_METHOD_0(__destruct)
     qdb_close(this->handle);
 }
 
-CLASS_METHOD_3_1(compareAndSwap, alias, content, comparand, expiry)
+CLASS_METHOD_3_1(compareAndSwap, STRING_ARG(alias), STRING_ARG(content), STRING_ARG(comparand), LONG_ARG(expiry))
 {
     cluster_t *this = get_this();
     zval *alias, *content, *comparand;
@@ -118,7 +118,7 @@ CLASS_METHOD_3_1(compareAndSwap, alias, content, comparand, expiry)
     qdb_free_buffer(this->handle, result);
 }
 
-CLASS_METHOD_2(expiresAt, alias, expiry)
+CLASS_METHOD_2(expiresAt, STRING_ARG(alias), LONG_ARG(expiry))
 {
     cluster_t *this = get_this();
     zval* alias;
@@ -133,7 +133,7 @@ CLASS_METHOD_2(expiresAt, alias, expiry)
         throw_qdb_error(error);
 }
 
-CLASS_METHOD_2(expiresFromNow, alias, expiry)
+CLASS_METHOD_2(expiresFromNow, STRING_ARG(alias), LONG_ARG(expiry))
 {
     cluster_t *this = get_this();
     zval* alias;
@@ -148,7 +148,7 @@ CLASS_METHOD_2(expiresFromNow, alias, expiry)
         throw_qdb_error(error);
 }
 
-CLASS_METHOD_1(get, alias)
+CLASS_METHOD_1(get, STRING_ARG(alias))
 {
     cluster_t *this = get_this();
     zval *alias;
@@ -172,7 +172,7 @@ CLASS_METHOD_1(get, alias)
     qdb_free_buffer(this->handle, result);
 }
 
-CLASS_METHOD_1(getExpiryTime, alias)
+CLASS_METHOD_1(getExpiryTime, STRING_ARG(alias))
 {
     cluster_t *this = get_this();
     zval *alias;
@@ -193,7 +193,7 @@ CLASS_METHOD_1(getExpiryTime, alias)
     }
 }
 
-CLASS_METHOD_1(getRemove, alias)
+CLASS_METHOD_1(getRemove, STRING_ARG(alias))
 {
     cluster_t *this = get_this();
     zval *alias;
@@ -217,7 +217,7 @@ CLASS_METHOD_1(getRemove, alias)
     qdb_free_buffer(this->handle, result);
 }
 
-CLASS_METHOD_2_1(getUpdate, alias, content, expiry)
+CLASS_METHOD_2_1(getUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     cluster_t *this = get_this();
     zval *alias, *content;
@@ -247,7 +247,7 @@ CLASS_METHOD_2_1(getUpdate, alias, content, expiry)
     qdb_free_buffer(this->handle, result);
 }
 
-CLASS_METHOD_2_1(put, alias, content, expiry)
+CLASS_METHOD_2_1(put, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     cluster_t *this = get_this();
     zval *alias, *content;
@@ -262,7 +262,7 @@ CLASS_METHOD_2_1(put, alias, content, expiry)
         throw_qdb_error(error);
 }
 
-CLASS_METHOD_1(remove, alias)
+CLASS_METHOD_1(remove, STRING_ARG(alias))
 {
     cluster_t *this = get_this();
     zval *alias;
@@ -276,7 +276,7 @@ CLASS_METHOD_1(remove, alias)
         throw_qdb_error(error);
 }
 
-CLASS_METHOD_2(removeIf, alias, comparand)
+CLASS_METHOD_2(removeIf, STRING_ARG(alias), STRING_ARG(comparand))
 {
     cluster_t *this = get_this();
     zval *alias, *comparand;
@@ -300,7 +300,7 @@ CLASS_METHOD_2(removeIf, alias, comparand)
     }
 }
 
-CLASS_METHOD_1(runBatch, batch)
+CLASS_METHOD_1(runBatch, OBJECT_ARG(QdbBatch,batch))
 {
     cluster_t *this = get_this();
     qdb_operation_t* operations;
@@ -314,7 +314,7 @@ CLASS_METHOD_1(runBatch, batch)
     create_QdbBatchResult(return_value, this->handle, operations, operations_len TSRMLS_CC);
 }
 
-CLASS_METHOD_2_1(update, alias, content, expiry)
+CLASS_METHOD_2_1(update, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     cluster_t *this = get_this();
     zval *alias, *content;

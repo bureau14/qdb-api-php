@@ -86,7 +86,7 @@ CLASS_METHOD_0(__destruct)
     efree(this->operations);
 }
 
-CLASS_METHOD_3_1(compareAndSwap, alias, content, comparand, expiry)
+CLASS_METHOD_3_1(compareAndSwap, STRING_ARG(alias), STRING_ARG(content), STRING_ARG(comparand), LONG_ARG(expiry))
 {
     batch_t *this = get_this();
     batch_operation_t* op = next_operation(this);
@@ -101,7 +101,7 @@ CLASS_METHOD_3_1(compareAndSwap, alias, content, comparand, expiry)
     this->length++;
 }
 
-CLASS_METHOD_1(get, alias)
+CLASS_METHOD_1(get, STRING_ARG(alias))
 {
     batch_t *this = get_this();
     batch_operation_t* op = next_operation(this);
@@ -114,7 +114,7 @@ CLASS_METHOD_1(get, alias)
     this->length++;
 }
 
-CLASS_METHOD_1(getRemove, alias)
+CLASS_METHOD_1(getRemove, STRING_ARG(alias))
 {
     batch_t *this = get_this();
     batch_operation_t* op = next_operation(this);
@@ -127,7 +127,7 @@ CLASS_METHOD_1(getRemove, alias)
     this->length++;
 }
 
-CLASS_METHOD_2_1(getUpdate, alias, content, expiry)
+CLASS_METHOD_2_1(getUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     batch_t *this = get_this();
     batch_operation_t* op = next_operation(this);
@@ -141,7 +141,7 @@ CLASS_METHOD_2_1(getUpdate, alias, content, expiry)
     this->length++;
 }
 
-CLASS_METHOD_2_1(put, alias, content, expiry)
+CLASS_METHOD_2_1(put, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     batch_t *this = get_this();
     batch_operation_t* op = next_operation(this);
@@ -155,7 +155,7 @@ CLASS_METHOD_2_1(put, alias, content, expiry)
     this->length++;
 }
 
-CLASS_METHOD_1(remove, alias)
+CLASS_METHOD_1(remove, STRING_ARG(alias))
 {
     batch_t *this = get_this();
     batch_operation_t* op = next_operation(this);
@@ -168,7 +168,7 @@ CLASS_METHOD_1(remove, alias)
     this->length++;
 }
 
-CLASS_METHOD_2(removeIf, alias, comparand)
+CLASS_METHOD_2(removeIf, STRING_ARG(alias), STRING_ARG(comparand))
 {
     batch_t *this = get_this();
     batch_operation_t* op = next_operation(this);
@@ -182,7 +182,7 @@ CLASS_METHOD_2(removeIf, alias, comparand)
     this->length++;
 }
 
-CLASS_METHOD_2_1(update, alias, content, expiry)
+CLASS_METHOD_2_1(update, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     batch_t *this = get_this();
     batch_operation_t* op = next_operation(this);

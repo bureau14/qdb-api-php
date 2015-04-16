@@ -37,6 +37,7 @@
 #define get_this() \
     (class_storage*)zend_object_store_get_object(getThis() TSRMLS_CC)
 
+
 #define STR(X) #X
 #define XSTR(X) STR(X)
 #define CONCAT(X,Y) X##Y
@@ -44,8 +45,27 @@
 #define ARGINFO(X,Y) arginfo_##X##_##Y
 #define XARGINFO(X,Y) ARGINFO(X,Y)
 
+
+#define ARRAY_ARG(name) \
+    ZEND_ARG_ARRAY_INFO(0, name, 0)
+
+#define LONG_ARG(name) \
+    ZEND_ARG_INFO(0, name)
+//  ZEND_ARG_TYPE_INFO(0, name, IS_LONG, 0) <- in a better world, we would write
+
+#define MIXED_ARG(name) \
+    ZEND_ARG_INFO(0, name)
+
+#define OBJECT_ARG(classname,name) \
+    ZEND_ARG_OBJ_INFO(0, name, classname, 0)
+
+#define STRING_ARG(name) \
+    ZEND_ARG_INFO(0, name)
+//  ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0) <- in a better world, we would write
+
+
 #define CLASS_METHOD_(class_name, method_name) \
-    PHP_METHOD(class_name, method_name)
+    PHP_METHOD(class_name, method_name) // <- don't inline this macro, it's required
 
 #define CLASS_METHOD_0(method_name)                          \
     ZEND_BEGIN_ARG_INFO_EX(XARGINFO(class_name, method_name), 0, 0, 0) \
@@ -54,33 +74,34 @@
 
 #define CLASS_METHOD_1(method_name, arg1)                     \
     ZEND_BEGIN_ARG_INFO_EX(XARGINFO(class_name, method_name), 0, 0, 1) \
-        ZEND_ARG_INFO(0, arg1)                                         \
+        arg1                                                           \
     ZEND_END_ARG_INFO()                                                \
     CLASS_METHOD_(class_name, method_name)
 
 #define CLASS_METHOD_2(method_name, arg1, arg2)              \
     ZEND_BEGIN_ARG_INFO_EX(XARGINFO(class_name, method_name), 0, 0, 2) \
-        ZEND_ARG_INFO(0, arg1)                                         \
-        ZEND_ARG_INFO(0, arg2)                                         \
+        arg1                                                           \
+        arg2                                                           \
     ZEND_END_ARG_INFO()                                                \
     CLASS_METHOD_(class_name, method_name)
 
 #define CLASS_METHOD_2_1(method_name, arg1, arg2, optarg1)             \
     ZEND_BEGIN_ARG_INFO_EX(XARGINFO(class_name, method_name), 0, 0, 2) \
-        ZEND_ARG_INFO(0, arg1)                                         \
-        ZEND_ARG_INFO(0, arg2)                                         \
-        ZEND_ARG_INFO(0, optarg1)                                      \
+        arg1                                                           \
+        arg2                                                           \
+        optarg1                                                        \
     ZEND_END_ARG_INFO()                                                \
     CLASS_METHOD_(class_name, method_name)
 
 #define CLASS_METHOD_3_1(method_name, arg1, arg2, arg3, optarg1)       \
     ZEND_BEGIN_ARG_INFO_EX(XARGINFO(class_name, method_name), 0, 0, 3) \
-        ZEND_ARG_INFO(0, arg1)                                         \
-        ZEND_ARG_INFO(0, arg2)                                         \
-        ZEND_ARG_INFO(0, arg3)                                         \
-        ZEND_ARG_INFO(0, optarg1)                                      \
+        arg1                                                           \
+        arg2                                                           \
+        arg3                                                           \
+        optarg1                                                        \
     ZEND_END_ARG_INFO()                                                \
     CLASS_METHOD_(class_name, method_name)
+
 
 #define CLASS_BEGIN_MEMBERS() \
     static zend_function_entry methods[] = {

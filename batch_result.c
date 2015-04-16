@@ -85,7 +85,7 @@ CLASS_METHOD_0(count) // inherited from Countable
     RETURN_LONG(this->operations_count);
 }
 
-CLASS_METHOD_1(offsetExists, offset) // inherited from ArrayAccess
+CLASS_METHOD_1(offsetExists, MIXED_ARG(offset)) // inherited from ArrayAccess
 {
     batch_result_t* this = get_this();
     long offset;
@@ -96,7 +96,7 @@ CLASS_METHOD_1(offsetExists, offset) // inherited from ArrayAccess
     RETURN_BOOL(offset>=0 && offset<(long)this->operations_count);
 }
 
-CLASS_METHOD_1(offsetGet, offset) // inherited from ArrayAccess
+CLASS_METHOD_1(offsetGet, MIXED_ARG(offset)) // inherited from ArrayAccess
 {
     batch_result_t* this = get_this();
     long offset;
@@ -126,12 +126,12 @@ CLASS_METHOD_1(offsetGet, offset) // inherited from ArrayAccess
     }
 }
 
-CLASS_METHOD_2(offsetSet, offset, value) // inherited from ArrayAccess
+CLASS_METHOD_2(offsetSet, MIXED_ARG(offset), MIXED_ARG(value)) // inherited from ArrayAccess
 {
     throw_bad_function_call("Batch result is read-only");
 }
 
-CLASS_METHOD_1(offsetUnset, offset) // inherited from ArrayAccess
+CLASS_METHOD_1(offsetUnset, MIXED_ARG(offset)) // inherited from ArrayAccess
 {
     throw_bad_function_call("Batch result is read-only");
 }
