@@ -6,7 +6,7 @@ if (PHP_QDB != "no") {
     if (FSO.FolderExists(PHP_QDB))
     {
         var incfolder = PHP_QDB + "\\include";
-        var libfolder = PHP_QDB + (X64 ? "\\lib\\x64" : "\\lib\\x86");
+        var libfolder = PHP_QDB + "\\lib";
 
         if (!CHECK_LIB("qdb_api.lib", "qdb", libfolder)) {
             ERROR("wrong qdb_capi folder: " + PHP_QDB);
