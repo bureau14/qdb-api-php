@@ -39,6 +39,7 @@
 #include "common_params.h"
 #include "class_definition.h"
 #include "log.h"
+#include "queue.h"
 
 #include <qdb/client.h>
 
@@ -193,6 +194,17 @@ CLASS_METHOD_1(getExpiryTime, STRING_ARG(alias))
     }
 }
 
+CLASS_METHOD_1(getQueue, STRING_ARG(alias))
+{
+    cluster_t *this = get_this();
+    zval *alias;
+
+    if (parse_alias(&alias) == FAILURE)
+        return;
+
+    create_QdbQueue(return_value, this->handle, alias TSRMLS_CC);
+}
+
 CLASS_METHOD_1(getRemove, STRING_ARG(alias))
 {
     cluster_t *this = get_this();
@@ -337,6 +349,7 @@ CLASS_BEGIN_MEMBERS()
     ADD_METHOD(expiresFromNow)
     ADD_METHOD(get)
     ADD_METHOD(getExpiryTime)
+    ADD_METHOD(getQueue)
     ADD_METHOD(getRemove)
     ADD_METHOD(getUpdate)
     ADD_METHOD(put)

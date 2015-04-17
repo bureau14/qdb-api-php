@@ -1,7 +1,7 @@
 ARG_WITH("qdb", "QUASARDB support", "no");
 
 if (PHP_QDB != "no") {
-    var qdb_sources="php_qdb.c batch.c batch_result.c cluster.c cluster_params.c common_params.c exceptions.c globals.c log.c settings.c";
+    var qdb_sources="php_qdb.c batch.c batch_result.c cluster.c cluster_params.c common_params.c exceptions.c globals.c log.c queue.c settings.c";
 
     if (FSO.FolderExists(PHP_QDB))
     {

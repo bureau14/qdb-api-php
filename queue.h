@@ -30,20 +30,16 @@
 
 
 */
- 
-#ifndef PHP_QDB_H
-#define PHP_QDB_H
 
-#define PHP_QDB_EXTNAME  "qdb"
-#define PHP_QDB_EXTVER   "2.0.0"
+#ifndef QDB_QUEUE_H
+#define QDB_QUEUE_H
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
+#include <zend.h> // include first to avoid conflict with stdint.h 
 
-#include <php.h>
+//#include <qdb/client.h>
 
-extern zend_module_entry qdb_module_entry;
-#define phpext_qdb_ptr &qdb_module_entry;
+void register_QdbQueue(TSRMLS_D);
 
-#endif /* PHP_QDB_H */
+void create_QdbQueue(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC);
+
+#endif /* QDB_QUEUE_H */

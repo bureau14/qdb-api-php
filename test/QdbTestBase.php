@@ -1,7 +1,5 @@
 <?php
 
-require_once 'QdbTestBase.php';
-
 abstract class QdbTestBase extends PHPUnit_Framework_TestCase
 {
     protected $cluster;

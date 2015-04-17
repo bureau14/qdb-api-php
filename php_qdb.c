@@ -41,6 +41,7 @@
 #include "cluster.h"
 #include "exceptions.h"
 #include "globals.h"
+#include "queue.h"
 #include "settings.h"
 
 static PHP_MINIT_FUNCTION(qdb)
@@ -51,6 +52,7 @@ static PHP_MINIT_FUNCTION(qdb)
     register_QdbBatch(TSRMLS_C);
     register_QdbBatchResult(TSRMLS_C);
     register_QdbCluster(TSRMLS_C);
+    register_QdbQueue(TSRMLS_C);
     return SUCCESS;
 }
 

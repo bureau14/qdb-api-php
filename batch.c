@@ -64,6 +64,9 @@ CLASS_METHOD_0(__construct)
 {
     batch_t *this = get_this();
 
+    if (check_no_args() == FAILURE)
+        return;
+
     this->length = 0;
     this->capacity = 16;
     this->operations = emalloc(this->capacity*sizeof(batch_operation_t));

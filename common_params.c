@@ -36,6 +36,17 @@
 #include "common_params.h"
 #include "exceptions.h"
 
+int check_no_args_n(int num_args TSRMLS_DC)
+{
+    if (num_args > 0)
+    {
+        throw_invalid_argument("Too many arguments, expected none");
+        return FAILURE;
+    }
+
+    return SUCCESS;
+}
+
 int parse_alias_n(int num_args, zval** alias TSRMLS_DC)
 {
     if (num_args < 1)
@@ -227,6 +238,35 @@ int parse_offset_n(int num_args, long* offset TSRMLS_DC)
     if (zend_parse_parameters(num_args TSRMLS_CC, "l", offset) == FAILURE)
     {
         throw_invalid_argument("Expected integer");
+        return FAILURE;
+    }
+
+    return SUCCESS;
+}
+
+int parse_val_n(int num_args, zval** content TSRMLS_DC)
+{
+    if (num_args < 1)
+    {
+        throw_invalid_argument("Not enough arguments, expected exactly one");
+        return FAILURE;
+    }
+
+    if (num_args > 1)
+    {
+        throw_invalid_argument("Too many arguments, expected exactly one");
+        return FAILURE;
+    }
+
+    if (zend_parse_parameters(num_args TSRMLS_CC, "z", content) == FAILURE)
+    {
+        throw_invalid_argument("Wrong argument types, expected (string content)");
+        return FAILURE;
+    }
+
+    if (Z_TYPE_PP(content) != IS_STRING)
+    {
+        throw_invalid_argument("Argument 1 (content) must be a string");
         return FAILURE;
     }
 

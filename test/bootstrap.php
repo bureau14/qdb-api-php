@@ -13,10 +13,13 @@ echo 'OK', PHP_EOL;
 
 echo 'Starting qdb daemon... ';
 
+$daemon_stdout = tempnam(sys_get_temp_dir(), 'qdbd-stdout');
+$daemon_stderr = tempnam(sys_get_temp_dir(), 'qdbd-stderr');
+
 $descriptorspec = array(
-    0 => array("pipe", "r"),  // stdin
-    1 => array("file", "daemon-stdout.txt", "w"),
-    2 => array("file", "daemon-stderr.txt", "w")
+    0 => array('pipe', 'r'),  // stdin
+    1 => array('file', $daemon_stdout, 'w'),
+    2 => array('file', $daemon_stderr, 'w')
 );
 
 $process = proc_open("qdbd $DAEMON_FLAGS", $descriptorspec, $pipes);
@@ -24,8 +27,8 @@ sleep(5);
 $status = proc_get_status($process);
 if (!$status['running']) {
     echo 'Failed', PHP_EOL;
-    echo file_get_contents("daemon-stdout.txt");
-    echo file_get_contents("daemon-stderr.txt");
+    echo file_get_contents($daemon_stdout);
+    echo file_get_contents($daemon_stderr);
     exit(2);
 }
 echo 'OK, pid=', $status['pid'], PHP_EOL;

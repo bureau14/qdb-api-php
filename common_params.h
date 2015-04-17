@@ -39,6 +39,11 @@
 #include <qdb/client.h>
 
 
+int check_no_args_n(int num_args TSRMLS_DC);
+
+#define check_no_args()  check_no_args_n(ZEND_NUM_ARGS() TSRMLS_CC)
+
+
 int parse_alias_n(int num_args, zval** alias TSRMLS_DC);
 
 #define parse_alias(alias)  parse_alias_n(ZEND_NUM_ARGS(), alias TSRMLS_CC)
@@ -67,6 +72,11 @@ int parse_alias_val_cmp_o_exp_n(int num_args, zval** alias, zval** content, zval
 int parse_offset_n(int num_args, long* offset TSRMLS_DC);
 
 #define parse_offset(offset) parse_offset_n(ZEND_NUM_ARGS(), offset TSRMLS_CC)
+
+
+int parse_val_n(int num_args, zval** val TSRMLS_DC);
+
+#define parse_val(val)  parse_val_n(ZEND_NUM_ARGS(), val TSRMLS_CC)
 
 
 #endif /* QDB_PARAMETERS_H */
