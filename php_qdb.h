@@ -35,7 +35,7 @@
 #define PHP_QDB_H
 
 #define PHP_QDB_EXTNAME  "qdb"
-#define PHP_QDB_EXTVER   "1.0"
+#define PHP_QDB_EXTVER   "1.2.0"
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
