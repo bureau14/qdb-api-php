@@ -7,7 +7,10 @@ It's a double-ended queue, you can both enqueue and dequeue from the front and t
 Example
 -------
 
-    $queue = $cluster->getQueue('my queue');
+You get a `QdbQueue` instance by calling `QdbCluster::queue()`.
+Then you can perform atomic operation on the queue:
+
+    $queue = $cluster->queue('my queue');
     $queue->pushBack('value 0');
     $queue->pushBack('value 1');
 

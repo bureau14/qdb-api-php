@@ -1,8 +1,6 @@
 ARG_WITH("qdb", "QUASARDB support", "no");
 
 if (PHP_QDB != "no") {
-    var qdb_sources="php_qdb.c batch.c batch_result.c cluster.c cluster_params.c common_params.c exceptions.c globals.c log.c queue.c settings.c";
-
     if (FSO.FolderExists(PHP_QDB))
     {
         var incfolder = PHP_QDB + "\\include";
@@ -28,5 +26,19 @@ if (PHP_QDB != "no") {
         }
     }
 
-    EXTENSION("qdb", qdb_sources, true);
+    EXTENSION("qdb", "php_qdb.c", true);
+    ADD_SOURCES(configure_module_dirname + "\\src", "\
+        batch.c \
+        batch_operations.c \
+        batch_result.c \
+        blob.c \
+        cluster.c \
+        cluster_nodes.c \
+        common_params.c \
+        exceptions.c \
+        globals.c \
+        log.c \
+        queue.c \
+        settings.c \
+        ", "qdb");
 }

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Using *quasardb* cluster from a PHP program is extremely straightforward, just create a `QdbCluster` and perform the operations.
+Using *quasardb* cluster from a PHP program is extremely straightforward, just create a [`QdbCluster`](doc/QdbCluster.md) and perform the operations.
 
     $nodes = array(array('address' => '127.0.0.1', 'port' => 2836));
 
@@ -13,7 +13,7 @@ Using *quasardb* cluster from a PHP program is extremely straightforward, just c
 
 Want a queue in your database?
 
-    $queue = $cluster->getQueue('my queue');
+    $queue = $cluster->queue('my queue');
     $queue->pushBack('value 0');
     $queue->pushBack('value 1');
 
@@ -21,5 +21,6 @@ Want a queue in your database?
 
 * [Installation instructions](doc/Installation.md)
 * [The `QdbBatch` class](doc/QdbBatch.md)
+* [The `QdbBlob` class](doc/QdbBlob.md)
 * [The `QdbCluster` class](doc/QdbCluster.md)
 * [The `QdbQueue` class](doc/QdbQueue.md)

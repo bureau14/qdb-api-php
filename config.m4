@@ -1,7 +1,7 @@
 PHP_ARG_WITH(qdb, for quasardb support,
 [  --with-qdb=DIR          include quasardb support])
 
-PHP_QDB_SOURCES="php_qdb.c batch.c batch_result.c cluster.c cluster_params.c common_params.c exceptions.c globals.c log.c settings.c"
+PHP_QDB_SOURCES="php_qdb.c src/batch.c src/batch_operations.c src/batch_result.c src/blob.c src/cluster.c src/cluster_nodes.c src/common_params.c src/exceptions.c src/globals.c src/log.c src/queue.c src/settings.c"
 PHP_QDB_CFLAGS="-Wall -Werror -fno-strict-aliasing"
 
 if test "$PHP_QDB" != "no"; then
@@ -23,9 +23,9 @@ if test "$PHP_QDB" != "no"; then
       AC_MSG_ERROR(qdb extension requires qdb_api),
       [#include <qdb/client.h>])
 
-    PHP_CHECK_LIBRARY(qdb_api, qdb_version, 
+    PHP_CHECK_LIBRARY(qdb_api, qdb_version,
       [PHP_ADD_LIBRARY(qdb_api, 1, QDB_SHARED_LIBADD)],
-      [PHP_CHECK_LIBRARY(qdb_apid, qdb_version, 
+      [PHP_CHECK_LIBRARY(qdb_apid, qdb_version,
         [PHP_ADD_LIBRARY(qdb_apid, 1, QDB_SHARED_LIBADD)],
         [AC_MSG_ERROR(qdb extension requires qdb_api)])])
 
@@ -33,5 +33,5 @@ if test "$PHP_QDB" != "no"; then
 
   PHP_NEW_EXTENSION(qdb, $PHP_QDB_SOURCES, $ext_shared, , $PHP_QDB_CFLAGS)
   PHP_SUBST(QDB_SHARED_LIBADD)
-
+  PHP_ADD_BUILD_DIR($ext_builddir/src)
 fi
