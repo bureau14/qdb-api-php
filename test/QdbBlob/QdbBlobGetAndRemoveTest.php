@@ -2,7 +2,7 @@
 
 require_once 'QdbBlobTestBase.php';
 
-class QdbBlobGetRemoveTest extends QdbBlobTestBase
+class QdbBlobGetAndRemoveTest extends QdbBlobTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbBlobGetRemoveTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->getRemove('i should not be there');
+        $this->blob->getAndRemove('i should not be there');
     }
 
     /**
@@ -18,7 +18,7 @@ class QdbBlobGetRemoveTest extends QdbBlobTestBase
      */
     public function testAliasNotFound()
     {
-        $this->blob->getRemove();
+        $this->blob->getAndRemove();
     }
 
     public function testResult()
@@ -26,7 +26,7 @@ class QdbBlobGetRemoveTest extends QdbBlobTestBase
         $content = 'content';
 
         $this->blob->put($content);
-        $result = $this->blob->getRemove();
+        $result = $this->blob->getAndRemove();
 
         $this->assertEquals($content, $result);
     }
@@ -37,9 +37,9 @@ class QdbBlobGetRemoveTest extends QdbBlobTestBase
     public function testAliasRemoved()
     {
         $this->blob->put('content');
-        $this->blob->getRemove();
+        $this->blob->getAndRemove();
 
-        $this->blob->getRemove();
+        $this->blob->getAndRemove();
     }
 }
 

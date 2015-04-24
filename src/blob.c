@@ -105,7 +105,7 @@ BEGIN_CLASS_METHOD_0(get)
     const char* result;
     size_t result_len;
 
-    qdb_error_t error = qdb_get_buffer(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_get(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
     if (error)
     {
@@ -139,12 +139,14 @@ BEGIN_CLASS_METHOD_0(getExpiryTime)
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_0(getRemove)
+BEGIN_CLASS_METHOD_0(getAndRemove)
 {
     const char* result;
     size_t result_len;
 
-    qdb_error_t error = qdb_get_remove(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_get_and_remove(this->handle,
+        Z_STRVAL_P(this->alias),
+        &result, &result_len);
 
     if (error)
     {
@@ -160,12 +162,12 @@ BEGIN_CLASS_METHOD_0(getRemove)
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_1_1(getUpdate, STRING_ARG(content), LONG_ARG(expiry))
+BEGIN_CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
 {
     const char* result;
     size_t result_len;
 
-    qdb_error_t error = qdb_get_buffer_update(this->handle,
+    qdb_error_t error = qdb_get_and_update(this->handle,
         Z_STRVAL_P(this->alias),
         Z_STRVAL_P(content), Z_STRLEN_P(content),
         expiry ? Z_LVAL_P(expiry) : 0,
@@ -249,8 +251,8 @@ BEGIN_CLASS_MEMBERS()
     ADD_METHOD(expiresFromNow)
     ADD_METHOD(get)
     ADD_METHOD(getExpiryTime)
-    ADD_METHOD(getRemove)
-    ADD_METHOD(getUpdate)
+    ADD_METHOD(getAndRemove)
+    ADD_METHOD(getAndUpdate)
     ADD_METHOD(put)
     ADD_METHOD(remove)
     ADD_METHOD(removeIf)

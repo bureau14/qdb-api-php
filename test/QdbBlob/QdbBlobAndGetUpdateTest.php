@@ -2,7 +2,7 @@
 
 require_once 'QdbBlobGetTest.php';
 
-class QdbBlobGetUpdateTest extends QdbBlobGetTest
+class QdbBlobAndGetUpdateTest extends QdbBlobGetTest
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbBlobGetUpdateTest extends QdbBlobGetTest
      */
     public function testNotEnoughArguments()
     {
-        $this->blob->getUpdate();
+        $this->blob->getAndUpdate();
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbBlobGetUpdateTest extends QdbBlobGetTest
      */
     public function testTooManyArguments()
     {
-        $this->blob->getUpdate('content', 0, 'i should not be there');
+        $this->blob->getAndUpdate('content', 0, 'i should not be there');
     }
 
     /**
@@ -28,7 +28,7 @@ class QdbBlobGetUpdateTest extends QdbBlobGetTest
      */
     public function testWrongContentType()
     {
-        $this->blob->getUpdate(array());
+        $this->blob->getAndUpdate(array());
     }
 
     /**
@@ -37,13 +37,13 @@ class QdbBlobGetUpdateTest extends QdbBlobGetTest
      */
     public function testWrongExpiryType()
     {
-        $this->blob->getUpdate('content', array());
+        $this->blob->getAndUpdate('content', array());
     }
 
     public function testReplaceValue()
     {
         $this->blob->put('first');
-        $this->blob->getUpdate('second');
+        $this->blob->getAndUpdate('second');
 
         $this->assertEquals('second', $this->blob->get());
     }
@@ -51,7 +51,7 @@ class QdbBlobGetUpdateTest extends QdbBlobGetTest
     public function testReturnPreviousValue()
     {
         $this->blob->put('first');
-        $result = $this->blob->getUpdate('second');
+        $result = $this->blob->getAndUpdate('second');
 
         $this->assertEquals('first', $result);
     }
@@ -59,7 +59,7 @@ class QdbBlobGetUpdateTest extends QdbBlobGetTest
     public function testNoExpiry()
     {
         $this->blob->put('first', time() + 60);
-        $this->blob->getUpdate('second');
+        $this->blob->getAndUpdate('second');
 
         $this->assertEquals(0, $this->blob->getExpiryTime());
     }
@@ -69,7 +69,7 @@ class QdbBlobGetUpdateTest extends QdbBlobGetTest
         $expiry = time() + 60;
 
         $this->blob->put('first');
-        $this->blob->getUpdate('second', $expiry);
+        $this->blob->getAndUpdate('second', $expiry);
 
         $this->assertEquals($expiry,  $this->blob->getExpiryTime());
     }

@@ -35,9 +35,9 @@ class QdbClusterRunBatchTest extends QdbTestBase
     {
         $batch = new QdbBatch();
         $batch->compareAndSwap('batch cas', 'new cas value', 'old cas value');
-        $batch->getRemove('batch get_remove');
+        $batch->getAndRemove('batch get_remove');
         $batch->get('batch get');
-        $batch->getUpdate('batch get_update', 'new get_update value');
+        $batch->getAndUpdate('batch get_update', 'new get_update value');
         $batch->put('batch put', 'put value');
         $batch->removeIf('batch remove_if', 'remove_if value');
         $batch->remove('batch remove');

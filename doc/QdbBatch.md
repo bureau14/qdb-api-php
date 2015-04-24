@@ -12,11 +12,11 @@ Example
     $batch->put('key 0', 'value 0');
     $batch->put('key 1', 'value 1');
     $batch->get('key 2');
-    
+
     $result = $cluster->runBatch($batch);
 
     $value2 = $result[2];
-    
+
 
 Class synopsis
 --------------
@@ -26,8 +26,8 @@ Class synopsis
         __construct ( void )
         void compareAndSwap ( string $alias , string $new_content , string $comparand [, int $expiry_time = 0 ] )
         void get ( string $alias )
-        void getRemove ( string $alias )
-        void getUpdate ( string $alias , string $content [, int $expiry_time = 0 ] )
+        void getAndRemove ( string $alias )
+        void getAndUpdate ( string $alias , string $content [, int $expiry_time = 0 ] )
         void put ( string $alias , string $content [, int $expiry_time = 0 ] )
         void remove ( string $alias )
         void removeIf ( string $alias , string $comparand )
@@ -82,7 +82,7 @@ The value of the entry is stored in the array returned by `QdbCluster::runBatch 
 If the entry does not exist, a `QdbAliasNotFoundException` will be thrown when reading the value.
 
 
-### `void QdbBatch::getRemove ( string $alias )`
+### `void QdbBatch::getAndRemove ( string $alias )`
 
 ###### Description
 Adds a "get and remove" operation to the batch.
@@ -98,7 +98,7 @@ The content of the entry is stored in the array returned by `QdbCluster::runBatc
 If the entry does not exist, a `QdbAliasNotFoundException` will be thrown when reading the content.
 
 
-### `void QdbBatch::getUpdate ( string $alias , string $content [, int $expiry_time = 0 ] )`
+### `void QdbBatch::getAndUpdate ( string $alias , string $content [, int $expiry_time = 0 ] )`
 
 ###### Description
 Adds a "get and update" operation to the batch.
@@ -150,7 +150,7 @@ If the entry does not exist, the operation will fail and a `QdbAliasNotFoundExce
 
 ###### Description
 Adds a "remove if" operation to the batch.
-When executed, the "remove if" operation removes an entry if it matches `$comparand`. The operation is atomic. 
+When executed, the "remove if" operation removes an entry if it matches `$comparand`. The operation is atomic.
 
 ###### Parameters
 - `$alias`: a string representing the entry’s alias to delete.

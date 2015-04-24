@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/QdbBatchTestBase.php';
 
-class QdbBatchGetRemoveTest extends QdbBatchTestBase
+class QdbBatchGetAndRemoveTest extends QdbBatchTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbBatchGetRemoveTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->getRemove();
+        $this->batch->getAndRemove();
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbBatchGetRemoveTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->getRemove($this->getAlias(), 'i should not be there');
+        $this->batch->getAndRemove($this->getAlias(), 'i should not be there');
     }
 
     /**
@@ -28,12 +28,12 @@ class QdbBatchGetRemoveTest extends QdbBatchTestBase
      */
     public function testWrongAliasType()
     {
-        $this->batch->getRemove(array());
+        $this->batch->getAndRemove(array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->getRemove($this->getAlias());
+        $result = $this->batch->getAndRemove($this->getAlias());
 
         $this->assertNull($result);
     }
@@ -44,7 +44,7 @@ class QdbBatchGetRemoveTest extends QdbBatchTestBase
 
         $this->blob->put($content);
 
-        $this->batch->getRemove($this->getAlias());
+        $this->batch->getAndRemove($this->getAlias());
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals(1, $result->count());
@@ -57,7 +57,7 @@ class QdbBatchGetRemoveTest extends QdbBatchTestBase
      */
     public function testException()
     {
-        $this->batch->getRemove($this->getAlias());
+        $this->batch->getAndRemove($this->getAlias());
 
         $result = $this->cluster->runBatch($this->batch);
 
@@ -71,7 +71,7 @@ class QdbBatchGetRemoveTest extends QdbBatchTestBase
     {
         $this->blob->put('content');
 
-        $this->batch->getRemove($this->getAlias());
+        $this->batch->getAndRemove($this->getAlias());
         $result = $this->cluster->runBatch($this->batch);
 
         $this->blob->get(); // <- throws

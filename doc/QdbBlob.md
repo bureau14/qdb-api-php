@@ -24,9 +24,9 @@ Class synopsis
         void expiresAt ( int $expiry_time )
         void expiresFromNow ( int $time_delta )
         string get ( )
+        void getAndRemove ( )
+        string getAndUpdate ( string $content [, int $expiry_time = 0 ] )
         int getExpiryTime ( )
-        void getRemove ( )
-        string getUpdate ( string $content [, int $expiry_time = 0 ] )
         void put ( string $content [, int $expiry_time = 0 ])
         void remove ( )
         bool removeIf ( string $comparand )
@@ -102,22 +102,7 @@ A string representing the entry’s content.
 Throws a `QdbAliasNotFoundException` if the entry does not exist.
 
 
-### `int QdbBlob::getExpiryTime ( )`
-
-###### Description
-Retrieves the expiry time of an existing entry. A value of zero means the entry never expires.
-
-###### Parameters
-None.
-
-###### Returns
-The receive the absolute expiry time, in seconds since epoch.
-
-###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
-
-
-### `void QdbBlob::getRemove ( )`
+### `void QdbBlob::getAndRemove ( )`
 
 ###### Description
 Atomically gets an entry and removes it.
@@ -132,7 +117,7 @@ A string representing the entry’s content.
 Throws a `QdbAliasNotFoundException` if the entry does not exist.
 
 
-### `string QdbBlob::getUpdate ( string $content [, int $expiry_time = 0 ] )`
+### `string QdbBlob::getAndUpdate ( string $content [, int $expiry_time = 0 ] )`
 
 ###### Description
 Atomically gets and updates (in this order) the entry.
@@ -143,6 +128,21 @@ Atomically gets and updates (in this order) the entry.
 
 ###### Returns
 A string representing the entry’s content, before the update.
+
+###### Exceptions
+Throws a `QdbAliasNotFoundException` if the entry does not exist.
+
+
+### `int QdbBlob::getExpiryTime ( )`
+
+###### Description
+Retrieves the expiry time of an existing entry. A value of zero means the entry never expires.
+
+###### Parameters
+None.
+
+###### Returns
+The receive the absolute expiry time, in seconds since epoch.
 
 ###### Exceptions
 Throws a `QdbAliasNotFoundException` if the entry does not exist.

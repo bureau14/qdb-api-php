@@ -88,18 +88,18 @@ BEGIN_CLASS_METHOD_1(get, STRING_ARG(alias))
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_1(getRemove, STRING_ARG(alias))
+BEGIN_CLASS_METHOD_1(getAndRemove, STRING_ARG(alias))
 {
     Z_ADDREF_P(alias);
 
     batch_operation_t* op = alloc_operation(this);
     op->alias = alias;
-    op->type = qdb_op_get_remove;
+    op->type = qdb_op_get_and_remove;
 }
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_2_1(getUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
+BEGIN_CLASS_METHOD_2_1(getAndUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     Z_ADDREF_P(alias);
     Z_ADDREF_P(content);
@@ -108,7 +108,7 @@ BEGIN_CLASS_METHOD_2_1(getUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_A
     op->alias = alias;
     op->content = content;
     op->expiry_time = expiry ? Z_LVAL_P(expiry) : 0;
-    op->type = qdb_op_get_update;
+    op->type = qdb_op_get_and_update;
 }
 END_CLASS_METHOD()
 
@@ -170,8 +170,8 @@ BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(compareAndSwap)
     ADD_METHOD(get)
-    ADD_METHOD(getRemove)
-    ADD_METHOD(getUpdate)
+    ADD_METHOD(getAndRemove)
+    ADD_METHOD(getAndUpdate)
     ADD_METHOD(put)
     ADD_METHOD(remove)
     ADD_METHOD(removeIf)
