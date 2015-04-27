@@ -2,8 +2,13 @@
 // All rights reserved.
 
 #define CLASS_ENTRY XCONCAT(ce_,class_name)
-
 zend_class_entry *CLASS_ENTRY;
+
+#ifdef class_parent
+#define BASE_CLASS_ENTRY XCONCAT(ce_,class_parent)
+extern zend_class_entry *BASE_CLASS_ENTRY;
+#endif
+
 static zend_object_handlers object_handlers;
 
 static void free_object_storage(void *object TSRMLS_DC)
@@ -35,7 +40,11 @@ void XCONCAT(class_name, _registerClass)(TSRMLS_D)
 {
     zend_class_entry ce;
     INIT_CLASS_ENTRY(ce, XSTR(class_name), methods);
+#ifdef BASE_CLASS_ENTRY
+    CLASS_ENTRY = zend_register_internal_class_ex(&ce, BASE_CLASS_ENTRY, NULL TSRMLS_CC);
+#else
     CLASS_ENTRY = zend_register_internal_class(&ce TSRMLS_CC);
+#endif
     CLASS_ENTRY->create_object = alloc_object_storage;
     memcpy(&object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
     object_handlers.clone_obj = NULL;

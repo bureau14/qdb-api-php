@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once 'QdbIntegerTestBase.php';
 
-class QdbBlobExpiresAtTest extends QdbBlobTestBase
+class QdbIntegerExpiresAtTest extends QdbIntegerTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbBlobExpiresAtTest extends QdbBlobTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->blob->expiresAt();
+        $this->integer->expiresAt();
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbBlobExpiresAtTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->expiresAt(0, 'i should not be there');
+        $this->integer->expiresAt(0, 'i should not be there');
     }
 
     /**
@@ -28,7 +28,7 @@ class QdbBlobExpiresAtTest extends QdbBlobTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->blob->expiresAt(array());
+        $this->integer->expiresAt("i'm an expiry... NOT!");
     }
 
     /**
@@ -37,13 +37,13 @@ class QdbBlobExpiresAtTest extends QdbBlobTestBase
      */
     public function testAliasNotFound()
     {
-        $this->blob->expiresAt(0);
+        $this->integer->expiresAt(0);
     }
 
     public function testReturnValue()
     {
-        $this->blob->put('content');
-        $result = $this->blob->expiresAt(time() + 60);
+        $this->integer->put(42);
+        $result = $this->integer->expiresAt(time() + 60);
 
         $this->assertNull($result);
     }
@@ -52,18 +52,18 @@ class QdbBlobExpiresAtTest extends QdbBlobTestBase
     {
         $expiry = time() + 60;
 
-        $this->blob->put('content');
-        $this->blob->expiresAt($expiry);
+        $this->integer->put(42);
+        $this->integer->expiresAt($expiry);
 
-        $this->assertEquals($expiry, $this->blob->getExpiryTime());
+        $this->assertEquals($expiry, $this->integer->getExpiryTime());
     }
 
     public function testRemoveExpiry()
     {
-        $this->blob->put('content', time() + 60);
-        $this->blob->expiresAt(0);
+        $this->integer->put(42, time() + 60);
+        $this->integer->expiresAt(0);
 
-        $this->assertEquals(0, $this->blob->getExpiryTime());
+        $this->assertEquals(0, $this->integer->getExpiryTime());
     }
 
     /**
@@ -73,8 +73,8 @@ class QdbBlobExpiresAtTest extends QdbBlobTestBase
     {
         $expiry = time() - 60;
 
-        $this->blob->put('content');
-        $this->blob->expiresAt($expiry);
+        $this->integer->put(42);
+        $this->integer->expiresAt($expiry);
     }
 }
 

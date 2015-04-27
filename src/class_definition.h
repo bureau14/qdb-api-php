@@ -1,14 +1,10 @@
 // Copyright (c) 2009-2015, quasardb SAS
 // All rights reserved.
 
-#include "common_params.h"
-
 #ifndef QDB_CLASS_DEFINITION_H
 #define QDB_CLASS_DEFINITION_H
 
-#define get_this() \
-    (class_storage*)zend_object_store_get_object(getThis() TSRMLS_CC)
-
+#include "args_parser.h"
 
 #define STR(X) #X
 #define XSTR(X) STR(X)

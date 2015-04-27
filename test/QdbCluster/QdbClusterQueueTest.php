@@ -35,6 +35,7 @@ class QdbClusterQueueTest extends QdbTestBase
     {
         $queue = $this->cluster->queue($this->getAlias());
         $this->assertInstanceOf('QdbQueue', $queue);
+        $this->assertInstanceOf('QdbEntry', $queue);
     }
 
     public function testAlias()

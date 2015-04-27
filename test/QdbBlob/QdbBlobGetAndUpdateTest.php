@@ -2,7 +2,7 @@
 
 require_once 'QdbBlobGetTest.php';
 
-class QdbBlobAndGetUpdateTest extends QdbBlobGetTest
+class QdbBlobGetAndUpdateTest extends QdbBlobGetTest
 {
     /**
      * @expectedException               InvalidArgumentException

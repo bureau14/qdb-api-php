@@ -5,52 +5,26 @@
 #include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
 
-#include "batch_result.h"
+#include "QdbBatchResult.h"
 #include "class_definition.h"
+#include "QdbEntry.h"
 #include "exceptions.h"
-#include "common_params.h"
 
 #include <qdb/client.h>
 
 #define class_name          QdbQueue
-#define class_storage       queue_t
+#define class_storage       entry_t
+#define class_parent        QdbEntry
 
-
-typedef struct {
-    zend_object std;
-    qdb_handle_t handle;
-    zval* alias;
-} queue_t;
 
 extern zend_class_entry* ce_QdbQueue;
 
 
 void QdbQueue_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC)
 {
-    queue_t* this;
-
     object_init_ex(destination, ce_QdbQueue);
-    this = (queue_t*)zend_object_store_get_object(destination TSRMLS_CC);
-
-    Z_ADDREF_P(alias);
-
-    this->alias = alias;
-    this->handle = handle;
+    QdbEntry_constructInstance(destination, handle, alias TSRMLS_CC);
 }
-
-
-BEGIN_CLASS_METHOD_0(alias)
-{
-    RETURN_ZVAL(this->alias, /*copy=*/0, /*dtor=*/0);
-}
-END_CLASS_METHOD()
-
-
-BEGIN_CLASS_METHOD_0(__destruct)
-{
-    Z_ADDREF_P(this->alias);
-}
-END_CLASS_METHOD()
 
 
 BEGIN_CLASS_METHOD_0(popBack)
@@ -116,8 +90,6 @@ END_CLASS_METHOD()
 
 
 BEGIN_CLASS_MEMBERS()
-    ADD_DESTRUCTOR(__destruct)
-    ADD_METHOD(alias)
     ADD_METHOD(popBack)
     ADD_METHOD(popFront)
     ADD_METHOD(pushBack)

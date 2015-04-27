@@ -5,17 +5,26 @@
 Using *quasardb* cluster from a PHP program is extremely straightforward, just create a [`QdbCluster`](doc/QdbCluster.md) and perform the operations.
 
     $nodes = array(array('address' => '127.0.0.1', 'port' => 2836));
-
     $cluster = new QdbCluster($nodes);
-    $cluster->put('key 0', 'value 0');
-    $cluster->put('key 1', 'value 1');
-    $value2 = $cluster->get('key 2');
 
-Want a queue in your database?
+OK, now that we have a connection to the cluster, let's store some [binary data](doc/QdbBlob.md):
+
+    $blob = $cluster->blob('myEntry');
+    $blob->put('firstValue');
+    $blob->update('secondValue');
+    $value = $blob->get('myEntry');
+
+Want a [queue](doc/QdbQueue.md) in your database?
 
     $queue = $cluster->queue('my queue');
-    $queue->pushBack('value 0');
-    $queue->pushBack('value 1');
+    $queue->pushBack('firstValue');
+    $queue->pushBack('secondValue');
+
+Want [atomic integers](doc/QdbInteger.md) now?
+
+    $integer = $cluster->integer('my atomic int');
+    $integer->put(42);
+    $total = $integer->add(12);
 
 ## Documentation
 
@@ -23,4 +32,5 @@ Want a queue in your database?
 * [The `QdbBatch` class](doc/QdbBatch.md)
 * [The `QdbBlob` class](doc/QdbBlob.md)
 * [The `QdbCluster` class](doc/QdbCluster.md)
+* [The `QdbInteger` class](doc/QdbInteger.md)
 * [The `QdbQueue` class](doc/QdbQueue.md)

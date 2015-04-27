@@ -1,7 +1,7 @@
 The `QdbQueue` class
 ====================
 
-Represents a queue in the *quasardb* database.
+Represents a queue of blob in the *quasardb* database.
 It's a double-ended queue, you can both enqueue and dequeue from the front and the back.
 
 Example
@@ -36,6 +36,9 @@ QdbQueue's methods
 ###### Description
 Gets the alias (i.e. its "key") of the queue in the database.
 
+###### Parameters
+None.
+
 ###### Returns
 The alias.
 
@@ -44,6 +47,9 @@ The alias.
 
 ###### Description
 Dequeues from the end of the queue and return the value.
+
+###### Parameters
+None.
 
 ###### Returns
 The original value from the back of the queue.
@@ -58,6 +64,9 @@ The original value from the back of the queue.
 
 ###### Description
 Dequeues from the beginning of the queue and return the value.
+
+###### Parameters
+None.
 
 ###### Returns
 The original value from the front of the queue.

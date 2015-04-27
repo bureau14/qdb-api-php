@@ -1,8 +1,8 @@
 The `QdbBlob` class
 ======================
 
-Represents a binary entry in a *quasardb* database.
-Blob stands for Binary Large Object, meaning that you can store arbitrary data in this entry.
+Represents a blob in a *quasardb* database.
+Blob stands for Binary Large Object, meaning that you can store arbitrary data in this blob.
 
 Example
 -------
@@ -24,7 +24,7 @@ Class synopsis
         void expiresAt ( int $expiry_time )
         void expiresFromNow ( int $time_delta )
         string get ( )
-        void getAndRemove ( )
+        string getAndRemove ( )
         string getAndUpdate ( string $content [, int $expiry_time = 0 ] )
         int getExpiryTime ( )
         void put ( string $content [, int $expiry_time = 0 ])
@@ -34,14 +34,17 @@ Class synopsis
     }
 
 
-QdbBlob's methods
+`QdbBlob`'s methods
 --------------------
 
 
-### `string QdbQueue::alias ( )`
+### `string QdbBlob::alias ( )`
 
 ###### Description
 Gets the alias (i.e. its "key") of the blob in the database.
+
+###### Parameters
+None.
 
 ###### Returns
 The alias.
@@ -50,152 +53,169 @@ The alias.
 ### `string QdbBlob::compareAndSwap ( string $new_content , string $comparand [, int $expiry_time = 0 ] )`
 
 ###### Description
-Atomically compares the entry with `$comparand` and updates it to `$new_content` if, and only if, they match.
+Atomically compares the blob's content with `$comparand` and updates it to `$new_content` if, and only if, they match.
 
 ###### Parameters
-- `$new_content`: a string representing the entry’s content to be updated in case of match.
-- `$comparand`: a string representing the entry’s content to be compared to.
+- `$new_content`: a string representing the blob’s content to be updated in case of match.
+- `$comparand`: a string representing the blob’s content to be compared to.
 
 ###### Returns
-Always returns the original value of the entry.
+Always returns the original value of the blob.
 
 ###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
+- `QdbAliasNotFoundException` if the blob does not exist.
 
 
 ### `void QdbBlob::expiresAt ( int $expiry_time )`
 
 ###### Description
-Sets the expiry time of an existing entry. An `$expiry_time` of zero means the entry never expires.
+Sets the expiry time of the blob. An `$expiry_time` of zero means the blob never expires.
 
 ###### Parameters
-- `$expiry_time`: absolute time after which the entry expires, in seconds, relative to epoch.
+- `$expiry_time`: absolute time after which the blob expires, in seconds, relative to epoch.
+
+###### Returns
+Nothing.
 
 ###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
+- `QdbAliasNotFoundException` if the blob does not exist.
 
 
 ### `void QdbBlob::expiresFromNow ( int $time_delta )`
 
 ###### Description
-Sets the expiry time of an existing entry. An `$expiry_time` of zero means the entry expires as soon as possible.
+Sets the expiry time of the blob. A `$time_delta` of zero means the blob expires as soon as possible.
 
 ###### Parameters
-- `$expiry_time`:  time in seconds, relative to the call time, after which the entry expires.
+- `$time_delta`:  time in seconds, relative to the call time, after which the blob expires.
+
+###### Returns
+Nothing.
 
 ###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
+- `QdbAliasNotFoundException` if the blob does not exist.
 
 
 ### `string QdbBlob::get ( )`
 
 ###### Description
-Retrieves an entry's content.
+Retrieves the blob's content.
 
 ###### Parameters
 None.
 
 ###### Returns
-A string representing the entry’s content.
+A string representing the blob’s content.
 
 ###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
+- `QdbAliasNotFoundException` if the blob does not exist.
 
 
-### `void QdbBlob::getAndRemove ( )`
+### `string QdbBlob::getAndRemove ( )`
 
 ###### Description
-Atomically gets an entry and removes it.
+Atomically gets blob's content and removes it.
 
 ###### Parameters
 None.
 
 ###### Returns
-A string representing the entry’s content.
+A string representing the blob’s content.
 
 ###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
+- `QdbAliasNotFoundException` if the blob does not exist.
 
 
 ### `string QdbBlob::getAndUpdate ( string $content [, int $expiry_time = 0 ] )`
 
 ###### Description
-Atomically gets and updates (in this order) the entry.
+Atomically gets and updates (in this order) the blob.
 
 ###### Parameters
-- `$content`: a string representing the entry’s content to be set.
-- `$expiry_time`: the absolute expiry time of the entry, in seconds, relative to epoch.
+- `$content`: a string representing the blob’s content to be set.
+- `$expiry_time`: the absolute expiry time of the blob, in seconds, relative to epoch.
 
 ###### Returns
-A string representing the entry’s content, before the update.
+A string representing the blob’s content, before the update.
 
 ###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
+- `QdbAliasNotFoundException` if the blob does not exist.
 
 
 ### `int QdbBlob::getExpiryTime ( )`
 
 ###### Description
-Retrieves the expiry time of an existing entry. A value of zero means the entry never expires.
+Retrieves the expiry time of the blob. A value of zero means the blob never expires.
 
 ###### Parameters
 None.
 
 ###### Returns
-The receive the absolute expiry time, in seconds since epoch.
+The absolute expiry time, in seconds since epoch.
 
 ###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
+- `QdbAliasNotFoundException` if the blob does not exist.
 
 
 ### `void QdbBlob::put ( string $content [, int $expiry_time = 0 ])`
 
 ###### Description
-Adds an entry.
+Sets blob's content but fails if the blob already exists.
+See also `update()`.
 
 Alias beginning with "qdb" are reserved and cannot be used.
 
 ###### Parameters
-- `$content`: a string representing the entry’s content to be added.
-- `$expiry_time`: the absolute expiry time of the entry, in seconds, relative to epoch
+- `$content`: a string representing the new blob’s content.
+- `$expiry_time`: the absolute expiry time of the blob, in seconds, relative to epoch
+
+###### Returns
+Nothing.
 
 ###### Exceptions
-Throws a `QdbAliasAlreadyExistsException` if the entry already exists.
+- `QdbAliasAlreadyExistsException` if the blob already exists.
 
 
 ### `void QdbBlob::remove ( )`
 
 ###### Description
-Removes an entry.
+Removes the blob.
 
 ###### Parameters
 None.
 
+###### Returns
+Nothing.
+
 ###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
+- `QdbAliasNotFoundException` if the blob does not exist.
 
 
 ### `bool QdbBlob::removeIf ( string $comparand )`
 
 ###### Description
-Removes an entry if it matches `$comparand`.
+Removes the blob if it's content matches `$comparand`.
 
 ###### Parameters
-- `$comparand`: a string representing the entry’s content to be compared to.
+- `$comparand`: a string representing the blob’s content to be compared to.
 
 ###### Returns
-`true` if the entry was actually removed, `false` if not.
+`true` if the blob was actually removed, `false` if not.
 
 ###### Exceptions
-Throws a `QdbAliasNotFoundException` if the entry does not exist.
+- `QdbAliasNotFoundException` if the blob does not exist.
 
 
 ### `void QdbBlob::update ( string $content [, int $expiry_time = 0 ])`
 
 ###### Description
-Updates an entry.
+Updates the content of the blob.
 Alias beginning with "qdb" are reserved and cannot be used.
+See also `put()`
 
 ###### Parameters
-- `$content`: a string representing the entry’s content to be added.
-- `$expiry_time`: the absolute expiry time of the entry, in seconds, relative to epoch
+- `$content`: a string representing the blob’s content to be added.
+- `$expiry_time`: the absolute expiry time of the blob, in seconds, relative to epoch
+
+###### Returns
+Nothing.

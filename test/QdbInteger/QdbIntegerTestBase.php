@@ -2,15 +2,15 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-abstract class QdbBatchTestBase extends QdbTestBase
+class QdbIntegerTestBase extends QdbTestBase
 {
-    protected $queue;
+    protected $integer;
 
     public function setUp()
     {
         parent::setUp();
         $this->blob = $this->cluster->blob($this->getAlias());
-        $this->batch = new QdbBatch();
+        $this->integer = $this->cluster->integer($this->getAlias());
     }
 }
 

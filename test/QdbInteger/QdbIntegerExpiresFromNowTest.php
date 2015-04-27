@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once 'QdbIntegerTestBase.php';
 
-class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
+class QdbIntegerExpiresFromNowTest extends QdbIntegerTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->blob->expiresFromNow();
+        $this->integer->expiresFromNow();
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->expiresFromNow(0, 'i should not be there');
+        $this->integer->expiresFromNow(0, 'i should not be there');
     }
 
     /**
@@ -28,7 +28,7 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->blob->expiresFromNow(array());
+        $this->integer->expiresFromNow("i'm an expiry... NOT!");
     }
 
     /**
@@ -36,23 +36,23 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testAliasNotFound()
     {
-        $this->blob->expiresFromNow(0);
+        $this->integer->expiresFromNow(0);
     }
 
     public function testReturnValue()
     {
-        $this->blob->put('content');
-        $result = $this->blob->expiresFromNow(60);
+        $this->integer->put(42);
+        $result = $this->integer->expiresFromNow(60);
 
         $this->assertNull($result);
     }
 
     public function testAddExpiry()
     {
-        $this->blob->put('content');
-        $this->blob->expiresFromNow(60);
+        $this->integer->put(42);
+        $this->integer->expiresFromNow(60);
 
-        $this->assertGreaterThan(time(), $this->blob->getExpiryTime());
+        $this->assertGreaterThan(time(), $this->integer->getExpiryTime());
     }
 
     /**
@@ -60,8 +60,8 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testExpiryInThePast()
     {
-        $this->blob->put('content');
-        $this->blob->expiresFromNow(-60);
+        $this->integer->put(42);
+        $this->integer->expiresFromNow(-60);
     }
 }
 

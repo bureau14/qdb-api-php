@@ -7,10 +7,11 @@ Example
 -------
 
     $nodes = array(array('address' => '127.0.0.1', 'port' => 2836));
-
     $cluster = new QdbCluster($nodes);
+
     $cluster->blob('key 0')->put('value 0');
     $cluster->queue('key 1').push_back('value 1');
+    $cluster->integer('key 2').add(42);
 
 Class synopsis
 --------------
@@ -19,12 +20,13 @@ Class synopsis
     {
         __construct ( array $nodes )
         QdbBlob blob ( string $alias )
+        QdbInteger integer ( string $alias )
         QdbQueue queue ( string $alias )
         array runBatch ( QdbBatch $batch )
     }
 
 
-QdbCluster's methods
+`QdbCluster`'s methods
 --------------------
 
 
@@ -61,6 +63,22 @@ The [`QdbBlob`](QdbBlob.md).
 None.
 
 
+### `QdbInteger QdbCluster::integer ( string $alias )`
+
+###### Description
+Creates a [`QdbInteger`](QdbInteger.md) associated with the specified alias.
+No query is performed at this point.
+
+###### Parameters
+- `$alias`: the alias of the integer in the database.
+
+###### Returns
+The [`QdbInteger`](QdbInteger.md).
+
+###### Exceptions
+None.
+
+
 ### `QdbQueue QdbCluster::queue ( string $alias )`
 
 ###### Description
@@ -83,7 +101,7 @@ None.
 Executes operations of a [`QdbBatch`](QdbBatch.md).
 
 ###### Parameters
-- `$batch`: a [`QdbBatch`](QdbBatch.md) contains the operations to be performed.
+- `$batch`: a [`QdbBatch`](QdbBatch.md) containing the operations to be performed.
 
 ###### Returns
 Returns an array (more exactly a class `QdbBatchResult` that behaves like an array) with the operation results.

@@ -28,17 +28,18 @@ if (PHP_QDB != "no") {
 
     EXTENSION("qdb", "php_qdb.c", true);
     ADD_SOURCES(configure_module_dirname + "\\src", "\
-        batch.c \
-        batch_operations.c \
-        batch_result.c \
-        blob.c \
-        cluster.c \
-        cluster_nodes.c \
-        common_params.c \
+        args_parser.c \
         exceptions.c \
         globals.c \
         log.c \
-        queue.c \
+        QdbBatch.c \
+        QdbBatchResult.c \
+        QdbBlob.c \
+        QdbCluster.c \
+        QdbEntry.c \
+        QdbExpirableEntry.c \
+        QdbInteger.c \
+        QdbQueue.c \
         settings.c \
         ", "qdb");
 }

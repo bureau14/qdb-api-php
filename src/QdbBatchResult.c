@@ -5,10 +5,9 @@
 #include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
 
-#include "batch_result.h"
+#include "QdbBatchResult.h"
 #include "class_definition.h"
 #include "exceptions.h"
-#include "common_params.h"
 
 #include <qdb/client.h>
 

@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once 'QdbIntegerTestBase.php';
 
-class QdbBlobPutTest extends QdbBlobTestBase
+class QdbIntegerPutTest extends QdbIntegerTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->blob->put();
+        $this->integer->put();
     }
 
     /**
@@ -19,16 +19,16 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->put('content', 0, 'i should not be there');
+        $this->integer->put(42, 0, 'i should not be there');
     }
 
     /**
      * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /content/i
+     * @expectedExceptionMessageRegExp  /value/i
      */
     public function testWrongValueType()
     {
-        $this->blob->put(array());
+        $this->integer->put("i'm an integer... NOT!");
     }
 
     /**
@@ -37,7 +37,7 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->blob->put('content', array());
+        $this->integer->put(42, "i'm an expiry... NOT!");
     }
 
     /**
@@ -45,26 +45,26 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testSameAliasTwice()
     {
-        $this->blob->put('first');
-        $this->blob->put('second');
+        $this->integer->put(1);
+        $this->integer->put(2);
     }
 
     public function testReturnValue()
     {
-        $result = $this->blob->put('content');
+        $result = $this->integer->put(42);
         $this->assertNull($result);
     }
 
     public function testWithNoExpiry()
     {
-        $this->blob->put('content');
-        $this->assertEquals('content', $this->blob->get());
+        $this->integer->put(42);
+        $this->assertEquals(42, $this->integer->get());
     }
 
     public function testWithExpiryInTheFuture()
     {
-        $this->blob->put('content', time() + 60);
-        $this->assertEquals('content', $this->blob->get());
+        $this->integer->put(42, time() + 60);
+        $this->assertEquals(42, $this->integer->get());
     }
 
     /**
@@ -72,7 +72,7 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testWithExpiryInThePast()
     {
-        $this->blob->put('content', time() - 60);
+        $this->integer->put(42, time() - 60);
     }
 }
 

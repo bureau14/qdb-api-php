@@ -1,7 +1,22 @@
 PHP_ARG_WITH(qdb, for quasardb support,
 [  --with-qdb=DIR          include quasardb support])
 
-PHP_QDB_SOURCES="php_qdb.c src/batch.c src/batch_operations.c src/batch_result.c src/blob.c src/cluster.c src/cluster_nodes.c src/common_params.c src/exceptions.c src/globals.c src/log.c src/queue.c src/settings.c"
+PHP_QDB_SOURCES="\
+  php_qdb.c \
+  src/args_parser.c \
+  src/exceptions.c \
+  src/globals.c \
+  src/log.c \
+  src/QdbBatch.c \
+  src/QdbBatchResult.c \
+  src/QdbBlob.c \
+  src/QdbCluster.c \
+  src/QdbEntry.c \
+  src/QdbExpirableEntry.c \
+  src/QdbInteger.c \
+  src/QdbQueue.c \
+  src/settings.c \
+"
 PHP_QDB_CFLAGS="-Wall -Werror -fno-strict-aliasing"
 
 if test "$PHP_QDB" != "no"; then

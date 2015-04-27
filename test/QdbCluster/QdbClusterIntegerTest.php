@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbClusterBlobTest extends QdbTestBase
+class QdbClusterIntegerTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbClusterBlobTest extends QdbTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->cluster->blob();
+        $this->cluster->integer();
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbClusterBlobTest extends QdbTestBase
      */
     public function testTooManyArguments()
     {
-        $this->cluster->blob($this->getAlias(), 0);
+        $this->cluster->integer($this->getAlias(), 0);
     }
 
     /**
@@ -28,21 +28,21 @@ class QdbClusterBlobTest extends QdbTestBase
      */
     public function testWrongAliasType()
     {
-        $this->cluster->blob(array());
+        $this->cluster->integer(array());
     }
 
     public function testReturnType()
     {
-        $blob = $this->cluster->blob($this->getAlias());
-        $this->assertInstanceOf('QdbBlob', $blob);
-        $this->assertInstanceOf('QdbExpirableEntry', $blob);
-        $this->assertInstanceOf('QdbEntry', $blob);
+        $integer = $this->cluster->integer($this->getAlias());
+        $this->assertInstanceOf('QdbInteger', $integer);
+        $this->assertInstanceOf('QdbExpirableEntry', $integer);
+        $this->assertInstanceOf('QdbEntry', $integer);
     }
 
     public function testAlias()
     {
-        $blob = $this->cluster->blob($this->getAlias());
-        $this->assertEquals($this->getAlias(), $blob->alias());
+        $integer = $this->cluster->integer($this->getAlias());
+        $this->assertEquals($this->getAlias(), $integer->alias());
     }
 }
 
