@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueueTestBase extends QdbTestBase
+abstract class QdbQueueTestBase extends QdbTestBase
 {
     protected $queue;
 

@@ -31,6 +31,12 @@ class QdbQueuePushBackTest extends QdbQueueTestBase
         $this->queue->pushBack(array());
     }
 
+    public function testReturnValue()
+    {
+        $result = $this->queue->pushBack('hello');
+        $this->assertEquals(null, $result);
+    }
+
     /**
      * @expectedException               QdbAliasAlreadyExistsException
      */

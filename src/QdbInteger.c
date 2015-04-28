@@ -32,7 +32,7 @@ BEGIN_CLASS_METHOD_1(add, LONG_ARG(value))
 {
     qdb_int result;
 
-    qdb_error_t error = qdb_int_increment(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), &result);
+    qdb_error_t error = qdb_int_add(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), &result);
 
     if (error)
         throw_qdb_error(error);

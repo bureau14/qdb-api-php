@@ -27,21 +27,51 @@ void QdbQueue_createInstance(zval* destination, qdb_handle_t handle, zval* alias
 }
 
 
-BEGIN_CLASS_METHOD_0(popBack)
+BEGIN_CLASS_METHOD_0(back)
 {
-    const char* result;
-    size_t result_len;
+    const char* result = NULL;
+    size_t result_len = 0;
 
-    qdb_error_t error = qdb_list_pop_back(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_queue_back(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
     if (error)
-    {
         throw_qdb_error(error);
-    }
     else
-    {
         ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
-    }
+
+    qdb_free_buffer(this->handle, result);
+}
+END_CLASS_METHOD()
+
+
+BEGIN_CLASS_METHOD_0(front)
+{
+    const char* result = NULL;
+    size_t result_len = 0;
+
+    qdb_error_t error = qdb_queue_front(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+
+    if (error)
+        throw_qdb_error(error);
+    else
+        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
+
+    qdb_free_buffer(this->handle, result);
+}
+END_CLASS_METHOD()
+
+
+BEGIN_CLASS_METHOD_0(popBack)
+{
+    const char* result = NULL;
+    size_t result_len = 0;
+
+    qdb_error_t error = qdb_queue_pop_back(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+
+    if (error)
+        throw_qdb_error(error);
+    else
+        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
 
     qdb_free_buffer(this->handle, result);
 }
@@ -50,19 +80,15 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_0(popFront)
 {
-    const char* result;
-    size_t result_len;
+    const char* result = NULL;
+    size_t result_len = 0;
 
-    qdb_error_t error = qdb_list_pop_front(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_queue_pop_front(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
     if (error)
-    {
         throw_qdb_error(error);
-    }
     else
-    {
         ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
-    }
 
     qdb_free_buffer(this->handle, result);
 }
@@ -71,7 +97,7 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_1(pushBack, STRING_ARG(content))
 {
-    qdb_error_t error = qdb_list_push_back(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
+    qdb_error_t error = qdb_queue_push_back(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
     if (error)
         throw_qdb_error(error);
@@ -81,7 +107,7 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_1(pushFront, STRING_ARG(content))
 {
-    qdb_error_t error = qdb_list_push_front(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
+    qdb_error_t error = qdb_queue_push_front(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
     if (error)
         throw_qdb_error(error);
@@ -90,6 +116,8 @@ END_CLASS_METHOD()
 
 
 BEGIN_CLASS_MEMBERS()
+    ADD_METHOD(back)
+    ADD_METHOD(front)
     ADD_METHOD(popBack)
     ADD_METHOD(popFront)
     ADD_METHOD(pushBack)
