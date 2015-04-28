@@ -28,7 +28,7 @@ if (PHP_QDB != "no") {
 
     EXTENSION("qdb", "php_qdb.c", true);
     ADD_SOURCES(configure_module_dirname + "\\src", "\
-        args_parser.c \
+        class_definition.c \
         exceptions.c \
         globals.c \
         log.c \
@@ -38,6 +38,7 @@ if (PHP_QDB != "no") {
         QdbCluster.c \
         QdbEntry.c \
         QdbExpirableEntry.c \
+        QdbHashSet.c \
         QdbInteger.c \
         QdbQueue.c \
         settings.c \

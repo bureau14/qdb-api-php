@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbClusterBlobTest extends QdbTestBase
+class QdbClusterHashSetTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbClusterBlobTest extends QdbTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->cluster->blob();
+        $this->cluster->hashSet();
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbClusterBlobTest extends QdbTestBase
      */
     public function testTooManyArguments()
     {
-        $this->cluster->blob($this->alias, 0);
+        $this->cluster->hashSet($this->alias, 0);
     }
 
     /**
@@ -28,21 +28,20 @@ class QdbClusterBlobTest extends QdbTestBase
      */
     public function testWrongAliasType()
     {
-        $this->cluster->blob(array());
+        $this->cluster->hashSet(array());
     }
 
     public function testReturnType()
     {
-        $blob = $this->cluster->blob($this->alias);
-        $this->assertInstanceOf('QdbBlob', $blob);
-        $this->assertInstanceOf('QdbExpirableEntry', $blob);
-        $this->assertInstanceOf('QdbEntry', $blob);
+        $hashSet = $this->cluster->hashSet($this->alias);
+        $this->assertInstanceOf('QdbHashSet', $hashSet);
+        $this->assertInstanceOf('QdbEntry', $hashSet);
     }
 
     public function testAlias()
     {
-        $blob = $this->cluster->blob($this->alias);
-        $this->assertEquals($this->alias, $blob->alias());
+        $hashSet = $this->cluster->hashSet($this->alias);
+        $this->assertEquals($this->alias, $hashSet->alias());
     }
 }
 

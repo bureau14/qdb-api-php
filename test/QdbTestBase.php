@@ -3,6 +3,7 @@
 abstract class QdbTestBase extends PHPUnit_Framework_TestCase
 {
     protected $cluster;
+    protected $alias;
 
     protected function setUp()
     {
@@ -13,11 +14,7 @@ abstract class QdbTestBase extends PHPUnit_Framework_TestCase
             )
         );
         $this->cluster = new QdbCluster($nodes);
-    }
-
-    protected function getAlias()
-    {
-        return get_class($this) . '::' . $this->getName();
+        $this->alias = get_class($this) . '::' . $this->getName();
     }
 }
 

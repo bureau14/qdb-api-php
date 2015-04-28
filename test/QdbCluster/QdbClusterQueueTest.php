@@ -19,7 +19,7 @@ class QdbClusterQueueTest extends QdbTestBase
      */
     public function testTooManyArguments()
     {
-        $this->cluster->queue($this->getAlias(), 0);
+        $this->cluster->queue($this->alias, 0);
     }
 
     /**
@@ -33,15 +33,15 @@ class QdbClusterQueueTest extends QdbTestBase
 
     public function testReturnType()
     {
-        $queue = $this->cluster->queue($this->getAlias());
+        $queue = $this->cluster->queue($this->alias);
         $this->assertInstanceOf('QdbQueue', $queue);
         $this->assertInstanceOf('QdbEntry', $queue);
     }
 
     public function testAlias()
     {
-        $queue = $this->cluster->queue($this->getAlias());
-        $this->assertEquals($this->getAlias(), $queue->alias());
+        $queue = $this->cluster->queue($this->alias);
+        $this->assertEquals($this->alias, $queue->alias());
     }
 }
 

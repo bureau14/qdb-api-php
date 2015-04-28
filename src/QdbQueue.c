@@ -5,12 +5,10 @@
 #include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
 
-#include "QdbBatchResult.h"
 #include "class_definition.h"
-#include "QdbEntry.h"
 #include "exceptions.h"
+#include "QdbEntry.h"
 
-#include <qdb/client.h>
 
 #define class_name          QdbQueue
 #define class_storage       entry_t
@@ -124,4 +122,4 @@ BEGIN_CLASS_MEMBERS()
     ADD_METHOD(pushFront)
 END_CLASS_MEMBERS()
 
-#include "class_definition.c"
+#include "class_definition.i"

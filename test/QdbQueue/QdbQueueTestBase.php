@@ -9,8 +9,8 @@ abstract class QdbQueueTestBase extends QdbTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->blob = $this->cluster->blob($this->getAlias());
-        $this->queue = $this->cluster->queue($this->getAlias());
+        $this->blob = $this->cluster->blob($this->alias);
+        $this->queue = $this->cluster->queue($this->alias);
     }
 }
 

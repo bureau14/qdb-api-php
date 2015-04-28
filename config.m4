@@ -3,7 +3,7 @@ PHP_ARG_WITH(qdb, for quasardb support,
 
 PHP_QDB_SOURCES="\
   php_qdb.c \
-  src/args_parser.c \
+  src/class_definition.c \
   src/exceptions.c \
   src/globals.c \
   src/log.c \
@@ -13,6 +13,7 @@ PHP_QDB_SOURCES="\
   src/QdbCluster.c \
   src/QdbEntry.c \
   src/QdbExpirableEntry.c \
+  src/QdbHashSet.c \
   src/QdbInteger.c \
   src/QdbQueue.c \
   src/settings.c \

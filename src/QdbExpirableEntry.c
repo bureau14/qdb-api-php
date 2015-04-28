@@ -67,4 +67,4 @@ BEGIN_CLASS_MEMBERS()
     ADD_METHOD(getExpiryTime)
 END_CLASS_MEMBERS()
 
-#include "class_definition.c"
+#include "class_definition.i"

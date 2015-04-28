@@ -19,7 +19,7 @@ class QdbBatchGetAndRemoveTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->getAndRemove($this->getAlias(), 'i should not be there');
+        $this->batch->getAndRemove($this->alias, 'i should not be there');
     }
 
     /**
@@ -33,7 +33,7 @@ class QdbBatchGetAndRemoveTest extends QdbBatchTestBase
 
     public function testReturnValue()
     {
-        $result = $this->batch->getAndRemove($this->getAlias());
+        $result = $this->batch->getAndRemove($this->alias);
 
         $this->assertNull($result);
     }
@@ -44,7 +44,7 @@ class QdbBatchGetAndRemoveTest extends QdbBatchTestBase
 
         $this->blob->put($content);
 
-        $this->batch->getAndRemove($this->getAlias());
+        $this->batch->getAndRemove($this->alias);
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals(1, $result->count());
@@ -57,7 +57,7 @@ class QdbBatchGetAndRemoveTest extends QdbBatchTestBase
      */
     public function testException()
     {
-        $this->batch->getAndRemove($this->getAlias());
+        $this->batch->getAndRemove($this->alias);
 
         $result = $this->cluster->runBatch($this->batch);
 
@@ -71,7 +71,7 @@ class QdbBatchGetAndRemoveTest extends QdbBatchTestBase
     {
         $this->blob->put('content');
 
-        $this->batch->getAndRemove($this->getAlias());
+        $this->batch->getAndRemove($this->alias);
         $result = $this->cluster->runBatch($this->batch);
 
         $this->blob->get(); // <- throws

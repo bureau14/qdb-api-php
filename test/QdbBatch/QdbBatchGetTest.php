@@ -19,7 +19,7 @@ class QdbBatchGetTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->get($this->getAlias(), 'i should not be there');
+        $this->batch->get($this->alias, 'i should not be there');
     }
 
     /**
@@ -33,7 +33,7 @@ class QdbBatchGetTest extends QdbBatchTestBase
 
     public function testReturnValue()
     {
-        $result = $this->batch->get($this->getAlias());
+        $result = $this->batch->get($this->alias);
 
         $this->assertNull($result);
     }
@@ -44,7 +44,7 @@ class QdbBatchGetTest extends QdbBatchTestBase
 
         $this->blob->put($content);
 
-        $this->batch->get($this->getAlias());
+        $this->batch->get($this->alias);
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals(1, $result->count());
@@ -57,7 +57,7 @@ class QdbBatchGetTest extends QdbBatchTestBase
      */
     public function testException()
     {
-        $this->batch->get($this->getAlias());
+        $this->batch->get($this->alias);
 
         $result = $this->cluster->runBatch($this->batch);
 

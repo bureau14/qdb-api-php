@@ -10,7 +10,7 @@ class QdbBatchUpdateTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->update($this->getAlias());
+        $this->batch->update($this->alias);
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbBatchUpdateTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->update($this->getAlias(), 'content', 0, 'i should not be there');
+        $this->batch->update($this->alias, 'content', 0, 'i should not be there');
     }
 
     /**
@@ -37,7 +37,7 @@ class QdbBatchUpdateTest extends QdbBatchTestBase
      */
     public function testWrongContentType()
     {
-        $this->batch->update($this->getAlias(), array());
+        $this->batch->update($this->alias, array());
     }
 
     /**
@@ -46,12 +46,12 @@ class QdbBatchUpdateTest extends QdbBatchTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->batch->update($this->getAlias(), 'content', array());
+        $this->batch->update($this->alias, 'content', array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->update($this->getAlias(), 'content');
+        $result = $this->batch->update($this->alias, 'content');
 
         $this->assertNull($result);
     }
@@ -65,7 +65,7 @@ class QdbBatchUpdateTest extends QdbBatchTestBase
 
         $this->blob->put($content1, $expiry1);
 
-        $this->batch->update($this->getAlias(), $content2, $expiry2);
+        $this->batch->update($this->alias, $content2, $expiry2);
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals($content2, $this->blob->get());
@@ -74,7 +74,7 @@ class QdbBatchUpdateTest extends QdbBatchTestBase
 
     public function testResult()
     {
-        $this->batch->update($this->getAlias(), 'content');
+        $this->batch->update($this->alias, 'content');
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals(1, $result->count());

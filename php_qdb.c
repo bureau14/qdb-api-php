@@ -16,6 +16,7 @@
 #include "src/QdbExpirableEntry.h"
 #include "src/QdbInteger.h"
 #include "src/QdbQueue.h"
+#include "src/QdbHashSet.h"
 #include "src/settings.h"
 
 static PHP_MINIT_FUNCTION(qdb)
@@ -29,6 +30,7 @@ static PHP_MINIT_FUNCTION(qdb)
     QdbBatchResult_registerClass(TSRMLS_C);
     QdbBlob_registerClass(TSRMLS_C);
     QdbCluster_registerClass(TSRMLS_C);
+    QdbHashSet_registerClass(TSRMLS_C);
     QdbInteger_registerClass(TSRMLS_C);
     QdbQueue_registerClass(TSRMLS_C);
     return SUCCESS;

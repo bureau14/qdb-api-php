@@ -4,7 +4,7 @@
 #ifndef QDB_EXCEPTIONS_H
 #define QDB_EXCEPTIONS_H
 
-#include <php.h> // include first to avoid conflict with stdint.h 
+#include <php.h> // include first to avoid conflict with stdint.h
 
 #include <qdb/client.h>
 

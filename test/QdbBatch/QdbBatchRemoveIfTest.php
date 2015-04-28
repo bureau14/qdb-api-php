@@ -10,7 +10,7 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->removeIf($this->getAlias());
+        $this->batch->removeIf($this->alias);
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->removeIf($this->getAlias(), 'comparand', 'i should not be there');
+        $this->batch->removeIf($this->alias, 'comparand', 'i should not be there');
     }
 
     /**
@@ -37,12 +37,12 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
      */
     public function testWrongComparandType()
     {
-        $this->batch->removeIf($this->getAlias(), array());
+        $this->batch->removeIf($this->alias, array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->removeIf($this->getAlias(), 'first');
+        $result = $this->batch->removeIf($this->alias, 'first');
 
         $this->assertNull($result);
     }
@@ -51,7 +51,7 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
     {
         $this->blob->put('first');
 
-        $this->batch->removeIf($this->getAlias(), 'second');
+        $this->batch->removeIf($this->alias, 'second');
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals('first', $this->blob->get());
@@ -64,7 +64,7 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
     {
         $this->blob->put('first');
 
-        $this->batch->removeIf($this->getAlias(), 'first');
+        $this->batch->removeIf($this->alias, 'first');
         $result = $this->cluster->runBatch($this->batch);
 
         $this->blob->get(); // <- throws
@@ -74,7 +74,7 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
     {
         $this->blob->put('first');
 
-        $this->batch->removeIf($this->getAlias(), 'second');
+        $this->batch->removeIf($this->alias, 'second');
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertFalse($result[0]);
@@ -84,7 +84,7 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
     {
         $this->blob->put('first');
 
-        $this->batch->removeIf($this->getAlias(), 'first');
+        $this->batch->removeIf($this->alias, 'first');
         $result = $this->cluster->runBatch($this->batch);
 
 
@@ -98,7 +98,7 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
     {
         $comparand = 'comparand';
 
-        $this->batch->removeIf($this->getAlias(), $comparand);
+        $this->batch->removeIf($this->alias, $comparand);
         $result = $this->cluster->runBatch($this->batch);
 
         $result[0]; // <- throws

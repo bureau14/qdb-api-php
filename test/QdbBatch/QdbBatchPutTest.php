@@ -10,7 +10,7 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->put($this->getAlias());
+        $this->batch->put($this->alias);
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->put($this->getAlias(), 'content', 0, 'i should not be there');
+        $this->batch->put($this->alias, 'content', 0, 'i should not be there');
     }
 
     /**
@@ -37,7 +37,7 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testWrongContentType()
     {
-        $this->batch->put($this->getAlias(), array());
+        $this->batch->put($this->alias, array());
     }
 
     /**
@@ -46,12 +46,12 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->batch->put($this->getAlias(), 'content', array());
+        $this->batch->put($this->alias, 'content', array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->put($this->getAlias(), 'content');
+        $result = $this->batch->put($this->alias, 'content');
 
         $this->assertNull($result);
     }
@@ -61,7 +61,7 @@ class QdbBatchPutTest extends QdbBatchTestBase
         $content = 'content';
         $expiry = time() + 60;
 
-        $this->batch->put($this->getAlias(), $content, $expiry);
+        $this->batch->put($this->alias, $content, $expiry);
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals($content, $this->blob->get());
@@ -71,7 +71,7 @@ class QdbBatchPutTest extends QdbBatchTestBase
     public function testResult()
     {
 
-        $this->batch->put($this->getAlias(), 'content');
+        $this->batch->put($this->alias, 'content');
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals(1, $result->count());
@@ -87,7 +87,7 @@ class QdbBatchPutTest extends QdbBatchTestBase
         $content = 'content';
 
         $this->blob->put($content);
-        $this->batch->put($this->getAlias(), $content);
+        $this->batch->put($this->alias, $content);
         $result = $this->cluster->runBatch($this->batch);
 
         $result[0]; // <- throws

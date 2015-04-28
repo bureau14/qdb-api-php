@@ -12,6 +12,7 @@
 #include "QdbCluster.h"
 #include "QdbInteger.h"
 #include "QdbQueue.h"
+#include "QdbHashSet.h"
 
 #include <qdb/client.h>
 
@@ -130,6 +131,13 @@ BEGIN_CLASS_METHOD_1(blob, STRING_ARG(alias))
 END_CLASS_METHOD()
 
 
+BEGIN_CLASS_METHOD_1(hashSet, STRING_ARG(alias))
+{
+    QdbHashSet_createInstance(return_value, this->handle, alias TSRMLS_CC);
+}
+END_CLASS_METHOD()
+
+
 BEGIN_CLASS_METHOD_1(integer, STRING_ARG(alias))
 {
     QdbInteger_createInstance(return_value, this->handle, alias TSRMLS_CC);
@@ -162,9 +170,10 @@ BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
     ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(blob)
+    ADD_METHOD(hashSet)
     ADD_METHOD(integer)
     ADD_METHOD(queue)
     ADD_METHOD(runBatch)
 END_CLASS_MEMBERS()
 
-#include "class_definition.c"
+#include "class_definition.i"

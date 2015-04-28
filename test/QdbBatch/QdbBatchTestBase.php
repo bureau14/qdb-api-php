@@ -9,7 +9,7 @@ abstract class QdbBatchTestBase extends QdbTestBase
     public function setUp()
     {
         parent::setUp();
-        $this->blob = $this->cluster->blob($this->getAlias());
+        $this->blob = $this->cluster->blob($this->alias);
         $this->batch = new QdbBatch();
     }
 }

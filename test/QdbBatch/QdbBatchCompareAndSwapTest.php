@@ -10,7 +10,7 @@ class QdbBatchCompareAndSwapTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->compareAndSwap($this->getAlias(), 'content');
+        $this->batch->compareAndSwap($this->alias, 'content');
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbBatchCompareAndSwapTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->compareAndSwap($this->getAlias(), 'content', 'comparand', 0, 'i should not be there');
+        $this->batch->compareAndSwap($this->alias, 'content', 'comparand', 0, 'i should not be there');
     }
 
     /**
@@ -37,7 +37,7 @@ class QdbBatchCompareAndSwapTest extends QdbBatchTestBase
      */
     public function testWrongContentType()
     {
-        $this->batch->compareAndSwap($this->getAlias(), array(), 'comparand');
+        $this->batch->compareAndSwap($this->alias, array(), 'comparand');
     }
 
     /**
@@ -46,7 +46,7 @@ class QdbBatchCompareAndSwapTest extends QdbBatchTestBase
      */
     public function testWrongComparandType()
     {
-        $this->batch->compareAndSwap($this->getAlias(), 'content', array());
+        $this->batch->compareAndSwap($this->alias, 'content', array());
     }
 
     /**
@@ -55,12 +55,12 @@ class QdbBatchCompareAndSwapTest extends QdbBatchTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->batch->compareAndSwap($this->getAlias(), 'content', 'comparand', array());
+        $this->batch->compareAndSwap($this->alias, 'content', 'comparand', array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->compareAndSwap($this->getAlias(), 'content', 'comparand');
+        $result = $this->batch->compareAndSwap($this->alias, 'content', 'comparand');
 
         $this->assertNull($result);
     }
@@ -74,7 +74,7 @@ class QdbBatchCompareAndSwapTest extends QdbBatchTestBase
 
         $this->blob->put($content1, $expiry1);
 
-        $this->batch->compareAndSwap($this->getAlias(), $content2, $content1, $expiry2);
+        $this->batch->compareAndSwap($this->alias, $content2, $content1, $expiry2);
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals($content2, $this->blob->get());
@@ -90,7 +90,7 @@ class QdbBatchCompareAndSwapTest extends QdbBatchTestBase
 
         $this->blob->put($content1, $expiry1);
 
-        $this->batch->compareAndSwap($this->getAlias(), $content2, 'not matching', $expiry2);
+        $this->batch->compareAndSwap($this->alias, $content2, 'not matching', $expiry2);
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals($content1, $this->blob->get());
@@ -101,7 +101,7 @@ class QdbBatchCompareAndSwapTest extends QdbBatchTestBase
     {
         $this->blob->put('first');
 
-        $this->batch->compareAndSwap($this->getAlias(), 'second', 'first');
+        $this->batch->compareAndSwap($this->alias, 'second', 'first');
         $result = $this->cluster->runBatch($this->batch);
 
         $this->assertEquals(1, $result->count());
@@ -114,7 +114,7 @@ class QdbBatchCompareAndSwapTest extends QdbBatchTestBase
      */
     public function testException()
     {
-        $this->batch->compareAndSwap($this->getAlias(), 'content', 'comparand');
+        $this->batch->compareAndSwap($this->alias, 'content', 'comparand');
         $result = $this->cluster->runBatch($this->batch);
 
         $result[0]; // <- throws

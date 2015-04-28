@@ -1,28 +1,22 @@
 // Copyright (c) 2009-2015, quasardb SAS
 // All rights reserved.
 
-#define CLASS_ENTRY XCONCAT(ce_,class_name)
-zend_class_entry *CLASS_ENTRY;
+#include <php.h>
 
-#ifdef class_parent
-#define BASE_CLASS_ENTRY XCONCAT(ce_,class_parent)
-extern zend_class_entry *BASE_CLASS_ENTRY;
-#endif
+#include "exceptions.h"
 
-static zend_object_handlers object_handlers;
-
-static void free_object_storage(void *object TSRMLS_DC)
+void free_object_storage(void *object TSRMLS_DC)
 {
     zend_object_std_dtor((zend_object*)object TSRMLS_CC);
     efree(object);
 }
 
-static zend_object_value alloc_object_storage(zend_class_entry *ce TSRMLS_DC)
+zend_object_value alloc_object_storage(zend_class_entry *ce, zend_object_handlers *object_handlers, size_t size TSRMLS_DC)
 {
     zend_object_value retval;
     zend_object *this;
 
-    this = (zend_object*)ecalloc(1, sizeof(class_storage));
+    this = (zend_object*)ecalloc(1, size);
     zend_object_std_init(this, ce TSRMLS_CC);
 
 #if PHP_VERSION_ID < 50399
@@ -32,24 +26,32 @@ static zend_object_value alloc_object_storage(zend_class_entry *ce TSRMLS_DC)
 #endif
 
     retval.handle = zend_objects_store_put(this, NULL, free_object_storage, NULL TSRMLS_CC);
-    retval.handlers = &object_handlers;
+    retval.handlers = object_handlers;
     return retval;
 }
 
-void XCONCAT(class_name, _registerClass)(TSRMLS_D)
+int check_arg_count(int actual, int min, int max TSRMLS_DC)
 {
-    zend_class_entry ce;
-    INIT_CLASS_ENTRY(ce, XSTR(class_name), methods);
-#ifdef BASE_CLASS_ENTRY
-    CLASS_ENTRY = zend_register_internal_class_ex(&ce, BASE_CLASS_ENTRY, NULL TSRMLS_CC);
-#else
-    CLASS_ENTRY = zend_register_internal_class(&ce TSRMLS_CC);
-#endif
-    CLASS_ENTRY->create_object = alloc_object_storage;
-    memcpy(&object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
-    object_handlers.clone_obj = NULL;
+    if (min <= actual && actual <= max)
+        return SUCCESS;
 
-#ifdef class_interfaces
-    zend_class_implements(CLASS_ENTRY TSRMLS_CC, class_interfaces);
-#endif
+    char message[64];
+
+    if (actual < min)
+    {
+        if (min == max)
+            sprintf(message, "Not enough arguments, expected exactly %d", min);
+        else
+            sprintf(message, "Not enough arguments, expected at least %d", min);
+    }
+    else
+    {
+        if (min == max)
+            sprintf(message, "Too many arguments, expected exactly %d", max);
+        else
+            sprintf(message, "Too many arguments, expected at most %d", max);
+    }
+
+    throw_invalid_argument(message);
+    return FAILURE;
 }
