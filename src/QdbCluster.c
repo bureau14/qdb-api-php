@@ -24,95 +24,19 @@ typedef struct {
     qdb_handle_t handle;
 } cluster_t;
 
-static int convert_one_node(qdb_remote_node_t *node, HashTable *hnode TSRMLS_DC)
+
+BEGIN_CLASS_METHOD_1(__construct, STRING_ARG(uri))
 {
-    zval **zaddress;
-
-    if (zend_hash_find(hnode, "address", sizeof("address"), (void**)&zaddress) == FAILURE) {
-        throw_invalid_argument("Node address is missing");
-        return FAILURE;
-    }
-
-    zval **zport = 0;
-    zend_hash_find(hnode, "port", sizeof("port"), (void**)&zport);
-
-    node->address = Z_STRVAL_PP(zaddress);
-    node->port = zport ? Z_LVAL_PP(zport) : 2836;
-
-    return SUCCESS;
-}
-
-static int convert_each_node(qdb_remote_node_t *nodes, HashTable *hnodes TSRMLS_DC)
-{
-    HashPosition pointer;
-    zval **znode;
-
-    zend_hash_internal_pointer_reset_ex(hnodes, &pointer);
-
-    while(zend_hash_get_current_data_ex(hnodes, (void**) &znode, &pointer) == SUCCESS)
-    {
-        if (convert_one_node(nodes++, Z_ARRVAL_PP(znode) TSRMLS_CC) == FAILURE)
-            return FAILURE;
-
-        zend_hash_move_forward_ex(hnodes, &pointer);
-    }
-
-    return SUCCESS;
-}
-
-int QdbCluster_convertNodes(zval *znodes, qdb_remote_node_t** nodes, int* node_count TSRMLS_DC)
-{
-    *nodes = NULL;
-    *node_count = 0;
-
-    HashTable *hnodes = Z_ARRVAL_P(znodes);
-
-    *node_count = zend_hash_num_elements(hnodes);
-
-    if (*node_count == 0)
-    {
-        throw_invalid_argument("Node list is empty.");
-        return FAILURE;
-    }
-
-    *nodes = ecalloc(*node_count, sizeof(qdb_remote_node_t));
-
-    return convert_each_node(*nodes, hnodes TSRMLS_CC);
-}
-
-
-void QdbCluster_logNodes(qdb_remote_node_t* nodes, int node_count TSRMLS_DC)
-{
-    int i;
-    for(i=0; i<node_count; i++) {
-        if(nodes[i].error){
-            char buffer[32];
-            qdb_error(nodes[i].error, buffer, sizeof(buffer));
-            zend_error(E_WARNING, "Connection to %s (port %d) failed: %s", nodes[i].address, nodes[i].port, buffer);
-        }
-    }
-}
-
-BEGIN_CLASS_METHOD_1(__construct, ARRAY_ARG(nodes))
-{
-    int node_count;
-    qdb_remote_node_t*qdb_nodes;
-
-    if (QdbCluster_convertNodes(nodes, &qdb_nodes, &node_count TSRMLS_CC) == FAILURE)
-        return;
-
     this->handle = qdb_open_tcp();
 
     log_attach(this->handle);
 
-    size_t connections = qdb_multi_connect(this->handle, qdb_nodes, node_count);
+    qdb_error_t error = qdb_connect(this->handle, Z_STRVAL_P(uri));
 
-    QdbCluster_logNodes(qdb_nodes, node_count TSRMLS_CC);
-
-    if (connections <= 0)
-        throw_cluster_connection_failed();
-
-    efree(qdb_nodes);
+    if (error == qdb_e_invalid_argument)
+        throw_invalid_argument("Cluster URI is invalid.");
+    else if (error)
+        throw_qdb_error(error);
 }
 END_CLASS_METHOD()
 

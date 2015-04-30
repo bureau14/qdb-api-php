@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2015, quasardb SAS
 // All rights reserved.
 
-#include <php.h> // include first to avoid conflict with stdint.h 
+#include <php.h> // include first to avoid conflict with stdint.h
 #include <spl/spl_exceptions.h>
 #include <zend_exceptions.h>
 
@@ -14,7 +14,6 @@ typedef struct {
 } qdb_exception_t;
 
 static zend_class_entry *ce_QdbException;
-static zend_class_entry *ce_QdbClusterConnectionFailedException;
 
 static qdb_exception_t qdb_exceptions[] = {
     { qdb_e_uninitialized,          "QdbUninitializedException"        },
@@ -74,7 +73,6 @@ void exceptions_init(TSRMLS_D)
 {
     int i;
     ce_QdbException = register_exception("QdbException", zend_exception_get_default(TSRMLS_C) TSRMLS_CC);
-    ce_QdbClusterConnectionFailedException = register_exception("QdbClusterConnectionFailedException", ce_QdbException TSRMLS_CC);
 
     for (i=0; i<EXCEPTIONS_COUNT; i++) {
         qdb_exceptions[i].class_entry = register_exception(qdb_exceptions[i].name, ce_QdbException TSRMLS_CC);
@@ -120,9 +118,4 @@ void throw_out_of_bounds_(const char* message TSRMLS_DC)
 void throw_bad_function_call_(const char* message TSRMLS_DC)
 {
     zend_throw_exception_ex(spl_ce_BadFunctionCallException, 0 TSRMLS_CC, (char*)message);
-}
-
-void throw_cluster_connection_failed_(TSRMLS_D)
-{
-    zend_throw_exception_ex(ce_QdbClusterConnectionFailedException, 0 TSRMLS_CC, "Connection to cluster failed.");
 }

@@ -25,8 +25,4 @@ void throw_out_of_bounds_(const char* message TSRMLS_DC);
 void throw_bad_function_call_(const char* message TSRMLS_DC);
 #define throw_bad_function_call(x) throw_bad_function_call_(x TSRMLS_CC)
 
-void throw_cluster_connection_failed_(TSRMLS_D);
-#define throw_cluster_connection_failed() throw_cluster_connection_failed_(TSRMLS_C)
-
-
 #endif /* QDB_EXCEPTIONS_H */

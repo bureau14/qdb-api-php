@@ -17,81 +17,31 @@ class QdbClusterConstructorTest extends PHPUnit_Framework_TestCase
      */
     public function testTooManyArguments()
     {
-        $qdb = new QdbCluster(array(), 'i should not be there');
-    }
-
-    /**
-     * @expectedException               PHPUnit_Framework_Error
-     * @expectedExceptionMessageRegExp  /must be of the type array/
-     */
-    public function testWrongArgumentype()
-    {
-        $qdb = new QdbCluster("127.0.0.1"); // this is tempting but doesn't work, you must use an array
+        $qdb = new QdbCluster('qdb://127.0.0.1:20552/', 'i should not be there');
     }
 
     /**
      * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /empty/i
+     * @expectedExceptionMessageRegExp  /must be a string/
      */
-    public function testEmptyNodeArray()
+    public function testWrongArgumentype()
     {
-        $nodes = array();
-        $qdb = new QdbCluster($nodes);
+        $qdb = new QdbCluster(array());
+    }
+
+    /**
+     * @expectedException               InvalidArgumentException
+     * @expectedExceptionMessageRegExp  /URI/
+     */
+    public function testInvalidUri()
+    {
+        $qdb = new QdbCluster('http://www.quasardb.net/');
     }
 
     public function testOneNode()
     {
-        $nodes = array(
-            array(
-                'address' => '127.0.0.1',
-                'port' => 20552
-            )
-        );
-        $qdb = new QdbCluster($nodes);
+        $qdb = new QdbCluster('qdb://127.0.0.1:20552/');
         $this->assertNotNull($qdb);
-    }
-
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /address/i
-     */
-    public function testAddressMissing()
-    {
-        $nodes = array(
-            array(
-                // 'address' => missing
-                'port' => 20552
-            )
-        );
-        $qdb = new QdbCluster($nodes);
-    }
-
-    /**
-     * @expectedException               QdbClusterConnectionFailedException
-     */
-    public function testWrongAddress()
-    {
-        $nodes = array(
-            array(
-                'address' => '127.0.0.2',
-                'port' => 20552
-            )
-        );
-        $qdb = new QdbCluster($nodes);
-    }
-
-    /**
-     * @expectedException               QdbClusterConnectionFailedException
-     */
-    public function testWrongPort()
-    {
-        $nodes = array(
-            array(
-                'address' => '127.0.0.1',
-                'port' => 666
-            )
-        );
-        $qdb = new QdbCluster($nodes);
     }
 }
 

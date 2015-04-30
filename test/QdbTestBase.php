@@ -7,13 +7,7 @@ abstract class QdbTestBase extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $nodes = array(
-            array(
-                'address' => '127.0.0.1',
-                'port' => 20552
-            )
-        );
-        $this->cluster = new QdbCluster($nodes);
+        $this->cluster = new QdbCluster('qdb://127.0.0.1:20552/');
         $this->alias = get_class($this) . '::' . $this->getName();
     }
 }
