@@ -8,7 +8,7 @@ Example
 -------
 
 You get a `QdbBlob` instance by calling `QdbCluster::blob()`.
-Then you can perform atomic operation on the blob:
+Then you can perform atomic operations on the blob:
 
     $cluster->blob('key 0')->put('value 0');
     $cluster->blob('key 1')->put('value 1');

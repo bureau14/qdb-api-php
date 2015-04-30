@@ -12,6 +12,7 @@ Example
     $cluster->blob('key 0')->put('value 0');
     $cluster->queue('key 1').push_back('value 1');
     $cluster->integer('key 2').add(42);
+    $cluster->hashSet('key 3').insert('value 2');
 
 Class synopsis
 --------------
@@ -20,6 +21,7 @@ Class synopsis
     {
         __construct ( array $nodes )
         QdbBlob blob ( string $alias )
+        QdbHashSet hashSet ( string $alias )
         QdbInteger integer ( string $alias )
         QdbQueue queue ( string $alias )
         array runBatch ( QdbBatch $batch )
@@ -58,6 +60,22 @@ No query is performed at this point.
 
 ###### Returns
 The [`QdbBlob`](QdbBlob.md).
+
+###### Exceptions
+None.
+
+
+### `QdbHashSet QdbCluster::hashSet ( string $alias )`
+
+###### Description
+Creates a [`QdbHashSet`](QdbHashSet.md) associated with the specified alias.
+No query is performed at this point.
+
+###### Parameters
+- `$alias`: the alias of the queue in the database.
+
+###### Returns
+The [`QdbHashSet`](QdbHashSet.md).
 
 ###### Exceptions
 None.

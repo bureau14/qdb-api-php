@@ -26,11 +26,18 @@ Want [atomic integers](doc/QdbInteger.md) now?
     $integer->put(42);
     $total = $integer->add(12);
 
+What else? a [set](doc/QdbHashSet.md) maybe?
+
+    $set = $cluster->hashSet('my set');
+    $set->insert('value');
+    $hasValue = $set->contains('value');
+
 ## Documentation
 
 * [Installation instructions](doc/Installation.md)
 * [The `QdbBatch` class](doc/QdbBatch.md)
 * [The `QdbBlob` class](doc/QdbBlob.md)
 * [The `QdbCluster` class](doc/QdbCluster.md)
+* [The `QdbHashSet` class](doc/QdbHashSet.md)
 * [The `QdbInteger` class](doc/QdbInteger.md)
 * [The `QdbQueue` class](doc/QdbQueue.md)

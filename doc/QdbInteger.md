@@ -7,7 +7,7 @@ Example
 -------
 
 You get a `QdbInteger` instance by calling `QdbCluster::integer()`.
-Then you can perform atomic operation on the integer:
+Then you can perform atomic operations on the integer:
 
     $cluster->integer('key 0')->put(1);
     $cluster->integer('key 1')->update(2);

@@ -8,7 +8,7 @@ Example
 -------
 
 You get a `QdbQueue` instance by calling `QdbCluster::queue()`.
-Then you can perform atomic operation on the queue:
+Then you can perform atomic operations on the queue:
 
     $queue = $cluster->queue('my queue');
     $queue->pushBack('value 0');
