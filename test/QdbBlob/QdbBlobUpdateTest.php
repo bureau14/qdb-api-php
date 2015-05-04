@@ -70,11 +70,12 @@ class QdbBlobUpdateTest extends QdbBlobTestBase
     }
 
     /**
-     * @expectedException               QdbInvalidArgumentException
+     * @expectedException               QdbAliasNotFoundException
      */
     public function testWithExpiryInThePast()
     {
         $this->blob->update('some content', time() - 60);
+        $this->blob->get();
     }
 }
 

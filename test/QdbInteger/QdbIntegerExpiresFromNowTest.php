@@ -56,12 +56,13 @@ class QdbIntegerExpiresFromNowTest extends QdbIntegerTestBase
     }
 
     /**
-     * @expectedException               QdbInvalidArgumentException
+     * @expectedException               QdbAliasNotFoundException
      */
     public function testExpiryInThePast()
     {
         $this->integer->put(42);
         $this->integer->expiresFromNow(-60);
+        $this->integer->getExpiryTime();
     }
 }
 

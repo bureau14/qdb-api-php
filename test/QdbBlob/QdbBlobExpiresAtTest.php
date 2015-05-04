@@ -67,7 +67,7 @@ class QdbBlobExpiresAtTest extends QdbBlobTestBase
     }
 
     /**
-     * @expectedException           QdbInvalidArgumentException
+     * @expectedException           QdbAliasNotFoundException
      */
     public function testExpiryInThePast()
     {
@@ -75,6 +75,7 @@ class QdbBlobExpiresAtTest extends QdbBlobTestBase
 
         $this->blob->put('content');
         $this->blob->expiresAt($expiry);
+        $this->blob->getExpiryTime();
     }
 }
 

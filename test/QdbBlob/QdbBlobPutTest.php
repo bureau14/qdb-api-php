@@ -61,18 +61,19 @@ class QdbBlobPutTest extends QdbBlobTestBase
         $this->assertEquals('content', $this->blob->get());
     }
 
-    public function testWithExpiryInTheFuture()
+    public function testWithExpiry()
     {
         $this->blob->put('content', time() + 60);
         $this->assertEquals('content', $this->blob->get());
     }
 
     /**
-     * @expectedException               QdbInvalidArgumentException
+     * @expectedException               QdbAliasNotFoundException
      */
     public function testWithExpiryInThePast()
     {
         $this->blob->put('content', time() - 60);
+        $this->blob->get();
     }
 }
 

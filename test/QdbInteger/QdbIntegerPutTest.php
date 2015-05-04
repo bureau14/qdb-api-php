@@ -68,11 +68,12 @@ class QdbIntegerPutTest extends QdbIntegerTestBase
     }
 
     /**
-     * @expectedException               QdbInvalidArgumentException
+     * @expectedException               QdbAliasNotFoundException
      */
     public function testWithExpiryInThePast()
     {
         $this->integer->put(42, time() - 60);
+        $this->integer->get();
     }
 }
 

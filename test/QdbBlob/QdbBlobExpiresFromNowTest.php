@@ -56,12 +56,13 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
     }
 
     /**
-     * @expectedException               QdbInvalidArgumentException
+     * @expectedException               QdbAliasNotFoundException
      */
     public function testExpiryInThePast()
     {
         $this->blob->put('content');
         $this->blob->expiresFromNow(-60);
+        $this->blob->getExpiryTime();
     }
 }
 

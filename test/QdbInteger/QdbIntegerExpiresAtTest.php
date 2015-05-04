@@ -67,7 +67,7 @@ class QdbIntegerExpiresAtTest extends QdbIntegerTestBase
     }
 
     /**
-     * @expectedException           QdbInvalidArgumentException
+     * @expectedException           QdbAliasNotFoundException
      */
     public function testExpiryInThePast()
     {
@@ -75,6 +75,7 @@ class QdbIntegerExpiresAtTest extends QdbIntegerTestBase
 
         $this->integer->put(42);
         $this->integer->expiresAt($expiry);
+        $this->integer->getExpiryTime();
     }
 }
 
