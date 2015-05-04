@@ -6,20 +6,19 @@ Represents a connection to a *quasardb* cluster.
 Example
 -------
 
-    $nodes = array(array('address' => '127.0.0.1', 'port' => 2836));
-    $cluster = new QdbCluster($nodes);
+    $cluster = new QdbCluster('qdb://127.0.0.1:2836');
 
     $cluster->blob('key 0')->put('value 0');
-    $cluster->queue('key 1').push_back('value 1');
-    $cluster->integer('key 2').add(42);
-    $cluster->hashSet('key 3').insert('value 2');
+    $cluster->queue('key 1')->push_back('value 1');
+    $cluster->integer('key 2')->add(42);
+    $cluster->hashSet('key 3')->insert('value 2');
 
 Class synopsis
 --------------
 
     QdbCluster
     {
-        __construct ( array $nodes )
+        __construct ( string $uri )
         QdbBlob blob ( string $alias )
         QdbHashSet hashSet ( string $alias )
         QdbInteger integer ( string $alias )
@@ -32,21 +31,19 @@ Class synopsis
 --------------------
 
 
-### `QdbCluster::__construct ( array $nodes )`
+### `QdbCluster::__construct ( string $uri )`
 
 ###### Description
-Connects to a *quasardb* cluster through the specified nodes.
+Connects to a *quasardb* cluster through the specified URI.
+The URI contains the addresses of the bootstraping nodes, other nodes are discovered during the first connection.
+Having more than one node in the URI allows to connect to the cluster even if the first node is down.
 
 ###### Parameters
-`$nodes` is an array of array:
-
-    $nodes = array(
-        array('address'=>'192.168.0.1','port'=>'2836'),
-        array('address'=>'192.168.0.2','port'=>'2836')
-    );
+- `$uri`: a string in the form of `qdb://<address1>:<port1>[,<address2:<port2>...]`.
 
 ###### Exceptions
-Throws a `QdbClusterConnectionFailedException` if the connection **to every node** fails.
+- `QdbConnectionRefusedException` if the connection was rejected by the node.
+- `QdbTimeoutException` if the connection times out.
 
 
 ### `QdbBlob QdbCluster::blob ( string $alias )`

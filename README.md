@@ -4,8 +4,7 @@
 
 Using *quasardb* cluster from a PHP program is extremely straightforward, just create a [`QdbCluster`](doc/QdbCluster.md) and perform the operations.
 
-    $nodes = array(array('address' => '127.0.0.1', 'port' => 2836));
-    $cluster = new QdbCluster($nodes);
+    $cluster = new QdbCluster('qdb://127.0.0.1:2836');
 
 OK, now that we have a connection to the cluster, let's store some [binary data](doc/QdbBlob.md):
 
