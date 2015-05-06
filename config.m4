@@ -4,6 +4,7 @@ PHP_ARG_WITH(qdb, for quasardb support,
 PHP_QDB_SOURCES="\
   php_qdb.c \
   src/class_definition.c \
+  src/connection.c \
   src/exceptions.c \
   src/globals.c \
   src/log.c \
@@ -18,7 +19,7 @@ PHP_QDB_SOURCES="\
   src/QdbQueue.c \
   src/settings.c \
 "
-PHP_QDB_CFLAGS="-Wall -Werror -fno-strict-aliasing"
+PHP_QDB_CFLAGS="-Wall -fno-strict-aliasing"
 
 if test "$PHP_QDB" != "no"; then
 

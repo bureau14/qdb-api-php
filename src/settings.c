@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2015, quasardb SAS
 // All rights reserved.
 
-#include <php.h> // include first to avoid conflict with stdint.h 
+#include <php.h> // include first to avoid conflict with stdint.h
 
 #include "globals.h"
 #include "log.h"
@@ -23,6 +23,7 @@ static ZEND_INI_MH(OnUpdateLogLevel)
 
 PHP_INI_BEGIN()
     STD_PHP_INI_ENTRY("qdb.log_level", "panic", PHP_INI_ALL, OnUpdateLogLevel, log_level, zend_qdb_globals, qdb_globals)
+    STD_PHP_INI_ENTRY("qdb.persistent", "1", PHP_INI_ALL, OnUpdateBool, persistent, zend_qdb_globals, qdb_globals)
 PHP_INI_END()
 
 void settings_init(int module_number TSRMLS_DC)

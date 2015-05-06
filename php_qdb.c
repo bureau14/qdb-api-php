@@ -8,6 +8,7 @@
 
 #include "src/exceptions.h"
 #include "src/globals.h"
+#include "src/connection.h"
 #include "src/QdbBatch.h"
 #include "src/QdbBatchResult.h"
 #include "src/QdbBlob.h"
@@ -24,6 +25,7 @@ static PHP_MINIT_FUNCTION(qdb)
     globals_init();
     settings_init(module_number TSRMLS_CC);
     exceptions_init(TSRMLS_C);
+    connection_init(TSRMLS_C);
     QdbEntry_registerClass(TSRMLS_C); // <- before derived classes
     QdbExpirableEntry_registerClass(TSRMLS_C); // <- before derived classes
     QdbBatch_registerClass(TSRMLS_C);
@@ -38,6 +40,7 @@ static PHP_MINIT_FUNCTION(qdb)
 
 static PHP_MSHUTDOWN_FUNCTION(qdb)
 {
+    connection_shutdown(TSRMLS_C);
     settings_shutdown(module_number TSRMLS_CC);
     return SUCCESS;
 }

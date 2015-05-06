@@ -1,10 +1,15 @@
 // Copyright (c) 2009-2015, quasardb SAS
 // All rights reserved.
 
-#include <php.h> // include first to avoid conflict with stdint.h 
+#ifndef QDB_GLOBALS_H
+#define QDB_GLOBALS_H
+
+#include <php.h> // include first to avoid conflict with stdint.h
 
 ZEND_BEGIN_MODULE_GLOBALS(qdb)
     int log_level;
+    zend_bool persistent;
+    HashTable connections;
 ZEND_END_MODULE_GLOBALS(qdb)
 
 #ifdef ZTS
@@ -13,6 +18,8 @@ ZEND_END_MODULE_GLOBALS(qdb)
 #else
     #define QDB_G(v) (qdb_globals.v)
     extern zend_qdb_globals qdb_globals;
-#endif 
+#endif
 
 void globals_init();
+
+#endif

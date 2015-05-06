@@ -97,25 +97,25 @@ void throw_qdb_error_(qdb_error_t code TSRMLS_DC)
 {
     char message[64];
     qdb_error(code, message, sizeof(message));
-    zend_throw_exception_ex(get_exception_ce(code), 0 TSRMLS_CC, message);
+    zend_throw_exception(get_exception_ce(code), message, 0 TSRMLS_CC);
 }
 
 void throw_invalid_argument_(const char* message TSRMLS_DC)
 {
-    zend_throw_exception_ex(spl_ce_InvalidArgumentException, 0 TSRMLS_CC, (char*)message);
+    zend_throw_exception(spl_ce_InvalidArgumentException, (char*)message, 0 TSRMLS_CC);
 }
 
 void throw_out_of_range_(const char* message TSRMLS_DC)
 {
-    zend_throw_exception_ex(spl_ce_OutOfRangeException, 0 TSRMLS_CC, (char*)message);
+    zend_throw_exception(spl_ce_OutOfRangeException, (char*)message, 0 TSRMLS_CC);
 }
 
 void throw_out_of_bounds_(const char* message TSRMLS_DC)
 {
-    zend_throw_exception_ex(spl_ce_OutOfBoundsException, 0 TSRMLS_CC, (char*)message);
+    zend_throw_exception(spl_ce_OutOfBoundsException, (char*)message, 0 TSRMLS_CC);
 }
 
 void throw_bad_function_call_(const char* message TSRMLS_DC)
 {
-    zend_throw_exception_ex(spl_ce_BadFunctionCallException, 0 TSRMLS_CC, (char*)message);
+    zend_throw_exception(spl_ce_BadFunctionCallException, (char*)message, 0 TSRMLS_CC);
 }

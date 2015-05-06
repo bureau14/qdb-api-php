@@ -4,6 +4,8 @@
 #ifndef QDB_CLASS_DEFINITION_H
 #define QDB_CLASS_DEFINITION_H
 
+#include "exceptions.h"
+
 int check_arg_count(int actual, int min, int max TSRMLS_DC);
 
 #define STR(X) #X

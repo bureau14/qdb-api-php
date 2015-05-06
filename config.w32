@@ -29,6 +29,7 @@ if (PHP_QDB != "no") {
     EXTENSION("qdb", "php_qdb.c", true);
     ADD_SOURCES(configure_module_dirname + "\\src", "\
         class_definition.c \
+        connection.c \
         exceptions.c \
         globals.c \
         log.c \

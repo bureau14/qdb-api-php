@@ -4,15 +4,14 @@
 #include <php.h> // include first to avoid conflict with stdint.h
 
 #include "class_definition.h"
-#include "exceptions.h"
-#include "log.h"
+#include "connection.h"
 #include "QdbBatch.h"
 #include "QdbBatchResult.h"
 #include "QdbBlob.h"
 #include "QdbCluster.h"
+#include "QdbHashSet.h"
 #include "QdbInteger.h"
 #include "QdbQueue.h"
-#include "QdbHashSet.h"
 
 #include <qdb/client.h>
 
@@ -27,23 +26,14 @@ typedef struct {
 
 BEGIN_CLASS_METHOD_1(__construct, STRING_ARG(uri))
 {
-    this->handle = qdb_open_tcp();
-
-    log_attach(this->handle);
-
-    qdb_error_t error = qdb_connect(this->handle, Z_STRVAL_P(uri));
-
-    if (error == qdb_e_invalid_argument)
-        throw_invalid_argument("Cluster URI is invalid.");
-    else if (error)
-        throw_qdb_error(error);
+    this->handle = connection_open(uri TSRMLS_CC);
 }
 END_CLASS_METHOD()
 
 
 BEGIN_CLASS_METHOD_0(__destruct)
 {
-    qdb_close(this->handle);
+    connection_close(this->handle TSRMLS_CC);
 }
 END_CLASS_METHOD()
 
