@@ -20,7 +20,7 @@
 #include "src/QdbHashSet.h"
 #include "src/settings.h"
 
-static PHP_MINIT_FUNCTION(qdb)
+static PHP_MINIT_FUNCTION(quasardb)
 {
     globals_init();
     settings_init(module_number TSRMLS_CC);
@@ -38,36 +38,36 @@ static PHP_MINIT_FUNCTION(qdb)
     return SUCCESS;
 }
 
-static PHP_MSHUTDOWN_FUNCTION(qdb)
+static PHP_MSHUTDOWN_FUNCTION(quasardb)
 {
     connection_shutdown(TSRMLS_C);
     settings_shutdown(module_number TSRMLS_CC);
     return SUCCESS;
 }
 
-static PHP_MINFO_FUNCTION(qdb)
+static PHP_MINFO_FUNCTION(quasardb)
 {
     php_info_print_table_start();
-    php_info_print_table_row(2, "qdb php api version", PHP_QDB_EXTVER);
-    php_info_print_table_row(2, "qdb client version", qdb_version());
-    php_info_print_table_row(2, "qdb client build", qdb_build());
+    php_info_print_table_row(2, "quasardb php extension version", PHP_QUASARDB_EXTVER);
+    php_info_print_table_row(2, "quasardb client version", qdb_version());
+    php_info_print_table_row(2, "quasardb client build", qdb_build());
     php_info_print_table_end();
     settings_print_info(zend_module);
 }
 
-zend_module_entry qdb_module_entry = {
+zend_module_entry quasardb_module_entry = {
     STANDARD_MODULE_HEADER,
-    PHP_QDB_EXTNAME,
+    PHP_QUASARDB_EXTNAME,
     NULL,        /* Functions */
-    PHP_MINIT(qdb),
-    PHP_MSHUTDOWN(qdb),
+    PHP_MINIT(quasardb),
+    PHP_MSHUTDOWN(quasardb),
     NULL,        /* RINIT */
     NULL,        /* RSHUTDOWN */
-    PHP_MINFO(qdb),
-    PHP_QDB_EXTVER,
+    PHP_MINFO(quasardb),
+    PHP_QUASARDB_EXTVER,
     STANDARD_MODULE_PROPERTIES
 };
 
-#ifdef COMPILE_DL_QDB
-ZEND_GET_MODULE(qdb)
+#ifdef COMPILE_DL_QUASARDB
+ZEND_GET_MODULE(quasardb)
 #endif

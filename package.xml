@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
+  xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+  <name>quasardb</name>
+  <channel>pecl.php.net</channel>
+  <summary>Quasardb PHP extension</summary>
+  <description>
+    Quasardb is a distributed NoSQL database
+    This package provides a PHP API to access data in a Quasardb cluster.
+  </description>
+  <lead>
+    <name>Benoit Blanchon</name>
+    <user>benoit</user>
+    <email>benoit@quasardb.net</email>
+    <active>yes</active>
+  </lead>
+  <date>2015-05-07</date>
+  <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api>
+  </version>
+  <stability>
+    <release>beta</release>
+    <api>beta</api>
+  </stability>
+  <license uri="https://github.com/bureau14/qdb-api-php/blob/master/LICENSE.md">BSD License</license>
+  <notes>
+    This version targets quasardb 2.0.
+    It supports:
+    * batchs
+    * blobs
+    * queues
+    * integers
+    * sets
+  </notes>
+  <contents>
+    <dir name="/">
+      <file role="doc" name="LICENSE.md"/>
+      <file role="doc" name="README.md"/>
+      <file role="src" name="php_qdb.h"/>
+      <file role="src" name="php_qdb.c"/>
+      <file role="src" name="config.m4"/>
+      <file role="src" name="config.w32"/>
+      <dir name="src">
+        <file role="src" name="class_definition.c" />
+        <file role="src" name="class_definition.h" />
+        <file role="src" name="class_definition.i" />
+        <file role="src" name="connection.c" />
+        <file role="src" name="connection.h" />
+        <file role="src" name="exceptions.c" />
+        <file role="src" name="exceptions.h" />
+        <file role="src" name="globals.c" />
+        <file role="src" name="globals.h" />
+        <file role="src" name="log.c" />
+        <file role="src" name="log.h" />
+        <file role="src" name="QdbBatch.c" />
+        <file role="src" name="QdbBatch.h" />
+        <file role="src" name="QdbBatchResult.c" />
+        <file role="src" name="QdbBatchResult.h" />
+        <file role="src" name="QdbBlob.c" />
+        <file role="src" name="QdbBlob.h" />
+        <file role="src" name="QdbCluster.c" />
+        <file role="src" name="QdbCluster.h" />
+        <file role="src" name="QdbEntry.c" />
+        <file role="src" name="QdbEntry.h" />
+        <file role="src" name="QdbExpirableEntry.c" />
+        <file role="src" name="QdbExpirableEntry.h" />
+        <file role="src" name="QdbHashSet.c" />
+        <file role="src" name="QdbHashSet.h" />
+        <file role="src" name="QdbInteger.c" />
+        <file role="src" name="QdbInteger.h" />
+        <file role="src" name="QdbQueue.c" />
+        <file role="src" name="QdbQueue.h" />
+        <file role="src" name="settings.c" />
+        <file role="src" name="settings.h" />
+      </dir>
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>5.1</min>
+      </php>
+      <pearinstaller>
+        <min>1.4</min>
+      </pearinstaller>
+    </required>
+  </dependencies>
+  <providesextension>quasardb</providesextension>
+  <extsrcrelease/>
+</package>

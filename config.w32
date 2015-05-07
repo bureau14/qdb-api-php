@@ -1,32 +1,32 @@
-ARG_WITH("qdb", "QUASARDB support", "no");
+ARG_WITH("quasardb", "QUASARDB support", "no");
 
-if (PHP_QDB != "no") {
-    if (FSO.FolderExists(PHP_QDB))
+if (PHP_QUASARDB != "no") {
+    if (FSO.FolderExists(PHP_QUASARDB))
     {
-        var incfolder = PHP_QDB + "\\include";
-        var libfolder = PHP_QDB + "\\lib";
+        var incfolder = PHP_QUASARDB + "\\include";
+        var libfolder = PHP_QUASARDB + "\\lib";
 
-        if (!CHECK_LIB("qdb_api.lib", "qdb", libfolder)) {
-            ERROR("wrong qdb_capi folder: " + PHP_QDB);
+        if (!CHECK_LIB("qdb_api.lib", "quasardb", libfolder)) {
+            ERROR("wrong qdb_api folder: " + PHP_QUASARDB);
         }
 
-        if(!CHECK_HEADER_ADD_INCLUDE("qdb\\client.h", "CFLAGS_QDB", incfolder)) {
-            ERROR("wrong qdb_capi folder: " + PHP_QDB);
+        if(!CHECK_HEADER_ADD_INCLUDE("qdb\\client.h", "CFLAGS_QUASARDB", incfolder)) {
+            ERROR("wrong qdb_api folder: " + PHP_QUASARDB);
         }
     }
     else
     {
-        if (!CHECK_LIB("qdb_api.lib", "qdb") &&
-            !CHECK_LIB("qdb_apid.lib", "qdb") ) {
-            ERROR("qdb_api not found, please try --with-qdb=/path/to/qdb_capi");
+        if (!CHECK_LIB("qdb_api.lib", "quasardb") &&
+            !CHECK_LIB("qdb_apid.lib", "quasardb") ) {
+            ERROR("qdb_api not found, please try --with-quasardb=/path/to/quasardb_capi");
         }
 
-        if(!CHECK_HEADER_ADD_INCLUDE("qdb\\client.h", "CFLAGS_QDB")) {
+        if(!CHECK_HEADER_ADD_INCLUDE("qdb\\client.h", "CFLAGS_QUASARDB")) {
             ERROR("qdb\\client.h not found, please try --with-extra-includes=/path/to/include");
         }
     }
 
-    EXTENSION("qdb", "php_qdb.c", true);
+    EXTENSION("quasardb", "php_qdb.c", true);
     ADD_SOURCES(configure_module_dirname + "\\src", "\
         class_definition.c \
         connection.c \
@@ -43,5 +43,5 @@ if (PHP_QDB != "no") {
         QdbInteger.c \
         QdbQueue.c \
         settings.c \
-        ", "qdb");
+        ", "quasardb");
 }

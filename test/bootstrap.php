@@ -5,7 +5,7 @@ $PROJECT_ROOT = dirname(__FILE__) . '/../../../..';
 $DAEMON_FLAGS = "--transient --log-console --address 127.0.0.1:20552";
 
 echo 'Check extension... ';
-if (!extension_loaded('qdb')) {
+if (!extension_loaded('quasardb')) {
     echo "Failed", PHP_EOL;
     exit(1);
 }
@@ -33,7 +33,7 @@ if (!$status['running']) {
 }
 echo 'OK, pid=', $status['pid'], PHP_EOL;
 
-function kill($pid) {    
+function kill($pid) {
     if (strncasecmp(PHP_OS, 'WIN', 3) == 0) {
         return exec("taskkill /F /T /PID $pid");
     } else {
@@ -42,7 +42,7 @@ function kill($pid) {
 }
 
 register_shutdown_function(
-    function () use ($process) 
+    function () use ($process)
     {
         $pid = proc_get_status($process)['pid'];
         echo "Stopping qdb daemon (pid=$pid)... ";

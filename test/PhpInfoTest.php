@@ -15,22 +15,22 @@ class PhpInfoTest extends PHPUnit_Framework_TestCase
 
     public function testLogLevel()
     {
-        $this->assertRegExp('/qdb.log_level/', $this->info);
+        $this->assertRegExp('/quasardb.log_level/', $this->info);
     }
 
     public function testPhpApiVersion()
     {
-        $this->assertRegExp('/qdb php api/', $this->info);
+        $this->assertRegExp('/quasardb php extension/', $this->info);
     }
 
     public function testClientVersion()
     {
-        $this->assertRegExp('/qdb client version/', $this->info);
+        $this->assertRegExp('/quasardb client version/', $this->info);
     }
 
     public function testClientBuild()
     {
-        $this->assertRegExp('/qdb client build/', $this->info);
+        $this->assertRegExp('/quasardb client build/', $this->info);
     }
 }
 

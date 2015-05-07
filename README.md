@@ -33,7 +33,9 @@ What else? a [set](doc/QdbHashSet.md) maybe?
 
 ## Documentation
 
-* [Installation instructions](doc/Installation.md)
+* [Installation instructions](doc/Installing.md)
+* [Compilation instructions](doc/Compiling.md)
+* [Configuration (php.ini)](doc/Configuration.md)
 * [The `QdbBatch` class](doc/QdbBatch.md)
 * [The `QdbBlob` class](doc/QdbBlob.md)
 * [The `QdbCluster` class](doc/QdbCluster.md)

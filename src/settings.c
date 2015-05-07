@@ -22,8 +22,8 @@ static ZEND_INI_MH(OnUpdateLogLevel)
 }
 
 PHP_INI_BEGIN()
-    STD_PHP_INI_ENTRY("qdb.log_level", "panic", PHP_INI_ALL, OnUpdateLogLevel, log_level, zend_qdb_globals, qdb_globals)
-    STD_PHP_INI_ENTRY("qdb.persistent", "1", PHP_INI_ALL, OnUpdateBool, persistent, zend_qdb_globals, qdb_globals)
+    STD_PHP_INI_ENTRY("quasardb.log_level", "panic", PHP_INI_ALL, OnUpdateLogLevel, log_level, zend_qdb_globals, qdb_globals)
+    STD_PHP_INI_ENTRY("quasardb.persistent", "1", PHP_INI_ALL, OnUpdateBool, persistent, zend_qdb_globals, qdb_globals)
 PHP_INI_END()
 
 void settings_init(int module_number TSRMLS_DC)
