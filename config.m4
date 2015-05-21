@@ -29,7 +29,7 @@ if test "$PHP_QUASARDB" != "no"; then
       [PHP_ADD_INCLUDE($PHP_QUASARDB/include)],
       [AC_MSG_ERROR(qdb/client.h not found in $PHP_QUASARDB/include)])
 
-    PHP_CHECK_LIBRARY(qdb_api, quasardb_version,
+    PHP_CHECK_LIBRARY(qdb_api, qdb_version,
       [PHP_ADD_LIBRARY_WITH_PATH(qdb_api, $PHP_QUASARDB/lib, QUASARDB_SHARED_LIBADD)],
       [AC_MSG_ERROR([qdb_api not found in $PHP_QUASARDB/lib])],
       [-L$PHP_QUASARDB/lib])
