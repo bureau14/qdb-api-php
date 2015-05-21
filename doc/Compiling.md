@@ -2,19 +2,28 @@
 
 #### Assumptions:
 
-1. `php`, `php-devel`, `git` and `gcc` are installed
-2. `qdb-capi` is installed in `/usr/include` and `/usr/lib`
-3. `qdb-php-api.tar.gz` has been downloaded
-Please adapt to your configuration.
+1. `php5`, `php5-dev`, `git`, `gcc` and `libpcre3-dev` are installed
+2. [qdb-capi](https://download.quasardb.net/quasardb/) is installed in `/usr/include` and `/usr/lib`
+
+This has been tested on Ubuntu 14.04 LTS, please adapt to your configuration.
 
 #### Instructions:
 
     git clone https://github.com/bureau14/qdb-api-php.git
-    cd qdb-php-api
+    cd qdb-api-php
     phpize
     ./configure --with-quasardb
     make
-    make install
+    sudo make install
+
+#### Alternative:
+
+If you don't want to install `qdb_capi` in `/usr/include` and `/usr/lib`, you can specify the path like this:
+
+    ./configure --with-quasardb=/path/to/qdb_api
+
+However, this will stop working if you change the location of `qdb_capi` and you'll need to do the compilation again.
+That is why the global installation in `/usr/include` and `/usr/lib` is recommended.
 
 ## Manual compilation from source on Windows
 
