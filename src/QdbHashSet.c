@@ -27,7 +27,7 @@ void QdbHashSet_createInstance(zval* destination, qdb_handle_t handle, zval* ali
 
 BEGIN_CLASS_METHOD_1(insert, STRING_ARG(content))
 {
-    qdb_error_t error = qdb_set_insert(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
+    qdb_error_t error = qdb_hset_insert(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
     if (error == qdb_e_element_already_exists)
         RETVAL_FALSE;
@@ -41,7 +41,7 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_1(erase, STRING_ARG(content))
 {
-    qdb_error_t error = qdb_set_erase(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
+    qdb_error_t error = qdb_hset_erase(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
     if (error == qdb_e_element_not_found)
         RETVAL_FALSE;
@@ -55,7 +55,7 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_1(contains, STRING_ARG(content))
 {
-    qdb_error_t error = qdb_set_contains(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
+    qdb_error_t error = qdb_hset_contains(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
     if (error == qdb_e_element_not_found)
         RETVAL_FALSE;

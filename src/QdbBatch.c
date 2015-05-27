@@ -115,7 +115,7 @@ BEGIN_CLASS_METHOD_1(get, STRING_ARG(alias))
 
     batch_operation_t* op = alloc_operation(this);
     op->alias = alias;
-    op->type = qdb_op_get_alloc;
+    op->type = qdb_op_get;
 }
 END_CLASS_METHOD()
 
