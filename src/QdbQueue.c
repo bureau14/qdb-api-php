@@ -9,6 +9,7 @@
 #include "exceptions.h"
 #include "QdbEntry.h"
 
+#include <qdb/queue.h>
 
 #define class_name          QdbQueue
 #define class_storage       entry_t

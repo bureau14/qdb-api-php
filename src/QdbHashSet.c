@@ -9,6 +9,7 @@
 #include "exceptions.h"
 #include "QdbEntry.h"
 
+#include <qdb/hset.h>
 
 #define class_name          QdbHashSet
 #define class_storage       entry_t

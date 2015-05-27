@@ -7,8 +7,6 @@
 #include "QdbEntry.h"
 #include "exceptions.h"
 
-#include <qdb/client.h>
-
 #define class_name          QdbEntry
 #define class_storage       entry_t
 

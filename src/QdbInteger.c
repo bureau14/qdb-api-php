@@ -11,7 +11,7 @@
 #include "QdbExpirableEntry.h"
 #include "exceptions.h"
 
-#include <qdb/client.h>
+#include <qdb/integer.h>
 
 #define class_name          QdbInteger
 #define class_storage       entry_t
