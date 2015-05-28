@@ -1,7 +1,7 @@
 setlocal
 
 set TEST_DIR=%~dp0..\test
-set PATH=%PATH%;%QDB_DAEMON%\bin
+set PATH=%PATH%;%QDB_DAEMON%\bin;%QDB_API%\bin
 
 call "%VCVARS%"
 

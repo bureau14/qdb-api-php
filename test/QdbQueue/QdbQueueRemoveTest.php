@@ -21,7 +21,7 @@ class QdbQueueRemoveTest extends QdbQueueTestBase
         $this->queue->remove();
     }
 
-    public function DISABLED_testPushRemovePush()
+    public function testPushRemovePush()
     {
         $this->queue->pushBack('first');
         $this->queue->remove();
