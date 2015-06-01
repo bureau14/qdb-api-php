@@ -95,9 +95,7 @@ static zend_class_entry * get_exception_ce(qdb_error_t code)
 
 void throw_qdb_error_(qdb_error_t code TSRMLS_DC)
 {
-    char message[64];
-    qdb_error(code, message, sizeof(message));
-    zend_throw_exception(get_exception_ce(code), message, 0 TSRMLS_CC);
+    zend_throw_exception(get_exception_ce(code), qdb_error(code), 0 TSRMLS_CC);
 }
 
 void throw_invalid_argument_(const char* message TSRMLS_DC)

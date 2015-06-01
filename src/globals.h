@@ -5,9 +5,10 @@
 #define QDB_GLOBALS_H
 
 #include <php.h> // include first to avoid conflict with stdint.h
+#include <qdb/client.h>
 
 ZEND_BEGIN_MODULE_GLOBALS(qdb)
-    int log_level;
+    qdb_log_level_t log_level;
     zend_bool persistent;
     HashTable connections;
 ZEND_END_MODULE_GLOBALS(qdb)
