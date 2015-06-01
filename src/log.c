@@ -24,7 +24,9 @@ static struct level_name _level_names[] = {
 
 static const char* log_level_name(qdb_log_level_t level)
 {
-    for (int i=0 ; i<sizeof(_level_names)/sizeof(_level_names[0]); i++)
+    int i;
+
+    for (i=0 ; i<sizeof(_level_names)/sizeof(_level_names[0]); i++)
     {
         if (_level_names[i].level == level)
             return _level_names[i].name;
@@ -35,7 +37,9 @@ static const char* log_level_name(qdb_log_level_t level)
 
 qdb_log_level_t log_level_from_name(const char* name)
 {
-    for (int i=0 ; i<sizeof(_level_names)/sizeof(_level_names[0]); i++)
+    int i;
+
+    for (i=0 ; i<sizeof(_level_names)/sizeof(_level_names[0]); i++)
     {
         if (!strcasecmp(_level_names[i].name, name))
             return _level_names[i].level;
