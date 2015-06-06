@@ -50,8 +50,9 @@ static qdb_handle_t connection_load(zval* uri TSRMLS_DC)
         if (handle) return handle;
     }
 
+    log_attach();
+
     qdb_handle_t handle = qdb_open_tcp();
-    log_attach(handle);
 
     qdb_error_t error = qdb_connect(handle, Z_STRVAL_P(uri));
 

@@ -58,7 +58,7 @@ static void log_callback(qdb_log_level_t level, const unsigned long * date, unsi
     php_printf("qdb: %02ld/%02ld/%04ld-%02ld:%02ld:%02ld %s: %s\n", date[1], date[2], date[0], date[3], date[4], date[5], log_level_name(level), msg);
 }
 
-void log_attach(qdb_handle_t handle)
+void log_attach(void)
 {
-    qdb_set_option(handle, qdb_o_log_callback, log_callback);
+    qdb_option_add_log_callback(log_callback);
 }
