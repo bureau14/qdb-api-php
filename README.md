@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Using *quasardb* cluster from a PHP program is extremely straightforward, just create a [`QdbCluster`](doc/QdbCluster.md) and perform the operations.
+Interfacing with a *quasardb* database from a PHP program is extremely straightforward, just create a [`QdbCluster`](doc/QdbCluster.md) and perform the operations.
 
     $cluster = new QdbCluster('qdb://127.0.0.1:2836');
 
@@ -11,7 +11,7 @@ OK, now that we have a connection to the cluster, let's store some [binary data]
     $blob = $cluster->blob('myEntry');
     $blob->put('firstValue');
     $blob->update('secondValue');
-    $value = $blob->get('myEntry');
+    $value = $blob->get();
 
 Want a [queue](doc/QdbQueue.md) in your database?
 
