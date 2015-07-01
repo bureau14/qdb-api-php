@@ -19,7 +19,7 @@ class QdbClusterBlobTest extends QdbTestBase
      */
     public function testTooManyArguments()
     {
-        $this->cluster->blob($this->alias, 0);
+        $this->cluster->blob('alias', 0);
     }
 
     /**
@@ -33,7 +33,7 @@ class QdbClusterBlobTest extends QdbTestBase
 
     public function testReturnType()
     {
-        $blob = $this->cluster->blob($this->alias);
+        $blob = $this->cluster->blob(createUniqueAlias());
         $this->assertInstanceOf('QdbBlob', $blob);
         $this->assertInstanceOf('QdbExpirableEntry', $blob);
         $this->assertInstanceOf('QdbEntry', $blob);
@@ -41,8 +41,9 @@ class QdbClusterBlobTest extends QdbTestBase
 
     public function testAlias()
     {
-        $blob = $this->cluster->blob($this->alias);
-        $this->assertEquals($this->alias, $blob->alias());
+        $alias = createUniqueAlias();
+        $blob = $this->cluster->blob($alias);
+        $this->assertEquals($alias, $blob->alias());
     }
 }
 

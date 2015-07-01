@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__).'/QdbBatchTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBatchRemoveIfTest extends QdbBatchTestBase
+class QdbBatchRemoveIfTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->removeIf($this->alias);
+        $batch = $this->createBatch();
+
+        $batch->removeIf('alias');
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->removeIf($this->alias, 'comparand', 'i should not be there');
+        $batch = $this->createBatch();
+
+        $batch->removeIf('alias', 'comparand', 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
      */
     public function testWrongAliasType()
     {
-        $this->batch->removeIf(array(), 'comparand');
+        $batch = $this->createBatch();
+
+        $batch->removeIf(array(), 'comparand');
     }
 
     /**
@@ -37,24 +43,31 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
      */
     public function testWrongComparandType()
     {
-        $this->batch->removeIf($this->alias, array());
+        $batch = $this->createBatch();
+
+        $batch->removeIf('alias', array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->removeIf($this->alias, 'first');
+        $batch = $this->createBatch();
+
+        $result = $batch->removeIf('alias', 'first');
 
         $this->assertNull($result);
     }
 
     public function testSideEffect1()
     {
-        $this->blob->put('first');
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
 
-        $this->batch->removeIf($this->alias, 'second');
-        $result = $this->cluster->runBatch($this->batch);
+        $blob->put('first');
 
-        $this->assertEquals('first', $this->blob->get());
+        $batch->removeIf($blob->alias(), 'second');
+        $result = $this->cluster->runBatch($batch);
+
+        $this->assertEquals('first', $blob->get());
     }
 
     /**
@@ -62,30 +75,39 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
      */
     public function testSideEffect2()
     {
-        $this->blob->put('first');
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
 
-        $this->batch->removeIf($this->alias, 'first');
-        $result = $this->cluster->runBatch($this->batch);
+        $blob->put('first');
 
-        $this->blob->get(); // <- throws
+        $batch->removeIf($blob->alias(), 'first');
+        $result = $this->cluster->runBatch($batch);
+
+        $blob->get(); // <- throws
     }
 
     public function testResultFalse()
     {
-        $this->blob->put('first');
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
 
-        $this->batch->removeIf($this->alias, 'second');
-        $result = $this->cluster->runBatch($this->batch);
+        $blob->put('first');
+
+        $batch->removeIf($blob->alias(), 'second');
+        $result = $this->cluster->runBatch($batch);
 
         $this->assertFalse($result[0]);
     }
 
     public function testResultTrue()
     {
-        $this->blob->put('first');
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
 
-        $this->batch->removeIf($this->alias, 'first');
-        $result = $this->cluster->runBatch($this->batch);
+        $blob->put('first');
+
+        $batch->removeIf($blob->alias(), 'first');
+        $result = $this->cluster->runBatch($batch);
 
 
         $this->assertTrue($result[0]);
@@ -96,10 +118,12 @@ class QdbBatchRemoveIfTest extends QdbBatchTestBase
      */
     public function testException()
     {
+        $batch = $this->createBatch();
+
         $comparand = 'comparand';
 
-        $this->batch->removeIf($this->alias, $comparand);
-        $result = $this->cluster->runBatch($this->batch);
+        $batch->removeIf(createUniqueAlias(), $comparand);
+        $result = $this->cluster->runBatch($batch);
 
         $result[0]; // <- throws
     }

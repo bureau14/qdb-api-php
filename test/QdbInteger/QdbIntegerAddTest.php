@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbIntegerTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbIntegerAddTest extends QdbIntegerTestBase
+class QdbIntegerAddTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbIntegerAddTest extends QdbIntegerTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->integer->add();
+        $integer = $this->createEmptyInteger();
+
+        $integer->add();
     }
 
     /**
@@ -19,30 +21,38 @@ class QdbIntegerAddTest extends QdbIntegerTestBase
      */
     public function testTooManyArguments()
     {
-        $this->integer->add(42, 'i should not be there');
-    }
+        $integer = $this->createEmptyInteger();
 
-    public function testSideEffect()
-    {
-        $this->integer->put(19);
-        $this->integer->add(23);
-        $this->assertEquals(42, $this->integer->get());
-    }
-
-    public function testReturnValue()
-    {
-        $this->integer->put(19);
-        $result = $this->integer->add(23);
-        $this->assertEquals(42, $result);
+        $integer->add(42, 'i should not be there');
     }
 
     /**
      * @expectedException               QdbIncompatibleTypeException
      */
-    public function testOnABlob()
+    public function testIncompatibleType()
     {
-        $this->blob->put("i'm not an integer :-P");
-        $this->integer->add(42);
+        $blob = $this->createBlob();
+        $integer = $this->createEmptyInteger($blob->alias());
+
+        $integer->add(42);
+    }
+
+    public function testSideEffect()
+    {
+        $integer = $this->createEmptyInteger();
+
+        $integer->put(19);
+        $integer->add(23);
+        $this->assertEquals(42, $integer->get());
+    }
+
+    public function testReturnValue()
+    {
+        $integer = $this->createEmptyInteger();
+
+        $integer->put(19);
+        $result = $integer->add(23);
+        $this->assertEquals(42, $result);
     }
 }
 

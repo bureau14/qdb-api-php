@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbClusterHashSetTest extends QdbTestBase
+class QdbClusterTagTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbClusterHashSetTest extends QdbTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->cluster->hashSet();
+        $this->cluster->tag();
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbClusterHashSetTest extends QdbTestBase
      */
     public function testTooManyArguments()
     {
-        $this->cluster->hashSet('alias', 0);
+        $this->cluster->tag('alias', 0);
     }
 
     /**
@@ -28,24 +28,24 @@ class QdbClusterHashSetTest extends QdbTestBase
      */
     public function testWrongAliasType()
     {
-        $this->cluster->hashSet(array());
+        $this->cluster->tag(array());
     }
 
     public function testReturnType()
     {
-        $hashSet = $this->cluster->hashSet(createUniqueAlias());
+        $alias = createUniqueAlias();
 
-        $this->assertInstanceOf('QdbHashSet', $hashSet);
-        $this->assertInstanceOf('QdbEntry', $hashSet);
+        $tag = $this->cluster->tag($alias);
+        $this->assertInstanceOf('QdbTag', $tag);
+        $this->assertInstanceOf('QdbEntry', $tag);
     }
 
     public function testAlias()
     {
         $alias = createUniqueAlias();
 
-        $hashSet = $this->cluster->hashSet($alias);
-
-        $this->assertEquals($alias, $hashSet->alias());
+        $tag = $this->cluster->tag($alias);
+        $this->assertEquals($alias, $tag->alias());
     }
 }
 

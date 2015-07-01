@@ -1,8 +1,8 @@
-QdbBatchTestBase<?php
+QdbTestBase<?php
 
-require_once dirname(__FILE__).'/QdbBatchTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBatchPutTest extends QdbBatchTestBase
+class QdbBatchPutTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->put($this->alias);
+        $batch = $this->createBatch();
+
+        $batch->put('alias');
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->put($this->alias, 'content', 0, 'i should not be there');
+        $batch = $this->createBatch();
+
+        $batch->put('alias', 'content', 0, 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testWrongAliasType()
     {
-        $this->batch->put(array(), 'content');
+        $batch = $this->createBatch();
+
+        $batch->put(array(), 'content');
     }
 
     /**
@@ -37,7 +43,9 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testWrongContentType()
     {
-        $this->batch->put($this->alias, array());
+        $batch = $this->createBatch();
+
+        $batch->put('alias', array());
     }
 
     /**
@@ -46,33 +54,42 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->batch->put($this->alias, 'content', array());
+        $batch = $this->createBatch();
+
+        $batch->put('alias', 'content', array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->put($this->alias, 'content');
+        $batch = $this->createBatch();
+
+        $result = $batch->put('alias', 'content');
 
         $this->assertNull($result);
     }
 
     public function testSideEffect()
     {
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
+
         $content = 'content';
         $expiry = time() + 60;
 
-        $this->batch->put($this->alias, $content, $expiry);
-        $result = $this->cluster->runBatch($this->batch);
+        $batch->put($blob->alias(), $content, $expiry);
+        $result = $this->cluster->runBatch($batch);
 
-        $this->assertEquals($content, $this->blob->get());
-        $this->assertEquals($expiry, $this->blob->getExpiryTime());
+        $this->assertEquals($content, $blob->get());
+        $this->assertEquals($expiry, $blob->getExpiryTime());
     }
 
     public function testResult()
     {
+        $batch = $this->createBatch();
 
-        $this->batch->put($this->alias, 'content');
-        $result = $this->cluster->runBatch($this->batch);
+
+        $batch->put('alias', 'content');
+        $result = $this->cluster->runBatch($batch);
 
         $this->assertEquals(1, $result->count());
         $this->assertTrue(isset($result[0]));
@@ -84,11 +101,14 @@ class QdbBatchPutTest extends QdbBatchTestBase
      */
     public function testException()
     {
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
+
         $content = 'content';
 
-        $this->blob->put($content);
-        $this->batch->put($this->alias, $content);
-        $result = $this->cluster->runBatch($this->batch);
+        $blob->put($content);
+        $batch->put($blob->alias(), $content);
+        $result = $this->cluster->runBatch($batch);
 
         $result[0]; // <- throws
     }

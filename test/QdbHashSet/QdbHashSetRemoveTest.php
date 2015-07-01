@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbHashSetTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbHashSetRemoveTest extends QdbHashSetTestBase
+class QdbHashSetRemoveTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbHashSetRemoveTest extends QdbHashSetTestBase
      */
     public function testTooManyArguments()
     {
-        $this->hashSet->remove('hello');
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->remove('hello');
     }
 
     /**
@@ -18,17 +20,21 @@ class QdbHashSetRemoveTest extends QdbHashSetTestBase
      */
     public function testAliasNotFound()
     {
-        $this->hashSet->remove();
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->remove();
     }
 
     public function testInsertRemoveInsert()
     {
-        $this->hashSet->insert('first');
-        $this->hashSet->remove();
-        $this->hashSet->insert('second');
+        $hashSet = $this->createEmptyHashSet();
 
-        $this->assertFalse($this->hashSet->contains('first'));
-        $this->assertTrue($this->hashSet->contains('second'));
+        $hashSet->insert('first');
+        $hashSet->remove();
+        $hashSet->insert('second');
+
+        $this->assertFalse($hashSet->contains('first'));
+        $this->assertTrue($hashSet->contains('second'));
     }
 }
 

@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
+class QdbBlobExpiresFromNowTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->blob->expiresFromNow();
+        $blob = $this->createEmptyBlob();
+
+        $blob->expiresFromNow();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->expiresFromNow(0, 'i should not be there');
+        $blob = $this->createEmptyBlob();
+
+        $blob->expiresFromNow(0, 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->blob->expiresFromNow(array());
+        $blob = $this->createEmptyBlob();
+
+        $blob->expiresFromNow(array());
     }
 
     /**
@@ -36,23 +42,29 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testAliasNotFound()
     {
-        $this->blob->expiresFromNow(0);
+        $blob = $this->createEmptyBlob();
+
+        $blob->expiresFromNow(0);
     }
 
     public function testReturnValue()
     {
-        $this->blob->put('content');
-        $result = $this->blob->expiresFromNow(60);
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('content');
+        $result = $blob->expiresFromNow(60);
 
         $this->assertNull($result);
     }
 
     public function testAddExpiry()
     {
-        $this->blob->put('content');
-        $this->blob->expiresFromNow(60);
+        $blob = $this->createEmptyBlob();
 
-        $this->assertGreaterThan(time(), $this->blob->getExpiryTime());
+        $blob->put('content');
+        $blob->expiresFromNow(60);
+
+        $this->assertGreaterThan(time(), $blob->getExpiryTime());
     }
 
     /**
@@ -60,9 +72,11 @@ class QdbBlobExpiresFromNowTest extends QdbBlobTestBase
      */
     public function testExpiryInThePast()
     {
-        $this->blob->put('content');
-        $this->blob->expiresFromNow(-60);
-        $this->blob->getExpiryTime();
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('content');
+        $blob->expiresFromNow(-60);
+        $blob->getExpiryTime();
     }
 }
 

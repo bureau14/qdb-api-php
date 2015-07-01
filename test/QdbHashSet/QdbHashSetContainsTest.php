@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbHashSetTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbHashSetContainsTest extends QdbHashSetTestBase
+class QdbHashSetContainsTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbHashSetContainsTest extends QdbHashSetTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->hashSet->contains();
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->contains();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbHashSetContainsTest extends QdbHashSetTestBase
      */
     public function testTooManyArguments()
     {
-        $this->hashSet->contains('hello', 'world');
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->contains('hello', 'world');
     }
 
     /**
@@ -28,30 +32,39 @@ class QdbHashSetContainsTest extends QdbHashSetTestBase
      */
     public function testWrongValueType()
     {
-        $this->hashSet->contains(array());
-    }
+        $hashSet = $this->createEmptyHashSet();
 
-    public function testReturnTrue()
-    {
-        $this->hashSet->insert('hello');
-        $result = $this->hashSet->contains('hello');
-        $this->assertEquals(true, $result);
-    }
-
-    public function testReturnFalse()
-    {
-        $this->hashSet->insert('hello');
-        $result = $this->hashSet->contains('world');
-        $this->assertEquals(false, $result);
+        $hashSet->contains(array());
     }
 
     /**
      * @expectedException               QdbIncompatibleTypeException
      */
-    public function testAfterPutBlob()
+    public function testIncompatibleType()
     {
-        $this->blob->put('world');
-        $this->hashSet->contains('hello');
+        $alias = createUniqueAlias();
+        $blob = $this->createBlob($alias);
+        $hashSet = $this->createEmptyHashSet($alias);
+
+        $hashSet->contains('hello');
+    }
+
+    public function testReturnTrue()
+    {
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->insert('hello');
+        $result = $hashSet->contains('hello');
+        $this->assertEquals(true, $result);
+    }
+
+    public function testReturnFalse()
+    {
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->insert('hello');
+        $result = $hashSet->contains('world');
+        $this->assertEquals(false, $result);
     }
 }
 

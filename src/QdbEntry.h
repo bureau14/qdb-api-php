@@ -17,4 +17,8 @@ void QdbEntry_registerClass(TSRMLS_D);
 
 void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC);
 
+zval* QdbEntry_getAlias(zval* object TSRMLS_DC);
+
+int QdbEntry_isInstance(zval* object TSRMLS_DC);
+
 #endif /* QDB_ENTRY */

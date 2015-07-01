@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobPutTest extends QdbBlobTestBase
+class QdbBlobPutTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->blob->put();
+        $blob = $this->createEmptyBlob();
+
+        $blob->put();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->put('content', 0, 'i should not be there');
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('content', 0, 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testWrongValueType()
     {
-        $this->blob->put(array());
+        $blob = $this->createEmptyBlob();
+
+        $blob->put(array());
     }
 
     /**
@@ -37,7 +43,9 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->blob->put('content', array());
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('content', array());
     }
 
     /**
@@ -45,26 +53,46 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testSameAliasTwice()
     {
-        $this->blob->put('first');
-        $this->blob->put('second');
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('first');
+        $blob->put('second');
+    }
+
+    /**
+     * @expectedException               QdbIncompatibleTypeException
+     */
+    public function testIncompatibleType()
+    {
+        $alias = createUniqueAlias();
+        $this->createInteger($alias);
+        $blob = $this->createEmptyBlob($alias);
+
+        $blob->put('content');
     }
 
     public function testReturnValue()
     {
-        $result = $this->blob->put('content');
+        $blob = $this->createEmptyBlob();
+
+        $result = $blob->put('content');
         $this->assertNull($result);
     }
 
     public function testWithNoExpiry()
     {
-        $this->blob->put('content');
-        $this->assertEquals('content', $this->blob->get());
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('content');
+        $this->assertEquals('content', $blob->get());
     }
 
     public function testWithExpiry()
     {
-        $this->blob->put('content', time() + 60);
-        $this->assertEquals('content', $this->blob->get());
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('content', time() + 60);
+        $this->assertEquals('content', $blob->get());
     }
 
     /**
@@ -72,8 +100,10 @@ class QdbBlobPutTest extends QdbBlobTestBase
      */
     public function testWithExpiryInThePast()
     {
-        $this->blob->put('content', time() - 60);
-        $this->blob->get();
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('content', time() - 60);
+        $blob->get();
     }
 }
 

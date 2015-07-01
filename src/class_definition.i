@@ -37,3 +37,8 @@ void XCONCAT(class_name, _registerClass)(TSRMLS_D)
     zend_class_implements(CLASS_ENTRY TSRMLS_CC, class_interfaces);
 #endif
 }
+
+int XCONCAT(class_name, _isInstance)(zval* object TSRMLS_DC)
+{
+    return Z_TYPE_P(object) == IS_OBJECT && instanceof_function(Z_OBJCE_P(object), CLASS_ENTRY TSRMLS_CC);
+}

@@ -13,10 +13,13 @@ PHP_QUASARDB_SOURCES="\
   src/QdbBlob.c \
   src/QdbCluster.c \
   src/QdbEntry.c \
+  src/QdbEntryCollection.c \
   src/QdbExpirableEntry.c \
   src/QdbHashSet.c \
   src/QdbInteger.c \
   src/QdbQueue.c \
+  src/QdbTag.c \
+  src/QdbTagCollection.c \
   src/settings.c \
 "
 PHP_QUASARDB_CFLAGS="-Wall -fno-strict-aliasing"

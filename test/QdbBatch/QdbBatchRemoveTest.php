@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__).'/QdbBatchTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBatchRemoveTest extends QdbBatchTestBase
+class QdbBatchRemoveTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBatchRemoveTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->remove();
+        $batch = $this->createBatch();
+
+        $batch->remove();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBatchRemoveTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->remove($this->alias, 'i should not be there');
+        $batch = $this->createBatch();
+
+        $batch->remove('alias', 'i should not be there');
     }
 
     /**
@@ -28,12 +32,16 @@ class QdbBatchRemoveTest extends QdbBatchTestBase
      */
     public function testWrongAliasType()
     {
-        $this->batch->remove(array());
+        $batch = $this->createBatch();
+
+        $batch->remove(array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->remove($this->alias);
+        $batch = $this->createBatch();
+
+        $result = $batch->remove('alias');
 
         $this->assertNull($result);
     }
@@ -43,20 +51,26 @@ class QdbBatchRemoveTest extends QdbBatchTestBase
      */
     public function testSideEffect()
     {
-        $this->blob->put('content');
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
 
-        $this->batch->remove($this->alias);
-        $result = $this->cluster->runBatch($this->batch);
+        $blob->put('content');
 
-        $this->blob->get(); // <- throws
+        $batch->remove($blob->alias());
+        $result = $this->cluster->runBatch($batch);
+
+        $blob->get(); // <- throws
     }
 
     public function testResult()
     {
-        $this->blob->put('content');
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
 
-        $this->batch->remove($this->alias);
-        $result = $this->cluster->runBatch($this->batch);
+        $blob->put('content');
+
+        $batch->remove($blob->alias());
+        $result = $this->cluster->runBatch($batch);
 
         $this->assertEquals(1, $result->count());
         $this->assertTrue(isset($result[0]));
@@ -68,8 +82,10 @@ class QdbBatchRemoveTest extends QdbBatchTestBase
      */
     public function testException()
     {
-        $this->batch->remove($this->alias);
-        $result = $this->cluster->runBatch($this->batch);
+        $batch = $this->createBatch();
+
+        $batch->remove(createUniqueAlias());
+        $result = $this->cluster->runBatch($batch);
 
         $result[0]; // <- throws
     }

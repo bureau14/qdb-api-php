@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__).'/QdbBatchTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBatchGetAndUpdateTest extends QdbBatchTestBase
+class QdbBatchGetAndUpdateTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBatchGetAndUpdateTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->getAndUpdate($this->alias);
+        $batch = $this->createBatch();
+
+        $batch->getAndUpdate('alias');
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBatchGetAndUpdateTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->getAndUpdate($this->alias, 'content', 0, 'i should not be there');
+        $batch = $this->createBatch();
+
+        $batch->getAndUpdate('alias', 'content', 0, 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbBatchGetAndUpdateTest extends QdbBatchTestBase
      */
     public function testWrongAliasType()
     {
-        $this->batch->getAndUpdate(array(), 'content');
+        $batch = $this->createBatch();
+
+        $batch->getAndUpdate(array(), 'content');
     }
 
     /**
@@ -37,7 +43,9 @@ class QdbBatchGetAndUpdateTest extends QdbBatchTestBase
      */
     public function testWrongContentType()
     {
-        $this->batch->getAndUpdate($this->alias, array());
+        $batch = $this->createBatch();
+
+        $batch->getAndUpdate('alias', array());
     }
 
     /**
@@ -46,38 +54,48 @@ class QdbBatchGetAndUpdateTest extends QdbBatchTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->batch->getAndUpdate($this->alias, 'content', array());
+        $batch = $this->createBatch();
+
+        $batch->getAndUpdate('alias', 'content', array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->getAndUpdate($this->alias, 'content');
+        $batch = $this->createBatch();
+
+        $result = $batch->getAndUpdate('alias', 'content');
 
         $this->assertNull($result);
     }
 
     public function testSideEffect()
     {
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
+
         $content1 = 'first';
         $content2 = 'second';
         $expiry1 = time() + 60;
         $expiry2 = time() + 120;
 
-        $this->blob->put($content1, $expiry1);
+        $blob->put($content1, $expiry1);
 
-        $this->batch->getAndUpdate($this->alias, $content2, $expiry2);
-        $this->cluster->runBatch($this->batch);
+        $batch->getAndUpdate($blob->alias(), $content2, $expiry2);
+        $this->cluster->runBatch($batch);
 
-        $this->assertEquals($content2, $this->blob->get());
-        $this->assertEquals($expiry2, $this->blob->getExpiryTime());
+        $this->assertEquals($content2, $blob->get());
+        $this->assertEquals($expiry2, $blob->getExpiryTime());
     }
 
     public function testResult()
     {
-        $this->blob->put('first');
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
 
-        $this->batch->getAndUpdate($this->alias, 'second');
-        $result = $this->cluster->runBatch($this->batch);
+        $blob->put('first');
+
+        $batch->getAndUpdate($blob->alias(), 'second');
+        $result = $this->cluster->runBatch($batch);
 
         $this->assertEquals('first', $result[0]);
     }
@@ -87,9 +105,11 @@ class QdbBatchGetAndUpdateTest extends QdbBatchTestBase
      */
     public function testException()
     {
-        $this->batch->getAndUpdate($this->alias, 'content');
+        $batch = $this->createBatch();
 
-        $result = $this->cluster->runBatch($this->batch);
+        $batch->getAndUpdate(createUniqueAlias(), 'content');
+
+        $result = $this->cluster->runBatch($batch);
 
         $result[0]; // <- throws
     }

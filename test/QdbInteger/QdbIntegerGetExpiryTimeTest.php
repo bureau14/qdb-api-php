@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbIntegerTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbIntegerGetExpiryTimeTest extends QdbIntegerTestBase
+class QdbIntegerGetExpiryTimeTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbIntegerGetExpiryTimeTest extends QdbIntegerTestBase
      */
     public function testTooManyArguments()
     {
-        $this->integer->getExpiryTime('i should not be there');
+        $integer = $this->createEmptyInteger();
+
+        $integer->getExpiryTime('i should not be there');
     }
 
     /**
@@ -19,25 +21,31 @@ class QdbIntegerGetExpiryTimeTest extends QdbIntegerTestBase
      */
     public function testAliasNotFound()
     {
-        $this->integer->getExpiryTime();
+        $integer = $this->createEmptyInteger();
+
+        $integer->getExpiryTime();
     }
 
     public function testAfterPut()
     {
+        $integer = $this->createEmptyInteger();
+
         $expiry = time() + 60;
 
-        $this->integer->put(42, $expiry);
+        $integer->put(42, $expiry);
 
-        $this->assertEquals($expiry, $this->integer->getExpiryTime());
+        $this->assertEquals($expiry, $integer->getExpiryTime());
     }
 
     public function testAfterUpdate()
     {
+        $integer = $this->createEmptyInteger();
+
         $expiry = time() + 60;
 
-        $this->integer->update(42, $expiry);
+        $integer->update(42, $expiry);
 
-        $this->assertEquals($expiry, $this->integer->getExpiryTime());
+        $this->assertEquals($expiry, $integer->getExpiryTime());
     }
 }
 

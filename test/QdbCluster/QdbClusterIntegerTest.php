@@ -19,7 +19,7 @@ class QdbClusterIntegerTest extends QdbTestBase
      */
     public function testTooManyArguments()
     {
-        $this->cluster->integer($this->alias, 0);
+        $this->cluster->integer('alias', 0);
     }
 
     /**
@@ -33,7 +33,8 @@ class QdbClusterIntegerTest extends QdbTestBase
 
     public function testReturnType()
     {
-        $integer = $this->cluster->integer($this->alias);
+        $integer = $this->cluster->integer(createUniqueAlias());
+
         $this->assertInstanceOf('QdbInteger', $integer);
         $this->assertInstanceOf('QdbExpirableEntry', $integer);
         $this->assertInstanceOf('QdbEntry', $integer);
@@ -41,8 +42,11 @@ class QdbClusterIntegerTest extends QdbTestBase
 
     public function testAlias()
     {
-        $integer = $this->cluster->integer($this->alias);
-        $this->assertEquals($this->alias, $integer->alias());
+        $alias = createUniqueAlias();
+
+        $integer = $this->cluster->integer($alias);
+
+        $this->assertEquals($alias, $integer->alias());
     }
 }
 

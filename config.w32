@@ -38,10 +38,13 @@ if (PHP_QUASARDB != "no") {
         QdbBlob.c \
         QdbCluster.c \
         QdbEntry.c \
+        QdbEntryCollection.c \
         QdbExpirableEntry.c \
         QdbHashSet.c \
         QdbInteger.c \
         QdbQueue.c \
+        QdbTag.c \
+        QdbTagCollection.c \
         settings.c \
         ", "quasardb");
 }

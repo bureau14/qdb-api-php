@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbQueueTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueueBackTest extends QdbQueueTestBase
+class QdbQueueBackTest extends QdbTestBase
 {
 
     /**
@@ -11,21 +11,27 @@ class QdbQueueBackTest extends QdbQueueTestBase
      */
     public function testTooManyArguments()
     {
-        $this->queue->back('i should not be there');
+        $queue = $this->createEmptyQueue();
+
+        $queue->back('i should not be there');
     }
 
     public function testAfterPushFront()
     {
-        $this->queue->pushFront('hello');
-        $this->queue->pushFront('world');
-        $this->assertEquals('hello', $this->queue->back());
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushFront('hello');
+        $queue->pushFront('world');
+        $this->assertEquals('hello', $queue->back());
     }
 
     public function testAfterPushBack()
     {
-        $this->queue->pushBack('hello');
-        $this->queue->pushBack('world');
-        $this->assertEquals('world', $this->queue->back());
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushBack('hello');
+        $queue->pushBack('world');
+        $this->assertEquals('world', $queue->back());
     }
 
     /**
@@ -33,18 +39,23 @@ class QdbQueueBackTest extends QdbQueueTestBase
      */
     public function testOnEmptyQueue()
     {
-        $this->queue->pushBack('hello');
-        $this->queue->popBack();
-        $this->queue->back();
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushBack('hello');
+        $queue->popBack();
+        $queue->back();
     }
 
     /**
      * @expectedException               QdbIncompatibleTypeException
      */
-    public function testOnBlob()
+    public function testIncompatibleType()
     {
-        $this->blob->put('world');
-        $this->queue->back();
+        $alias = createUniqueAlias();
+        $blob = $this->createBlob($alias);
+        $queue = $this->createEmptyQueue($alias);
+
+        $queue->back();
     }
 
     /**
@@ -53,7 +64,9 @@ class QdbQueueBackTest extends QdbQueueTestBase
      */
     public function testNotFound()
     {
-        $this->queue->back();
+        $queue = $this->createEmptyQueue();
+
+        $queue->back();
     }
 }
 

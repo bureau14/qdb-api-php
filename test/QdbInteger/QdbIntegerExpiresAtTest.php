@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbIntegerTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbIntegerExpiresAtTest extends QdbIntegerTestBase
+class QdbIntegerExpiresAtTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbIntegerExpiresAtTest extends QdbIntegerTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->integer->expiresAt();
+        $integer = $this->createEmptyInteger();
+
+        $integer->expiresAt();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbIntegerExpiresAtTest extends QdbIntegerTestBase
      */
     public function testTooManyArguments()
     {
-        $this->integer->expiresAt(0, 'i should not be there');
+        $integer = $this->createEmptyInteger();
+
+        $integer->expiresAt(0, 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbIntegerExpiresAtTest extends QdbIntegerTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->integer->expiresAt("i'm an expiry... NOT!");
+        $integer = $this->createEmptyInteger();
+
+        $integer->expiresAt("i'm an expiry... NOT!");
     }
 
     /**
@@ -37,33 +43,40 @@ class QdbIntegerExpiresAtTest extends QdbIntegerTestBase
      */
     public function testAliasNotFound()
     {
-        $this->integer->expiresAt(0);
+        $integer = $this->createEmptyInteger();
+
+        $integer->expiresAt(0);
     }
 
     public function testReturnValue()
     {
-        $this->integer->put(42);
-        $result = $this->integer->expiresAt(time() + 60);
+        $integer = $this->createEmptyInteger();
+
+        $integer->put(42);
+        $result = $integer->expiresAt(time() + 60);
 
         $this->assertNull($result);
     }
 
     public function testAddExpiry()
     {
+        $integer = $this->createEmptyInteger();
         $expiry = time() + 60;
 
-        $this->integer->put(42);
-        $this->integer->expiresAt($expiry);
+        $integer->put(42);
+        $integer->expiresAt($expiry);
 
-        $this->assertEquals($expiry, $this->integer->getExpiryTime());
+        $this->assertEquals($expiry, $integer->getExpiryTime());
     }
 
     public function testRemoveExpiry()
     {
-        $this->integer->put(42, time() + 60);
-        $this->integer->expiresAt(0);
+        $integer = $this->createEmptyInteger();
 
-        $this->assertEquals(0, $this->integer->getExpiryTime());
+        $integer->put(42, time() + 60);
+        $integer->expiresAt(0);
+
+        $this->assertEquals(0, $integer->getExpiryTime());
     }
 
     /**
@@ -71,11 +84,13 @@ class QdbIntegerExpiresAtTest extends QdbIntegerTestBase
      */
     public function testExpiryInThePast()
     {
+        $integer = $this->createEmptyInteger();
         $expiry = time() - 60;
 
-        $this->integer->put(42);
-        $this->integer->expiresAt($expiry);
-        $this->integer->getExpiryTime();
+        $integer->put(42);
+        $integer->expiresAt($expiry);
+
+        $integer->getExpiryTime();
     }
 }
 

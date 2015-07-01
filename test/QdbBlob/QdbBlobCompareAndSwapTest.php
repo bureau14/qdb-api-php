@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobCompareAndSwapTest extends QdbBlobTestBase
+class QdbBlobCompareAndSwapTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBlobCompareAndSwapTest extends QdbBlobTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->blob->compareAndSwap('content');
+        $blob = $this->createEmptyBlob();
+
+        $blob->compareAndSwap('content');
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBlobCompareAndSwapTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->compareAndSwap('content', 'comparand', 0, 'i should not be there');
+        $blob = $this->createEmptyBlob();
+
+        $blob->compareAndSwap('content', 'comparand', 0, 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbBlobCompareAndSwapTest extends QdbBlobTestBase
      */
     public function testWrongContentType()
     {
-        $this->blob->compareAndSwap(array(), 'comparand');
+        $blob = $this->createEmptyBlob();
+
+        $blob->compareAndSwap(array(), 'comparand');
     }
 
     /**
@@ -37,7 +43,9 @@ class QdbBlobCompareAndSwapTest extends QdbBlobTestBase
      */
     public function testWrongComparandType()
     {
-        $this->blob->compareAndSwap('content', array());
+        $blob = $this->createEmptyBlob();
+
+        $blob->compareAndSwap('content', array());
     }
 
     /**
@@ -46,46 +54,64 @@ class QdbBlobCompareAndSwapTest extends QdbBlobTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->blob->compareAndSwap('content', 'comparand', array());
+        $blob = $this->createEmptyBlob();
+
+        $blob->compareAndSwap('content', 'comparand', array());
     }
 
     /**
      * @expectedException               QdbAliasNotFoundException
-     * @expectedExceptionMessageRegExp  /found/i
      */
     public function testAliasNotFound()
     {
-        $this->blob->compareAndSwap('content', 'comparand');
+        $blob = $this->createEmptyBlob();
+
+        $blob->compareAndSwap('content', 'comparand');
+    }
+
+    /**
+     * @expectedException               QdbIncompatibleTypeException
+     */
+    public function DISABLED_testIncompatibleType()
+    {
+        $alias = createUniqueAlias();
+        $int = $this->createInteger($alias);
+        $blob = $this->createEmptyBlob($alias);
+
+        $blob->compareAndSwap('content', 'comparand');
     }
 
     public function testMatching()
     {
-        $this->blob->put('first');
+        $blob = $this->createEmptyBlob();
 
-        $result = $this->blob->compareAndSwap('second', 'first');
+        $blob->put('first');
+        $result = $blob->compareAndSwap('second', 'first');
 
         $this->assertEquals('first', $result);
-        $this->assertEquals('second', $this->blob->get());
+        $this->assertEquals('second', $blob->get());
     }
 
     public function testRemoveNotMatching()
     {
-        $this->blob->put('first');
+        $blob = $this->createEmptyBlob();
 
-        $result = $this->blob->compareAndSwap('second', 'third');
+        $blob->put('first');
+        $result = $blob->compareAndSwap('second', 'third');
 
         $this->assertEquals('first', $result);
-        $this->assertEquals('first', $this->blob->get());
+        $this->assertEquals('first', $blob->get());
     }
 
     public function testExpiry()
     {
+        $blob = $this->createEmptyBlob();
         $expiry = time() + 60;
 
-        $this->blob->put('first');
-        $this->blob->compareAndSwap('second', 'first', $expiry);
+        $blob->put('first');
+        $blob->compareAndSwap('second', 'first', $expiry);
 
-        $this->assertEquals($expiry, $this->blob->getExpiryTime());
+        $this->assertEquals($expiry, $blob->getExpiryTime());
     }
 }
 

@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobGetTest extends QdbBlobTestBase
+class QdbBlobGetTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBlobGetTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->get('i should not be there');
+        $blob = $this->createEmptyBlob();
+
+        $blob->get('i should not be there');
     }
 
     /**
@@ -18,8 +20,23 @@ class QdbBlobGetTest extends QdbBlobTestBase
      */
     public function testAliasNotFound()
     {
-        $this->blob->get();
+        $blob = $this->createEmptyBlob();
+
+        $blob->get();
     }
+
+    /**
+     * @expectedException               QdbIncompatibleTypeException
+     */
+    public function DISABLED_testIncompatibleType()
+    {
+        $alias = createUniqueAlias();
+        $this->createQueue($alias);
+        $blob = $this->createEmptyBlob($alias);
+
+        $blob->get();
+    }
+
 
     // NOTE: the result of get() is verified with put() and update() tests
 }

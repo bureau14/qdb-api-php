@@ -6,30 +6,40 @@ Interfacing with a *quasardb* database from a PHP program is extremely straightf
 
     $cluster = new QdbCluster('qdb://127.0.0.1:2836');
 
-OK, now that we have a connection to the cluster, let's store some [binary data](doc/QdbBlob.md):
+OK, now that we have a connection to the database, let's store some binary data::
 
-    $blob = $cluster->blob('myEntry');
+    $blob = $cluster->blob('Bob the blob');
+
     $blob->put('firstValue');
     $blob->update('secondValue');
     $value = $blob->get();
 
-Want a [queue](doc/QdbQueue.md) in your database?
+Want a queue? We have distributed queues.
 
-    $queue = $cluster->queue('my queue');
+    $queue = $cluster->queue('Andrew the queue');
+
     $queue->pushBack('firstValue');
     $queue->pushBack('secondValue');
+    $value = $queue->popFront();
 
-Want [atomic integers](doc/QdbInteger.md) now?
+quasardb comes out of the box with server-side atomic integers:
 
-    $integer = $cluster->integer('my atomic int');
+    $integer = $cluster->integer('Roger the integer');
     $integer->put(42);
     $total = $integer->add(12);
 
-What else? a [set](doc/QdbHashSet.md) maybe?
+We also provide distributed sets.
 
-    $set = $cluster->hashSet('my set');
+    $set = $cluster->hashSet('Janet the set');
     $set->insert('value');
     $hasValue = $set->contains('value');
+
+Here's how you can easily find your data, using tags:
+
+    $cluster->blob('Bob the blob')->addTag('Male');
+    $cluster->integer('Roger the integer')->addTag('Male');
+
+    $males = $cluster->tag('Male')->getEntries();
 
 ## Documentation
 

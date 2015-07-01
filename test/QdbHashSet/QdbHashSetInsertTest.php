@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbHashSetTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbHashSetInsertTest extends QdbHashSetTestBase
+class QdbHashSetInsertTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbHashSetInsertTest extends QdbHashSetTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->hashSet->insert();
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->insert();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbHashSetInsertTest extends QdbHashSetTestBase
      */
     public function testTooManyArguments()
     {
-        $this->hashSet->insert('hello', 'world');
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->insert('hello', 'world');
     }
 
     /**
@@ -28,38 +32,38 @@ class QdbHashSetInsertTest extends QdbHashSetTestBase
      */
     public function testWrongValueType()
     {
-        $this->hashSet->insert(array());
-    }
+        $hashSet = $this->createEmptyHashSet();
 
-    public function testReturnTrue()
-    {
-        $result = $this->hashSet->insert('hello');
-        $this->assertEquals(true, $result);
-    }
-
-    public function testReturnFalse()
-    {
-        $this->hashSet->insert('hello');
-        $result = $this->hashSet->insert('hello');
-        $this->assertEquals(false, $result);
-    }
-
-    /**
-     * @expectedException               QdbAliasAlreadyExistsException
-     */
-    public function testBeforePutBlob()
-    {
-        $this->hashSet->insert('hello');
-        $this->blob->put('world');
+        $hashSet->insert(array());
     }
 
     /**
      * @expectedException               QdbIncompatibleTypeException
      */
-    public function testAfterPutBlob()
+    public function testIncompatibleType()
     {
-        $this->blob->put('world');
-        $this->hashSet->insert('hello');
+        $alias = createUniqueAlias();
+        $blob = $this->createBlob($alias);
+        $hashSet = $this->createEmptyHashSet($alias);
+
+        $hashSet->insert('hello');
+    }
+
+    public function testReturnTrue()
+    {
+        $hashSet = $this->createEmptyHashSet();
+
+        $result = $hashSet->insert('hello');
+        $this->assertEquals(true, $result);
+    }
+
+    public function testReturnFalse()
+    {
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->insert('hello');
+        $result = $hashSet->insert('hello');
+        $this->assertEquals(false, $result);
     }
 }
 

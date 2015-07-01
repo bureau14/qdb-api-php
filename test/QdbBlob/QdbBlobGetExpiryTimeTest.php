@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobGetExpiryTimeTest extends QdbBlobTestBase
+class QdbBlobGetExpiryTimeTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBlobGetExpiryTimeTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->getExpiryTime('i should not be there');
+        $blob = $this->createEmptyBlob();
+
+        $blob->getExpiryTime('i should not be there');
     }
 
     /**
@@ -19,25 +21,29 @@ class QdbBlobGetExpiryTimeTest extends QdbBlobTestBase
      */
     public function testAliasNotFound()
     {
-        $this->blob->getExpiryTime();
+        $blob = $this->createEmptyBlob();
+
+        $blob->getExpiryTime();
     }
 
     public function testAfterPut()
     {
+        $blob = $this->createEmptyBlob();
         $expiry = time() + 60;
 
-        $this->blob->put('content', $expiry);
+        $blob->put('content', $expiry);
 
-        $this->assertEquals($expiry, $this->blob->getExpiryTime());
+        $this->assertEquals($expiry, $blob->getExpiryTime());
     }
 
     public function testAfterUpdate()
     {
+        $blob = $this->createEmptyBlob();
         $expiry = time() + 60;
 
-        $this->blob->update('content', $expiry);
+        $blob->update('content', $expiry);
 
-        $this->assertEquals($expiry, $this->blob->getExpiryTime());
+        $this->assertEquals($expiry, $blob->getExpiryTime());
     }
 }
 

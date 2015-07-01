@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobGetAndRemoveTest extends QdbBlobTestBase
+class QdbBlobGetAndRemoveTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBlobGetAndRemoveTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->getAndRemove('i should not be there');
+        $blob = $this->createEmptyBlob();
+
+        $blob->getAndRemove('i should not be there');
     }
 
     /**
@@ -18,15 +20,30 @@ class QdbBlobGetAndRemoveTest extends QdbBlobTestBase
      */
     public function testAliasNotFound()
     {
-        $this->blob->getAndRemove();
+        $blob = $this->createEmptyBlob();
+
+        $blob->getAndRemove();
+    }
+
+    /**
+     * @expectedException               QdbIncompatibleTypeException
+     */
+    public function DISABLED_testIncompatibleType()
+    {
+        $alias = createUniqueAlias();
+        $this->createInteger($alias);
+        $blob = $this->createEmptyBlob($alias);
+
+        $blob->getAndRemove();
     }
 
     public function testResult()
     {
-        $content = 'content';
+        $blob = $this->createEmptyBlob();
+        $content = createRandomContent();
 
-        $this->blob->put($content);
-        $result = $this->blob->getAndRemove();
+        $blob->put($content);
+        $result = $blob->getAndRemove();
 
         $this->assertEquals($content, $result);
     }
@@ -36,10 +53,10 @@ class QdbBlobGetAndRemoveTest extends QdbBlobTestBase
      */
     public function testAliasRemoved()
     {
-        $this->blob->put('content');
-        $this->blob->getAndRemove();
+        $blob = $this->createBlob();
 
-        $this->blob->getAndRemove();
+        $blob->getAndRemove();
+        $blob->getAndRemove();
     }
 }
 

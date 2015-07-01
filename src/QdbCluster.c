@@ -12,6 +12,7 @@
 #include "QdbHashSet.h"
 #include "QdbInteger.h"
 #include "QdbQueue.h"
+#include "QdbTag.h"
 
 #include <qdb/client.h>
 
@@ -80,6 +81,13 @@ BEGIN_CLASS_METHOD_1(runBatch, OBJECT_ARG(QdbBatch,batch))
 END_CLASS_METHOD()
 
 
+BEGIN_CLASS_METHOD_1(tag, STRING_ARG(alias))
+{
+    QdbTag_createInstance(return_value, this->handle, alias TSRMLS_CC);
+}
+END_CLASS_METHOD()
+
+
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
     ADD_DESTRUCTOR(__destruct)
@@ -88,6 +96,7 @@ BEGIN_CLASS_MEMBERS()
     ADD_METHOD(integer)
     ADD_METHOD(queue)
     ADD_METHOD(runBatch)
+    ADD_METHOD(tag)
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"

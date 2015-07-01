@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbIntegerTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbIntegerRemoveTest extends QdbIntegerTestBase
+class QdbIntegerRemoveTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbIntegerRemoveTest extends QdbIntegerTestBase
      */
     public function testTooManyArguments()
     {
-        $this->integer->remove('i should not be there');
+        $integer = $this->createEmptyInteger();
+
+        $integer->remove('i should not be there');
     }
 
     /**
@@ -18,24 +20,30 @@ class QdbIntegerRemoveTest extends QdbIntegerTestBase
      */
     public function testAliasNotFound()
     {
-        $this->integer->remove();
+        $integer = $this->createEmptyInteger();
+
+        $integer->remove();
     }
 
     public function testReturnValue()
     {
-        $this->integer->put(42);
-        $result = $this->integer->remove();
+        $integer = $this->createEmptyInteger();
+
+        $integer->put(42);
+        $result = $integer->remove();
 
         $this->assertNull($result);
     }
 
     public function testRemoveAndPut()
     {
-        $this->integer->put(1);
-        $this->integer->remove();
-        $this->integer->put(2);
+        $integer = $this->createEmptyInteger();
 
-        $this->assertEquals(2, $this->integer->get());
+        $integer->put(1);
+        $integer->remove();
+        $integer->put(2);
+
+        $this->assertEquals(2, $integer->get());
     }
 
     /**
@@ -43,10 +51,12 @@ class QdbIntegerRemoveTest extends QdbIntegerTestBase
      */
     public function testRemoveTwice()
     {
-        $this->integer->put(42);
-        $this->integer->remove();
+        $integer = $this->createEmptyInteger();
 
-        $this->integer->remove();
+        $integer->put(42);
+        $integer->remove();
+
+        $integer->remove();
     }
 }
 

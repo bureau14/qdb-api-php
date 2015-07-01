@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbQueueTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueuePushFrontTest extends QdbQueueTestBase
+class QdbQueuePushFrontTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbQueuePushFrontTest extends QdbQueueTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->queue->pushFront();
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushFront();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbQueuePushFrontTest extends QdbQueueTestBase
      */
     public function testTooManyArguments()
     {
-        $this->queue->pushFront('hello', 'world');
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushFront('hello', 'world');
     }
 
     /**
@@ -28,25 +32,21 @@ class QdbQueuePushFrontTest extends QdbQueueTestBase
      */
     public function testWrongValueType()
     {
-        $this->queue->pushFront(array());
-    }
+        $queue = $this->createEmptyQueue();
 
-    /**
-     * @expectedException               QdbAliasAlreadyExistsException
-     */
-    public function testPutAfter()
-    {
-        $this->queue->pushFront('hello');
-        $this->blob->put('world');
+        $queue->pushFront(array());
     }
 
     /**
      * @expectedException               QdbIncompatibleTypeException
      */
-    public function testPutBefore()
+    public function testIncompatibleType()
     {
-        $this->blob->put('world');
-        $this->queue->pushFront('hello');
+        $alias = createUniqueAlias();
+        $blob = $this->createBlob($alias);
+        $queue = $this->createEmptyQueue($alias);
+
+        $queue->pushFront('hello');
     }
 }
 

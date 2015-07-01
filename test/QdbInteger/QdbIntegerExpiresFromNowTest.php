@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbIntegerTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbIntegerExpiresFromNowTest extends QdbIntegerTestBase
+class QdbIntegerExpiresFromNowTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbIntegerExpiresFromNowTest extends QdbIntegerTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->integer->expiresFromNow();
+        $integer = $this->createEmptyInteger();
+
+        $integer->expiresFromNow();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbIntegerExpiresFromNowTest extends QdbIntegerTestBase
      */
     public function testTooManyArguments()
     {
-        $this->integer->expiresFromNow(0, 'i should not be there');
+        $integer = $this->createEmptyInteger();
+
+        $integer->expiresFromNow(0, 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbIntegerExpiresFromNowTest extends QdbIntegerTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->integer->expiresFromNow("i'm an expiry... NOT!");
+        $integer = $this->createEmptyInteger();
+
+        $integer->expiresFromNow("i'm an expiry... NOT!");
     }
 
     /**
@@ -36,23 +42,29 @@ class QdbIntegerExpiresFromNowTest extends QdbIntegerTestBase
      */
     public function testAliasNotFound()
     {
-        $this->integer->expiresFromNow(0);
+        $integer = $this->createEmptyInteger();
+
+        $integer->expiresFromNow(0);
     }
 
     public function testReturnValue()
     {
-        $this->integer->put(42);
-        $result = $this->integer->expiresFromNow(60);
+        $integer = $this->createEmptyInteger();
+
+        $integer->put(42);
+        $result = $integer->expiresFromNow(60);
 
         $this->assertNull($result);
     }
 
     public function testAddExpiry()
     {
-        $this->integer->put(42);
-        $this->integer->expiresFromNow(60);
+        $integer = $this->createEmptyInteger();
 
-        $this->assertGreaterThan(time(), $this->integer->getExpiryTime());
+        $integer->put(42);
+        $integer->expiresFromNow(60);
+
+        $this->assertGreaterThan(time(), $integer->getExpiryTime());
     }
 
     /**
@@ -60,9 +72,11 @@ class QdbIntegerExpiresFromNowTest extends QdbIntegerTestBase
      */
     public function testExpiryInThePast()
     {
-        $this->integer->put(42);
-        $this->integer->expiresFromNow(-60);
-        $this->integer->getExpiryTime();
+        $integer = $this->createEmptyInteger();
+
+        $integer->put(42);
+        $integer->expiresFromNow(-60);
+        $integer->getExpiryTime();
     }
 }
 

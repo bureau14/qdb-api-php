@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__FILE__).'/QdbBatchTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBatchGetTest extends QdbBatchTestBase
+class QdbBatchGetTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBatchGetTest extends QdbBatchTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->batch->get();
+        $batch = $this->createBatch();
+
+        $batch->get();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBatchGetTest extends QdbBatchTestBase
      */
     public function testTooManyArguments()
     {
-        $this->batch->get($this->alias, 'i should not be there');
+        $batch = $this->createBatch();
+
+        $batch->get('alias', 'i should not be there');
     }
 
     /**
@@ -28,24 +32,31 @@ class QdbBatchGetTest extends QdbBatchTestBase
      */
     public function testWrongAliasType()
     {
-        $this->batch->get(array());
+        $batch = $this->createBatch();
+
+        $batch->get(array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->batch->get($this->alias);
+        $batch = $this->createBatch();
+
+        $result = $batch->get('alias');
 
         $this->assertNull($result);
     }
 
     public function testResult()
     {
+        $batch = $this->createBatch();
+        $blob = $this->createEmptyBlob();
+
         $content = 'bazinga!';
 
-        $this->blob->put($content);
+        $blob->put($content);
 
-        $this->batch->get($this->alias);
-        $result = $this->cluster->runBatch($this->batch);
+        $batch->get($blob->alias());
+        $result = $this->cluster->runBatch($batch);
 
         $this->assertEquals(1, $result->count());
         $this->assertTrue(isset($result[0]));
@@ -57,9 +68,11 @@ class QdbBatchGetTest extends QdbBatchTestBase
      */
     public function testException()
     {
-        $this->batch->get($this->alias);
+        $batch = $this->createBatch();
 
-        $result = $this->cluster->runBatch($this->batch);
+        $batch->get(createUniqueAlias());
+
+        $result = $this->cluster->runBatch($batch);
 
         $result[0]; // <- throws
     }

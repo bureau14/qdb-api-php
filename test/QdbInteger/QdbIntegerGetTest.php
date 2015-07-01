@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbIntegerTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbIntegerGetTest extends QdbIntegerTestBase
+class QdbIntegerGetTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbIntegerGetTest extends QdbIntegerTestBase
      */
     public function testTooManyArguments()
     {
-        $this->integer->get('i should not be there');
+        $integer = $this->createEmptyInteger();
+
+        $integer->get('i should not be there');
     }
 
     /**
@@ -18,16 +20,21 @@ class QdbIntegerGetTest extends QdbIntegerTestBase
      */
     public function testAliasNotFound()
     {
-        $this->integer->get();
+        $integer = $this->createEmptyInteger();
+
+        $integer->get();
     }
 
     /**
      * @expectedException               QdbIncompatibleTypeException
      */
-    public function testOnABlob()
+    public function testIncompatibleType()
     {
-        $this->blob->put("i'm not an integer");
-        $this->integer->get();
+        $alias = createUniqueAlias();
+        $blob = $this->createBlob($alias);
+        $integer = $this->createEmptyInteger($alias);
+
+        $integer->get();
     }
 
     // NOTE: the result of get() is verified with put() and update() tests

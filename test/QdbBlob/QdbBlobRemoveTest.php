@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobRemoveTest extends QdbBlobTestBase
+class QdbBlobRemoveTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBlobRemoveTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->remove('i should not be there');
+        $blob = $this->createEmptyBlob();
+
+        $blob->remove('i should not be there');
     }
 
     /**
@@ -18,24 +20,29 @@ class QdbBlobRemoveTest extends QdbBlobTestBase
      */
     public function testAliasNotFound()
     {
-        $this->blob->remove();
+        $blob = $this->createEmptyBlob();
+
+        $blob->remove();
     }
 
     public function testReturnValue()
     {
-        $this->blob->put('content');
-        $result = $this->blob->remove();
+        $blob = $this->createBlob();
+
+        $result = $blob->remove();
 
         $this->assertNull($result);
     }
 
     public function testRemoveAndPut()
     {
-        $this->blob->put('first');
-        $this->blob->remove();
-        $this->blob->put('second');
+        $blob = $this->createEmptyBlob();
 
-        $this->assertEquals('second', $this->blob->get());
+        $blob->put('first');
+        $blob->remove();
+        $blob->put('second');
+
+        $this->assertEquals('second', $blob->get());
     }
 
     /**
@@ -43,10 +50,10 @@ class QdbBlobRemoveTest extends QdbBlobTestBase
      */
     public function testRemoveTwice()
     {
-        $this->blob->put('content');
-        $this->blob->remove();
+        $blob = $this->createBlob();
 
-        $this->blob->remove();
+        $blob->remove();
+        $blob->remove();
     }
 }
 

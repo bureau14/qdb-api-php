@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbIntegerTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbIntegerUpdateTest extends QdbIntegerTestBase
+class QdbIntegerUpdateTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbIntegerUpdateTest extends QdbIntegerTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->integer->update();
+        $integer = $this->createEmptyInteger();
+
+        $integer->update();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbIntegerUpdateTest extends QdbIntegerTestBase
      */
     public function testTooManyArguments()
     {
-        $this->integer->update(42, 0, 'i should not be there');
+        $integer = $this->createEmptyInteger();
+
+        $integer->update(42, 0, 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbIntegerUpdateTest extends QdbIntegerTestBase
      */
     public function testWrongContentType()
     {
-        $this->integer->update("i'm an integer... NOT!");
+        $integer = $this->createEmptyInteger();
+
+        $integer->update("i'm an integer... NOT!");
     }
 
     /**
@@ -37,33 +43,55 @@ class QdbIntegerUpdateTest extends QdbIntegerTestBase
      */
     public function testWrongExpiryType()
     {
-        $this->integer->update(42, "i'm an expiry... NOT!");
+        $integer = $this->createEmptyInteger();
+
+        $integer->update(42, "i'm an expiry... NOT!");
+    }
+
+    /**
+     * @expectedException               QdbIncompatibleTypeException
+     */
+    public function testIncompatibleType()
+    {
+        $alias = createUniqueAlias();
+        $blob = $this->createBlob($alias);
+        $integer = $this->createEmptyInteger($alias);
+
+        $integer->update(42);
     }
 
     public function testReturnValue()
     {
-        $result = $this->integer->update(42);
+        $integer = $this->createEmptyInteger();
+
+        $result = $integer->update(42);
         $this->assertNull($result);
     }
 
     public function testSameAliasTwice()
     {
-        $this->integer->update(1);
-        $this->integer->update(2);
+        $integer = $this->createEmptyInteger();
 
-        $this->assertEquals(2, $this->integer->get());
+        $integer->update(1);
+        $integer->update(2);
+
+        $this->assertEquals(2, $integer->get());
     }
 
     public function testWithNoExpiry()
     {
-        $this->integer->update(42);
-        $this->assertEquals(42, $this->integer->get());
+        $integer = $this->createEmptyInteger();
+
+        $integer->update(42);
+        $this->assertEquals(42, $integer->get());
     }
 
     public function testWithExpiryInTheFuture()
     {
-        $this->integer->update(42, time() + 60);
-        $this->assertEquals(42,  $this->integer->get());
+        $integer = $this->createEmptyInteger();
+
+        $integer->update(42, time() + 60);
+        $this->assertEquals(42,  $integer->get());
     }
 
     /**
@@ -71,8 +99,10 @@ class QdbIntegerUpdateTest extends QdbIntegerTestBase
      */
     public function testWithExpiryInThePast()
     {
-        $this->integer->update(42, time() - 60);
-        $this->integer->get();
+        $integer = $this->createEmptyInteger();
+
+        $integer->update(42, time() - 60);
+        $integer->get();
     }
 }
 

@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbBlobTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobRemoveIfTest extends QdbBlobTestBase
+class QdbBlobRemoveIfTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbBlobRemoveIfTest extends QdbBlobTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->blob->removeIf();
+        $blob = $this->createEmptyBlob();
+
+        $blob->removeIf();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBlobRemoveIfTest extends QdbBlobTestBase
      */
     public function testTooManyArguments()
     {
-        $this->blob->removeIf('comparand', 'i should not be there');
+        $blob = $this->createEmptyBlob();
+
+        $blob->removeIf('comparand', 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbBlobRemoveIfTest extends QdbBlobTestBase
      */
     public function testWrongComparandType()
     {
-        $this->blob->removeIf(array());
+        $blob = $this->createEmptyBlob();
+
+        $blob->removeIf(array());
     }
 
     /**
@@ -36,7 +42,21 @@ class QdbBlobRemoveIfTest extends QdbBlobTestBase
      */
     public function testAliasNotFound()
     {
-        $this->blob->removeIf('comparand');
+        $blob = $this->createEmptyBlob();
+
+        $blob->removeIf('comparand');
+    }
+
+    /**
+     * @expectedException               QdbIncompatibleTypeException
+     */
+    public function DISABLED_testIncompatibleType()
+    {
+        $alias = createUniqueAlias();
+        $this->createInteger($alias);
+        $blob = $this->createEmptyBlob($alias);
+
+        $blob->removeIf('comparand');
     }
 
     /**
@@ -44,21 +64,25 @@ class QdbBlobRemoveIfTest extends QdbBlobTestBase
      */
     public function testRemoveMatching()
     {
-        $this->blob->put('comparand');
-        $result = $this->blob->removeIf('comparand');
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('comparand');
+        $result = $blob->removeIf('comparand');
 
         $this->assertTrue($result);
 
-        $this->blob->get();
+        $blob->get();
     }
 
     public function testRemoveNotMatching()
     {
-        $this->blob->put('first');
-        $result = $this->blob->removeIf('second');
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('first');
+        $result = $blob->removeIf('second');
 
         $this->assertFalse($result);
-        $this->assertEquals('first', $this->blob->get());
+        $this->assertEquals('first', $blob->get());
     }
 }
 

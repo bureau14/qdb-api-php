@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbQueueTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueueRemoveTest extends QdbQueueTestBase
+class QdbQueueRemoveTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbQueueRemoveTest extends QdbQueueTestBase
      */
     public function testTooManyArguments()
     {
-        $this->queue->remove('hello');
+        $queue = $this->createEmptyQueue();
+
+        $queue->remove('hello');
     }
 
     /**
@@ -18,16 +20,20 @@ class QdbQueueRemoveTest extends QdbQueueTestBase
      */
     public function testAliasNotFound()
     {
-        $this->queue->remove();
+        $queue = $this->createEmptyQueue();
+
+        $queue->remove();
     }
 
     public function testPushRemovePush()
     {
-        $this->queue->pushBack('first');
-        $this->queue->remove();
-        $this->queue->pushBack('second');
+        $queue = $this->createEmptyQueue();
 
-        $this->assertEquals('second', $this->queue->popFront());
+        $queue->pushBack('first');
+        $queue->remove();
+        $queue->pushBack('second');
+
+        $this->assertEquals('second', $queue->popFront());
     }
 }
 

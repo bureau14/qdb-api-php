@@ -10,7 +10,9 @@ class QdbBlobGetAndUpdateTest extends QdbBlobGetTest
      */
     public function testNotEnoughArguments()
     {
-        $this->blob->getAndUpdate();
+        $blob = $this->createEmptyBlob();
+
+        $blob->getAndUpdate();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbBlobGetAndUpdateTest extends QdbBlobGetTest
      */
     public function testTooManyArguments()
     {
-        $this->blob->getAndUpdate('content', 0, 'i should not be there');
+        $blob = $this->createEmptyBlob();
+
+        $blob->getAndUpdate('content', 0, 'i should not be there');
     }
 
     /**
@@ -28,7 +32,9 @@ class QdbBlobGetAndUpdateTest extends QdbBlobGetTest
      */
     public function testWrongContentType()
     {
-        $this->blob->getAndUpdate(array());
+        $blob = $this->createEmptyBlob();
+
+        $blob->getAndUpdate(array());
     }
 
     /**
@@ -37,41 +43,63 @@ class QdbBlobGetAndUpdateTest extends QdbBlobGetTest
      */
     public function testWrongExpiryType()
     {
-        $this->blob->getAndUpdate('content', array());
+        $blob = $this->createEmptyBlob();
+
+        $blob->getAndUpdate('content', array());
+    }
+
+    /**
+     * @expectedException               QdbIncompatibleTypeException
+     */
+    public function testIncompatibleType()
+    {
+        $alias = createUniqueAlias();
+        $this->createInteger($alias);
+        $blob = $this->createEmptyBlob($alias);
+
+        $blob->getAndUpdate('content');
     }
 
     public function testReplaceValue()
     {
-        $this->blob->put('first');
-        $this->blob->getAndUpdate('second');
+        $blob = $this->createEmptyBlob();
 
-        $this->assertEquals('second', $this->blob->get());
+        $blob->put('first');
+        $blob->getAndUpdate('second');
+
+        $this->assertEquals('second', $blob->get());
     }
 
     public function testReturnPreviousValue()
     {
-        $this->blob->put('first');
-        $result = $this->blob->getAndUpdate('second');
+        $blob = $this->createEmptyBlob();
+
+        $blob->put('first');
+        $result = $blob->getAndUpdate('second');
 
         $this->assertEquals('first', $result);
     }
 
     public function testNoExpiry()
     {
-        $this->blob->put('first', time() + 60);
-        $this->blob->getAndUpdate('second');
+        $blob = $this->createEmptyBlob();
 
-        $this->assertEquals(0, $this->blob->getExpiryTime());
+        $blob->put('first', time() + 60);
+        $blob->getAndUpdate('second');
+
+        $this->assertEquals(0, $blob->getExpiryTime());
     }
 
     public function testWithExpiry()
     {
+        $blob = $this->createEmptyBlob();
+
         $expiry = time() + 60;
 
-        $this->blob->put('first');
-        $this->blob->getAndUpdate('second', $expiry);
+        $blob->put('first');
+        $blob->getAndUpdate('second', $expiry);
 
-        $this->assertEquals($expiry,  $this->blob->getExpiryTime());
+        $this->assertEquals($expiry,  $blob->getExpiryTime());
     }
 }
 

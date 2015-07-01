@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbQueueTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueuePushBackTest extends QdbQueueTestBase
+class QdbQueuePushBackTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbQueuePushBackTest extends QdbQueueTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->queue->pushBack();
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushBack();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbQueuePushBackTest extends QdbQueueTestBase
      */
     public function testTooManyArguments()
     {
-        $this->queue->pushBack('hello', 'world');
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushBack('hello', 'world');
     }
 
     /**
@@ -28,31 +32,29 @@ class QdbQueuePushBackTest extends QdbQueueTestBase
      */
     public function testWrongValueType()
     {
-        $this->queue->pushBack(array());
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushBack(array());
     }
 
     public function testReturnValue()
     {
-        $result = $this->queue->pushBack('hello');
-        $this->assertEquals(null, $result);
-    }
+        $queue = $this->createEmptyQueue();
 
-    /**
-     * @expectedException               QdbAliasAlreadyExistsException
-     */
-    public function testPutAfter()
-    {
-        $this->queue->pushBack('hello');
-        $this->blob->put('world');
+        $result = $queue->pushBack('hello');
+        $this->assertEquals(null, $result);
     }
 
     /**
      * @expectedException               QdbIncompatibleTypeException
      */
-    public function testPutBefore()
+    public function testIncompatibleType()
     {
-        $this->blob->put('world');
-        $this->queue->pushBack('hello');
+        $alias = createUniqueAlias();
+        $blob = $this->createBlob($alias);
+        $queue = $this->createEmptyQueue($alias);
+
+        $queue->pushBack('hello');
     }
 }
 

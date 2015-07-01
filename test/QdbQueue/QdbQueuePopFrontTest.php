@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbQueueTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueuePopFrontTest extends QdbQueueTestBase
+class QdbQueuePopFrontTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbQueuePopFrontTest extends QdbQueueTestBase
      */
     public function testTooManyArguments()
     {
-        $this->queue->popFront('hello');
+        $queue = $this->createEmptyQueue();
+
+        $queue->popFront('hello');
     }
 
     /**
@@ -19,23 +21,29 @@ class QdbQueuePopFrontTest extends QdbQueueTestBase
      */
     public function testNotFound()
     {
-        $this->queue->popFront();
+        $queue = $this->createEmptyQueue();
+
+        $queue->popFront();
     }
 
     public function testAfterPushBack()
     {
-        $this->queue->pushBack('hello');
-        $this->queue->pushBack('world');
-        $result = $this->queue->popFront();
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushBack('hello');
+        $queue->pushBack('world');
+        $result = $queue->popFront();
 
         $this->assertEquals('hello', $result);
     }
 
     public function testAfterPushFront()
     {
-        $this->queue->pushFront('hello');
-        $this->queue->pushFront('world');
-        $result = $this->queue->popFront();
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushFront('hello');
+        $queue->pushFront('world');
+        $result = $queue->popFront();
 
         $this->assertEquals('world', $result);
     }
@@ -46,9 +54,23 @@ class QdbQueuePopFrontTest extends QdbQueueTestBase
      */
     public function testEmpty()
     {
-        $this->queue->pushBack('hello');
-        $this->queue->popFront();
-        $this->queue->popFront();
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushBack('hello');
+        $queue->popFront();
+        $queue->popFront();
+    }
+
+    /**
+     * @expectedException               QdbIncompatibleTypeException
+     */
+    public function testIncompatibleType()
+    {
+        $alias = createUniqueAlias();
+        $blob = $this->createBlob($alias);
+        $queue = $this->createEmptyQueue($alias);
+
+        $queue->popFront();
     }
 }
 

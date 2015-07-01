@@ -1,8 +1,8 @@
 <?php
 
-require_once 'QdbHashSetTestBase.php';
+require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbHashSetEraseTest extends QdbHashSetTestBase
+class QdbHashSetEraseTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,9 @@ class QdbHashSetEraseTest extends QdbHashSetTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->hashSet->erase();
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->erase();
     }
 
     /**
@@ -19,7 +21,9 @@ class QdbHashSetEraseTest extends QdbHashSetTestBase
      */
     public function testTooManyArguments()
     {
-        $this->hashSet->erase('hello', 'world');
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->erase('hello', 'world');
     }
 
     /**
@@ -28,20 +32,38 @@ class QdbHashSetEraseTest extends QdbHashSetTestBase
      */
     public function testWrongValueType()
     {
-        $this->hashSet->erase(array());
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->erase(array());
+    }
+
+    /**
+     * @expectedException               QdbIncompatibleTypeException
+     */
+    public function testIncompatibleType()
+    {
+        $alias = createUniqueAlias();
+        $blob = $this->createBlob($alias);
+        $hashSet = $this->createEmptyHashSet($alias);
+
+        $hashSet->erase('hello');
     }
 
     public function testReturnFalse()
     {
-        $this->hashSet->insert('hello');
-        $result = $this->hashSet->erase('world');
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->insert('hello');
+        $result = $hashSet->erase('world');
         $this->assertEquals(false, $result);
     }
 
     public function testReturnTrue()
     {
-        $this->hashSet->insert('hello');
-        $result = $this->hashSet->erase('hello');
+        $hashSet = $this->createEmptyHashSet();
+
+        $hashSet->insert('hello');
+        $result = $hashSet->erase('hello');
         $this->assertEquals(true, $result);
     }
 }

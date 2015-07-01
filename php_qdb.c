@@ -6,18 +6,21 @@
 
 #include "php_qdb.h"
 
+#include "src/connection.h"
 #include "src/exceptions.h"
 #include "src/globals.h"
-#include "src/connection.h"
 #include "src/QdbBatch.h"
 #include "src/QdbBatchResult.h"
 #include "src/QdbBlob.h"
 #include "src/QdbCluster.h"
 #include "src/QdbEntry.h"
+#include "src/QdbEntryCollection.h"
 #include "src/QdbExpirableEntry.h"
+#include "src/QdbHashSet.h"
 #include "src/QdbInteger.h"
 #include "src/QdbQueue.h"
-#include "src/QdbHashSet.h"
+#include "src/QdbTag.h"
+#include "src/QdbTagCollection.h"
 #include "src/settings.h"
 
 static PHP_MINIT_FUNCTION(quasardb)
@@ -28,6 +31,7 @@ static PHP_MINIT_FUNCTION(quasardb)
     connection_init(TSRMLS_C);
     QdbEntry_registerClass(TSRMLS_C); // <- before derived classes
     QdbExpirableEntry_registerClass(TSRMLS_C); // <- before derived classes
+    QdbEntryCollection_registerClass(TSRMLS_C);
     QdbBatch_registerClass(TSRMLS_C);
     QdbBatchResult_registerClass(TSRMLS_C);
     QdbBlob_registerClass(TSRMLS_C);
@@ -35,6 +39,8 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbHashSet_registerClass(TSRMLS_C);
     QdbInteger_registerClass(TSRMLS_C);
     QdbQueue_registerClass(TSRMLS_C);
+    QdbTag_registerClass(TSRMLS_C);
+    QdbTagCollection_registerClass(TSRMLS_C);
     return SUCCESS;
 }
 
