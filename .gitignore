@@ -29,5 +29,8 @@
 # Directory where you normaly unzip qdb_capi and qdbd
 /qdb/
 
+# Ouput folder for the documentation
+/doc-out/
+
 # Sublime Text files
 /sftp-config*.json

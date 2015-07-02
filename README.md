@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Interfacing with a *quasardb* database from a PHP program is extremely straightforward, just create a [`QdbCluster`](doc/QdbCluster.md) and perform the operations.
+Interfacing with a *quasardb* database from a PHP program is extremely straightforward, just create a `QdbCluster` and perform the operations.
 
     $cluster = new QdbCluster('qdb://127.0.0.1:2836');
 
@@ -43,12 +43,4 @@ Here's how you can easily find your data, using tags:
 
 ## Documentation
 
-* [Installation instructions](doc/Installing.md)
-* [Compilation instructions](doc/Compiling.md)
-* [Configuration (php.ini)](doc/Configuration.md)
-* [The `QdbBatch` class](doc/QdbBatch.md)
-* [The `QdbBlob` class](doc/QdbBlob.md)
-* [The `QdbCluster` class](doc/QdbCluster.md)
-* [The `QdbHashSet` class](doc/QdbHashSet.md)
-* [The `QdbInteger` class](doc/QdbInteger.md)
-* [The `QdbQueue` class](doc/QdbQueue.md)
+See [doc.quasardb.net](https://doc.quasardb.net/php/)

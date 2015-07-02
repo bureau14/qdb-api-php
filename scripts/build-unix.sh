@@ -11,4 +11,4 @@ phpize
 ./configure CFLAGS="-Iqdb/include" LDFLAGS="-Lqdb/lib"
 make build-modules
 
-php "-dextension=modules/quasardb.so" "test/phpunit.phar" --bootstrap "test/bootstrap.php" "test"
+php "-dextension=modules/quasardb.so" "third-party/phpunit.phar" --bootstrap "test/bootstrap.php" "test"
