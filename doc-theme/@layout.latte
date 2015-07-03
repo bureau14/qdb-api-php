@@ -36,10 +36,10 @@
 <div id="body">
 	<div id="left">
 		<div id="menu">
-			<a n:tag-if="'Introduction' !== $function->name" href="function-Introduction.html"><span>Introduction</span></a>
-			<a n:tag-if="'Installation' !== $function->name" href="function-Installation.html"><span>Installation</span></a>
-			<a n:tag-if="'Compilation' !== $function->name" href="function-Compilation.html"><span>Compilation</span></a>
-			<a n:tag-if="'Configuration' !== $function->name" href="function-Configuration.html"><span>Configuration</span></a>
+			<a n:tag-if="'function' !== $active || 'Introduction' !== $function->name" href="function-Introduction.html"><span>Introduction</span></a>
+			<a n:tag-if="'function' !== $active || 'Installation' !== $function->name" href="function-Installation.html"><span>Installation</span></a>
+			<a n:tag-if="'function' !== $active || 'Compilation' !== $function->name" href="function-Compilation.html"><span>Compilation</span></a>
+			<a n:tag-if="'function' !== $active || 'Configuration' !== $function->name" href="function-Configuration.html"><span>Configuration</span></a>
 			<a n:tag-if="'overview' !== $active" href="index.html" title="Overview"><span>API Reference</span></a>
 
 			{define group}
