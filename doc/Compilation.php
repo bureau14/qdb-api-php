@@ -10,19 +10,21 @@
  * This has been tested on Ubuntu 14.04 LTS, please adapt to your configuration.
  *
  * #### Instructions:
- *
- *     git clone https://github.com/bureau14/qdb-api-php.git
- *     cd qdb-api-php
- *     phpize
- *     ./configure --with-quasardb
- *     make
- *     sudo make install
+ * <code>
+ * git clone https://github.com/bureau14/qdb-api-php.git
+ * cd qdb-api-php
+ * phpize
+ * ./configure --with-quasardb
+ * make
+ * sudo make install
+ * </code>
  *
  * #### Alternative:
  *
  * If you don't want to install `qdb_capi` in `/usr/include` and `/usr/lib`, you can specify the path like this:
- *
- *     ./configure --with-quasardb=/path/to/qdb_api
+ * <code>
+ * ./configure --with-quasardb=/path/to/qdb_api
+ * </code>
  *
  * However, this will stop working if you change the location of `qdb_capi` and you'll need to do the compilation again.
  * That is why the global installation in `/usr/include` and `/usr/lib` is recommended.
@@ -41,12 +43,13 @@
  * #### Instructions:
  *
  * Open a *Visual Studio Developer Command Prompt* (either x86 or x86) and type:
- *
- *     cd /d C:\php-src\
- *     buildconf
- *     configure --with-quasardb=C:\qdb-capi
- *     nmake
- *     nmake install
+ * <code>
+ * cd /d C:\php-src\
+ * buildconf
+ * configure --with-quasardb=C:\qdb-capi
+ * nmake
+ * nmake install
+ * </code>
  *
  * You may want to customize `configure`'s flags, for instance `--enable-zts` or `--disable-zts` to control thread-safety.
  *

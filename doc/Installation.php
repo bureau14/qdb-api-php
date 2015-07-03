@@ -24,7 +24,7 @@
  * </code>
  * ## Installation on Windows
  *
- * There is no quick installation on Windows. Please refer to compilation instructions.
+ * There is no quick installation on Windows. Please refer to {@see Compilation} instructions.
  *
  * @see Compilation
  */

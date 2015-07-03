@@ -1,8 +1,9 @@
 <?php
 
 /**
- * Represents a collection of operation that can be executed with a single query.
- * Operation are executed by a call to `QdbCluster::runBatch()`
+ * A collection of operation that can be executed with a single query.
+ *
+ * Operation are executed by a call to {@link \QdbCluster::runBatch()}
  * @example
  * <code>
  * $batch = new QdbBatch();
@@ -14,7 +15,6 @@
  *
  * $value2 = $result[2];
  * </code>
- * @see QdbCluster::runBatch()
  */
 class QdbBatch
 {
@@ -29,7 +29,7 @@ class QdbBatch
      * @param string $alias The blob's alias.
      * @param string $new_content The new content of the blob in case of match.
      * @param string $comparand The content to be compared to.
-     * @param int $expiry_time The absolute expiration time, in seconds since epoch (0 means "never expires").
+     * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").
      * @see QdbBlob::compareAndSwap()
      */
     function compareAndSwap($alias, $new_content, $comparand, $expiry_time=0);
@@ -55,7 +55,7 @@ class QdbBatch
      * When executed, the "get and remove" operation atomically reads a blob's content and replaces it.
      * @param string $alias The blob's alias.
      * @param string $content The new content of the blob.
-     * @param int $expiry_time The absolute expiration time, in seconds since epoch (0 means "never expires").
+     * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").
      * @see QdbBlob::getAndUpdate()
      */
     function getAndUpdate($alias, $content, $expiry_time=0);
@@ -65,7 +65,7 @@ class QdbBatch
      * When executed, the "put" operation creates a blob.
      * @param string $alias The blob's alias.
      * @param string $content The initial content of the blob.
-     * @param int $expiry_time The absolute expiration time, in seconds since epoch (0 means "never expires").
+     * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").
      * @see QdbBlob::put()
      */
     function put($alias, $content, $expiry_time=0);
@@ -92,7 +92,7 @@ class QdbBatch
      * When executed, the "update" operation sets the content of a blob. It will create the blob if needed.
      * @param string $alias The blob's alias.
      * @param string $content The new content of the blob.
-     * @param int $expiry_time The absolute expiration time, in seconds since epoch (0 means "never expires").
+     * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").
      * @see QdbBlob::update()
      */
     function update($alias, $content, $expiry_time=0);

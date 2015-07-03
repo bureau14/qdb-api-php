@@ -138,7 +138,7 @@ $(window).load(function() {
 					$('.short', $this).hide();
 					$('.detailed', $this).show();
 					trCollapsed = false;
-				} else {					
+				} else {
 					$('.short', $this).show();
 					$('.detailed', $this).hide();
 					trCollapsed = true;
@@ -155,8 +155,6 @@ $(window).load(function() {
 		splitterPosition = position;
 
 		$left.width(position);
-		$right.css('margin-left', position + splitterWidth);
-		$splitter.css('left', position);
 	}
 	function setContentWidth()
 	{

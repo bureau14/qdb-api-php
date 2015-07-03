@@ -1,11 +1,12 @@
 <?php
 
 /**
- * Represents a queue of blob in the *quasardb* database.
+ * A queue of blob in the database.
+ *
  * It's a double-ended queue, you can both enqueue and dequeue from the front and the back.
  *
  * @example
- * You get a `QdbQueue` instance by calling `QdbCluster::queue()`.
+ * You get a `QdbQueue` instance by calling {@link \QdbCluster::queue()}.
  * Then you can perform atomic operations on the queue:
  * <code>
  * $queue = $cluster->queue('my queue');
@@ -21,6 +22,10 @@ class QdbQueue extends QdbEntry
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      * @throws QdbEmptyContainerException
+     * @example
+     * <code>
+     * $last = $cluster->queue('alias')->back();
+     * </code>
      */
     function back();
 
@@ -30,6 +35,10 @@ class QdbQueue extends QdbEntry
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      * @throws QdbEmptyContainerException
+     * @example
+     * <code>
+     * $first = $cluster->queue('alias')->front();
+     * </code>
      */
     function front();
 
@@ -39,6 +48,10 @@ class QdbQueue extends QdbEntry
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      * @throws QdbEmptyContainerException
+     * @example
+     * <code>
+     * $last = $cluster->queue('alias')->popBack();
+     * </code>
      */
     function popBack();
 
@@ -48,6 +61,10 @@ class QdbQueue extends QdbEntry
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      * @throws QdbEmptyContainerException
+     * @example
+     * <code>
+     * $first = $cluster->queue('alias')->popFront();
+     * </code>
      */
     function popFront();
 
@@ -55,6 +72,10 @@ class QdbQueue extends QdbEntry
      * Enqueues the specified value at the end of the queue. Creates the queue if needed.
      * @param string $content The value to enqueue.
      * @throws QdbIncompatibleTypeException
+     * @example
+     * <code>
+     * $cluster->queue('alias')->pushBack('content');
+     * </code>
      */
     function pushBack($content);
 
@@ -62,6 +83,10 @@ class QdbQueue extends QdbEntry
      * Enqueues the specified value at the beginning of the queue. Creates the queue if needed.
      * @param string $content The value to enqueue.
      * @throws QdbIncompatibleTypeException
+     * @example
+     * <code>
+     * $cluster->queue('alias')->pushFront('content');
+     * </code>
      */
     function pushFront($content);
 }

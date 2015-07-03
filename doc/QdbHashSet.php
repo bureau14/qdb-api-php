@@ -1,9 +1,9 @@
 <?php
 /**
- * Represents an unordered set of blob in the *quasardb* database.
+ * An unordered set of blob in the database.
  *
  * @example
- * You get a `QdbHashSet` instance by calling `QdbCluster::hashSet()`.
+ * You get a `QdbHashSet` instance by calling {@link \QdbCluster::hashSet()}.
  * Then you can perform atomic operations on the set:
  * <code>
  * $hashSet = $cluster->hashSet('my hashSet');
@@ -19,6 +19,10 @@ class QdbHashSet extends QdbEntry
      * @return bool `true` if the value is present in the set; `false` if not.
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
+     * @example
+     * <code>
+     * $needMilk = $cluster->hashSet('recipe')->contains('milk');
+     * </code>
      */
     function contains($value);
 
@@ -28,6 +32,10 @@ class QdbHashSet extends QdbEntry
      * @return bool `true` if the value was present in the set; `false` if not.
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
+     * @example
+     * <code>
+     * $cluster->hashSet('recipe')->erase('butter');
+     * </code>
      */
     function erase($value);
 
@@ -36,6 +44,10 @@ class QdbHashSet extends QdbEntry
      * @param string $value The value to add.
      * @return bool `true` if the value was added; `false` if it was already present in the set.
      * @throws QdbIncompatibleTypeException
+     * @example
+     * <code>
+     * $cluster->hashSet('recipe')->insert('flour');
+     * </code>
      */
     function insert($value);
 }

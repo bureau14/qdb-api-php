@@ -1,7 +1,7 @@
 {layout '@layout.latte'}
 {var $active = 'function'}
 
-{block title}{if $function->deprecated}Deprecated {/if}Function {$function->name}{/block}
+{block title}{if $function->deprecated}Deprecated {/if}{$function->name}{/block}
 
 {block content}
 <div id="content" class="function">
@@ -22,10 +22,6 @@
 				{$value|annotation:$annotation:$function|noescape}<br>
 			{/foreach}
 		{/foreach}
-		<b>Located at</b>
-		<a n:tag-if="$config->sourceCode" href="{$function|sourceUrl}" title="Go to source code">
-			{$function->fileName|relativePath}
-		</a><br>
 	</div>
 
 	{var $annotations = $function->annotations}

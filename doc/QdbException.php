@@ -4,6 +4,5 @@
  */
 class QdbException extends Exception
 {
-
 }
 ?>

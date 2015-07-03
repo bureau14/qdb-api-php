@@ -2,7 +2,7 @@
 
 function createUniqueAlias()
 {
-    return md5(rand());
+    return md5(microtime()).md5(rand());
 }
 
 function createRandomContent()

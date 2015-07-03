@@ -1,9 +1,13 @@
 <?php
 /**
- * Exception thrown when an operation cannot be perform because the existing entry do not have the appropriate type.
+ * Thrown when an operation cannot be perform because the existing entry do not have the appropriate type.
+ * @example
+ * <code>
+ * $cluster->blob('alias')->put('content1');
+ * $cluster->integer('alias')->get(); // throws QdbIncompatibleTypeException
+ * </code>
  */
 class QdbIncompatibleTypeException extends QdbException
 {
-
 }
 ?>

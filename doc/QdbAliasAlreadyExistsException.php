@@ -1,9 +1,13 @@
 <?php
 /**
- * Exception thrown when an entrywith the same alias is already present in the database.
+ * Thrown when an entry with the same alias is already present in the database.
+ * @example
+ * <code>
+ * $cluster->blob('alias')->put('content1');
+ * $cluster->blob('alias')->put('content2'); // throws QdbAliasAlreadyExistsException
+ * </code>
  */
 class QdbAliasAlreadyExistsException extends QdbException
 {
-
 }
 ?>
