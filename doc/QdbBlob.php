@@ -19,7 +19,7 @@ class QdbBlob extends QdbExpirableEntry
      * @param string $new_content The new content of the blob in case of a match.
      * @param string $comparand The content to be compared to.
      * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").
-     * @return string The original value of the blob.
+     * @return string The original content of the blob if it didn't match `$comparand`; `null` if it matched.
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      * @example

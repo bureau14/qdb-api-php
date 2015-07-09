@@ -79,7 +79,7 @@ class QdbBatchCompareAndSwapTest extends QdbTestBase
         $this->assertNull($result);
     }
 
-    public function testSideEffect1()
+    public function testMatching()
     {
         $batch = $this->createBatch();
         $blob = $this->createEmptyBlob();
@@ -94,11 +94,17 @@ class QdbBatchCompareAndSwapTest extends QdbTestBase
         $batch->compareAndSwap($blob->alias(), $content2, $content1, $expiry2);
         $result = $this->cluster->runBatch($batch);
 
+        // check result
+        $this->assertEquals(1, $result->count());
+        $this->assertTrue(isset($result[0]));
+        $this->assertNull($result[0]);
+
+        // check side effects
         $this->assertEquals($content2, $blob->get());
         $this->assertEquals($expiry2, $blob->getExpiryTime());
     }
 
-    public function testSideEffect2()
+    public function testNotMatching()
     {
         $batch = $this->createBatch();
         $blob = $this->createEmptyBlob();
@@ -113,23 +119,14 @@ class QdbBatchCompareAndSwapTest extends QdbTestBase
         $batch->compareAndSwap($blob->alias(), $content2, 'not matching', $expiry2);
         $result = $this->cluster->runBatch($batch);
 
-        $this->assertEquals($content1, $blob->get());
-        $this->assertEquals($expiry1, $blob->getExpiryTime());
-    }
-
-    public function testResult()
-    {
-        $batch = $this->createBatch();
-        $blob = $this->createEmptyBlob();
-
-        $blob->put('first');
-
-        $batch->compareAndSwap($blob->alias(), 'second', 'first');
-        $result = $this->cluster->runBatch($batch);
-
+        // check result
         $this->assertEquals(1, $result->count());
         $this->assertTrue(isset($result[0]));
         $this->assertEquals('first', $result[0]);
+
+        // check side effects
+        $this->assertEquals($content1, $blob->get());
+        $this->assertEquals($expiry1, $blob->getExpiryTime());
     }
 
     /**

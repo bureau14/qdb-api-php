@@ -88,7 +88,7 @@ class QdbBlobCompareAndSwapTest extends QdbTestBase
         $blob->put('first');
         $result = $blob->compareAndSwap('second', 'first');
 
-        $this->assertEquals('first', $result);
+        $this->assertNull($result);
         $this->assertEquals('second', $blob->get());
     }
 

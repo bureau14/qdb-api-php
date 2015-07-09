@@ -25,6 +25,8 @@ typedef struct {
 
 extern zend_class_entry* ce_QdbBatchResult;
 
+static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC);
+
 
 void QdbBatchResult_createInstance(zval* destination, qdb_handle_t handle, qdb_operation_t * operations, size_t operations_count TSRMLS_DC)
 {
@@ -67,26 +69,17 @@ BEGIN_CLASS_METHOD_1(offsetGet, MIXED_ARG(offset)) // inherited from ArrayAccess
 {
     long index = Z_LVAL_P(offset);
 
-    qdb_operation_t *op = &this->operations[index];
-
     if (index < 0){
         throw_out_of_range("Offset must be positive of zero");
+        return;
     }
-    else if (index >= (long)this->operations_count) {
+
+    if (index >= (long)this->operations_count) {
         throw_out_of_bounds("Offset must be smaller than the number of operations");
+        return;
     }
-    else if (op->type == qdb_op_remove_if && op->error == qdb_e_unmatched_content){
-        RETURN_FALSE;
-    }
-    else if (op->type == qdb_op_remove_if && op->error == 0){
-        RETURN_TRUE;
-    }
-    else if (op->error){
-        throw_qdb_error(op->error);
-    }
-    else if (op->result){
-        RETURN_STRINGL(op->result, op->result_size, /*duplicate=*/1);
-    }
+
+    getOperationResult(return_value, &this->operations[index] TSRMLS_CC);
 }
 END_CLASS_METHOD()
 
@@ -120,3 +113,74 @@ BEGIN_CLASS_MEMBERS()
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"
+
+static void getCompareAndSwapResult(zval* return_value, qdb_operation_t * op TSRMLS_DC)
+{
+    switch (op->error)
+    {
+        case qdb_e_ok:
+            RETVAL_NULL();
+            break;
+
+        case qdb_e_unmatched_content:
+            RETVAL_STRINGL(op->result, op->result_size, /*duplicate=*/1);
+            break;
+
+        default:
+            throw_qdb_error(op->error);
+            break;
+    }
+}
+
+static void getRemoveIfResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+{
+    switch (op->error)
+    {
+        case qdb_e_ok:
+            RETVAL_TRUE;
+            break;
+
+        case qdb_e_unmatched_content:
+            RETVAL_FALSE;
+            break;
+
+        default:
+            throw_qdb_error(op->error);
+            break;
+    }
+}
+
+static void getOtherOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+{
+    switch (op->error)
+    {
+        case qdb_e_ok:
+            if (op->result != NULL)
+                RETVAL_STRINGL(op->result, op->result_size, /*duplicate=*/1);
+            else
+                RETVAL_NULL();
+            break;
+
+        default:
+            throw_qdb_error(op->error);
+            break;
+    }
+}
+
+static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+{
+    switch(op->type)
+    {
+        case qdb_op_cas:
+            getCompareAndSwapResult(return_value, op TSRMLS_CC);
+            break;
+
+        case qdb_op_remove_if:
+            getRemoveIfResult(return_value, op TSRMLS_CC);
+            break;
+
+        default:
+            getOtherOperationResult(return_value, op TSRMLS_CC);
+            break;
+    }
+}

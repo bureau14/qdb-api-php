@@ -41,13 +41,18 @@ BEGIN_CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content), STRING_ARG(comparand
         expiry ? Z_LVAL_P(expiry) : 0,
         &result, &result_len);
 
-    if (error)
+    switch(error)
     {
-        throw_qdb_error(error);
-    }
-    else
-    {
-        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
+        case qdb_e_ok:
+            RETVAL_NULL();
+            break;
+
+        case qdb_e_unmatched_content:
+            RETVAL_STRINGL(result, result_len, /*duplicate=*/1);
+            break;
+
+        default:
+            throw_qdb_error(error);
     }
 
     qdb_free_buffer(this->handle, result);
@@ -141,17 +146,19 @@ BEGIN_CLASS_METHOD_1(removeIf, STRING_ARG(comparand))
 {
     qdb_error_t error = qdb_remove_if(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(comparand), Z_STRLEN_P(comparand));
 
-    if (error == 0)
+    switch (error)
     {
-        RETURN_TRUE;
-    }
-    else if (error == qdb_e_unmatched_content)
-    {
-        RETURN_FALSE;
-    }
-    else
-    {
-        throw_qdb_error(error);
+        case qdb_e_ok:
+            RETVAL_TRUE;
+            break;
+
+        case qdb_e_unmatched_content:
+            RETVAL_FALSE;
+            break;
+
+        default:
+            throw_qdb_error(error);
+            break;
     }
 }
 END_CLASS_METHOD()
