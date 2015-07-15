@@ -5,10 +5,10 @@
  * <code>
  * $cluster->queue('alias')->pushBack('content');
  * $cluster->queue('alias')->popBack();
- * $cluster->queue('alias')->popBack(); // throws QdbEmptyContainerException
+ * $cluster->queue('alias')->popBack(); // throws QdbContainerEmptyException
  * </code>
  */
-class QdbEmptyContainerException extends QdbException
+class QdbContainerEmptyException extends QdbException
 {
 }
 ?>

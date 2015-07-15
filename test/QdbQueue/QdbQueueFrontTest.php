@@ -35,7 +35,7 @@ class QdbQueueFrontTest extends QdbTestBase
     }
 
     /**
-     * @expectedException               QdbEmptyContainerException
+     * @expectedException               QdbContainerEmptyException
      */
     public function testOnEmptyQueue()
     {

@@ -21,7 +21,7 @@ class QdbQueue extends QdbEntry
      * @return string The last element of the queue.
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
-     * @throws QdbEmptyContainerException
+     * @throws QdbContainerEmptyException
      * @example
      * <code>
      * $last = $cluster->queue('alias')->back();
@@ -34,7 +34,7 @@ class QdbQueue extends QdbEntry
      * @return string The first element of the queue.
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
-     * @throws QdbEmptyContainerException
+     * @throws QdbContainerEmptyException
      * @example
      * <code>
      * $first = $cluster->queue('alias')->front();
@@ -47,7 +47,7 @@ class QdbQueue extends QdbEntry
      * @return string The last element of the queue.
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
-     * @throws QdbEmptyContainerException
+     * @throws QdbContainerEmptyException
      * @example
      * <code>
      * $last = $cluster->queue('alias')->popBack();
@@ -60,7 +60,7 @@ class QdbQueue extends QdbEntry
      * @return string The first element of the queue.
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
-     * @throws QdbEmptyContainerException
+     * @throws QdbContainerEmptyException
      * @example
      * <code>
      * $first = $cluster->queue('alias')->popFront();

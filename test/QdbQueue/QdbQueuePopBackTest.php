@@ -49,7 +49,7 @@ class QdbQueuePopBackTest extends QdbTestBase
     }
 
     /**
-     * @expectedException               QdbEmptyContainerException
+     * @expectedException               QdbContainerEmptyException
      * @expectedExceptionMessageRegExp  /empty/i
      */
     public function testEmpty()

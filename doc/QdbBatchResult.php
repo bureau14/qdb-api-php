@@ -8,7 +8,7 @@
  * Operations results are stored in the order in which operations have been added to the {@link QdbBatch}, which is not necessarily the order in which operation are executed in the cluster.
  *
  * An exception will be thrown when reading the result of an operation that failed.
- * The exception type will match the failure of that particular operation, like {@link QdbAliasAlreadyExistsException}, {@link QdbAliasNotFoundException}, {@link QdbEmptyContainerException} or {@link QdbIncompatibleTypeException}.
+ * The exception type will match the failure of that particular operation, like {@link QdbAliasAlreadyExistsException}, {@link QdbAliasNotFoundException}, {@link QdbContainerEmptyException} or {@link QdbIncompatibleTypeException}.
  *
  * @example
  * <code>

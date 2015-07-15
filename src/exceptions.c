@@ -47,7 +47,7 @@ static qdb_exception_t qdb_exceptions[] = {
     { qdb_e_prefix_too_short,            "QdbPrefixTooShortException"       },
     { qdb_e_skipped,                     "QdbSkippedException"              },
     { qdb_e_incompatible_type,           "QdbIncompatibleTypeException"     },
-    { qdb_e_empty_container,             "QdbEmptyContainerException"       },
+    { qdb_e_container_empty,             "QdbContainerEmptyException"       },
     { qdb_e_container_full,              "QdbContainerFullException"        },
     { qdb_e_element_not_found,           "QdbElementNotFoundException"      },
     { qdb_e_element_already_exists,      "QdbElementAlreadyExistsException" },
