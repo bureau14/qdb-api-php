@@ -30,7 +30,7 @@ void QdbInteger_createInstance(zval* destination, qdb_handle_t handle, zval* ali
 
 BEGIN_CLASS_METHOD_1(add, LONG_ARG(value))
 {
-    qdb_int result;
+    qdb_int_t result;
 
     qdb_error_t error = qdb_int_add(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), &result);
 
@@ -44,7 +44,7 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_0(get)
 {
-    qdb_int result;
+    qdb_int_t result;
 
     qdb_error_t error = qdb_int_get(this->handle, Z_STRVAL_P(this->alias), &result);
 
