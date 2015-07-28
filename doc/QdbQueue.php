@@ -89,6 +89,18 @@ class QdbQueue extends QdbEntry
      * </code>
      */
     function pushFront($content);
+
+    /**
+     * Gets the length of the queue.
+     * @return int The number of elements in the queue.
+     * @throws QdbAliasNotFoundException
+     * @throws QdbIncompatibleTypeException
+     * @example
+     * <code>
+     * $elementCount = $cluster->queue('alias')->size();
+     * </code>
+     */
+    function size();
 }
 
 ?>

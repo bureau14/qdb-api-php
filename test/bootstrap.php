@@ -23,7 +23,7 @@ $descriptorspec = array(
 );
 
 $process = proc_open("qdbd $DAEMON_FLAGS", $descriptorspec, $pipes);
-sleep(5);
+sleep(4);
 $status = proc_get_status($process);
 if (!$status['running']) {
     echo 'Failed', PHP_EOL;

@@ -31,7 +31,7 @@ void QdbBlob_createInstance(zval* destination, qdb_handle_t handle, zval* alias 
 BEGIN_CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content), STRING_ARG(comparand), LONG_ARG(expiry))
 {
     const char* result;
-    size_t result_len;
+    qdb_size_t result_len;
 
     qdb_error_t error = qdb_compare_and_swap(
         this->handle,
@@ -63,7 +63,7 @@ END_CLASS_METHOD()
 BEGIN_CLASS_METHOD_0(get)
 {
     const char* result;
-    size_t result_len;
+    qdb_size_t result_len;
 
     qdb_error_t error = qdb_get(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
@@ -84,7 +84,7 @@ END_CLASS_METHOD()
 BEGIN_CLASS_METHOD_0(getAndRemove)
 {
     const char* result;
-    size_t result_len;
+    qdb_size_t result_len;
 
     qdb_error_t error = qdb_get_and_remove(this->handle,
         Z_STRVAL_P(this->alias),
@@ -107,7 +107,7 @@ END_CLASS_METHOD()
 BEGIN_CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
 {
     const char* result;
-    size_t result_len;
+    qdb_size_t result_len;
 
     qdb_error_t error = qdb_get_and_update(this->handle,
         Z_STRVAL_P(this->alias),
