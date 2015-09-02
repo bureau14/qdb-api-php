@@ -84,7 +84,7 @@ class QdbTagGetEntriesTest extends QdbTestBase
         $entries = $tag->getEntries();
 
         $entry = $this->getSingleElement($entries);
-        $this->assertInstanceOf('QdbQueue', $entry);
+        $this->assertInstanceOf('QdbDeque', $entry);
         $this->assertEquals($queue->alias(), $entry->alias());
     }
 

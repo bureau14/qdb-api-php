@@ -42,6 +42,18 @@ class QdbCluster
     function blob($alias);
 
     /**
+     * Creates a {@link QdbDeque} associated with the specified alias.
+     * No query is performed at this point.
+     * @param string $alias The alias of the queue (alias starting with `qdb` are reserved).
+     * @return QdbDeque
+     * @example
+     * <code>
+     * $cluster->deque('alias')->pushBack('content');
+     * </code>
+     */
+    function deque($alias);
+
+    /**
      * Creates a {@link QdbHashSet} associated with the specified alias.
      * No query is performed at this point.
      * @param string $alias The alias of the hash-set (alias starting with `qdb` are reserved).
@@ -64,18 +76,6 @@ class QdbCluster
      * </code>
      */
     function integer($alias);
-
-    /**
-     * Creates a {@link QdbQueue} associated with the specified alias.
-     * No query is performed at this point.
-     * @param string $alias The alias of the queue (alias starting with `qdb` are reserved).
-     * @return QdbQueue
-     * @example
-     * <code>
-     * $cluster->queue('alias')->pushBack('content');
-     * </code>
-     */
-    function queue($alias);
 
     /**
      * Executes operations of a `QdbBatch`.

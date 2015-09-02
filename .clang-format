@@ -1,0 +1,12 @@
+AlignAfterOpenBracket: false
+AllowShortFunctionsOnASingleLine: false
+BinPackArguments : false
+BreakBeforeBraces: Allman
+ColumnLimit: 120
+IndentCaseLabels: true
+IndentWidth: 4
+MacroBlockBegin: BEGIN_CLASS_MEMBERS
+MacroBlockEnd: END_CLASS_MEMBERS
+MaxEmptyLinesToKeep: 2
+PointerAlignment: Left
+SpacesBeforeTrailingComments: 2

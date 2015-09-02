@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueueSizeTest extends QdbTestBase
+class QdbDequeSizeTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException

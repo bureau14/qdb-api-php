@@ -11,15 +11,16 @@
 
 #include <qdb/client.h>
 
-#define class_name          QdbBatchResult
-#define class_storage       batch_result_t
-#define class_interfaces    2,spl_ce_Countable,zend_ce_arrayaccess
+#define class_name QdbBatchResult
+#define class_storage batch_result_t
+#define class_interfaces 2, spl_ce_Countable, zend_ce_arrayaccess
 
 
-typedef struct {
+typedef struct
+{
     zend_object std;
     qdb_handle_t handle;
-    qdb_operation_t * operations;
+    qdb_operation_t* operations;
     size_t operations_count;
 } batch_result_t;
 
@@ -28,7 +29,8 @@ extern zend_class_entry* ce_QdbBatchResult;
 static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC);
 
 
-void QdbBatchResult_createInstance(zval* destination, qdb_handle_t handle, qdb_operation_t * operations, size_t operations_count TSRMLS_DC)
+void QdbBatchResult_createInstance(zval* destination, qdb_handle_t handle,
+    qdb_operation_t* operations, size_t operations_count TSRMLS_DC)
 {
     batch_result_t* this;
 
@@ -49,32 +51,34 @@ BEGIN_CLASS_METHOD_0(__destruct)
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_0(count) // inherited from Countable
+BEGIN_CLASS_METHOD_0(count)  // inherited from Countable
 {
     RETURN_LONG(this->operations_count);
 }
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_1(offsetExists, MIXED_ARG(offset)) // inherited from ArrayAccess
+BEGIN_CLASS_METHOD_1(offsetExists, MIXED_ARG(offset))  // inherited from ArrayAccess
 {
     long index = Z_LVAL_P(offset);
 
-    RETURN_BOOL(index>=0 && index<(long)this->operations_count);
+    RETURN_BOOL(index >= 0 && index < (long)this->operations_count);
 }
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_1(offsetGet, MIXED_ARG(offset)) // inherited from ArrayAccess
+BEGIN_CLASS_METHOD_1(offsetGet, MIXED_ARG(offset))  // inherited from ArrayAccess
 {
     long index = Z_LVAL_P(offset);
 
-    if (index < 0){
+    if (index < 0)
+    {
         throw_out_of_range("Offset must be positive of zero");
         return;
     }
 
-    if (index >= (long)this->operations_count) {
+    if (index >= (long)this->operations_count)
+    {
         throw_out_of_bounds("Offset must be smaller than the number of operations");
         return;
     }
@@ -84,7 +88,7 @@ BEGIN_CLASS_METHOD_1(offsetGet, MIXED_ARG(offset)) // inherited from ArrayAccess
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_2(offsetSet, MIXED_ARG(offset), MIXED_ARG(value)) // inherited from ArrayAccess
+BEGIN_CLASS_METHOD_2(offsetSet, MIXED_ARG(offset), MIXED_ARG(value))  // inherited from ArrayAccess
 {
     UNUSED(this);
     UNUSED(offset);
@@ -94,7 +98,7 @@ BEGIN_CLASS_METHOD_2(offsetSet, MIXED_ARG(offset), MIXED_ARG(value)) // inherite
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_1(offsetUnset, MIXED_ARG(offset)) // inherited from ArrayAccess
+BEGIN_CLASS_METHOD_1(offsetUnset, MIXED_ARG(offset))  // inherited from ArrayAccess
 {
     UNUSED(this);
     UNUSED(offset);
@@ -104,17 +108,17 @@ END_CLASS_METHOD()
 
 
 BEGIN_CLASS_MEMBERS()
-    ADD_DESTRUCTOR(__destruct)
-    ADD_METHOD(count)
-    ADD_METHOD(offsetExists)
-    ADD_METHOD(offsetGet)
-    ADD_METHOD(offsetSet)
-    ADD_METHOD(offsetUnset)
+ADD_DESTRUCTOR(__destruct)
+ADD_METHOD(count)
+ADD_METHOD(offsetExists)
+ADD_METHOD(offsetGet)
+ADD_METHOD(offsetSet)
+ADD_METHOD(offsetUnset)
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"
 
-static void getCompareAndSwapResult(zval* return_value, qdb_operation_t * op TSRMLS_DC)
+static void getCompareAndSwapResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
 {
     switch (op->error)
     {
@@ -169,13 +173,13 @@ static void getOtherOperationResult(zval* return_value, qdb_operation_t* op TSRM
 
 static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
 {
-    switch(op->type)
+    switch (op->type)
     {
-        case qdb_op_cas:
+        case qdb_op_blob_cas:
             getCompareAndSwapResult(return_value, op TSRMLS_CC);
             break;
 
-        case qdb_op_remove_if:
+        case qdb_op_blob_remove_if:
             getRemoveIfResult(return_value, op TSRMLS_CC);
             break;
 

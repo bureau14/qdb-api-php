@@ -2,9 +2,8 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueueBackTest extends QdbTestBase
+class QdbDequePopFrontTest extends QdbTestBase
 {
-
     /**
      * @expectedException               InvalidArgumentException
      * @expectedExceptionMessageRegExp  /too many/i
@@ -13,16 +12,18 @@ class QdbQueueBackTest extends QdbTestBase
     {
         $queue = $this->createEmptyQueue();
 
-        $queue->back('i should not be there');
+        $queue->popFront('hello');
     }
 
-    public function testAfterPushFront()
+    /**
+     * @expectedException               QdbAliasNotFoundException
+     * @expectedExceptionMessageRegExp  /cannot be found/i
+     */
+    public function testNotFound()
     {
         $queue = $this->createEmptyQueue();
 
-        $queue->pushFront('hello');
-        $queue->pushFront('world');
-        $this->assertEquals('hello', $queue->back());
+        $queue->popFront();
     }
 
     public function testAfterPushBack()
@@ -31,19 +32,33 @@ class QdbQueueBackTest extends QdbTestBase
 
         $queue->pushBack('hello');
         $queue->pushBack('world');
-        $this->assertEquals('world', $queue->back());
+        $result = $queue->popFront();
+
+        $this->assertEquals('hello', $result);
+    }
+
+    public function testAfterPushFront()
+    {
+        $queue = $this->createEmptyQueue();
+
+        $queue->pushFront('hello');
+        $queue->pushFront('world');
+        $result = $queue->popFront();
+
+        $this->assertEquals('world', $result);
     }
 
     /**
      * @expectedException               QdbContainerEmptyException
+     * @expectedExceptionMessageRegExp  /empty/i
      */
-    public function testOnEmptyQueue()
+    public function testEmpty()
     {
         $queue = $this->createEmptyQueue();
 
         $queue->pushBack('hello');
-        $queue->popBack();
-        $queue->back();
+        $queue->popFront();
+        $queue->popFront();
     }
 
     /**
@@ -55,18 +70,7 @@ class QdbQueueBackTest extends QdbTestBase
         $blob = $this->createBlob($alias);
         $queue = $this->createEmptyQueue($alias);
 
-        $queue->back();
-    }
-
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     * @expectedExceptionMessageRegExp  /cannot be found/i
-     */
-    public function testNotFound()
-    {
-        $queue = $this->createEmptyQueue();
-
-        $queue->back();
+        $queue->popFront();
     }
 }
 

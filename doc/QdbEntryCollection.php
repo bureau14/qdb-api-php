@@ -4,7 +4,7 @@
  *
  * A `QdbEntryCollection` is returned by {@link \QdbTag::getEntries()}.
  *
- * Entries in the collection have a concrete type like {@link QdbBlob}, {@link QdbInteger}, {@link QdbQueue} or {@link QdbTag}
+ * Entries in the collection have a concrete type like {@link QdbBlob}, {@link QdbInteger}, {@link QdbDeque} or {@link QdbTag}
  *
  * @example
  * <code>

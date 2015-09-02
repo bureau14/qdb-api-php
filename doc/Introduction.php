@@ -16,9 +16,9 @@
  * $value = $blob->get();
  * </code>
  *
- * Want a queue? We have distributed queues.
+ * Quasardb provides concurrent double-ended queue, or "deque"
  * <code>
- * $queue = $cluster->queue('Andrew the queue');
+ * $queue = $cluster->deque('Andrew the queue');
  *
  * $queue->pushBack('firstValue');
  * $queue->pushBack('secondValue');
@@ -51,6 +51,6 @@
  * </code>
  *
  * The source code of this library can by found on <a href='https://github.com/bureau14/qdb-api-php'>GitHub</a>.
- * @see QdbBlob, QdbHashSet, QdbInteger, QdbQueue, QdbTag
+ * @see QdbBlob, QdbHashSet, QdbInteger, QdbDeque, QdbTag
  */
 function Introduction();

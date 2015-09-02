@@ -9,19 +9,19 @@
 #include "exceptions.h"
 #include "QdbEntry.h"
 
-#include <qdb/queue.h>
+#include <qdb/deque.h>
 
-#define class_name          QdbQueue
-#define class_storage       entry_t
-#define class_parent        QdbEntry
-
-
-extern zend_class_entry* ce_QdbQueue;
+#define class_name QdbDeque
+#define class_storage entry_t
+#define class_parent QdbEntry
 
 
-void QdbQueue_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC)
+extern zend_class_entry* ce_QdbDeque;
+
+
+void QdbDeque_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC)
 {
-    object_init_ex(destination, ce_QdbQueue);
+    object_init_ex(destination, ce_QdbDeque);
     QdbEntry_constructInstance(destination, handle, alias TSRMLS_CC);
 }
 
@@ -31,7 +31,7 @@ BEGIN_CLASS_METHOD_0(back)
     const char* result = NULL;
     qdb_size_t result_len = 0;
 
-    qdb_error_t error = qdb_queue_back(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_deque_back(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
     if (error)
         throw_qdb_error(error);
@@ -48,7 +48,7 @@ BEGIN_CLASS_METHOD_0(front)
     const char* result = NULL;
     qdb_size_t result_len = 0;
 
-    qdb_error_t error = qdb_queue_front(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_deque_front(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
     if (error)
         throw_qdb_error(error);
@@ -65,7 +65,7 @@ BEGIN_CLASS_METHOD_0(popBack)
     const char* result = NULL;
     qdb_size_t result_len = 0;
 
-    qdb_error_t error = qdb_queue_pop_back(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_deque_pop_back(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
     if (error)
         throw_qdb_error(error);
@@ -82,7 +82,7 @@ BEGIN_CLASS_METHOD_0(popFront)
     const char* result = NULL;
     qdb_size_t result_len = 0;
 
-    qdb_error_t error = qdb_queue_pop_front(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_deque_pop_front(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
     if (error)
         throw_qdb_error(error);
@@ -96,7 +96,8 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_1(pushBack, STRING_ARG(content))
 {
-    qdb_error_t error = qdb_queue_push_back(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
+    qdb_error_t error =
+        qdb_deque_push_back(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
     if (error)
         throw_qdb_error(error);
@@ -106,7 +107,8 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_1(pushFront, STRING_ARG(content))
 {
-    qdb_error_t error = qdb_queue_push_front(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
+    qdb_error_t error =
+        qdb_deque_push_front(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
     if (error)
         throw_qdb_error(error);
@@ -117,7 +119,7 @@ END_CLASS_METHOD()
 BEGIN_CLASS_METHOD_0(size)
 {
     qdb_size_t size;
-    qdb_error_t error = qdb_queue_size(this->handle, Z_STRVAL_P(this->alias), &size);
+    qdb_error_t error = qdb_deque_size(this->handle, Z_STRVAL_P(this->alias), &size);
 
     if (error)
         throw_qdb_error(error);

@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueueFrontTest extends QdbTestBase
+class QdbDequeFrontTest extends QdbTestBase
 {
 
     /**

@@ -12,12 +12,12 @@ PHP_QUASARDB_SOURCES="\
   src/QdbBatchResult.c \
   src/QdbBlob.c \
   src/QdbCluster.c \
+  src/QdbDeque.c \
   src/QdbEntry.c \
   src/QdbEntryCollection.c \
   src/QdbExpirableEntry.c \
   src/QdbHashSet.c \
   src/QdbInteger.c \
-  src/QdbQueue.c \
   src/QdbTag.c \
   src/QdbTagCollection.c \
   src/settings.c \

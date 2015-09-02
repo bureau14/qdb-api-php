@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbClusterQueueTest extends QdbTestBase
+class QdbClusterDequeTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,7 +10,7 @@ class QdbClusterQueueTest extends QdbTestBase
      */
     public function testNotEnoughArguments()
     {
-        $this->cluster->queue();
+        $this->cluster->deque();
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbClusterQueueTest extends QdbTestBase
      */
     public function testTooManyArguments()
     {
-        $this->cluster->queue('alias', 0);
+        $this->cluster->deque('alias', 0);
     }
 
     /**
@@ -28,26 +28,26 @@ class QdbClusterQueueTest extends QdbTestBase
      */
     public function testWrongAliasType()
     {
-        $this->cluster->queue(array());
+        $this->cluster->deque(array());
     }
 
     public function testReturnType()
     {
         $alias = createUniqueAlias();
 
-        $queue = $this->cluster->queue($alias);
+        $deque = $this->cluster->deque($alias);
 
-        $this->assertInstanceOf('QdbQueue', $queue);
-        $this->assertInstanceOf('QdbEntry', $queue);
+        $this->assertInstanceOf('QdbDeque', $deque);
+        $this->assertInstanceOf('QdbEntry', $deque);
     }
 
     public function testAlias()
     {
         $alias = createUniqueAlias();
 
-        $queue = $this->cluster->queue($alias);
+        $deque = $this->cluster->deque($alias);
 
-        $this->assertEquals($alias, $queue->alias());
+        $this->assertEquals($alias, $deque->alias());
     }
 }
 

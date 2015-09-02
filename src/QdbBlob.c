@@ -11,37 +11,41 @@
 #include "QdbExpirableEntry.h"
 #include "exceptions.h"
 
+#include <qdb/client.h>
 #include <qdb/blob.h>
 
-#define class_name          QdbBlob
-#define class_storage       entry_t
-#define class_parent        QdbExpirableEntry
-
+#define class_name QdbBlob
+#define class_storage entry_t
+#define class_parent QdbExpirableEntry
 
 extern zend_class_entry* ce_QdbBlob;
 
 
-void QdbBlob_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC)
+void QdbBlob_createInstance(
+    zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC)
 {
     object_init_ex(destination, ce_QdbBlob);
     QdbExpirableEntry_constructInstance(destination, handle, alias TSRMLS_CC);
 }
 
 
-BEGIN_CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content), STRING_ARG(comparand), LONG_ARG(expiry))
+BEGIN_CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content),
+    STRING_ARG(comparand), LONG_ARG(expiry))
 {
     const char* result;
     qdb_size_t result_len;
 
-    qdb_error_t error = qdb_compare_and_swap(
-        this->handle,
+    qdb_error_t error = qdb_blob_compare_and_swap(this->handle,
         Z_STRVAL_P(this->alias),
-        Z_STRVAL_P(content), Z_STRLEN_P(content),
-        Z_STRVAL_P(comparand), Z_STRLEN_P(comparand),
+        Z_STRVAL_P(content),
+        Z_STRLEN_P(content),
+        Z_STRVAL_P(comparand),
+        Z_STRLEN_P(comparand),
         expiry ? Z_LVAL_P(expiry) : 0,
-        &result, &result_len);
+        &result,
+        &result_len);
 
-    switch(error)
+    switch (error)
     {
         case qdb_e_ok:
             RETVAL_NULL();
@@ -65,7 +69,8 @@ BEGIN_CLASS_METHOD_0(get)
     const char* result;
     qdb_size_t result_len;
 
-    qdb_error_t error = qdb_get(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_blob_get(
+        this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
     if (error)
     {
@@ -86,9 +91,8 @@ BEGIN_CLASS_METHOD_0(getAndRemove)
     const char* result;
     qdb_size_t result_len;
 
-    qdb_error_t error = qdb_get_and_remove(this->handle,
-        Z_STRVAL_P(this->alias),
-        &result, &result_len);
+    qdb_error_t error = qdb_blob_get_and_remove(
+        this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
 
     if (error)
     {
@@ -109,11 +113,13 @@ BEGIN_CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
     const char* result;
     qdb_size_t result_len;
 
-    qdb_error_t error = qdb_get_and_update(this->handle,
+    qdb_error_t error = qdb_blob_get_and_update(this->handle,
         Z_STRVAL_P(this->alias),
-        Z_STRVAL_P(content), Z_STRLEN_P(content),
+        Z_STRVAL_P(content),
+        Z_STRLEN_P(content),
         expiry ? Z_LVAL_P(expiry) : 0,
-        &result, &result_len);
+        &result,
+        &result_len);
 
     if (error)
     {
@@ -131,9 +137,10 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_1_1(put, STRING_ARG(content), LONG_ARG(expiry))
 {
-    qdb_error_t error = qdb_put(this->handle,
+    qdb_error_t error = qdb_blob_put(this->handle,
         Z_STRVAL_P(this->alias),
-        Z_STRVAL_P(content), Z_STRLEN_P(content),
+        Z_STRVAL_P(content),
+        Z_STRLEN_P(content),
         expiry ? Z_LVAL_P(expiry) : 0);
 
     if (error)
@@ -144,7 +151,10 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_1(removeIf, STRING_ARG(comparand))
 {
-    qdb_error_t error = qdb_remove_if(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(comparand), Z_STRLEN_P(comparand));
+    qdb_error_t error = qdb_blob_remove_if(this->handle,
+        Z_STRVAL_P(this->alias),
+        Z_STRVAL_P(comparand),
+        Z_STRLEN_P(comparand));
 
     switch (error)
     {
@@ -166,9 +176,10 @@ END_CLASS_METHOD()
 
 BEGIN_CLASS_METHOD_1_1(update, STRING_ARG(content), LONG_ARG(expiry))
 {
-    qdb_error_t error = qdb_update(this->handle,
+    qdb_error_t error = qdb_blob_update(this->handle,
         Z_STRVAL_P(this->alias),
-        Z_STRVAL_P(content), Z_STRLEN_P(content),
+        Z_STRVAL_P(content),
+        Z_STRLEN_P(content),
         expiry ? Z_LVAL_P(expiry) : 0);
 
     if (error)

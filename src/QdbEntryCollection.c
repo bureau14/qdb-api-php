@@ -6,7 +6,7 @@
 #include <zend_interfaces.h>
 
 #include "QdbBlob.h"
-#include "QdbQueue.h"
+#include "QdbDeque.h"
 #include "QdbInteger.h"
 #include "QdbHashSet.h"
 #include "QdbTag.h"
@@ -16,15 +16,16 @@
 
 #include <qdb/client.h>
 
-#define class_name          QdbEntryCollection
-#define class_storage       tag_collection_t
-#define class_interfaces    1,spl_ce_Iterator
+#define class_name QdbEntryCollection
+#define class_storage tag_collection_t
+#define class_interfaces 1, spl_ce_Iterator
 
 
-typedef struct {
+typedef struct
+{
     zend_object std;
     qdb_handle_t handle;
-    const char ** entries;
+    const char** entries;
     size_t entries_count;
     size_t current;
 } tag_collection_t;
@@ -32,7 +33,8 @@ typedef struct {
 extern zend_class_entry* ce_QdbEntryCollection;
 
 
-void QdbEntryCollection_createInstance(zval* destination, qdb_handle_t handle, const char ** entries, size_t entries_count TSRMLS_DC)
+void QdbEntryCollection_createInstance(
+    zval* destination, qdb_handle_t handle, const char** entries, size_t entries_count TSRMLS_DC)
 {
     tag_collection_t* this;
 
@@ -45,37 +47,38 @@ void QdbEntryCollection_createInstance(zval* destination, qdb_handle_t handle, c
     this->current = 0;
 }
 
-static inline void QdbEntryCollection_createEntry(zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias TSRMLS_DC)
+static inline void QdbEntryCollection_createEntry(
+    zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias TSRMLS_DC)
 {
-    zval *zalias;
+    zval* zalias;
     ALLOC_INIT_ZVAL(zalias);
     ZVAL_STRING(zalias, alias, /*dup=*/1);
 
     switch (type)
     {
-    case qdb_entry_blob:
-        QdbBlob_createInstance(destination, handle, zalias TSRMLS_CC);
-        break;
+        case qdb_entry_blob:
+            QdbBlob_createInstance(destination, handle, zalias TSRMLS_CC);
+            break;
 
-    case qdb_entry_hset:
-        QdbHashSet_createInstance(destination, handle, zalias TSRMLS_CC);
-        break;
+        case qdb_entry_hset:
+            QdbHashSet_createInstance(destination, handle, zalias TSRMLS_CC);
+            break;
 
-    case qdb_entry_integer:
-        QdbInteger_createInstance(destination, handle, zalias TSRMLS_CC);
-        break;
+        case qdb_entry_integer:
+            QdbInteger_createInstance(destination, handle, zalias TSRMLS_CC);
+            break;
 
-    case qdb_entry_queue:
-        QdbQueue_createInstance(destination, handle, zalias TSRMLS_CC);
-        break;
+        case qdb_entry_queue:
+            QdbDeque_createInstance(destination, handle, zalias TSRMLS_CC);
+            break;
 
-    case qdb_entry_tag:
-        QdbTag_createInstance(destination, handle, zalias TSRMLS_CC);
-        break;
+        case qdb_entry_tag:
+            QdbTag_createInstance(destination, handle, zalias TSRMLS_CC);
+            break;
 
-    default:
-        throw_bad_function_call("Entry type not supported, please update quasardb PHP API.");
-        break;
+        default:
+            throw_bad_function_call("Entry type not supported, please update quasardb PHP API.");
+            break;
     }
 }
 
@@ -86,9 +89,10 @@ BEGIN_CLASS_METHOD_0(__destruct)
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_0(current) // inherited from Iterator
+BEGIN_CLASS_METHOD_0(current)  // inherited from Iterator
 {
-    if (this->current >= this->entries_count) return;
+    if (this->current >= this->entries_count)
+        return;
 
     const char* alias = this->entries[this->current];
 
@@ -103,32 +107,33 @@ BEGIN_CLASS_METHOD_0(current) // inherited from Iterator
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_0(key) // inherited from Iterator
+BEGIN_CLASS_METHOD_0(key)  // inherited from Iterator
 {
-    if (this->current >= this->entries_count) return;
+    if (this->current >= this->entries_count)
+        return;
 
     RETURN_LONG(this->current);
 }
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_0(next) // inherited from Iterator
+BEGIN_CLASS_METHOD_0(next)  // inherited from Iterator
 {
     this->current++;
 }
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_0(rewind) // inherited from Iterator
+BEGIN_CLASS_METHOD_0(rewind)  // inherited from Iterator
 {
     this->current = 0;
 }
 END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_0(valid) // inherited from Iterator
+BEGIN_CLASS_METHOD_0(valid)  // inherited from Iterator
 {
-    RETURN_BOOL(this->current<this->entries_count);
+    RETURN_BOOL(this->current < this->entries_count);
 }
 END_CLASS_METHOD()
 

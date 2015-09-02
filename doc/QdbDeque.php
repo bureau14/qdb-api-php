@@ -6,15 +6,15 @@
  * It's a double-ended queue, you can both enqueue and dequeue from the front and the back.
  *
  * @example
- * You get a `QdbQueue` instance by calling {@link \QdbCluster::queue()}.
+ * You get a `QdbDeque` instance by calling {@link \QdbCluster::deque()}.
  * Then you can perform atomic operations on the queue:
  * <code>
- * $queue = $cluster->queue('my queue');
+ * $queue = $cluster->deque('my queue');
  * $queue->pushBack('value 0');
  * $queue->pushBack('value 1');
  * </code>
  */
-class QdbQueue extends QdbEntry
+class QdbDeque extends QdbEntry
 {
     /**
      * Gets the element at the end of the queue.
@@ -24,7 +24,7 @@ class QdbQueue extends QdbEntry
      * @throws QdbContainerEmptyException
      * @example
      * <code>
-     * $last = $cluster->queue('alias')->back();
+     * $last = $cluster->deque('alias')->back();
      * </code>
      */
     function back();
@@ -37,33 +37,33 @@ class QdbQueue extends QdbEntry
      * @throws QdbContainerEmptyException
      * @example
      * <code>
-     * $first = $cluster->queue('alias')->front();
+     * $first = $cluster->deque('alias')->front();
      * </code>
      */
     function front();
 
     /**
-     * Dequeues from the end of the queue and return the value.
+     * Dequeues from the end of the queue and returns the value.
      * @return string The last element of the queue.
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      * @throws QdbContainerEmptyException
      * @example
      * <code>
-     * $last = $cluster->queue('alias')->popBack();
+     * $last = $cluster->deque('alias')->popBack();
      * </code>
      */
     function popBack();
 
     /**
-     * Dequeues from the beginning of the queue and return the value.
+     * Dequeues from the beginning of the queue and returns the value.
      * @return string The first element of the queue.
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      * @throws QdbContainerEmptyException
      * @example
      * <code>
-     * $first = $cluster->queue('alias')->popFront();
+     * $first = $cluster->deque('alias')->popFront();
      * </code>
      */
     function popFront();
@@ -74,7 +74,7 @@ class QdbQueue extends QdbEntry
      * @throws QdbIncompatibleTypeException
      * @example
      * <code>
-     * $cluster->queue('alias')->pushBack('content');
+     * $cluster->deque('alias')->pushBack('content');
      * </code>
      */
     function pushBack($content);
@@ -85,7 +85,7 @@ class QdbQueue extends QdbEntry
      * @throws QdbIncompatibleTypeException
      * @example
      * <code>
-     * $cluster->queue('alias')->pushFront('content');
+     * $cluster->deque('alias')->pushFront('content');
      * </code>
      */
     function pushFront($content);
@@ -97,7 +97,7 @@ class QdbQueue extends QdbEntry
      * @throws QdbIncompatibleTypeException
      * @example
      * <code>
-     * $elementCount = $cluster->queue('alias')->size();
+     * $elementCount = $cluster->deque('alias')->size();
      * </code>
      */
     function size();

@@ -31,7 +31,7 @@
     It supports:
     * batchs
     * blobs
-    * queues
+    * deques
     * integers
     * sets
   </notes>
@@ -63,6 +63,8 @@
         <file role="src" name="QdbBlob.h" />
         <file role="src" name="QdbCluster.c" />
         <file role="src" name="QdbCluster.h" />
+        <file role="src" name="QdbDeque.c" />
+        <file role="src" name="QdbDeque.h" />
         <file role="src" name="QdbEntry.c" />
         <file role="src" name="QdbEntry.h" />
         <file role="src" name="QdbExpirableEntry.c" />
@@ -71,8 +73,6 @@
         <file role="src" name="QdbHashSet.h" />
         <file role="src" name="QdbInteger.c" />
         <file role="src" name="QdbInteger.h" />
-        <file role="src" name="QdbQueue.c" />
-        <file role="src" name="QdbQueue.h" />
         <file role="src" name="settings.c" />
         <file role="src" name="settings.h" />
       </dir>

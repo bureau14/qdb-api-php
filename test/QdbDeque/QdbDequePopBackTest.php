@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueuePopBackTest extends QdbTestBase
+class QdbDequePopBackTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
