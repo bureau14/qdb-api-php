@@ -68,7 +68,7 @@ static inline void QdbEntryCollection_createEntry(
             QdbInteger_createInstance(destination, handle, zalias TSRMLS_CC);
             break;
 
-        case qdb_entry_queue:
+        case qdb_entry_deque:
             QdbDeque_createInstance(destination, handle, zalias TSRMLS_CC);
             break;
 

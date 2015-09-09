@@ -7,7 +7,7 @@
  * $cluster = new QdbCluster('qdb://127.0.0.1:2836');
  *
  * $cluster->blob('key 0')->put('value 0');
- * $cluster->queue('key 1')->pushBack('value 1');
+ * $cluster->deque('key 1')->pushBack('value 1');
  * $cluster->integer('key 2')->add(42);
  * $cluster->hashSet('key 3')->insert('value 2');
  * </code>
