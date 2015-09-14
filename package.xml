@@ -7,7 +7,7 @@
   <channel>pecl.php.net</channel>
   <summary>Quasardb PHP extension</summary>
   <description>
-    Quasardb is a distributed NoSQL database
+    Quasardb is a distributed NoSQL database.
     This package provides a PHP API to access data in a Quasardb cluster.
   </description>
   <lead>
@@ -44,17 +44,6 @@
       <file role="src" name="config.m4"/>
       <file role="src" name="config.w32"/>
       <dir name="src">
-        <file role="src" name="class_definition.c" />
-        <file role="src" name="class_definition.h" />
-        <file role="src" name="class_definition.i" />
-        <file role="src" name="connection.c" />
-        <file role="src" name="connection.h" />
-        <file role="src" name="exceptions.c" />
-        <file role="src" name="exceptions.h" />
-        <file role="src" name="globals.c" />
-        <file role="src" name="globals.h" />
-        <file role="src" name="log.c" />
-        <file role="src" name="log.h" />
         <file role="src" name="QdbBatch.c" />
         <file role="src" name="QdbBatch.h" />
         <file role="src" name="QdbBatchResult.c" />
@@ -67,12 +56,29 @@
         <file role="src" name="QdbDeque.h" />
         <file role="src" name="QdbEntry.c" />
         <file role="src" name="QdbEntry.h" />
+        <file role="src" name="QdbEntryCollection.c" />
+        <file role="src" name="QdbEntryCollection.h" />
         <file role="src" name="QdbExpirableEntry.c" />
         <file role="src" name="QdbExpirableEntry.h" />
         <file role="src" name="QdbHashSet.c" />
         <file role="src" name="QdbHashSet.h" />
         <file role="src" name="QdbInteger.c" />
         <file role="src" name="QdbInteger.h" />
+        <file role="src" name="QdbTag.c" />
+        <file role="src" name="QdbTag.h" />
+        <file role="src" name="QdbTagCollection.c" />
+        <file role="src" name="QdbTagCollection.h" />
+        <file role="src" name="class_definition.c" />
+        <file role="src" name="class_definition.h" />
+        <file role="src" name="class_definition.i" />
+        <file role="src" name="connection.c" />
+        <file role="src" name="connection.h" />
+        <file role="src" name="exceptions.c" />
+        <file role="src" name="exceptions.h" />
+        <file role="src" name="globals.c" />
+        <file role="src" name="globals.h" />
+        <file role="src" name="log.c" />
+        <file role="src" name="log.h" />
         <file role="src" name="settings.c" />
         <file role="src" name="settings.h" />
       </dir>
