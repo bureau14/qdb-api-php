@@ -6,7 +6,7 @@
 
 #include <zend.h> // include first to avoid conflict with stdint.h
 
-#include <qdb/client.h>
+#include <qdb/batch.h>
 
 void QdbBatchResult_registerClass(TSRMLS_D);
 
