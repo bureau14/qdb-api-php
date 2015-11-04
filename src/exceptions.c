@@ -44,7 +44,6 @@ static qdb_exception_t qdb_exceptions[] = {
     { qdb_e_reserved_alias,              "QdbReservedAliasException"        },
     { qdb_e_unmatched_content,           "QdbUnmatchedContentException"     },
     { qdb_e_invalid_iterator,            "QdbInvalidIteratorException"      },
-    { qdb_e_prefix_too_short,            "QdbPrefixTooShortException"       },
     { qdb_e_skipped,                     "QdbSkippedException"              },
     { qdb_e_incompatible_type,           "QdbIncompatibleTypeException"     },
     { qdb_e_container_empty,             "QdbContainerEmptyException"       },
