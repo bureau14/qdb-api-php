@@ -40,6 +40,7 @@ static qdb_exception_t qdb_exceptions[] = {
     { qdb_e_no_memory_remote,            "QdbNoMemoryRemoteException"       },
     { qdb_e_not_connected,               "QdbNotConnectedException"         },
     { qdb_e_not_implemented,             "QdbNotImplementedException"       },
+    { qdb_e_operation_disabled,          "QdbOperationDisabled"             },
     { qdb_e_out_of_bounds,               "QdbOutOfBoundsException"          },
     { qdb_e_outdated_topology,           "QdbOutdatedTopologyException"     },
     { qdb_e_overflow,                    "QdbOverflowException"             },
