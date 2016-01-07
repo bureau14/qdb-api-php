@@ -78,6 +78,17 @@ class QdbCluster
     function integer($alias);
 
     /**
+     * Removes all the entries on all the nodes of the quasardb cluster.
+     * This operation is not allowed by default, it must be enabled in the server configuration.
+     * @throws QdbOperationDisabledException
+     * @example
+     * <code>
+     * $cluster->purgeAll();
+     * </code>
+     */
+    function purgeAll();
+
+    /**
      * Executes operations of a `QdbBatch`.
      * @param QdbBatch $batch The batch to run.
      * @return QdbBatchResult
