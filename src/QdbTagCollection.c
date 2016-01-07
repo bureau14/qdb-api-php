@@ -12,15 +12,16 @@
 
 #include <qdb/client.h>
 
-#define class_name          QdbTagCollection
-#define class_storage       tag_collection_t
-#define class_interfaces    1,spl_ce_Iterator
+#define class_name QdbTagCollection
+#define class_storage tag_collection_t
+#define class_interfaces 1, spl_ce_Iterator
 
 
-typedef struct {
+typedef struct
+{
     zend_object std;
     qdb_handle_t handle;
-    const char ** tags;
+    const char** tags;
     size_t tags_count;
     size_t current;
 } tag_collection_t;
@@ -28,7 +29,8 @@ typedef struct {
 extern zend_class_entry* ce_QdbTagCollection;
 
 
-void QdbTagCollection_createInstance(zval* destination, qdb_handle_t handle, const char ** tags, size_t tags_count TSRMLS_DC)
+void QdbTagCollection_createInstance(
+    zval* destination, qdb_handle_t handle, const char** tags, size_t tags_count TSRMLS_DC)
 {
     tag_collection_t* this;
 
@@ -42,55 +44,45 @@ void QdbTagCollection_createInstance(zval* destination, qdb_handle_t handle, con
 }
 
 
-BEGIN_CLASS_METHOD_0(__destruct)
+CLASS_METHOD_0(__destruct)
 {
     qdb_free_results(this->handle, this->tags, this->tags_count);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(current) // inherited from Iterator
+CLASS_METHOD_0(current)  // inherited from Iterator
 {
-    if (this->current >= this->tags_count) return;
+    if (this->current >= this->tags_count)
+        return;
 
-    zval *alias;
+    zval* alias;
     ALLOC_INIT_ZVAL(alias);
     ZVAL_STRING(alias, this->tags[this->current], /*dup=*/1);
 
     QdbTag_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(key) // inherited from Iterator
+CLASS_METHOD_0(key)  // inherited from Iterator
 {
-    if (this->current >= this->tags_count) return;
+    if (this->current >= this->tags_count)
+        return;
 
     RETURN_LONG(this->current);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(next) // inherited from Iterator
+CLASS_METHOD_0(next)  // inherited from Iterator
 {
     this->current++;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(rewind) // inherited from Iterator
+CLASS_METHOD_0(rewind)  // inherited from Iterator
 {
     this->current = 0;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(valid) // inherited from Iterator
+CLASS_METHOD_0(valid)  // inherited from Iterator
 {
-    RETURN_BOOL(this->current<this->tags_count);
+    RETURN_BOOL(this->current < this->tags_count);
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)

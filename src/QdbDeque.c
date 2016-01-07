@@ -26,7 +26,7 @@ void QdbDeque_createInstance(zval* destination, qdb_handle_t handle, zval* alias
 }
 
 
-BEGIN_CLASS_METHOD_0(back)
+CLASS_METHOD_0(back)
 {
     const char* result = NULL;
     qdb_size_t result_len = 0;
@@ -40,10 +40,8 @@ BEGIN_CLASS_METHOD_0(back)
 
     qdb_free_buffer(this->handle, result);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(front)
+CLASS_METHOD_0(front)
 {
     const char* result = NULL;
     qdb_size_t result_len = 0;
@@ -57,10 +55,8 @@ BEGIN_CLASS_METHOD_0(front)
 
     qdb_free_buffer(this->handle, result);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(popBack)
+CLASS_METHOD_0(popBack)
 {
     const char* result = NULL;
     qdb_size_t result_len = 0;
@@ -74,10 +70,8 @@ BEGIN_CLASS_METHOD_0(popBack)
 
     qdb_free_buffer(this->handle, result);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(popFront)
+CLASS_METHOD_0(popFront)
 {
     const char* result = NULL;
     qdb_size_t result_len = 0;
@@ -91,10 +85,8 @@ BEGIN_CLASS_METHOD_0(popFront)
 
     qdb_free_buffer(this->handle, result);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(pushBack, STRING_ARG(content))
+CLASS_METHOD_1(pushBack, STRING_ARG(content))
 {
     qdb_error_t error =
         qdb_deque_push_back(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
@@ -102,10 +94,8 @@ BEGIN_CLASS_METHOD_1(pushBack, STRING_ARG(content))
     if (error)
         throw_qdb_error(error);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(pushFront, STRING_ARG(content))
+CLASS_METHOD_1(pushFront, STRING_ARG(content))
 {
     qdb_error_t error =
         qdb_deque_push_front(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
@@ -113,10 +103,8 @@ BEGIN_CLASS_METHOD_1(pushFront, STRING_ARG(content))
     if (error)
         throw_qdb_error(error);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(size)
+CLASS_METHOD_0(size)
 {
     qdb_size_t size;
     qdb_error_t error = qdb_deque_size(this->handle, Z_STRVAL_P(this->alias), &size);
@@ -126,8 +114,6 @@ BEGIN_CLASS_METHOD_0(size)
 
     RETVAL_LONG(size);
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
     ADD_METHOD(back)

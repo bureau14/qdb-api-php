@@ -82,14 +82,12 @@ static inline void QdbEntryCollection_createEntry(
     }
 }
 
-BEGIN_CLASS_METHOD_0(__destruct)
+CLASS_METHOD_0(__destruct)
 {
     qdb_free_results(this->handle, this->entries, this->entries_count);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(current)  // inherited from Iterator
+CLASS_METHOD_0(current)  // inherited from Iterator
 {
     if (this->current >= this->entries_count)
         return;
@@ -104,39 +102,29 @@ BEGIN_CLASS_METHOD_0(current)  // inherited from Iterator
     else
         throw_qdb_error(error);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(key)  // inherited from Iterator
+CLASS_METHOD_0(key)  // inherited from Iterator
 {
     if (this->current >= this->entries_count)
         return;
 
     RETURN_LONG(this->current);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(next)  // inherited from Iterator
+CLASS_METHOD_0(next)  // inherited from Iterator
 {
     this->current++;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(rewind)  // inherited from Iterator
+CLASS_METHOD_0(rewind)  // inherited from Iterator
 {
     this->current = 0;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(valid)  // inherited from Iterator
+CLASS_METHOD_0(valid)  // inherited from Iterator
 {
     RETURN_BOOL(this->current < this->entries_count);
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)

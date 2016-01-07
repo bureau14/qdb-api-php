@@ -13,9 +13,9 @@
 
 #include <qdb/tag.h>
 
-#define class_name          QdbTag
-#define class_storage       entry_t
-#define class_parent        QdbEntry
+#define class_name QdbTag
+#define class_storage entry_t
+#define class_parent QdbEntry
 
 
 extern zend_class_entry* ce_QdbTag;
@@ -45,27 +45,26 @@ static zval* getEntryAlias(zval* entry TSRMLS_DC)
 }
 
 
-BEGIN_CLASS_METHOD_1(addEntry, MIXED_ARG(entry))
+CLASS_METHOD_1(addEntry, MIXED_ARG(entry))
 {
     zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
-    if (!entryAlias) return;
+    if (!entryAlias)
+        return;
 
     qdb_error_t error = qdb_add_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
 
     switch (error)
     {
-    case qdb_e_ok:
-        RETURN_TRUE;
-    case qdb_e_tag_already_set:
-        RETURN_FALSE;
-    default:
-        throw_qdb_error(error);
+        case qdb_e_ok:
+            RETURN_TRUE;
+        case qdb_e_tag_already_set:
+            RETURN_FALSE;
+        default:
+            throw_qdb_error(error);
     }
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(getEntries)
+CLASS_METHOD_0(getEntries)
 {
     const char** entries;
     size_t entries_count;
@@ -77,48 +76,44 @@ BEGIN_CLASS_METHOD_0(getEntries)
 
     QdbEntryCollection_createInstance(return_value, this->handle, entries, entries_count TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(hasEntry, MIXED_ARG(entry))
+CLASS_METHOD_1(hasEntry, MIXED_ARG(entry))
 {
     zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
-    if (!entryAlias) return;
+    if (!entryAlias)
+        return;
 
     qdb_error_t error = qdb_has_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
 
     switch (error)
     {
-    case qdb_e_ok:
-        RETURN_TRUE;
-    case qdb_e_tag_not_set:
-        RETURN_FALSE;
-    default:
-        throw_qdb_error(error);
+        case qdb_e_ok:
+            RETURN_TRUE;
+        case qdb_e_tag_not_set:
+            RETURN_FALSE;
+        default:
+            throw_qdb_error(error);
     }
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(removeEntry, MIXED_ARG(entry))
+CLASS_METHOD_1(removeEntry, MIXED_ARG(entry))
 {
     zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
-    if (!entryAlias) return;
+    if (!entryAlias)
+        return;
 
     qdb_error_t error = qdb_remove_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
 
     switch (error)
     {
-    case qdb_e_ok:
-        RETURN_TRUE;
-    case qdb_e_tag_not_set:
-        RETURN_FALSE;
-    default:
-        throw_qdb_error(error);
+        case qdb_e_ok:
+            RETURN_TRUE;
+        case qdb_e_tag_not_set:
+            RETURN_FALSE;
+        default:
+            throw_qdb_error(error);
     }
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
     ADD_METHOD(addEntry)

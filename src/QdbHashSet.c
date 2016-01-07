@@ -11,9 +11,9 @@
 
 #include <qdb/hset.h>
 
-#define class_name          QdbHashSet
-#define class_storage       entry_t
-#define class_parent        QdbEntry
+#define class_name QdbHashSet
+#define class_storage entry_t
+#define class_parent QdbEntry
 
 
 extern zend_class_entry* ce_QdbHashSet;
@@ -26,9 +26,10 @@ void QdbHashSet_createInstance(zval* destination, qdb_handle_t handle, zval* ali
 }
 
 
-BEGIN_CLASS_METHOD_1(insert, STRING_ARG(content))
+CLASS_METHOD_1(insert, STRING_ARG(content))
 {
-    qdb_error_t error = qdb_hset_insert(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
+    qdb_error_t error =
+        qdb_hset_insert(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
     if (error == qdb_e_element_already_exists)
         RETVAL_FALSE;
@@ -37,10 +38,8 @@ BEGIN_CLASS_METHOD_1(insert, STRING_ARG(content))
     else
         RETVAL_TRUE;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(erase, STRING_ARG(content))
+CLASS_METHOD_1(erase, STRING_ARG(content))
 {
     qdb_error_t error = qdb_hset_erase(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
@@ -51,12 +50,11 @@ BEGIN_CLASS_METHOD_1(erase, STRING_ARG(content))
     else
         RETVAL_TRUE;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(contains, STRING_ARG(content))
+CLASS_METHOD_1(contains, STRING_ARG(content))
 {
-    qdb_error_t error = qdb_hset_contains(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
+    qdb_error_t error =
+        qdb_hset_contains(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
     if (error == qdb_e_element_not_found)
         RETVAL_FALSE;
@@ -65,8 +63,6 @@ BEGIN_CLASS_METHOD_1(contains, STRING_ARG(content))
     else
         RETVAL_TRUE;
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
     ADD_METHOD(contains)

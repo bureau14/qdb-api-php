@@ -10,9 +10,9 @@
 
 #include <qdb/client.h>
 
-#define class_name          QdbExpirableEntry
-#define class_storage       entry_t
-#define class_parent        QdbEntry
+#define class_name QdbExpirableEntry
+#define class_storage entry_t
+#define class_parent QdbEntry
 
 
 extern zend_class_entry* ce_QdbExpirableEntry;
@@ -23,27 +23,23 @@ void QdbExpirableEntry_constructInstance(zval* destination, qdb_handle_t handle,
 }
 
 
-BEGIN_CLASS_METHOD_1(expiresAt, LONG_ARG(expiry))
+CLASS_METHOD_1(expiresAt, LONG_ARG(expiry))
 {
     qdb_error_t error = qdb_expires_at(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(expiry));
 
     if (error)
         throw_qdb_error(error);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(expiresFromNow, LONG_ARG(expiry))
+CLASS_METHOD_1(expiresFromNow, LONG_ARG(expiry))
 {
     qdb_error_t error = qdb_expires_from_now(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(expiry));
 
     if (error)
         throw_qdb_error(error);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(getExpiryTime)
+CLASS_METHOD_0(getExpiryTime)
 {
     qdb_time_t expiry;
 
@@ -58,8 +54,6 @@ BEGIN_CLASS_METHOD_0(getExpiryTime)
         RETURN_LONG(expiry);
     }
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
     ADD_METHOD(expiresAt)

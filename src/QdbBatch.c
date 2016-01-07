@@ -67,16 +67,14 @@ void QdbBatch_copyOperations(zval* zbatch, qdb_operation_t** operations, size_t*
     }
 }
 
-BEGIN_CLASS_METHOD_0(__construct)
+CLASS_METHOD_0(__construct)
 {
     this->length = 0;
     this->capacity = 16;
     this->operations = emalloc(this->capacity * sizeof(batch_operation_t));
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(__destruct)
+CLASS_METHOD_0(__destruct)
 {
     size_t i;
 
@@ -94,10 +92,8 @@ BEGIN_CLASS_METHOD_0(__destruct)
 
     efree(this->operations);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_3_1(compareAndSwap, STRING_ARG(alias), STRING_ARG(content), STRING_ARG(comparand), LONG_ARG(expiry))
+CLASS_METHOD_3_1(compareAndSwap, STRING_ARG(alias), STRING_ARG(content), STRING_ARG(comparand), LONG_ARG(expiry))
 {
     Z_ADDREF_P(alias);
     Z_ADDREF_P(content);
@@ -110,10 +106,8 @@ BEGIN_CLASS_METHOD_3_1(compareAndSwap, STRING_ARG(alias), STRING_ARG(content), S
     op->expiry_time = expiry ? Z_LVAL_P(expiry) : 0;
     op->type = qdb_op_blob_cas;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(get, STRING_ARG(alias))
+CLASS_METHOD_1(get, STRING_ARG(alias))
 {
     Z_ADDREF_P(alias);
 
@@ -121,10 +115,8 @@ BEGIN_CLASS_METHOD_1(get, STRING_ARG(alias))
     op->alias = alias;
     op->type = qdb_op_blob_get;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(getAndRemove, STRING_ARG(alias))
+CLASS_METHOD_1(getAndRemove, STRING_ARG(alias))
 {
     Z_ADDREF_P(alias);
 
@@ -132,10 +124,8 @@ BEGIN_CLASS_METHOD_1(getAndRemove, STRING_ARG(alias))
     op->alias = alias;
     op->type = qdb_op_blob_get_and_remove;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_2_1(getAndUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
+CLASS_METHOD_2_1(getAndUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     Z_ADDREF_P(alias);
     Z_ADDREF_P(content);
@@ -146,10 +136,8 @@ BEGIN_CLASS_METHOD_2_1(getAndUpdate, STRING_ARG(alias), STRING_ARG(content), LON
     op->expiry_time = expiry ? Z_LVAL_P(expiry) : 0;
     op->type = qdb_op_blob_get_and_update;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_2_1(put, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
+CLASS_METHOD_2_1(put, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     Z_ADDREF_P(alias);
     Z_ADDREF_P(content);
@@ -160,10 +148,8 @@ BEGIN_CLASS_METHOD_2_1(put, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(exp
     op->expiry_time = expiry ? Z_LVAL_P(expiry) : 0;
     op->type = qdb_op_blob_put;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(remove, STRING_ARG(alias))
+CLASS_METHOD_1(remove, STRING_ARG(alias))
 {
     Z_ADDREF_P(alias);
 
@@ -171,10 +157,9 @@ BEGIN_CLASS_METHOD_1(remove, STRING_ARG(alias))
     op->alias = alias;
     op->type = qdb_op_blob_remove;
 }
-END_CLASS_METHOD()
 
 
-BEGIN_CLASS_METHOD_2(removeIf, STRING_ARG(alias), STRING_ARG(comparand))
+CLASS_METHOD_2(removeIf, STRING_ARG(alias), STRING_ARG(comparand))
 {
     Z_ADDREF_P(alias);
     Z_ADDREF_P(comparand);
@@ -184,10 +169,8 @@ BEGIN_CLASS_METHOD_2(removeIf, STRING_ARG(alias), STRING_ARG(comparand))
     op->comparand = comparand;
     op->type = qdb_op_blob_remove_if;
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_2_1(update, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
+CLASS_METHOD_2_1(update, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
     Z_ADDREF_P(alias);
     Z_ADDREF_P(content);
@@ -198,8 +181,6 @@ BEGIN_CLASS_METHOD_2_1(update, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(
     op->expiry_time = expiry ? Z_LVAL_P(expiry) : 0;
     op->type = qdb_op_blob_update;
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)

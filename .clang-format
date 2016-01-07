@@ -5,8 +5,8 @@ BreakBeforeBraces: Allman
 ColumnLimit: 120
 IndentCaseLabels: true
 IndentWidth: 4
-MacroBlockBegin: BEGIN_CLASS_MEMBERS
-MacroBlockEnd: END_CLASS_MEMBERS
+MacroBlockBegin: BEGIN_CLASS.*|ZEND_BEGIN.*
+MacroBlockEnd: END_CLASS.*|ZEND_END.*
 MaxEmptyLinesToKeep: 2
 PointerAlignment: Left
 SpacesBeforeTrailingComments: 2

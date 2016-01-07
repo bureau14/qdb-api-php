@@ -26,49 +26,45 @@ typedef struct
 } cluster_t;
 
 
-BEGIN_CLASS_METHOD_1(__construct, STRING_ARG(uri))
+CLASS_METHOD_1(__construct, STRING_ARG(uri))
 {
     this->handle = connection_open(uri TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(__destruct)
+CLASS_METHOD_0(__destruct)
 {
     connection_close(this->handle TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(blob, STRING_ARG(alias))
+CLASS_METHOD_1(blob, STRING_ARG(alias))
 {
     QdbBlob_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(deque, STRING_ARG(alias))
+CLASS_METHOD_1(deque, STRING_ARG(alias))
 {
     QdbDeque_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(hashSet, STRING_ARG(alias))
+CLASS_METHOD_1(hashSet, STRING_ARG(alias))
 {
     QdbHashSet_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(integer, STRING_ARG(alias))
+CLASS_METHOD_1(integer, STRING_ARG(alias))
 {
     QdbInteger_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
+CLASS_METHOD_0(purgeAll)
+{
+    qdb_error_t error = qdb_purge_all(this->handle);
 
-BEGIN_CLASS_METHOD_1(runBatch, OBJECT_ARG(QdbBatch, batch))
+    if (error)
+        throw_qdb_error(error);
+}
+
+CLASS_METHOD_1(runBatch, OBJECT_ARG(QdbBatch, batch))
 {
     qdb_operation_t* ops;
     size_t ops_count;
@@ -79,15 +75,11 @@ BEGIN_CLASS_METHOD_1(runBatch, OBJECT_ARG(QdbBatch, batch))
 
     QdbBatchResult_createInstance(return_value, this->handle, ops, ops_count TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(tag, STRING_ARG(alias))
+CLASS_METHOD_1(tag, STRING_ARG(alias))
 {
     QdbTag_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
@@ -96,6 +88,7 @@ BEGIN_CLASS_MEMBERS()
     ADD_METHOD(deque)
     ADD_METHOD(hashSet)
     ADD_METHOD(integer)
+    ADD_METHOD(purgeAll)
     ADD_METHOD(runBatch)
     ADD_METHOD(tag)
 END_CLASS_MEMBERS()

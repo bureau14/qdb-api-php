@@ -13,9 +13,9 @@
 
 #include <qdb/integer.h>
 
-#define class_name          QdbInteger
-#define class_storage       entry_t
-#define class_parent        QdbExpirableEntry
+#define class_name QdbInteger
+#define class_storage entry_t
+#define class_parent QdbExpirableEntry
 
 
 extern zend_class_entry* ce_QdbInteger;
@@ -28,7 +28,7 @@ void QdbInteger_createInstance(zval* destination, qdb_handle_t handle, zval* ali
 }
 
 
-BEGIN_CLASS_METHOD_1(add, LONG_ARG(value))
+CLASS_METHOD_1(add, LONG_ARG(value))
 {
     qdb_int_t result;
 
@@ -39,54 +39,36 @@ BEGIN_CLASS_METHOD_1(add, LONG_ARG(value))
     else
         ZVAL_LONG(return_value, result);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(get)
+CLASS_METHOD_0(get)
 {
     qdb_int_t result;
 
     qdb_error_t error = qdb_int_get(this->handle, Z_STRVAL_P(this->alias), &result);
 
     if (error)
-    {
         throw_qdb_error(error);
-    }
     else
-    {
         ZVAL_LONG(return_value, result);
-    }
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1_1(put, LONG_ARG(value), LONG_ARG(expiry))
+CLASS_METHOD_1_1(put, LONG_ARG(value), LONG_ARG(expiry))
 {
-    qdb_error_t error = qdb_int_put(
-        this->handle,
-        Z_STRVAL_P(this->alias),
-        Z_LVAL_P(value),
-        expiry ? Z_LVAL_P(expiry) : 0);
+    qdb_error_t error =
+        qdb_int_put(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), expiry ? Z_LVAL_P(expiry) : 0);
 
     if (error)
         throw_qdb_error(error);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1_1(update, LONG_ARG(value), LONG_ARG(expiry))
+CLASS_METHOD_1_1(update, LONG_ARG(value), LONG_ARG(expiry))
 {
-    qdb_error_t error = qdb_int_update(
-        this->handle,
-        Z_STRVAL_P(this->alias),
-        Z_LVAL_P(value),
-        expiry ? Z_LVAL_P(expiry) : 0);
+    qdb_error_t error =
+        qdb_int_update(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), expiry ? Z_LVAL_P(expiry) : 0);
 
     if (error)
         throw_qdb_error(error);
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
     ADD_METHOD(add)

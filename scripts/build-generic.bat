@@ -1,7 +1,7 @@
 setlocal
 
 set TEST_DIR=%~dp0..\test
-set PATH=%PATH%;%QDB_DAEMON%\bin;%QDB_API%\bin
+set PATH=%PATH%;%QDB_DAEMON%\bin;%QDB_API%\bin;%PHP_SDK%\bin
 set PHPUNIT=%~dp0..\third-party\phpunit.phar
 
 call "%VCVARS%"

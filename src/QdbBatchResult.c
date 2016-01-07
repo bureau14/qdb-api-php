@@ -29,8 +29,8 @@ extern zend_class_entry* ce_QdbBatchResult;
 static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC);
 
 
-void QdbBatchResult_createInstance(zval* destination, qdb_handle_t handle,
-    qdb_operation_t* operations, size_t operations_count TSRMLS_DC)
+void QdbBatchResult_createInstance(
+    zval* destination, qdb_handle_t handle, qdb_operation_t* operations, size_t operations_count TSRMLS_DC)
 {
     batch_result_t* this;
 
@@ -43,31 +43,25 @@ void QdbBatchResult_createInstance(zval* destination, qdb_handle_t handle,
 }
 
 
-BEGIN_CLASS_METHOD_0(__destruct)
+CLASS_METHOD_0(__destruct)
 {
     qdb_free_operations(this->handle, this->operations, this->operations_count);
     efree(this->operations);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_0(count)  // inherited from Countable
+CLASS_METHOD_0(count)  // inherited from Countable
 {
     RETURN_LONG(this->operations_count);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(offsetExists, MIXED_ARG(offset))  // inherited from ArrayAccess
+CLASS_METHOD_1(offsetExists, MIXED_ARG(offset))  // inherited from ArrayAccess
 {
     long index = Z_LVAL_P(offset);
 
     RETURN_BOOL(index >= 0 && index < (long)this->operations_count);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(offsetGet, MIXED_ARG(offset))  // inherited from ArrayAccess
+CLASS_METHOD_1(offsetGet, MIXED_ARG(offset))  // inherited from ArrayAccess
 {
     long index = Z_LVAL_P(offset);
 
@@ -85,35 +79,29 @@ BEGIN_CLASS_METHOD_1(offsetGet, MIXED_ARG(offset))  // inherited from ArrayAcces
 
     getOperationResult(return_value, &this->operations[index] TSRMLS_CC);
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_2(offsetSet, MIXED_ARG(offset), MIXED_ARG(value))  // inherited from ArrayAccess
+CLASS_METHOD_2(offsetSet, MIXED_ARG(offset), MIXED_ARG(value))  // inherited from ArrayAccess
 {
     UNUSED(this);
     UNUSED(offset);
     UNUSED(value);
     throw_bad_function_call("Batch result is read-only");
 }
-END_CLASS_METHOD()
 
-
-BEGIN_CLASS_METHOD_1(offsetUnset, MIXED_ARG(offset))  // inherited from ArrayAccess
+CLASS_METHOD_1(offsetUnset, MIXED_ARG(offset))  // inherited from ArrayAccess
 {
     UNUSED(this);
     UNUSED(offset);
     throw_bad_function_call("Batch result is read-only");
 }
-END_CLASS_METHOD()
-
 
 BEGIN_CLASS_MEMBERS()
-ADD_DESTRUCTOR(__destruct)
-ADD_METHOD(count)
-ADD_METHOD(offsetExists)
-ADD_METHOD(offsetGet)
-ADD_METHOD(offsetSet)
-ADD_METHOD(offsetUnset)
+    ADD_DESTRUCTOR(__destruct)
+    ADD_METHOD(count)
+    ADD_METHOD(offsetExists)
+    ADD_METHOD(offsetGet)
+    ADD_METHOD(offsetSet)
+    ADD_METHOD(offsetUnset)
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"
