@@ -14,7 +14,7 @@ class QdbClusterPurgeAllTest extends QdbTestBase
     }
 
     /**
-     * @expectedException               QdbOperationDisabled
+     * @expectedException               QdbOperationDisabledException
      * @expectedExceptionMessageRegExp  /disabled/i
      */
     public function testOperationDisabled()
