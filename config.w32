@@ -40,6 +40,7 @@ if (PHP_QUASARDB != "no") {
         QdbDeque.c \
         QdbEntry.c \
         QdbEntryCollection.c \
+        QdbEntryFactory.c \
         QdbExpirableEntry.c \
         QdbHashSet.c \
         QdbInteger.c \

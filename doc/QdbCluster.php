@@ -54,6 +54,24 @@ class QdbCluster
     function deque($alias);
 
     /**
+     * Create a {@link QdbBlob}, a {@link QdbDeque}, a {@link QdbHashSet}, a {@link QdbInteger} or a {@link QdbTag}
+     * depending on the actual type of the entry.
+     * The entry must exist in the database.
+     * @param string $alias The alias of the entry (alias starting with `qdb` are reserved).
+     * @return QdbEntry
+     * @throws QdbAliasNotFoundException
+     * @example
+     * <code>
+     * $cluster->blob('alias1')->put('content');
+     * $cluster->deque('alias2')->pushBack('content');
+     *
+     * $entry1 = $cluster->entry('alias1'); // $entry1 is a QdbBlob
+     * $entry2 = $cluster->entry('alias2'); // $entry2 is a QdbDeque
+     * </code>
+     */
+    function entry($alias);
+
+    /**
      * Creates a {@link QdbHashSet} associated with the specified alias.
      * No query is performed at this point.
      * @param string $alias The alias of the hash-set (alias starting with `qdb` are reserved).

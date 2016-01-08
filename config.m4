@@ -15,6 +15,7 @@ PHP_QUASARDB_SOURCES="\
   src/QdbDeque.c \
   src/QdbEntry.c \
   src/QdbEntryCollection.c \
+  src/QdbEntryFactory.c \
   src/QdbExpirableEntry.c \
   src/QdbHashSet.c \
   src/QdbInteger.c \

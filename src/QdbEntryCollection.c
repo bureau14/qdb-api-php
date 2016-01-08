@@ -5,12 +5,8 @@
 #include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
 
-#include "QdbBlob.h"
-#include "QdbDeque.h"
-#include "QdbInteger.h"
-#include "QdbHashSet.h"
-#include "QdbTag.h"
 #include "QdbEntryCollection.h"
+#include "QdbEntryFactory.h"
 #include "class_definition.h"
 #include "exceptions.h"
 
@@ -47,41 +43,6 @@ void QdbEntryCollection_createInstance(
     this->current = 0;
 }
 
-static inline void QdbEntryCollection_createEntry(
-    zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias TSRMLS_DC)
-{
-    zval* zalias;
-    ALLOC_INIT_ZVAL(zalias);
-    ZVAL_STRING(zalias, alias, /*dup=*/1);
-
-    switch (type)
-    {
-        case qdb_entry_blob:
-            QdbBlob_createInstance(destination, handle, zalias TSRMLS_CC);
-            break;
-
-        case qdb_entry_hset:
-            QdbHashSet_createInstance(destination, handle, zalias TSRMLS_CC);
-            break;
-
-        case qdb_entry_integer:
-            QdbInteger_createInstance(destination, handle, zalias TSRMLS_CC);
-            break;
-
-        case qdb_entry_deque:
-            QdbDeque_createInstance(destination, handle, zalias TSRMLS_CC);
-            break;
-
-        case qdb_entry_tag:
-            QdbTag_createInstance(destination, handle, zalias TSRMLS_CC);
-            break;
-
-        default:
-            throw_bad_function_call("Entry type not supported, please update quasardb PHP API.");
-            break;
-    }
-}
-
 CLASS_METHOD_0(__destruct)
 {
     qdb_free_results(this->handle, this->entries, this->entries_count);
@@ -93,13 +54,9 @@ CLASS_METHOD_0(current)  // inherited from Iterator
         return;
 
     const char* alias = this->entries[this->current];
+    qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, alias TSRMLS_CC);
 
-    qdb_entry_type_t type;
-    qdb_error_t error = qdb_get_type(this->handle, alias, &type);
-
-    if (!error)
-        QdbEntryCollection_createEntry(return_value, this->handle, type, alias TSRMLS_CC);
-    else
+    if (error)
         throw_qdb_error(error);
 }
 
