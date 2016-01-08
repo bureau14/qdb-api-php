@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2015, quasardb SAS
+// Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
 #ifndef QDB_BATCH_H
@@ -8,7 +8,8 @@
 
 #include <qdb/batch.h>
 
-typedef struct {
+typedef struct
+{
     qdb_operation_type_t type;
     zval* alias;
     zval* content;
@@ -16,9 +17,10 @@ typedef struct {
     qdb_time_t expiry_time;
 } batch_operation_t;
 
-typedef struct {
+typedef struct
+{
     zend_object std;
-    batch_operation_t * operations;
+    batch_operation_t* operations;
     size_t length;
     size_t capacity;
 } batch_t;

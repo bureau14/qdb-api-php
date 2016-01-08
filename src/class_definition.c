@@ -1,20 +1,21 @@
-// Copyright (c) 2009-2015, quasardb SAS
+// Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
 #include <php.h>
 
 #include "exceptions.h"
 
-void free_object_storage(void *object TSRMLS_DC)
+void free_object_storage(void* object TSRMLS_DC)
 {
     zend_object_std_dtor((zend_object*)object TSRMLS_CC);
     efree(object);
 }
 
-zend_object_value alloc_object_storage(zend_class_entry *ce, zend_object_handlers *object_handlers, size_t size TSRMLS_DC)
+zend_object_value alloc_object_storage(
+    zend_class_entry* ce, zend_object_handlers* object_handlers, size_t size TSRMLS_DC)
 {
     zend_object_value retval;
-    zend_object *this;
+    zend_object* this;
 
     this = (zend_object*)ecalloc(1, size);
     zend_object_std_init(this, ce TSRMLS_CC);

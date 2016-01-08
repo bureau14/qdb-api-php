@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2015, quasardb SAS
+// Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
 #ifndef QDB_CLUSTER_H
