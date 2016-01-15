@@ -29,9 +29,9 @@ if test "$PHP_QUASARDB" != "no"; then
 
   if test -d "$PHP_QUASARDB"; then
 
-    AC_CHECK_HEADER($PHP_QUASARDB/include/qdb/client.h,
+    AC_CHECK_HEADER($PHP_QUASARDB/include/qdb/error.h,
       [PHP_ADD_INCLUDE($PHP_QUASARDB/include)],
-      [AC_MSG_ERROR(qdb/client.h not found in $PHP_QUASARDB/include)])
+      [AC_MSG_ERROR(qdb/error.h not found in $PHP_QUASARDB/include)])
 
     PHP_CHECK_LIBRARY(qdb_api, qdb_version,
       [PHP_ADD_LIBRARY_WITH_PATH(qdb_api, $PHP_QUASARDB/lib, QUASARDB_SHARED_LIBADD)],
@@ -40,9 +40,9 @@ if test "$PHP_QUASARDB" != "no"; then
 
   else
 
-    AC_CHECK_HEADER(qdb/client.h, ,
+    AC_CHECK_HEADER(qdb/error.h, ,
       AC_MSG_ERROR(quasardb extension requires quasardb C API),
-      [#include <qdb/client.h>])
+      [#include <qdb/error.h>])
 
     PHP_CHECK_LIBRARY(qdb_api, qdb_version,
       [PHP_ADD_LIBRARY(qdb_api, 1, QUASARDB_SHARED_LIBADD)],
