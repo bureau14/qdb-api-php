@@ -47,17 +47,6 @@ class QdbBlobHasTagTest extends QdbTestBase
         $blob->hasTag('tag');
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
-    public function testIncompatibleType()
-    {
-        $alias = createUniqueAlias();
-        $blob = $this->createBlob($alias);
-
-        $blob->hasTag($alias);
-    }
-
     public function testWithString()
     {
         $tag = createUniqueAlias();

@@ -37,18 +37,6 @@ class QdbTagHasEntryTest extends QdbTestBase
         $tag->hasEntry(array());
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
-    public function testIncompatibleType()
-    {
-        $alias = createUniqueAlias();
-        $blob = $this->createBlob($alias);
-        $tag = $this->createEmptyTag($alias);
-
-        $tag->hasEntry($alias);
-    }
-
     public function testWithString()
     {
         $tag = $this->createEmptyTag();

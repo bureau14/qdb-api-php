@@ -44,6 +44,17 @@ class QdbTag extends QdbEntry
     function getEntries();
 
     /**
+     * Checks if the specified entry is tagged with the current tag.
+     * @example
+     * <code>
+     * $bob_is_male = $cluster->tag('male')->hasEntry('Bob the Blob');
+     * // same as $bob_is_male = $cluster->blob('Bob the Blob')->hasTag('male');
+     * </code>
+     * @return bool `true` if the entry is tagged with the given tag, `false` otherwise.
+     */
+    function hasEntry($entry);
+
+    /**
      * Removes current tag to the specified entry.
      * @example
      * <code>

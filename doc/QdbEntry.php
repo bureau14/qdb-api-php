@@ -45,6 +45,17 @@ abstract class QdbEntry
     function getTags($tag);
 
     /**
+     * Checks if the current entry is tagged with the specified tag.
+     * @example
+     * <code>
+     * $bob_is_male = $cluster->blob('Bob the Blob')->hasTag('male');
+     * // same as $bob_is_male = $cluster->tag('male')->hasEntry('Bob the Blob');
+     * </code>
+     * @return bool `true` if the entry is tagged with the given tag, `false` otherwise.
+     */
+    function hasTag($tag);
+
+    /**
      * Deletes the entry.
      *
      * @example
