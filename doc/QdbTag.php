@@ -50,6 +50,7 @@ class QdbTag extends QdbEntry
      * $bob_is_male = $cluster->tag('male')->hasEntry('Bob the Blob');
      * // same as $bob_is_male = $cluster->blob('Bob the Blob')->hasTag('male');
      * </code>
+     * @param QdbEntry|string $entry The entry to check, or its alias.
      * @return bool `true` if the entry is tagged with the given tag, `false` otherwise.
      */
     function hasEntry($entry);
