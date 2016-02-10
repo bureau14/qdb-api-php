@@ -68,5 +68,5 @@ static void log_callback(qdb_log_level_t level, const unsigned long* date, unsig
 
 void log_attach(void)
 {
-    qdb_option_add_log_callback(log_callback);
+    qdb_option_add_log_callback(log_callback, NULL);
 }
