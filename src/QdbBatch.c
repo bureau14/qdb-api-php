@@ -155,9 +155,8 @@ CLASS_METHOD_1(remove, STRING_ARG(alias))
 
     batch_operation_t* op = alloc_operation(this);
     op->alias = alias;
-    op->type = qdb_op_blob_remove;
+    op->type = qdb_op_remove;
 }
-
 
 CLASS_METHOD_2(removeIf, STRING_ARG(alias), STRING_ARG(comparand))
 {
