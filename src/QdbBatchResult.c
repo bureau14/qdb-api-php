@@ -167,9 +167,11 @@ static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC
             getCompareAndSwapResult(return_value, op TSRMLS_CC);
             break;
 
+#if 0
         case qdb_op_blob_remove_if:
             getRemoveIfResult(return_value, op TSRMLS_CC);
             break;
+#endif
 
         default:
             getOtherOperationResult(return_value, op TSRMLS_CC);

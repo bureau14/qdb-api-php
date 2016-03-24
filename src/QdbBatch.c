@@ -116,6 +116,7 @@ CLASS_METHOD_1(get, STRING_ARG(alias))
     op->type = qdb_op_blob_get;
 }
 
+#if 0
 CLASS_METHOD_1(getAndRemove, STRING_ARG(alias))
 {
     Z_ADDREF_P(alias);
@@ -124,6 +125,7 @@ CLASS_METHOD_1(getAndRemove, STRING_ARG(alias))
     op->alias = alias;
     op->type = qdb_op_blob_get_and_remove;
 }
+#endif
 
 CLASS_METHOD_2_1(getAndUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
@@ -149,6 +151,7 @@ CLASS_METHOD_2_1(put, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
     op->type = qdb_op_blob_put;
 }
 
+#if 0
 CLASS_METHOD_1(remove, STRING_ARG(alias))
 {
     Z_ADDREF_P(alias);
@@ -168,6 +171,7 @@ CLASS_METHOD_2(removeIf, STRING_ARG(alias), STRING_ARG(comparand))
     op->comparand = comparand;
     op->type = qdb_op_blob_remove_if;
 }
+#endif
 
 CLASS_METHOD_2_1(update, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
@@ -186,11 +190,11 @@ BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(compareAndSwap)
     ADD_METHOD(get)
-    ADD_METHOD(getAndRemove)
+    // ADD_METHOD(getAndRemove)
     ADD_METHOD(getAndUpdate)
     ADD_METHOD(put)
-    ADD_METHOD(remove)
-    ADD_METHOD(removeIf)
+    // ADD_METHOD(remove)
+    // ADD_METHOD(removeIf)
     ADD_METHOD(update)
 END_CLASS_MEMBERS()
 
