@@ -10,7 +10,7 @@ class QdbClusterPurgeAllTest extends QdbTestBase
      */
     public function testTooManyArguments()
     {
-        $this->cluster->purgeAll("i should not be there");
+        $this->cluster->purgeAll(80, "i should not be there");
     }
 
     /**
@@ -19,7 +19,7 @@ class QdbClusterPurgeAllTest extends QdbTestBase
      */
     public function testOperationDisabled()
     {
-        $this->cluster->purgeAll();
+        $this->cluster->purgeAll(120);
     }
 }
 

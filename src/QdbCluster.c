@@ -65,9 +65,9 @@ CLASS_METHOD_1(integer, STRING_ARG(alias))
     QdbInteger_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
 
-CLASS_METHOD_0(purgeAll)
+CLASS_METHOD_1(purgeAll, LONG_ARG(timeout))
 {
-    qdb_error_t error = qdb_purge_all(this->handle);
+    qdb_error_t error = qdb_purge_all(this->handle, (int)timeout);
 
     if (error)
         throw_qdb_error(error);
