@@ -3,8 +3,6 @@
 
 #include <php.h>  // include first to avoid conflict with stdint.h
 
-#include "class_definition.h"
-#include "connection.h"
 #include "QdbBatch.h"
 #include "QdbBatchResult.h"
 #include "QdbBlob.h"
@@ -14,6 +12,8 @@
 #include "QdbHashSet.h"
 #include "QdbInteger.h"
 #include "QdbTag.h"
+#include "class_definition.h"
+#include "connection.h"
 
 #include <qdb/client.h>
 
@@ -65,12 +65,21 @@ CLASS_METHOD_1(integer, STRING_ARG(alias))
     QdbInteger_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
 
-CLASS_METHOD_1(purgeAll, LONG_ARG(timeout))
+CLASS_METHOD_0_1(purgeAll, LONG_ARG(timeout))
 {
-    qdb_error_t error = qdb_purge_all(this->handle, (int)timeout);
+    int timeout_value = timeout ? Z_LVAL_P(timeout) : 300;
+
+    if (timeout_value <= 0)
+    {
+        throw_invalid_argument("Argument timeout must be a positive (non-zero) integer");
+        return;
+    }
+    qdb_error_t error = qdb_purge_all(this->handle, timeout_value);
 
     if (error)
+    {
         throw_qdb_error(error);
+    }
 }
 
 CLASS_METHOD_1(runBatch, OBJECT_ARG(QdbBatch, batch))

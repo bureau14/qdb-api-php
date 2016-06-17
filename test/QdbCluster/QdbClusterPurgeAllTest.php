@@ -14,12 +14,47 @@ class QdbClusterPurgeAllTest extends QdbTestBase
     }
 
     /**
+     * @expectedException               InvalidArgumentException
+     * @expectedExceptionMessageRegExp  /timeout/i
+     */
+    public function testNegativeTimeout()
+    {
+        $this->cluster->purgeAll(-120);
+    }
+
+    /**
+     * @expectedException               InvalidArgumentException
+     * @expectedExceptionMessageRegExp  /timeout/i
+     */
+    public function testNullTimeout()
+    {
+        $this->cluster->purgeAll(0);
+    }
+
+    /**
+     * @expectedException               InvalidArgumentException
+     */
+    public function testInvalidType()
+    {
+        $this->cluster->purgeAll('120 seconds');
+    }
+
+    /**
      * @expectedException               QdbOperationDisabledException
      * @expectedExceptionMessageRegExp  /disabled/i
      */
-    public function testOperationDisabled()
+    public function testPositiveTimeout()
     {
         $this->cluster->purgeAll(120);
+    }
+
+    /**
+     * @expectedException               QdbOperationDisabledException
+     * @expectedExceptionMessageRegExp  /disabled/i
+     */
+    public function testDefaultTimeout()
+    {
+        $this->cluster->purgeAll();
     }
 }
 

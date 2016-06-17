@@ -75,6 +75,22 @@ int check_arg_count(int actual, int min, int max TSRMLS_DC);
     }                                                                                                                  \
     void XBODY(class_name, method_name)(class_storage * this, zval * return_value TSRMLS_DC)
 
+#define CLASS_METHOD_0_1(method_name, optarg1)                                                                         \
+    void XBODY(class_name, method_name)(class_storage*, zval*, zval * TSRMLS_DC);                                      \
+    ZEND_BEGIN_ARG_INFO_EX(XARGINFO(class_name, method_name), 0, 0, 0)                                                 \
+        INFO_FOR_##optarg1                                                                                             \
+    ZEND_END_ARG_INFO()                                                                                                \
+    XPHP_METHOD(class_name, method_name)                                                                               \
+    {                                                                                                                  \
+        DECLARE_THIS();                                                                                                \
+        DECLARE_##optarg1;                                                                                             \
+        CHECK_ARG_COUNT(0, 1);                                                                                         \
+        PARSE_ARGS("|z", &optarg1);                                                                                    \
+        CHECK_TYPE_OF_##optarg1;                                                                                       \
+        XBODY(class_name, method_name)(this, return_value, optarg1 TSRMLS_CC);                                         \
+    }                                                                                                                  \
+    void XBODY(class_name, method_name)(class_storage * this, zval * return_value, zval * optarg1 TSRMLS_DC)
+
 #define CLASS_METHOD_1(method_name, arg1)                                                                              \
     void XBODY(class_name, method_name)(class_storage*, zval*, zval * TSRMLS_DC);                                      \
     ZEND_BEGIN_ARG_INFO_EX(XARGINFO(class_name, method_name), 0, 0, 1)                                                 \

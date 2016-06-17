@@ -98,13 +98,14 @@ class QdbCluster
     /**
      * Removes all the entries on all the nodes of the quasardb cluster.
      * This operation is not allowed by default, it must be enabled in the server configuration.
+     * @param int $timeout The maximim number of seconds for the command to execute.
      * @throws QdbOperationDisabledException
      * @example
      * <code>
      * $cluster->purgeAll();
      * </code>
      */
-    function purgeAll();
+    function purgeAll($timeout=300);
 
     /**
      * Executes operations of a `QdbBatch`.
