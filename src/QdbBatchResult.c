@@ -124,6 +124,7 @@ static void getCompareAndSwapResult(zval* return_value, qdb_operation_t* op TSRM
     }
 }
 
+#if 0
 static void getRemoveIfResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
 {
     switch (op->error)
@@ -141,6 +142,7 @@ static void getRemoveIfResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
             break;
     }
 }
+#endif
 
 static void getOtherOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
 {
