@@ -31,7 +31,7 @@ CLASS_METHOD_0(back)
     const char* result = NULL;
     qdb_size_t result_len = 0;
 
-    qdb_error_t error = qdb_deque_back(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_deque_back(this->handle, Z_STRVAL_P(this->alias), (const void**)&result, &result_len);
 
     if (error)
         throw_qdb_error(error);
@@ -46,7 +46,7 @@ CLASS_METHOD_0(front)
     const char* result = NULL;
     qdb_size_t result_len = 0;
 
-    qdb_error_t error = qdb_deque_front(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_deque_front(this->handle, Z_STRVAL_P(this->alias), (const void**)&result, &result_len);
 
     if (error)
         throw_qdb_error(error);
@@ -61,7 +61,7 @@ CLASS_METHOD_0(popBack)
     const char* result = NULL;
     qdb_size_t result_len = 0;
 
-    qdb_error_t error = qdb_deque_pop_back(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_deque_pop_back(this->handle, Z_STRVAL_P(this->alias), (const void**)&result, &result_len);
 
     if (error)
         throw_qdb_error(error);
@@ -76,7 +76,7 @@ CLASS_METHOD_0(popFront)
     const char* result = NULL;
     qdb_size_t result_len = 0;
 
-    qdb_error_t error = qdb_deque_pop_front(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_deque_pop_front(this->handle, Z_STRVAL_P(this->alias), (const void**)&result, &result_len);
 
     if (error)
         throw_qdb_error(error);

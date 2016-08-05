@@ -40,7 +40,7 @@ CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content), STRING_ARG(comparand), LON
         Z_STRVAL_P(comparand),
         Z_STRLEN_P(comparand),
         expiry ? Z_LVAL_P(expiry) : 0,
-        &result,
+        (const void**)&result,
         &result_len);
 
     switch (error)
@@ -65,7 +65,7 @@ CLASS_METHOD_0(get)
     const char* result;
     qdb_size_t result_len;
 
-    qdb_error_t error = qdb_blob_get(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_blob_get(this->handle, Z_STRVAL_P(this->alias), (const void**)&result, &result_len);
 
     if (error)
     {
@@ -84,7 +84,7 @@ CLASS_METHOD_0(getAndRemove)
     const char* result;
     qdb_size_t result_len;
 
-    qdb_error_t error = qdb_blob_get_and_remove(this->handle, Z_STRVAL_P(this->alias), &result, &result_len);
+    qdb_error_t error = qdb_blob_get_and_remove(this->handle, Z_STRVAL_P(this->alias), (const void**)&result, &result_len);
 
     if (error)
     {
@@ -108,7 +108,7 @@ CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
         Z_STRVAL_P(content),
         Z_STRLEN_P(content),
         expiry ? Z_LVAL_P(expiry) : 0,
-        &result,
+        (const void**)&result,
         &result_len);
 
     if (error)
