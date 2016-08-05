@@ -51,12 +51,12 @@ void QdbEntryFactory_createFromType(
 
 qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias TSRMLS_DC)
 {
-    qdb_entry_type_t type;
-    qdb_error_t error = qdb_get_type(handle, alias, &type);
+    qdb_entry_metadata_t meta;
+    qdb_error_t error = qdb_get_metadata(handle, alias, &meta);
 
     if (error)
         return error;
 
-    QdbEntryFactory_createFromType(destination, handle, type, alias TSRMLS_CC);
+    QdbEntryFactory_createFromType(destination, handle, meta.type, alias TSRMLS_CC);
     return qdb_e_ok;
 }
