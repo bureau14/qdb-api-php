@@ -97,6 +97,7 @@ class QdbBlob extends QdbExpirableEntry
      * Sets the blob's content, creates the blob if needed.
      * @param string $content The new content of the blob.
      * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").
+     * @return bool `true` if the integer was created; `false` if it was updated.
      * @throws QdbIncompatibleTypeException
      * @example
      * <code>

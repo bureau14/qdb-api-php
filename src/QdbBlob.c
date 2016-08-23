@@ -6,13 +6,13 @@
 #include <zend_interfaces.h>
 
 #include "QdbBatchResult.h"
-#include "class_definition.h"
 #include "QdbEntry.h"
 #include "QdbExpirableEntry.h"
+#include "class_definition.h"
 #include "exceptions.h"
 
-#include <qdb/client.h>
 #include <qdb/blob.h>
+#include <qdb/client.h>
 
 #define class_name QdbBlob
 #define class_storage entry_t
@@ -84,7 +84,8 @@ CLASS_METHOD_0(getAndRemove)
     const char* result;
     qdb_size_t result_len;
 
-    qdb_error_t error = qdb_blob_get_and_remove(this->handle, Z_STRVAL_P(this->alias), (const void**)&result, &result_len);
+    qdb_error_t error =
+        qdb_blob_get_and_remove(this->handle, Z_STRVAL_P(this->alias), (const void**)&result, &result_len);
 
     if (error)
     {
@@ -158,8 +159,20 @@ CLASS_METHOD_1_1(update, STRING_ARG(content), LONG_ARG(expiry))
     qdb_error_t error = qdb_blob_update(
         this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content), expiry ? Z_LVAL_P(expiry) : 0);
 
-    if (error)
-        throw_qdb_error(error);
+    switch (error)
+    {
+        case qdb_e_ok:
+            RETVAL_FALSE;
+            break;
+
+        case qdb_e_ok_created:
+            RETVAL_TRUE;
+            break;
+
+        default:
+            throw_qdb_error(error);
+            break;
+    }
 }
 
 BEGIN_CLASS_MEMBERS()

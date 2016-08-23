@@ -60,13 +60,23 @@ class QdbBlobUpdateTest extends QdbTestBase
         $blob->update('content');
     }
 
-    public function testReturnValue()
+    public function testReturnTrueWhenCalledOnce()
     {
         $blob = $this->createEmptyBlob();
 
         $result = $blob->update('content');
 
-        $this->assertNull($result);
+        $this->assertTrue($result);
+    }
+
+    public function testReturnFalseWhenCalledTwice()
+    {
+        $blob = $this->createEmptyBlob();
+
+        $blob->update('content');
+        $result = $blob->update('content');
+
+        $this->assertFalse($result);
     }
 
     public function testSameAliasTwice()
