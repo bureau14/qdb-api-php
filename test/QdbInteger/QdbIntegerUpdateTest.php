@@ -60,12 +60,23 @@ class QdbIntegerUpdateTest extends QdbTestBase
         $integer->update(42);
     }
 
-    public function testReturnValue()
+    public function testReturnTrueWhenCalledOnce()
     {
         $integer = $this->createEmptyInteger();
 
         $result = $integer->update(42);
-        $this->assertNull($result);
+
+        $this->assertTrue($result);
+    }
+
+    public function testReturnFalseWhenCalledTwice()
+    {
+        $integer = $this->createEmptyInteger();
+
+        $integer->update(42);
+        $result = $integer->update(42);
+
+        $this->assertFalse($result);
     }
 
     public function testSameAliasTwice()

@@ -6,9 +6,9 @@
 #include <zend_interfaces.h>
 
 #include "QdbBatchResult.h"
-#include "class_definition.h"
 #include "QdbEntry.h"
 #include "QdbExpirableEntry.h"
+#include "class_definition.h"
 #include "exceptions.h"
 
 #include <qdb/integer.h>
@@ -66,8 +66,20 @@ CLASS_METHOD_1_1(update, LONG_ARG(value), LONG_ARG(expiry))
     qdb_error_t error =
         qdb_int_update(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), expiry ? Z_LVAL_P(expiry) : 0);
 
-    if (error)
-        throw_qdb_error(error);
+    switch (error)
+    {
+        case qdb_e_ok:
+            RETVAL_FALSE;
+            break;
+
+        case qdb_e_ok_created:
+            RETVAL_TRUE;
+            break;
+
+        default:
+            throw_qdb_error(error);
+            break;
+    }
 }
 
 BEGIN_CLASS_MEMBERS()

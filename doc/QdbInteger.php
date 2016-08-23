@@ -55,6 +55,7 @@ class QdbInteger extends QdbExpirableEntry
      * Sets the integer's value. Creates the integer if needed.
      * @param int $value The new value of the integer.
      * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").
+     * @return bool `true` if the integer was created; `false` if it was updated.
      * @throws QdbIncompatibleTypeException
      * @example
      * <code>
