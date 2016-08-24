@@ -7,7 +7,7 @@
  * $cluster->blob('alias')->put('content2'); // throws QdbAliasAlreadyExistsException
  * </code>
  */
-class QdbAliasAlreadyExistsException extends QdbException
+final class QdbAliasAlreadyExistsException extends QdbOperationException
 {
 }
 ?>

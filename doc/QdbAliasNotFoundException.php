@@ -7,7 +7,7 @@
  * $cluster->blob('alias')->get(); // throws QdbAliasNotFoundException
  * </code>
  */
-class QdbAliasNotFoundException extends QdbException
+final class QdbAliasNotFoundException extends QdbOperationException
 {
 }
 ?>

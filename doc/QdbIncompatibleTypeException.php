@@ -7,7 +7,7 @@
  * $cluster->integer('alias')->get(); // throws QdbIncompatibleTypeException
  * </code>
  */
-class QdbIncompatibleTypeException extends QdbException
+final class QdbIncompatibleTypeException extends QdbOperationException
 {
 }
 ?>

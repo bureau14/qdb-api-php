@@ -8,7 +8,7 @@
  * $cluster->deque('alias')->popBack(); // throws QdbContainerEmptyException
  * </code>
  */
-class QdbContainerEmptyException extends QdbException
+final class QdbContainerEmptyException extends QdbOperationException
 {
 }
 ?>
