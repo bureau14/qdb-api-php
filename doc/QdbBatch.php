@@ -25,7 +25,9 @@ class QdbBatch
 
     /**
      * Adds a "compare and swap" operation to the batch.
+     *
      * When executed, the "compare and swap" operation atomically compares a blob with `$comparand` and updates it to `$new_content` if, and only if, they match.
+     *
      * @param string $alias The blob's alias.
      * @param string $new_content The new content of the blob in case of match.
      * @param string $comparand The content to be compared to.
@@ -36,7 +38,9 @@ class QdbBatch
 
     /**
      * Adds a "get" operation to the batch.
+     *
      * When executed, the "get" operation reads the content of a blob.
+     *
      * @param string $alias The blob's alias.
      * @see QdbBlob::get()
      */
@@ -44,7 +48,9 @@ class QdbBatch
 
     /**
      * Adds a "get and remove" operation to the batch.
+     *
      * When executed, the "get and remove" operation atomically reads a blob and removes it.
+     *
      * @param string $alias The blob's alias.
      * @see QdbBlob::getAndRemove()
      */
@@ -52,7 +58,9 @@ class QdbBatch
 
     /**
      * Adds a "get and remove" operation to the batch.
+     *
      * When executed, the "get and remove" operation atomically reads a blob's content and replaces it.
+     *
      * @param string $alias The blob's alias.
      * @param string $content The new content of the blob.
      * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").
@@ -62,7 +70,9 @@ class QdbBatch
 
     /**
      * Adds a "put" operation to the batch.
+     *
      * When executed, the "put" operation creates a blob.
+     *
      * @param string $alias The blob's alias.
      * @param string $content The initial content of the blob.
      * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").
@@ -73,6 +83,7 @@ class QdbBatch
     /**
      * Adds a "remove" operation to the batch.
      * When executed, the "remove" operation removes an entry.
+     *
      * @param string $alias The entry's alias.
      * @see QdbEntry::remove()
      */
@@ -80,7 +91,9 @@ class QdbBatch
 
     /**
      * Adds a "remove if" operation to the batch.
+     *
      * When executed, the "remove if" operation removes a blob if it matches `$comparand`. The operation is atomic.
+     *
      * @param string $alias The blob's alias.
      * @param string $comparand The content to be compared to.
      * @see QdbBlob::removeIf()
@@ -89,7 +102,9 @@ class QdbBatch
 
     /**
      * Adds an "update" operation to the batch.
+     *
      * When executed, the "update" operation sets the content of a blob. It will create the blob if needed.
+     *
      * @param string $alias The blob's alias.
      * @param string $content The new content of the blob.
      * @param int $expiry_time The absolute expiration time, in seconds since epoch (`0` means "never expires").

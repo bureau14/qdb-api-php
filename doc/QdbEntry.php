@@ -6,11 +6,11 @@
 abstract class QdbEntry
 {
     /**
-     * Adds a tag to the entry
+     * Attachs a tag to the entry
      *
      * @example
      * <code>
-     * $cluster->blob('Bob the blob')->addTag('male');
+     * $cluster->blob('Bob the blob')->attachTag('male');
      * </code>
      *
      * @param QdbTag|string $tag The tag to add to the entry, or its alias.
@@ -18,17 +18,19 @@ abstract class QdbEntry
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      */
-    function addTag($tag);
+    function attachTag($tag);
 
     /**
      * Gets the alias (i.e. its "key") of the entry.
+     *
      * Alias starting with `qdb` are reserved.
+     *
      * @return string The alias of the entry.
      */
     function alias();
 
     /**
-     * Gets entry's tags.
+     * Enumerates the tags attached to the entry.
      *
      * @example
      * <code>
@@ -45,14 +47,16 @@ abstract class QdbEntry
     function getTags($tag);
 
     /**
-     * Checks if the current entry is tagged with the specified tag.
+     * Checks if a tag is attached to the entry.
+     *
+     * @param QdbTag|string $tag The tag to check for, or its alias.
+     * @return bool `true` if the entry is tagged with the given tag, `false` otherwise.
+     *
      * @example
      * <code>
      * $bob_is_male = $cluster->blob('Bob the Blob')->hasTag('male');
      * // same as $bob_is_male = $cluster->tag('male')->hasEntry('Bob the Blob');
      * </code>
-     * @param QdbTag|string $tag The tag to check for, or its alias.
-     * @return bool `true` if the entry is tagged with the given tag, `false` otherwise.
      */
     function hasTag($tag);
 
@@ -70,11 +74,11 @@ abstract class QdbEntry
     function remove();
 
     /**
-     * Removes a tag from the entry.
+     * Detaches a tag from the entry.
      *
      * @example
      * <code>
-     * $cluster->blob('Bob the blob')->removeTag('stupid name');
+     * $cluster->blob('Bob the blob')->detachTag('stupid name');
      * </code>
      *
      * @param QdbTag|string $tag The tag to the entry, or its alias.
@@ -82,6 +86,6 @@ abstract class QdbEntry
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      */
-    function removeTag($tag);
+    function detachTag($tag);
 }
 ?>

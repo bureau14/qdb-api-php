@@ -54,7 +54,7 @@ class QdbBlobHasTagTest extends QdbTestBase
 
         $this->assertFalse($blob->hasTag($tag));
 
-        $blob->addTag($tag);
+        $blob->attachTag($tag);
 
         $this->assertTrue($blob->hasTag($tag));
     }
@@ -66,7 +66,7 @@ class QdbBlobHasTagTest extends QdbTestBase
 
         $this->assertFalse($blob->hasTag($tag));
 
-        $blob->addTag($tag);
+        $blob->attachTag($tag);
 
         $this->assertTrue($blob->hasTag($tag));
     }

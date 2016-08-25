@@ -55,13 +55,13 @@ CLASS_METHOD_0(__destruct)
     Z_DELREF_P(this->alias);
 }
 
-CLASS_METHOD_1(addTag, MIXED_ARG(tag))
+CLASS_METHOD_1(attachTag, MIXED_ARG(tag))
 {
     zval* tagAlias = getTagAlias(tag TSRMLS_CC);
     if (!tagAlias)
         return;
 
-    qdb_error_t error = qdb_add_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
+    qdb_error_t error = qdb_attach_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
 
     switch (error)
     {
@@ -120,13 +120,13 @@ CLASS_METHOD_0(remove)
         throw_qdb_error(error);
 }
 
-CLASS_METHOD_1(removeTag, MIXED_ARG(tag))
+CLASS_METHOD_1(detachTag, MIXED_ARG(tag))
 {
     zval* tagAlias = getTagAlias(tag TSRMLS_CC);
     if (!tagAlias)
         return;
 
-    qdb_error_t error = qdb_remove_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
+    qdb_error_t error = qdb_detach_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
 
     switch (error)
     {
@@ -141,12 +141,12 @@ CLASS_METHOD_1(removeTag, MIXED_ARG(tag))
 
 BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)
-    ADD_METHOD(addTag)
+    ADD_METHOD(attachTag)
     ADD_METHOD(alias)
     ADD_METHOD(getTags)
     ADD_METHOD(hasTag)
     ADD_METHOD(remove)
-    ADD_METHOD(removeTag)
+    ADD_METHOD(detachTag)
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"

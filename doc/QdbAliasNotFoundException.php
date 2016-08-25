@@ -1,6 +1,7 @@
 <?php
 /**
  * Thrown when an entry cannot be found in the database.
+ *
  * @example
  * <code>
  * $cluster->blob('alias')->remove();

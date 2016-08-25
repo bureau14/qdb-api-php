@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbTagAddEntryTest extends QdbTestBase
+class QdbTagattachEntryTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -12,7 +12,7 @@ class QdbTagAddEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->addEntry();
+        $tag->attachEntry();
     }
 
     /**
@@ -23,7 +23,7 @@ class QdbTagAddEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->addEntry('entry', 'i should not be there');
+        $tag->attachEntry('entry', 'i should not be there');
     }
 
     /**
@@ -34,7 +34,7 @@ class QdbTagAddEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->addEntry(array());
+        $tag->attachEntry(array());
     }
 
     /**
@@ -45,7 +45,7 @@ class QdbTagAddEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->addEntry('entry');
+        $tag->attachEntry('entry');
     }
 
     /**
@@ -56,7 +56,7 @@ class QdbTagAddEntryTest extends QdbTestBase
         $tag = $this->createEmptyTag();
         $blob = $this->createBlob($tag->alias());
 
-        $tag->addEntry(createUniqueAlias());
+        $tag->attachEntry(createUniqueAlias());
     }
 
     public function testWithString()
@@ -64,8 +64,8 @@ class QdbTagAddEntryTest extends QdbTestBase
         $tag = $this->createEmptyTag();
         $blob = $this->createBlob()->alias();
 
-        $this->assertTrue($tag->addEntry($blob));
-        $this->assertFalse($tag->addEntry($blob));
+        $this->assertTrue($tag->attachEntry($blob));
+        $this->assertFalse($tag->attachEntry($blob));
     }
 
     public function testWithQdbEntry()
@@ -73,8 +73,8 @@ class QdbTagAddEntryTest extends QdbTestBase
         $tag = $this->createEmptyTag();
         $blob = $this->createBlob();
 
-        $this->assertTrue($tag->addEntry($blob));
-        $this->assertFalse($tag->addEntry($blob));
+        $this->assertTrue($tag->attachEntry($blob));
+        $this->assertFalse($tag->attachEntry($blob));
     }
 }
 

@@ -39,8 +39,8 @@ class QdbBlobGetTagsTest extends QdbTestBase
     {
         $blob = $this->createBlob();
 
-        $blob->addTag('tag1');
-        $blob->addTag('tag2');
+        $blob->attachTag('tag1');
+        $blob->attachTag('tag2');
 
         $result = iterator_to_array($blob->getTags());
         $this->assertCount(2, $result);

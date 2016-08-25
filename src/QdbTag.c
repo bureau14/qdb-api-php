@@ -45,13 +45,13 @@ static zval* getEntryAlias(zval* entry TSRMLS_DC)
 }
 
 
-CLASS_METHOD_1(addEntry, MIXED_ARG(entry))
+CLASS_METHOD_1(attachEntry, MIXED_ARG(entry))
 {
     zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
     if (!entryAlias)
         return;
 
-    qdb_error_t error = qdb_add_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
+    qdb_error_t error = qdb_attach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
 
     switch (error)
     {
@@ -96,13 +96,13 @@ CLASS_METHOD_1(hasEntry, MIXED_ARG(entry))
     }
 }
 
-CLASS_METHOD_1(removeEntry, MIXED_ARG(entry))
+CLASS_METHOD_1(detachEntry, MIXED_ARG(entry))
 {
     zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
     if (!entryAlias)
         return;
 
-    qdb_error_t error = qdb_remove_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
+    qdb_error_t error = qdb_detach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
 
     switch (error)
     {
@@ -116,10 +116,10 @@ CLASS_METHOD_1(removeEntry, MIXED_ARG(entry))
 }
 
 BEGIN_CLASS_MEMBERS()
-    ADD_METHOD(addEntry)
+    ADD_METHOD(attachEntry)
     ADD_METHOD(getEntries)
     ADD_METHOD(hasEntry)
-    ADD_METHOD(removeEntry)
+    ADD_METHOD(detachEntry)
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"

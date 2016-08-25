@@ -41,7 +41,7 @@ class QdbTagGetEntriesTest extends QdbTestBase
         $tag = $this->createEmptyTag();
         $blob = $this->createBlob();
 
-        $tag->addEntry($blob);
+        $tag->attachEntry($blob);
         $entries = $tag->getEntries();
 
         $entry = $this->getSingleElement($entries);
@@ -54,7 +54,7 @@ class QdbTagGetEntriesTest extends QdbTestBase
         $tag = $this->createEmptyTag();
         $hashSet = $this->createHashSet();
 
-        $tag->addEntry($hashSet);
+        $tag->attachEntry($hashSet);
         $entries = $tag->getEntries();
 
         $entry = $this->getSingleElement($entries);
@@ -67,7 +67,7 @@ class QdbTagGetEntriesTest extends QdbTestBase
         $tag = $this->createEmptyTag();
         $integer = $this->createInteger();
 
-        $tag->addEntry($integer);
+        $tag->attachEntry($integer);
         $entries = $tag->getEntries();
 
         $entry = $this->getSingleElement($entries);
@@ -80,7 +80,7 @@ class QdbTagGetEntriesTest extends QdbTestBase
         $tag = $this->createEmptyTag();
         $queue = $this->createQueue();
 
-        $tag->addEntry($queue);
+        $tag->attachEntry($queue);
         $entries = $tag->getEntries();
 
         $entry = $this->getSingleElement($entries);
@@ -93,7 +93,7 @@ class QdbTagGetEntriesTest extends QdbTestBase
         $tag1 = $this->createEmptyTag();
         $tag2 = $this->createTag();
 
-        $tag1->addEntry($tag2);
+        $tag1->attachEntry($tag2);
         $entries = $tag1->getEntries();
 
         $entry = $this->getSingleElement($entries);

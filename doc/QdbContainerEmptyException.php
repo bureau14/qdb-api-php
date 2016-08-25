@@ -1,6 +1,7 @@
 <?php
 /**
  * Thrown when the container is empty.
+ *
  * @example
  * <code>
  * $cluster->deque('alias')->pushBack('content');

@@ -44,7 +44,7 @@ class QdbTagHasEntryTest extends QdbTestBase
 
         $this->assertFalse($tag->hasEntry($blob));
 
-        $tag->addEntry($blob);
+        $tag->attachEntry($blob);
 
         $this->assertTrue($tag->hasEntry($blob));
     }
@@ -56,7 +56,7 @@ class QdbTagHasEntryTest extends QdbTestBase
 
         $this->assertFalse($tag->hasEntry($blob));
 
-        $tag->addEntry($blob);
+        $tag->attachEntry($blob);
 
         $this->assertTrue($tag->hasEntry($blob));
     }

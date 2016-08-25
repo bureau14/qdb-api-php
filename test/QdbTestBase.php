@@ -85,7 +85,7 @@ abstract class QdbTestBase extends PHPUnit_Framework_TestCase
     protected function createTag($alias = NULL)
     {
         $tag = $this->createEmptyTag($alias);
-        $tag->addEntry($this->createBlob()->alias());
+        $tag->attachEntry($this->createBlob()->alias());
         return $tag;
     }
 }

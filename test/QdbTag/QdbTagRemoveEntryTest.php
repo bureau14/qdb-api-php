@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbTagRemoveEntryTest extends QdbTestBase
+class QdbTagdetachEntryTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -12,7 +12,7 @@ class QdbTagRemoveEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->removeEntry();
+        $tag->detachEntry();
     }
 
     /**
@@ -23,7 +23,7 @@ class QdbTagRemoveEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->removeEntry('entry', 'i should not be there');
+        $tag->detachEntry('entry', 'i should not be there');
     }
 
     /**
@@ -34,7 +34,7 @@ class QdbTagRemoveEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->removeEntry(array());
+        $tag->detachEntry(array());
     }
 
     /**
@@ -44,7 +44,7 @@ class QdbTagRemoveEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->removeEntry('entry');
+        $tag->detachEntry('entry');
     }
 
     /**
@@ -56,27 +56,27 @@ class QdbTagRemoveEntryTest extends QdbTestBase
         $tag = $this->createEmptyTag($alias);
         $blob = $this->createBlob($alias);
 
-        $tag->removeEntry($alias);
+        $tag->detachEntry($alias);
     }
 
     public function testWithString()
     {
         $tag = $this->createEmptyTag();
         $blob = $this->createBlob()->alias();
-        $tag->addEntry($blob);
+        $tag->attachEntry($blob);
 
-        $this->assertTrue($tag->removeEntry($blob));
-        $this->assertFalse($tag->removeEntry($blob));
+        $this->assertTrue($tag->detachEntry($blob));
+        $this->assertFalse($tag->detachEntry($blob));
     }
 
     public function testWithQdbEntry()
     {
         $tag = $this->createEmptyTag();
         $blob = $this->createBlob();
-        $tag->addEntry($blob);
+        $tag->attachEntry($blob);
 
-        $this->assertTrue($tag->removeEntry($blob));
-        $this->assertFalse($tag->removeEntry($blob));
+        $this->assertTrue($tag->detachEntry($blob));
+        $this->assertFalse($tag->detachEntry($blob));
     }
 }
 

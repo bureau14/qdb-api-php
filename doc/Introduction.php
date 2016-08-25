@@ -44,8 +44,8 @@
  *
  * Here's how you can easily find your data, using tags:
  * <code>
- * $cluster->blob('Bob the blob')->addTag('Male');
- * $cluster->integer('Roger the integer')->addTag('Male');
+ * $cluster->blob('Bob the blob')->attachTag('Male');
+ * $cluster->integer('Roger the integer')->attachTag('Male');
  *
  * $males = $cluster->tag('Male')->getEntries();
  * </code>

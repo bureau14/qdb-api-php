@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobAddTagTest extends QdbTestBase
+class QdbBlobattachTagTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -12,7 +12,7 @@ class QdbBlobAddTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->addTag();
+        $blob->attachTag();
     }
 
     /**
@@ -23,7 +23,7 @@ class QdbBlobAddTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->addTag('tag', 'i should not be there');
+        $blob->attachTag('tag', 'i should not be there');
     }
 
     /**
@@ -34,7 +34,7 @@ class QdbBlobAddTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->addTag(array());
+        $blob->attachTag(array());
     }
 
     /**
@@ -44,7 +44,7 @@ class QdbBlobAddTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->addTag('tag');
+        $blob->attachTag('tag');
     }
 
     /**
@@ -56,7 +56,7 @@ class QdbBlobAddTagTest extends QdbTestBase
         $blob = $this->createBlob($alias);
         $tag = $this->createEmptyTag($alias);
 
-        $blob->addTag($alias);
+        $blob->attachTag($alias);
     }
 
     public function testWithString()
@@ -64,8 +64,8 @@ class QdbBlobAddTagTest extends QdbTestBase
         $blob = $this->createBlob();
         $tag = createUniqueAlias();
 
-        $this->assertTrue($blob->addTag($tag));
-        $this->assertFalse($blob->addTag($tag));
+        $this->assertTrue($blob->attachTag($tag));
+        $this->assertFalse($blob->attachTag($tag));
     }
 
     public function testWithQdbTag()
@@ -73,8 +73,8 @@ class QdbBlobAddTagTest extends QdbTestBase
         $blob = $this->createBlob();
         $tag = $this->createEmptyTag();
 
-        $this->assertTrue($blob->addTag($tag));
-        $this->assertFalse($blob->addTag($tag));
+        $this->assertTrue($blob->attachTag($tag));
+        $this->assertFalse($blob->attachTag($tag));
     }
 }
 
