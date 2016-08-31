@@ -7,7 +7,6 @@
 #include "globals.h"
 #include "log.h"
 
-
 struct level_name
 {
     qdb_log_level_t level;
@@ -68,5 +67,5 @@ static void log_callback(qdb_log_level_t level, const unsigned long* date, unsig
 
 void log_attach(void)
 {
-    qdb_option_add_log_callback(log_callback, NULL);
+    qdb_log_add_callback(log_callback, NULL);
 }
