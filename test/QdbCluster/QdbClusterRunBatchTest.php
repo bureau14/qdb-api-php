@@ -53,18 +53,29 @@ class QdbClusterRunBatchTest extends QdbTestBase
 
         $result = $this->cluster->runBatch($batch);
 
+        // compareAndSwap
         $this->assertNull($result[0]);
         $this->assertEquals('new cas value', $this->cluster->blob('batch cas')->get());
+
         // $this->assertEquals('get_remove value', $result[1]);
+
+        // get
         $this->assertEquals('get value', $result[1]);
+
+        // getAndUpdate
         $this->assertEquals('old get_update value', $result[2]);
         $this->assertEquals('new get_update value', $this->cluster->blob('batch get_update')->get());
+
+        // put
         $this->assertEquals('put value', $this->cluster->blob('batch put')->get());
         $this->assertNull($result[3]);
+
         // $this->assertTrue($result[5]);
         // $this->assertNull($result[6]);
+
+        // update
         $this->assertEquals('new update value', $this->cluster->blob('batch update')->get());
-        $this->assertNull($result[4]);
+        $this->assertFalse($result[4]);
     }
 }
 

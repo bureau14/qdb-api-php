@@ -87,7 +87,7 @@ class QdbBatchUpdateTest extends QdbTestBase
         $this->assertEquals($expiry2, $blob->getExpiryTime());
     }
 
-    public function testResult()
+    public function testReturnTrueWhenCalledOnce()
     {
         $batch = $this->createBatch();
 
@@ -96,7 +96,22 @@ class QdbBatchUpdateTest extends QdbTestBase
 
         $this->assertEquals(1, $result->count());
         $this->assertTrue(isset($result[0]));
-        $this->assertNull($result[0]);
+        $this->assertTrue($result[0]);
+    }
+
+    public function testReturnFalseWhenCalledTwice()
+    {
+        $alias = createUniqueAlias();
+        $blob = $this->createEmptyBlob($alias);
+        $blob->update('content');
+        $batch = $this->createBatch();
+
+        $batch->update($alias, 'content');
+        $result = $this->cluster->runBatch($batch);
+
+        $this->assertEquals(1, $result->count());
+        $this->assertTrue(isset($result[0]));
+        $this->assertFalse($result[0]);
     }
 }
 

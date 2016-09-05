@@ -144,6 +144,24 @@ static void getRemoveIfResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
 }
 #endif
 
+static void getBlobUpdateResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+{
+    switch (op->error)
+    {
+        case qdb_e_ok:
+            RETVAL_FALSE;
+            break;
+
+        case qdb_e_ok_created:
+            RETVAL_TRUE;
+            break;
+
+        default:
+            throw_qdb_error(op->error);
+            break;
+    }
+}
+
 static void getOtherOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
 {
     switch (op->error)
@@ -174,6 +192,10 @@ static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC
             getRemoveIfResult(return_value, op TSRMLS_CC);
             break;
 #endif
+
+        case qdb_op_blob_update:
+            getBlobUpdateResult(return_value, op TSRMLS_CC);
+            break;
 
         default:
             getOtherOperationResult(return_value, op TSRMLS_CC);
