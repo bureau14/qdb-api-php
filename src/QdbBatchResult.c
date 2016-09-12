@@ -115,7 +115,35 @@ static void getCompareAndSwapResult(zval* return_value, qdb_operation_t* op TSRM
             break;
 
         case qdb_e_unmatched_content:
-            RETVAL_STRINGL(op->result, op->result_size, /*duplicate=*/1);
+            RETVAL_STRINGL(op->blob_cas.result, op->blob_cas.result_size, /*duplicate=*/1);
+            break;
+
+        default:
+            throw_qdb_error(op->error);
+            break;
+    }
+}
+
+static void getGetResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+{
+    switch (op->error)
+    {
+        case qdb_e_ok:
+            RETVAL_STRINGL(op->blob_get.result, op->blob_get.result_size, /*duplicate=*/1);
+            break;
+
+        default:
+            throw_qdb_error(op->error);
+            break;
+    }
+}
+
+static void getGetAndUpdateResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+{
+    switch (op->error)
+    {
+        case qdb_e_ok:
+            RETVAL_STRINGL(op->blob_get_and_update.result, op->blob_get_and_update.result_size, /*duplicate=*/1);
             break;
 
         default:
@@ -167,10 +195,7 @@ static void getOtherOperationResult(zval* return_value, qdb_operation_t* op TSRM
     switch (op->error)
     {
         case qdb_e_ok:
-            if (op->result != NULL)
-                RETVAL_STRINGL(op->result, op->result_size, /*duplicate=*/1);
-            else
-                RETVAL_NULL();
+            RETVAL_NULL();
             break;
 
         default:
@@ -185,6 +210,14 @@ static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC
     {
         case qdb_op_blob_cas:
             getCompareAndSwapResult(return_value, op TSRMLS_CC);
+            break;
+
+        case qdb_op_blob_get:
+            getGetResult(return_value, op TSRMLS_CC);
+            break;
+
+        case qdb_op_blob_get_and_update:
+            getGetAndUpdateResult(return_value, op TSRMLS_CC);
             break;
 
 #if 0

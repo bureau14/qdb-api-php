@@ -37,18 +37,44 @@ static void convert_operation(qdb_operation_t* dst, batch_operation_t* src)
 {
     dst->type = src->type;
     dst->alias = Z_STRVAL_P(src->alias);
-    dst->expiry_time = src->expiry_time;
 
-    if (src->content)
+    switch (dst->type)
     {
-        dst->content = Z_STRVAL_P(src->content);
-        dst->content_size = Z_STRLEN_P(src->content);
-    }
+    case qdb_op_blob_put:
+        if (!src->content) break;
 
-    if (src->comparand)
-    {
-        dst->comparand = Z_STRVAL_P(src->comparand);
-        dst->comparand_size = Z_STRLEN_P(src->comparand);
+        dst->blob_put.expiry_time = src->expiry_time;
+        dst->blob_put.content = Z_STRVAL_P(src->content);
+        dst->blob_put.content_size = Z_STRLEN_P(src->content);
+        break;
+
+    case qdb_op_blob_update:
+        if (!src->content) break;
+
+        dst->blob_update.expiry_time = src->expiry_time;
+        dst->blob_update.content = Z_STRVAL_P(src->content);
+        dst->blob_update.content_size = Z_STRLEN_P(src->content);
+        break;
+
+    case qdb_op_blob_cas:
+        if (!src->content) break;
+        if (!src->comparand) break;
+
+        dst->blob_cas.expiry_time = src->expiry_time;
+        dst->blob_cas.content = Z_STRVAL_P(src->content);
+        dst->blob_cas.content_size = Z_STRLEN_P(src->content);
+
+        dst->blob_cas.comparand = Z_STRVAL_P(src->comparand);
+        dst->blob_cas.comparand_size = Z_STRLEN_P(src->comparand);
+        break;
+
+    case qdb_op_blob_get_and_update:
+        if (!src->content) break;
+
+        dst->blob_get_and_update.expiry_time = src->expiry_time;
+        dst->blob_get_and_update.content = Z_STRVAL_P(src->content);
+        dst->blob_get_and_update.content_size = Z_STRLEN_P(src->content);
+        break;
     }
 }
 
