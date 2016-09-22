@@ -22,10 +22,9 @@ void QdbExpirableEntry_constructInstance(zval* destination, qdb_handle_t handle,
     QdbEntry_constructInstance(destination, handle, alias TSRMLS_CC);
 }
 
-
 CLASS_METHOD_1(expiresAt, LONG_ARG(expiry))
 {
-    qdb_error_t error = qdb_expires_at(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(expiry));
+    qdb_error_t error = qdb_expires_at(this->handle, Z_STRVAL_P(this->alias), to_expiry_unit(Z_LVAL_P(expiry)));
 
     if (error)
         throw_qdb_error(error);
@@ -33,7 +32,7 @@ CLASS_METHOD_1(expiresAt, LONG_ARG(expiry))
 
 CLASS_METHOD_1(expiresFromNow, LONG_ARG(expiry))
 {
-    qdb_error_t error = qdb_expires_from_now(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(expiry));
+    qdb_error_t error = qdb_expires_from_now(this->handle, Z_STRVAL_P(this->alias), to_expiry_unit(Z_LVAL_P(expiry)));
 
     if (error)
         throw_qdb_error(error);
@@ -42,7 +41,6 @@ CLASS_METHOD_1(expiresFromNow, LONG_ARG(expiry))
 CLASS_METHOD_0(getExpiryTime)
 {
     qdb_time_t expiry;
-
     qdb_error_t error = qdb_get_expiry_time(this->handle, Z_STRVAL_P(this->alias), &expiry);
 
     if (error)
@@ -51,7 +49,7 @@ CLASS_METHOD_0(getExpiryTime)
     }
     else
     {
-        RETURN_LONG(expiry);
+        RETURN_LONG(from_expiry_unit(expiry));
     }
 }
 

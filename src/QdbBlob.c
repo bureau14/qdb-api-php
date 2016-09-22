@@ -39,7 +39,7 @@ CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content), STRING_ARG(comparand), LON
         Z_STRLEN_P(content),
         Z_STRVAL_P(comparand),
         Z_STRLEN_P(comparand),
-        expiry ? Z_LVAL_P(expiry) : 0,
+        expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0,
         (const void**)&result,
         &result_len);
 
@@ -108,7 +108,7 @@ CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
         Z_STRVAL_P(this->alias),
         Z_STRVAL_P(content),
         Z_STRLEN_P(content),
-        expiry ? Z_LVAL_P(expiry) : 0,
+        expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0,
         (const void**)&result,
         &result_len);
 
@@ -126,8 +126,11 @@ CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
 
 CLASS_METHOD_1_1(put, STRING_ARG(content), LONG_ARG(expiry))
 {
-    qdb_error_t error = qdb_blob_put(
-        this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content), expiry ? Z_LVAL_P(expiry) : 0);
+    qdb_error_t error = qdb_blob_put(this->handle,
+        Z_STRVAL_P(this->alias),
+        Z_STRVAL_P(content),
+        Z_STRLEN_P(content),
+        expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0);
 
     if (error)
         throw_qdb_error(error);
@@ -156,8 +159,11 @@ CLASS_METHOD_1(removeIf, STRING_ARG(comparand))
 
 CLASS_METHOD_1_1(update, STRING_ARG(content), LONG_ARG(expiry))
 {
-    qdb_error_t error = qdb_blob_update(
-        this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content), expiry ? Z_LVAL_P(expiry) : 0);
+    qdb_error_t error = qdb_blob_update(this->handle,
+        Z_STRVAL_P(this->alias),
+        Z_STRVAL_P(content),
+        Z_STRLEN_P(content),
+        expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0);
 
     switch (error)
     {

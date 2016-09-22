@@ -54,8 +54,8 @@ CLASS_METHOD_0(get)
 
 CLASS_METHOD_1_1(put, LONG_ARG(value), LONG_ARG(expiry))
 {
-    qdb_error_t error =
-        qdb_int_put(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), expiry ? Z_LVAL_P(expiry) : 0);
+    qdb_error_t error = qdb_int_put(
+        this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0);
 
     if (error)
         throw_qdb_error(error);
@@ -63,8 +63,8 @@ CLASS_METHOD_1_1(put, LONG_ARG(value), LONG_ARG(expiry))
 
 CLASS_METHOD_1_1(update, LONG_ARG(value), LONG_ARG(expiry))
 {
-    qdb_error_t error =
-        qdb_int_update(this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), expiry ? Z_LVAL_P(expiry) : 0);
+    qdb_error_t error = qdb_int_update(
+        this->handle, Z_STRVAL_P(this->alias), Z_LVAL_P(value), expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0);
 
     switch (error)
     {

@@ -11,4 +11,14 @@ void QdbExpirableEntry_registerClass(TSRMLS_D);
 
 void QdbExpirableEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC);
 
+static qdb_time_t to_expiry_unit(long long seconds)
+{
+    return 1000ll * seconds;
+}
+
+static long long from_expiry_unit(qdb_time_t millis)
+{
+    return millis / 1000ll;
+}
+
 #endif /* QDB_EXPIRABLE_ENTRY */

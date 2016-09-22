@@ -4,6 +4,7 @@
 #include <php.h>  // include first to avoid conflict with stdint.h
 
 #include "QdbBatch.h"
+#include "QdbExpirableEntry.h"
 #include "class_definition.h"
 #include "exceptions.h"
 
@@ -129,7 +130,7 @@ CLASS_METHOD_3_1(compareAndSwap, STRING_ARG(alias), STRING_ARG(content), STRING_
     op->alias = alias;
     op->comparand = comparand;
     op->content = content;
-    op->expiry_time = expiry ? Z_LVAL_P(expiry) : 0;
+    op->expiry_time = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
     op->type = qdb_op_blob_cas;
 }
 
@@ -161,7 +162,7 @@ CLASS_METHOD_2_1(getAndUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(
     batch_operation_t* op = alloc_operation(this);
     op->alias = alias;
     op->content = content;
-    op->expiry_time = expiry ? Z_LVAL_P(expiry) : 0;
+    op->expiry_time = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
     op->type = qdb_op_blob_get_and_update;
 }
 
@@ -173,7 +174,7 @@ CLASS_METHOD_2_1(put, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
     batch_operation_t* op = alloc_operation(this);
     op->alias = alias;
     op->content = content;
-    op->expiry_time = expiry ? Z_LVAL_P(expiry) : 0;
+    op->expiry_time = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
     op->type = qdb_op_blob_put;
 }
 
@@ -207,7 +208,7 @@ CLASS_METHOD_2_1(update, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry
     batch_operation_t* op = alloc_operation(this);
     op->alias = alias;
     op->content = content;
-    op->expiry_time = expiry ? Z_LVAL_P(expiry) : 0;
+    op->expiry_time = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
     op->type = qdb_op_blob_update;
 }
 
