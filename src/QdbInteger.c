@@ -37,7 +37,7 @@ CLASS_METHOD_1(add, LONG_ARG(value))
     if (error)
         throw_qdb_error(error);
     else
-        ZVAL_LONG(return_value, result);
+        RETURN_LONG((long)result);
 }
 
 CLASS_METHOD_0(get)
@@ -49,7 +49,7 @@ CLASS_METHOD_0(get)
     if (error)
         throw_qdb_error(error);
     else
-        ZVAL_LONG(return_value, result);
+        RETURN_LONG((long)result);
 }
 
 CLASS_METHOD_1_1(put, LONG_ARG(value), LONG_ARG(expiry))

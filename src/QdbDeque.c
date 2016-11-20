@@ -36,7 +36,7 @@ CLASS_METHOD_0(back)
     if (error)
         throw_qdb_error(error);
     else
-        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
 
     qdb_free_buffer(this->handle, result);
 }
@@ -51,7 +51,7 @@ CLASS_METHOD_0(front)
     if (error)
         throw_qdb_error(error);
     else
-        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
 
     qdb_free_buffer(this->handle, result);
 }
@@ -66,7 +66,7 @@ CLASS_METHOD_0(popBack)
     if (error)
         throw_qdb_error(error);
     else
-        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
 
     qdb_free_buffer(this->handle, result);
 }
@@ -81,7 +81,7 @@ CLASS_METHOD_0(popFront)
     if (error)
         throw_qdb_error(error);
     else
-        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
 
     qdb_free_buffer(this->handle, result);
 }
@@ -112,7 +112,7 @@ CLASS_METHOD_0(size)
     if (error)
         throw_qdb_error(error);
 
-    RETVAL_LONG(size);
+    RETVAL_LONG((long)size);
 }
 
 BEGIN_CLASS_MEMBERS()

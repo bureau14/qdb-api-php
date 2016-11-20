@@ -40,8 +40,8 @@ CLASS_METHOD_1(expiresFromNow, LONG_ARG(expiry))
 
 CLASS_METHOD_0(getExpiryTime)
 {
-    qdb_time_t expiry;
-    qdb_error_t error = qdb_get_expiry_time(this->handle, Z_STRVAL_P(this->alias), &expiry);
+    qdb_entry_metadata_t metadata;
+    qdb_error_t error = qdb_get_metadata(this->handle, Z_STRVAL_P(this->alias), &metadata);
 
     if (error)
     {
@@ -49,7 +49,7 @@ CLASS_METHOD_0(getExpiryTime)
     }
     else
     {
-        RETURN_LONG(from_expiry_unit(expiry));
+        RETURN_LONG((long)(metadata.expiry_time.tv_sec));
     }
 }
 

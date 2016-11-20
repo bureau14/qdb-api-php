@@ -50,7 +50,7 @@ CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content), STRING_ARG(comparand), LON
             break;
 
         case qdb_e_unmatched_content:
-            RETVAL_STRINGL(result, result_len, /*duplicate=*/1);
+            RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
             break;
 
         default:
@@ -73,7 +73,7 @@ CLASS_METHOD_0(get)
     }
     else
     {
-        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
     }
 
     qdb_free_buffer(this->handle, result);
@@ -93,7 +93,7 @@ CLASS_METHOD_0(getAndRemove)
     }
     else
     {
-        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
     }
 
     qdb_free_buffer(this->handle, result);
@@ -118,7 +118,7 @@ CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
     }
     else
     {
-        ZVAL_STRINGL(return_value, result, result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
     }
 
     qdb_free_buffer(this->handle, result);

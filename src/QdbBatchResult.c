@@ -51,7 +51,7 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(count)  // inherited from Countable
 {
-    RETURN_LONG(this->operations_count);
+    RETURN_LONG((long)this->operations_count);
 }
 
 CLASS_METHOD_1(offsetExists, MIXED_ARG(offset))  // inherited from ArrayAccess
@@ -115,7 +115,7 @@ static void getCompareAndSwapResult(zval* return_value, qdb_operation_t* op TSRM
             break;
 
         case qdb_e_unmatched_content:
-            RETVAL_STRINGL(op->blob_cas.original_content, op->blob_cas.original_content_size, /*duplicate=*/1);
+            RETVAL_STRINGL(op->blob_cas.original_content, (int)op->blob_cas.original_content_size, /*duplicate=*/1);
             break;
 
         default:
@@ -129,7 +129,7 @@ static void getGetResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
     switch (op->error)
     {
         case qdb_e_ok:
-            RETVAL_STRINGL(op->blob_get.content, op->blob_get.content_size, /*duplicate=*/1);
+            RETVAL_STRINGL(op->blob_get.content, (int)op->blob_get.content_size, /*duplicate=*/1);
             break;
 
         default:
@@ -143,7 +143,7 @@ static void getGetAndUpdateResult(zval* return_value, qdb_operation_t* op TSRMLS
     switch (op->error)
     {
         case qdb_e_ok:
-            RETVAL_STRINGL(op->blob_get_and_update.original_content, op->blob_get_and_update.original_content_size, /*duplicate=*/1);
+            RETVAL_STRINGL(op->blob_get_and_update.original_content, (int)op->blob_get_and_update.original_content_size, /*duplicate=*/1);
             break;
 
         default:

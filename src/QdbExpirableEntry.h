@@ -13,12 +13,7 @@ void QdbExpirableEntry_constructInstance(zval* destination, qdb_handle_t handle,
 
 static qdb_time_t to_expiry_unit(long long seconds)
 {
-    return 1000ll * seconds;
-}
-
-static long long from_expiry_unit(qdb_time_t millis)
-{
-    return millis / 1000ll;
+    return (qdb_time_t)1000ll * (qdb_time_t)seconds;
 }
 
 #endif /* QDB_EXPIRABLE_ENTRY */
