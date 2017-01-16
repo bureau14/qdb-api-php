@@ -1,5 +1,7 @@
 <?php
 /**
+ * This page explains how to manually compile the extension. Most users don't need to follow this procedure and should use the simple  {@see Installation} instructions.
+ *
  * ## Manual compilation from source on Linux
  *
  * #### Assumptions:
@@ -56,3 +58,4 @@
  * Also if `qdb_api.dll` is not available on the `PATH`, you'll need to copy it to `C:\php\`.
  */
 function Compilation();
+?>
