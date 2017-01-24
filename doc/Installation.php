@@ -14,8 +14,8 @@
  *
  * <code>
  * # Addresses of C and PHP APIs
- * QDB_C_URL='https://download.quasardb.net/quasardb/2.0/2.0.0-rc.9/api/c/qdb-2.0.0-linux-64bit-c-api.tar.gz'
- * QDB_PHP_URL='https://download.quasardb.net/quasardb/2.0/2.0.0-rc.9/api/php/quasardb-2.0.0.tgz'
+ * QDB_C_URL='https://download.quasardb.net/quasardb/2.0/2.0.0/api/c/qdb-2.0.0-linux-64bit-c-api.tar.gz'
+ * QDB_PHP_URL='https://download.quasardb.net/quasardb/2.0/2.0.0/api/php/quasardb-2.0.0.tgz'
  *
  * # Install quasardb C API
  * curl -sS $QDB_C_URL |
