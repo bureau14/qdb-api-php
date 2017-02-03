@@ -16,10 +16,10 @@
     <email>benoit@quasardb.net</email>
     <active>yes</active>
   </lead>
-  <date>2016-01-08</date>
+  <date>2017-02-03</date>
   <version>
-    <release>2.0.0</release>
-    <api>2.0.0</api>
+    <release>2.0.1</release>
+    <api>2.0.1</api>
   </version>
   <stability>
     <release>beta</release>
@@ -82,7 +82,7 @@
         <file role="src" name="QdbTagCollection.c"/>
         <file role="src" name="QdbTagCollection.h"/>
         <file role="src" name="settings.c"/>
-        <file role="src" name="settings.h"/>        
+        <file role="src" name="settings.h"/>
       </dir>
     </dir>
   </contents>

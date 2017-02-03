@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobdetachTagTest extends QdbTestBase
+class QdbBlobAttachTagsTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -12,7 +12,7 @@ class QdbBlobdetachTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->detachTag();
+        $blob->attachTags();
     }
 
     /**
@@ -23,18 +23,18 @@ class QdbBlobdetachTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->detachTag('tag', 'i should not be there');
+        $blob->attachTags(array('tag'), 'i should not be there');
     }
 
     /**
      * @expectedException               InvalidArgumentException
      * @expectedExceptionMessageRegExp  /tag/i
      */
-    public function testInvalidArgument()
+    public function testEmptyArray()
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->detachTag(array());
+        $blob->attachTags(array());
     }
 
     /**
@@ -44,7 +44,7 @@ class QdbBlobdetachTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->detachTag('tag');
+        $blob->attachTags(array('tag'));
     }
 
     /**
@@ -55,27 +55,29 @@ class QdbBlobdetachTagTest extends QdbTestBase
         $alias = createUniqueAlias();
         $blob = $this->createBlob($alias);
 
-        $blob->detachTag($alias);
+        $blob->attachTags(array($alias));
     }
 
     public function testWithString()
     {
-        $tag = createUniqueAlias();
         $blob = $this->createBlob();
-        $blob->attachTag($tag);
+        $tags = array(createUniqueAlias(), createUniqueAlias());
 
-        $this->assertTrue($blob->detachTag($tag));
-        $this->assertFalse($blob->detachTag($tag));
+        $blob->attachTags($tags);
+
+        $this->assertTrue($blob->hasTag($tags[0]));
+        $this->assertTrue($blob->hasTag($tags[1]));
     }
 
     public function testWithQdbTag()
     {
-        $tag = $this->createEmptyTag();
         $blob = $this->createBlob();
-        $blob->attachTag($tag);
+        $tags = array($this->createEmptyTag(), $this->createEmptyTag());
 
-        $this->assertTrue($blob->detachTag($tag));
-        $this->assertFalse($blob->detachTag($tag));
+        $blob->attachTags($tags);
+
+        $this->assertTrue($blob->hasTag($tags[0]));
+        $this->assertTrue($blob->hasTag($tags[1]));
     }
 }
 

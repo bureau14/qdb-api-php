@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbBlobattachTagTest extends QdbTestBase
+class QdbBlobDetachTagTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -12,7 +12,7 @@ class QdbBlobattachTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->attachTag();
+        $blob->detachTag();
     }
 
     /**
@@ -23,7 +23,7 @@ class QdbBlobattachTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->attachTag('tag', 'i should not be there');
+        $blob->detachTag('tag', 'i should not be there');
     }
 
     /**
@@ -34,7 +34,7 @@ class QdbBlobattachTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->attachTag(array());
+        $blob->detachTag(array());
     }
 
     /**
@@ -44,7 +44,7 @@ class QdbBlobattachTagTest extends QdbTestBase
     {
         $blob = $this->createEmptyBlob();
 
-        $blob->attachTag('tag');
+        $blob->detachTag('tag');
     }
 
     /**
@@ -54,27 +54,28 @@ class QdbBlobattachTagTest extends QdbTestBase
     {
         $alias = createUniqueAlias();
         $blob = $this->createBlob($alias);
-        $tag = $this->createEmptyTag($alias);
 
-        $blob->attachTag($alias);
+        $blob->detachTag($alias);
     }
 
     public function testWithString()
     {
-        $blob = $this->createBlob();
         $tag = createUniqueAlias();
+        $blob = $this->createBlob();
+        $blob->attachTag($tag);
 
-        $this->assertTrue($blob->attachTag($tag));
-        $this->assertFalse($blob->attachTag($tag));
+        $this->assertTrue($blob->detachTag($tag));
+        $this->assertFalse($blob->detachTag($tag));
     }
 
     public function testWithQdbTag()
     {
-        $blob = $this->createBlob();
         $tag = $this->createEmptyTag();
+        $blob = $this->createBlob();
+        $blob->attachTag($tag);
 
-        $this->assertTrue($blob->attachTag($tag));
-        $this->assertFalse($blob->attachTag($tag));
+        $this->assertTrue($blob->detachTag($tag));
+        $this->assertFalse($blob->detachTag($tag));
     }
 }
 

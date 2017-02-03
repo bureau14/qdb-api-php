@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbTagdetachEntryTest extends QdbTestBase
+class QdbBlobAttachTagTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -10,9 +10,9 @@ class QdbTagdetachEntryTest extends QdbTestBase
      */
     public function testNotEnoughArguments()
     {
-        $tag = $this->createEmptyTag();
+        $blob = $this->createEmptyBlob();
 
-        $tag->detachEntry();
+        $blob->attachTag();
     }
 
     /**
@@ -21,30 +21,30 @@ class QdbTagdetachEntryTest extends QdbTestBase
      */
     public function testTooManyArguments()
     {
-        $tag = $this->createEmptyTag();
+        $blob = $this->createEmptyBlob();
 
-        $tag->detachEntry('entry', 'i should not be there');
+        $blob->attachTag('tag', 'i should not be there');
     }
 
     /**
      * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /entry/i
+     * @expectedExceptionMessageRegExp  /tag/i
      */
     public function testInvalidArgument()
     {
-        $tag = $this->createEmptyTag();
+        $blob = $this->createEmptyBlob();
 
-        $tag->detachEntry(array());
+        $blob->attachTag(array());
     }
 
     /**
      * @expectedException               QdbAliasNotFoundException
      */
-    public function testNonExistingEntry()
+    public function testAliasNotFound()
     {
-        $tag = $this->createEmptyTag();
+        $blob = $this->createEmptyBlob();
 
-        $tag->detachEntry('entry');
+        $blob->attachTag('tag');
     }
 
     /**
@@ -53,30 +53,28 @@ class QdbTagdetachEntryTest extends QdbTestBase
     public function testIncompatibleType()
     {
         $alias = createUniqueAlias();
-        $tag = $this->createEmptyTag($alias);
         $blob = $this->createBlob($alias);
+        $tag = $this->createEmptyTag($alias);
 
-        $tag->detachEntry($alias);
+        $blob->attachTag($alias);
     }
 
     public function testWithString()
     {
-        $tag = $this->createEmptyTag();
-        $blob = $this->createBlob()->alias();
-        $tag->attachEntry($blob);
+        $blob = $this->createBlob();
+        $tag = createUniqueAlias();
 
-        $this->assertTrue($tag->detachEntry($blob));
-        $this->assertFalse($tag->detachEntry($blob));
+        $this->assertTrue($blob->attachTag($tag));
+        $this->assertFalse($blob->attachTag($tag));
     }
 
-    public function testWithQdbEntry()
+    public function testWithQdbTag()
     {
-        $tag = $this->createEmptyTag();
         $blob = $this->createBlob();
-        $tag->attachEntry($blob);
+        $tag = $this->createEmptyTag();
 
-        $this->assertTrue($tag->detachEntry($blob));
-        $this->assertFalse($tag->detachEntry($blob));
+        $this->assertTrue($blob->attachTag($tag));
+        $this->assertFalse($blob->attachTag($tag));
     }
 }
 

@@ -5,10 +5,10 @@
 
 #include <qdb/tag.h>
 
-#include "class_definition.h"
 #include "QdbEntry.h"
 #include "QdbTag.h"
 #include "QdbTagCollection.h"
+#include "class_definition.h"
 #include "exceptions.h"
 
 #define class_name QdbEntry
@@ -74,6 +74,32 @@ CLASS_METHOD_1(attachTag, MIXED_ARG(tag))
     }
 }
 
+CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
+{
+    int i;
+    int tagCount = zend_hash_num_elements(Z_ARRVAL_P(tags));
+
+    if (tagCount <= 0)
+    {
+        throw_invalid_argument("Argument tags cannot be empty");
+        return;
+    }
+
+    const char** tagAliases = alloca(tagCount * sizeof(char*));
+
+    for (i = 0; i < tagCount; i++)
+    {
+        zval** tag;
+        zend_hash_index_find(Z_ARRVAL_P(tags), i, (void**)&tag);
+        tagAliases[i] = Z_STRVAL_P(getTagAlias(*tag TSRMLS_CC));
+    }
+
+    qdb_error_t error = qdb_attach_tags(this->handle, Z_STRVAL_P(this->alias), tagAliases, tagCount);
+
+    if (error)
+        throw_qdb_error(error);
+}
+
 CLASS_METHOD_0(alias)
 {
     Z_ADDREF_P(this->alias);
@@ -88,7 +114,10 @@ CLASS_METHOD_0(getTags)
     qdb_error_t error = qdb_get_tags(this->handle, Z_STRVAL_P(this->alias), &tags, &tags_count);
 
     if (error)
+    {
         throw_qdb_error(error);
+        return;
+    }
 
     QdbTagCollection_createInstance(return_value, this->handle, tags, tags_count TSRMLS_CC);
 }
@@ -142,6 +171,7 @@ CLASS_METHOD_1(detachTag, MIXED_ARG(tag))
 BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(attachTag)
+    ADD_METHOD(attachTags)
     ADD_METHOD(alias)
     ADD_METHOD(getTags)
     ADD_METHOD(hasTag)

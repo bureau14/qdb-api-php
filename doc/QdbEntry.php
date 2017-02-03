@@ -21,6 +21,21 @@ abstract class QdbEntry
     function attachTag($tag);
 
     /**
+     * Attachs one or more tags to the entry
+     *
+     * @example
+     * <code>
+     * $cluster->blob('Bob the blob')->attachTags(array('male','funny'));
+     * </code>
+     *
+     * @param array $tag An array of `string` or `QdbTag`.
+     * @return void
+     * @throws QdbAliasNotFoundException
+     * @throws QdbIncompatibleTypeException
+     */
+    function attachTags($tags);
+
+    /**
      * Gets the alias (i.e. its "key") of the entry.
      *
      * Alias starting with `qdb` are reserved.

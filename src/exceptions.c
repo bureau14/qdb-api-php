@@ -69,6 +69,10 @@ static zend_class_entry* get_exception_ce(qdb_error_t code)
 
         case qdb_e_operation_disabled:
             return ce_QdbOperationDisabledException;
+
+        default:
+            // warning: enumeration value not handled in switch [-Wswitch]
+            break;
     }
 
     switch (QDB_ERROR_ORIGIN(code))
@@ -96,7 +100,7 @@ static zend_class_entry* get_exception_ce(qdb_error_t code)
 
 void throw_qdb_error_(qdb_error_t code TSRMLS_DC)
 {
-    zend_throw_exception(get_exception_ce(code), qdb_error(code), 0 TSRMLS_CC);
+    zend_throw_exception(get_exception_ce(code), (char*)qdb_error(code), 0 TSRMLS_CC);
 }
 
 void throw_invalid_argument_(const char* message TSRMLS_DC)

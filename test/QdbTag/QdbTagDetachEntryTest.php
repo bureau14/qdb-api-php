@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbTagattachEntryTest extends QdbTestBase
+class QdbTagDetachEntryTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
@@ -12,7 +12,7 @@ class QdbTagattachEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->attachEntry();
+        $tag->detachEntry();
     }
 
     /**
@@ -23,7 +23,7 @@ class QdbTagattachEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->attachEntry('entry', 'i should not be there');
+        $tag->detachEntry('entry', 'i should not be there');
     }
 
     /**
@@ -34,18 +34,17 @@ class QdbTagattachEntryTest extends QdbTestBase
     {
         $tag = $this->createEmptyTag();
 
-        $tag->attachEntry(array());
+        $tag->detachEntry(array());
     }
 
     /**
      * @expectedException               QdbAliasNotFoundException
-     * @expectedExceptionMessageRegExp  /found/i
      */
-    public function testAliasNotFound()
+    public function testNonExistingEntry()
     {
         $tag = $this->createEmptyTag();
 
-        $tag->attachEntry('entry');
+        $tag->detachEntry('entry');
     }
 
     /**
@@ -53,28 +52,31 @@ class QdbTagattachEntryTest extends QdbTestBase
      */
     public function testIncompatibleType()
     {
-        $tag = $this->createEmptyTag();
-        $blob = $this->createBlob($tag->alias());
+        $alias = createUniqueAlias();
+        $tag = $this->createEmptyTag($alias);
+        $blob = $this->createBlob($alias);
 
-        $tag->attachEntry(createUniqueAlias());
+        $tag->detachEntry($alias);
     }
 
     public function testWithString()
     {
         $tag = $this->createEmptyTag();
         $blob = $this->createBlob()->alias();
+        $tag->attachEntry($blob);
 
-        $this->assertTrue($tag->attachEntry($blob));
-        $this->assertFalse($tag->attachEntry($blob));
+        $this->assertTrue($tag->detachEntry($blob));
+        $this->assertFalse($tag->detachEntry($blob));
     }
 
     public function testWithQdbEntry()
     {
         $tag = $this->createEmptyTag();
         $blob = $this->createBlob();
+        $tag->attachEntry($blob);
 
-        $this->assertTrue($tag->attachEntry($blob));
-        $this->assertFalse($tag->attachEntry($blob));
+        $this->assertTrue($tag->detachEntry($blob));
+        $this->assertFalse($tag->detachEntry($blob));
     }
 }
 
