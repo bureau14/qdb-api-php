@@ -51,8 +51,7 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(current)  // inherited from Iterator
 {
-    if (this->current >= this->tags_count)
-        return;
+    if (this->current >= this->tags_count) return;
 
     zval* alias;
     ALLOC_INIT_ZVAL(alias);
@@ -63,8 +62,7 @@ CLASS_METHOD_0(current)  // inherited from Iterator
 
 CLASS_METHOD_0(key)  // inherited from Iterator
 {
-    if (this->current >= this->tags_count)
-        return;
+    if (this->current >= this->tags_count) return;
 
     RETURN_LONG(this->current);
 }

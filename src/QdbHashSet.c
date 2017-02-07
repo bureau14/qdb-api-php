@@ -5,9 +5,9 @@
 #include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
 
+#include "QdbEntry.h"
 #include "class_definition.h"
 #include "exceptions.h"
-#include "QdbEntry.h"
 
 #include <qdb/hset.h>
 

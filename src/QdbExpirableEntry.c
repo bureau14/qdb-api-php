@@ -3,9 +3,9 @@
 
 #include <php.h>  // include first to avoid conflict with stdint.h
 
-#include "class_definition.h"
 #include "QdbEntry.h"
 #include "QdbExpirableEntry.h"
+#include "class_definition.h"
 #include "exceptions.h"
 
 #include <qdb/client.h>
@@ -26,16 +26,14 @@ CLASS_METHOD_1(expiresAt, LONG_ARG(expiry))
 {
     qdb_error_t error = qdb_expires_at(this->handle, Z_STRVAL_P(this->alias), to_expiry_unit(Z_LVAL_P(expiry)));
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_1(expiresFromNow, LONG_ARG(expiry))
 {
     qdb_error_t error = qdb_expires_from_now(this->handle, Z_STRVAL_P(this->alias), to_expiry_unit(Z_LVAL_P(expiry)));
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_0(getExpiryTime)

@@ -132,8 +132,7 @@ CLASS_METHOD_1_1(put, STRING_ARG(content), LONG_ARG(expiry))
         Z_STRLEN_P(content),
         expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0);
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_1(removeIf, STRING_ARG(comparand))

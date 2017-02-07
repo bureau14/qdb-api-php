@@ -5,9 +5,9 @@
 #include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
 
+#include "QdbEntry.h"
 #include "class_definition.h"
 #include "exceptions.h"
-#include "QdbEntry.h"
 
 #include <qdb/deque.h>
 
@@ -91,8 +91,7 @@ CLASS_METHOD_1(pushBack, STRING_ARG(content))
     qdb_error_t error =
         qdb_deque_push_back(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_1(pushFront, STRING_ARG(content))
@@ -100,8 +99,7 @@ CLASS_METHOD_1(pushFront, STRING_ARG(content))
     qdb_error_t error =
         qdb_deque_push_front(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(content), Z_STRLEN_P(content));
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_0(size)
@@ -109,8 +107,7 @@ CLASS_METHOD_0(size)
     qdb_size_t size;
     qdb_error_t error = qdb_deque_size(this->handle, Z_STRVAL_P(this->alias), &size);
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 
     RETVAL_LONG((long)size);
 }

@@ -143,7 +143,9 @@ static void getGetAndUpdateResult(zval* return_value, qdb_operation_t* op TSRMLS
     switch (op->error)
     {
         case qdb_e_ok:
-            RETVAL_STRINGL(op->blob_get_and_update.original_content, (int)op->blob_get_and_update.original_content_size, /*duplicate=*/1);
+            RETVAL_STRINGL(op->blob_get_and_update.original_content,
+                (int)op->blob_get_and_update.original_content_size,
+                /*duplicate=*/1);
             break;
 
         default:

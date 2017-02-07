@@ -5,11 +5,11 @@
 #include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
 
-#include "class_definition.h"
-#include "exceptions.h"
 #include "QdbEntry.h"
 #include "QdbEntryCollection.h"
 #include "QdbTag.h"
+#include "class_definition.h"
+#include "exceptions.h"
 
 #include <qdb/tag.h>
 
@@ -48,8 +48,7 @@ static zval* getEntryAlias(zval* entry TSRMLS_DC)
 CLASS_METHOD_1(attachEntry, MIXED_ARG(entry))
 {
     zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
-    if (!entryAlias)
-        return;
+    if (!entryAlias) return;
 
     qdb_error_t error = qdb_attach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
 
@@ -71,8 +70,7 @@ CLASS_METHOD_0(getEntries)
 
     qdb_error_t error = qdb_get_tagged(this->handle, Z_STRVAL_P(this->alias), &entries, &entries_count);
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 
     QdbEntryCollection_createInstance(return_value, this->handle, entries, entries_count TSRMLS_CC);
 }
@@ -80,8 +78,7 @@ CLASS_METHOD_0(getEntries)
 CLASS_METHOD_1(hasEntry, MIXED_ARG(entry))
 {
     zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
-    if (!entryAlias)
-        return;
+    if (!entryAlias) return;
 
     qdb_error_t error = qdb_has_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
 
@@ -99,8 +96,7 @@ CLASS_METHOD_1(hasEntry, MIXED_ARG(entry))
 CLASS_METHOD_1(detachEntry, MIXED_ARG(entry))
 {
     zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
-    if (!entryAlias)
-        return;
+    if (!entryAlias) return;
 
     qdb_error_t error = qdb_detach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
 

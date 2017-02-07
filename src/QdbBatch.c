@@ -16,8 +16,7 @@
 
 static void grow_buffer_if_needed(batch_t* this)
 {
-    if (this->length < this->capacity)
-        return;
+    if (this->length < this->capacity) return;
 
     this->capacity *= 2;
     this->operations = erealloc(this->operations, this->capacity * sizeof(batch_operation_t));
@@ -42,8 +41,7 @@ static void convert_operation(qdb_operation_t* dst, batch_operation_t* src)
     switch (dst->type)
     {
         case qdb_op_blob_put:
-            if (!src->content)
-                break;
+            if (!src->content) break;
 
             dst->blob_put.expiry_time = src->expiry_time;
             dst->blob_put.content = Z_STRVAL_P(src->content);
@@ -51,8 +49,7 @@ static void convert_operation(qdb_operation_t* dst, batch_operation_t* src)
             break;
 
         case qdb_op_blob_update:
-            if (!src->content)
-                break;
+            if (!src->content) break;
 
             dst->blob_update.expiry_time = src->expiry_time;
             dst->blob_update.content = Z_STRVAL_P(src->content);
@@ -60,10 +57,8 @@ static void convert_operation(qdb_operation_t* dst, batch_operation_t* src)
             break;
 
         case qdb_op_blob_cas:
-            if (!src->content)
-                break;
-            if (!src->comparand)
-                break;
+            if (!src->content) break;
+            if (!src->comparand) break;
 
             dst->blob_cas.expiry_time = src->expiry_time;
             dst->blob_cas.new_content = Z_STRVAL_P(src->content);
@@ -74,8 +69,7 @@ static void convert_operation(qdb_operation_t* dst, batch_operation_t* src)
             break;
 
         case qdb_op_blob_get_and_update:
-            if (!src->content)
-                break;
+            if (!src->content) break;
 
             dst->blob_get_and_update.expiry_time = src->expiry_time;
             dst->blob_get_and_update.new_content = Z_STRVAL_P(src->content);
@@ -118,12 +112,9 @@ CLASS_METHOD_0(__destruct)
     {
         batch_operation_t* op = &this->operations[i];
 
-        if (op->alias)
-            Z_DELREF_P(op->alias);
-        if (op->content)
-            Z_DELREF_P(op->content);
-        if (op->comparand)
-            Z_DELREF_P(op->comparand);
+        if (op->alias) Z_DELREF_P(op->alias);
+        if (op->content) Z_DELREF_P(op->content);
+        if (op->comparand) Z_DELREF_P(op->comparand);
     }
 
     efree(this->operations);

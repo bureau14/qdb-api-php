@@ -5,13 +5,13 @@
 #include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
 
-#include "exceptions.h"
 #include "QdbBlob.h"
 #include "QdbDeque.h"
-#include "QdbInteger.h"
-#include "QdbHashSet.h"
-#include "QdbTag.h"
 #include "QdbEntryFactory.h"
+#include "QdbHashSet.h"
+#include "QdbInteger.h"
+#include "QdbTag.h"
+#include "exceptions.h"
 
 void QdbEntryFactory_createFromType(
     zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias TSRMLS_DC)
@@ -54,8 +54,7 @@ qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t hand
     qdb_entry_metadata_t meta;
     qdb_error_t error = qdb_get_metadata(handle, alias, &meta);
 
-    if (error)
-        return error;
+    if (error) return error;
 
     QdbEntryFactory_createFromType(destination, handle, meta.type, alias TSRMLS_CC);
     return qdb_e_ok;

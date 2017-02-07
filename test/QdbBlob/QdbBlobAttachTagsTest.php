@@ -79,6 +79,20 @@ class QdbBlobAttachTagsTest extends QdbTestBase
         $this->assertTrue($blob->hasTag($tags[0]));
         $this->assertTrue($blob->hasTag($tags[1]));
     }
+
+    public function testWithHash()
+    {
+        $blob = $this->createBlob();
+        $tags = array(
+            'hello' => createUniqueAlias(),
+            'world' => createUniqueAlias()
+        );
+
+        $blob->attachTags($tags);
+
+        $this->assertTrue($blob->hasTag($tags['hello']));
+        $this->assertTrue($blob->hasTag($tags['world']));
+    }
 }
 
 ?>

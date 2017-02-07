@@ -33,8 +33,7 @@ zend_object_value alloc_object_storage(
 
 int check_arg_count(int actual, int min, int max TSRMLS_DC)
 {
-    if (min <= actual && actual <= max)
-        return SUCCESS;
+    if (min <= actual && actual <= max) return SUCCESS;
 
     char message[64];
 

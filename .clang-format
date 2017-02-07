@@ -1,5 +1,6 @@
 AlignAfterOpenBracket: false
 AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine : true
 BinPackArguments : false
 BreakBeforeBraces: Allman
 ColumnLimit: 120

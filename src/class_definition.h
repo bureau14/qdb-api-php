@@ -45,8 +45,7 @@ int check_arg_count(int actual, int min, int max TSRMLS_DC);
 #define INFO_FOR_STRING_ARG(name) ZEND_ARG_INFO(0, name)
 
 #define CHECK_ARG_COUNT(min, max)                                                                                      \
-    if (check_arg_count(ZEND_NUM_ARGS(), min, max TSRMLS_CC) == FAILURE)                                               \
-        return;
+    if (check_arg_count(ZEND_NUM_ARGS(), min, max TSRMLS_CC) == FAILURE) return;
 
 #define PARSE_ARGS(spec, ...) zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, spec, __VA_ARGS__);
 

@@ -50,20 +50,17 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(current)  // inherited from Iterator
 {
-    if (this->current >= this->entries_count)
-        return;
+    if (this->current >= this->entries_count) return;
 
     const char* alias = this->entries[this->current];
     qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, alias TSRMLS_CC);
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_0(key)  // inherited from Iterator
 {
-    if (this->current >= this->entries_count)
-        return;
+    if (this->current >= this->entries_count) return;
 
     RETURN_LONG(this->current);
 }

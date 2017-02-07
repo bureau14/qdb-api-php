@@ -44,6 +44,7 @@ static zval* getTagAlias(zval* tag TSRMLS_DC)
     }
     else
     {
+        // printf("[%d]\n", Z_TYPE_P(tag));
         throw_invalid_argument("Argument tag must be a QdbTag or a string");
         return NULL;
     }
@@ -58,8 +59,7 @@ CLASS_METHOD_0(__destruct)
 CLASS_METHOD_1(attachTag, MIXED_ARG(tag))
 {
     zval* tagAlias = getTagAlias(tag TSRMLS_CC);
-    if (!tagAlias)
-        return;
+    if (!tagAlias) return;
 
     qdb_error_t error = qdb_attach_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
 
@@ -76,7 +76,6 @@ CLASS_METHOD_1(attachTag, MIXED_ARG(tag))
 
 CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
 {
-    int i;
     int tagCount = zend_hash_num_elements(Z_ARRVAL_P(tags));
 
     if (tagCount <= 0)
@@ -86,18 +85,22 @@ CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
     }
 
     const char** tagAliases = alloca(tagCount * sizeof(char*));
+    zval** tag;
+    int i = 0;
 
-    for (i = 0; i < tagCount; i++)
+    for (zend_hash_internal_pointer_reset(Z_ARRVAL_P(tags));
+         zend_hash_get_current_data(Z_ARRVAL_P(tags), (void**)&tag) == SUCCESS;
+         zend_hash_move_forward(Z_ARRVAL_P(tags)))
     {
-        zval** tag;
-        zend_hash_index_find(Z_ARRVAL_P(tags), i, (void**)&tag);
-        tagAliases[i] = Z_STRVAL_P(getTagAlias(*tag TSRMLS_CC));
+        zval* tagAlias = getTagAlias(*tag TSRMLS_CC);
+        if (!tagAlias) return;
+
+        tagAliases[i++] = Z_STRVAL_P(tagAlias);
     }
 
     qdb_error_t error = qdb_attach_tags(this->handle, Z_STRVAL_P(this->alias), tagAliases, tagCount);
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_0(alias)
@@ -125,8 +128,7 @@ CLASS_METHOD_0(getTags)
 CLASS_METHOD_1(hasTag, MIXED_ARG(tag))
 {
     zval* tagAlias = getTagAlias(tag TSRMLS_CC);
-    if (!tagAlias)
-        return;
+    if (!tagAlias) return;
 
     qdb_error_t error = qdb_has_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
 
@@ -145,15 +147,13 @@ CLASS_METHOD_0(remove)
 {
     qdb_error_t error = qdb_remove(this->handle, Z_STRVAL_P(this->alias));
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_1(detachTag, MIXED_ARG(tag))
 {
     zval* tagAlias = getTagAlias(tag TSRMLS_CC);
-    if (!tagAlias)
-        return;
+    if (!tagAlias) return;
 
     qdb_error_t error = qdb_detach_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
 

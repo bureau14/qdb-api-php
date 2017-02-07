@@ -42,8 +42,7 @@ qdb_handle_t connection_open(zval* uri TSRMLS_DC)
     if (QDB_G(persistent))
     {
         qdb_handle_t handle = connection_load(uri TSRMLS_CC);
-        if (handle)
-            return handle;
+        if (handle) return handle;
     }
 
     log_attach();
@@ -64,6 +63,5 @@ qdb_handle_t connection_open(zval* uri TSRMLS_DC)
 
 void connection_close(qdb_handle_t handle TSRMLS_DC)
 {
-    if (!QDB_G(persistent))
-        qdb_close(handle);
+    if (!QDB_G(persistent)) qdb_close(handle);
 }

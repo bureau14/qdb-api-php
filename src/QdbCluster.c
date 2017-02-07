@@ -51,8 +51,7 @@ CLASS_METHOD_1(entry, STRING_ARG(alias))
 {
     qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, Z_STRVAL_P(alias) TSRMLS_CC);
 
-    if (error)
-        throw_qdb_error(error);
+    if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_1(hashSet, STRING_ARG(alias))
