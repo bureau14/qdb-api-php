@@ -45,7 +45,7 @@ void QdbEntryCollection_createInstance(
 
 CLASS_METHOD_0(__destruct)
 {
-    qdb_free_results(this->handle, this->entries, this->entries_count);
+    qdb_release(this->handle, this->entries);
 }
 
 CLASS_METHOD_0(current)  // inherited from Iterator

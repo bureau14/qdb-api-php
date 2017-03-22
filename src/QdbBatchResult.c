@@ -45,7 +45,7 @@ void QdbBatchResult_createInstance(
 
 CLASS_METHOD_0(__destruct)
 {
-    qdb_free_operations(this->handle, this->operations, this->operations_count);
+    qdb_release(this->handle, this->operations);
     efree(this->operations);
 }
 

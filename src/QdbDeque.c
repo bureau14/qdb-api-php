@@ -38,7 +38,7 @@ CLASS_METHOD_0(back)
     else
         RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
 
-    qdb_free_buffer(this->handle, result);
+    qdb_release(this->handle, result);
 }
 
 CLASS_METHOD_0(front)
@@ -53,7 +53,7 @@ CLASS_METHOD_0(front)
     else
         RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
 
-    qdb_free_buffer(this->handle, result);
+    qdb_release(this->handle, result);
 }
 
 CLASS_METHOD_0(popBack)
@@ -68,7 +68,7 @@ CLASS_METHOD_0(popBack)
     else
         RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
 
-    qdb_free_buffer(this->handle, result);
+    qdb_release(this->handle, result);
 }
 
 CLASS_METHOD_0(popFront)
@@ -83,7 +83,7 @@ CLASS_METHOD_0(popFront)
     else
         RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
 
-    qdb_free_buffer(this->handle, result);
+    qdb_release(this->handle, result);
 }
 
 CLASS_METHOD_1(pushBack, STRING_ARG(content))

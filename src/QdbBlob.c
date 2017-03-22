@@ -57,7 +57,7 @@ CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content), STRING_ARG(comparand), LON
             throw_qdb_error(error);
     }
 
-    qdb_free_buffer(this->handle, result);
+    qdb_release(this->handle, result);
 }
 
 CLASS_METHOD_0(get)
@@ -76,7 +76,7 @@ CLASS_METHOD_0(get)
         RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
     }
 
-    qdb_free_buffer(this->handle, result);
+    qdb_release(this->handle, result);
 }
 
 CLASS_METHOD_0(getAndRemove)
@@ -96,7 +96,7 @@ CLASS_METHOD_0(getAndRemove)
         RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
     }
 
-    qdb_free_buffer(this->handle, result);
+    qdb_release(this->handle, result);
 }
 
 CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
@@ -121,7 +121,7 @@ CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
         RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
     }
 
-    qdb_free_buffer(this->handle, result);
+    qdb_release(this->handle, result);
 }
 
 CLASS_METHOD_1_1(put, STRING_ARG(content), LONG_ARG(expiry))

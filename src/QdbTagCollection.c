@@ -46,7 +46,7 @@ void QdbTagCollection_createInstance(
 
 CLASS_METHOD_0(__destruct)
 {
-    qdb_free_results(this->handle, this->tags, this->tags_count);
+    qdb_release(this->handle, this->tags);
 }
 
 CLASS_METHOD_0(current)  // inherited from Iterator
