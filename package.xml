@@ -7,7 +7,7 @@
   <channel>pecl.php.net</channel>
   <summary>Quasardb PHP extension</summary>
   <description>
-    Quasardb is a distributed NoSQL database.
+    Quasardb is a distributed timeseries database.
     This package provides a PHP API to access data in a Quasardb cluster.
   </description>
   <lead>
@@ -16,10 +16,10 @@
     <email>benoit@quasardb.net</email>
     <active>yes</active>
   </lead>
-  <date>2017-08-04</date>
+  <date>2017-11-22</date>
   <version>
-    <release>2.1.0</release>
-    <api>2.1.0</api>
+    <release>2.1.1</release>
+    <api>2.1.1</api>
   </version>
   <stability>
     <release>beta</release>
