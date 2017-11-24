@@ -11,15 +11,15 @@
     This package provides a PHP API to access data in a Quasardb cluster.
   </description>
   <lead>
-    <name>Benoit Blanchon</name>
-    <user>benoit</user>
-    <email>benoit@quasardb.net</email>
+    <name>Edouard A.</name>
+    <user>edouard</user>
+    <email>edouard@quasardb.net</email>
     <active>yes</active>
   </lead>
-  <date>2016-01-08</date>
+  <date>2017-11-23</date>
   <version>
-    <release>2.0.0</release>
-    <api>2.0.0</api>
+    <release>2.0.2</release>
+    <api>2.0.2</api>
   </version>
   <stability>
     <release>beta</release>
@@ -82,7 +82,7 @@
         <file role="src" name="QdbTagCollection.c"/>
         <file role="src" name="QdbTagCollection.h"/>
         <file role="src" name="settings.c"/>
-        <file role="src" name="settings.h"/>        
+        <file role="src" name="settings.h"/>
       </dir>
     </dir>
   </contents>
