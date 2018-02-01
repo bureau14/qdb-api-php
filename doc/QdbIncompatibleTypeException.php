@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * Thrown when an operation cannot be perform because the existing entry do not have the appropriate type.
  *

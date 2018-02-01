@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * Welcome to quasardb API for PHP
  *

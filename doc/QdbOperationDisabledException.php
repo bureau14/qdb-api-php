@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * Thrown when an operation cannot be perform because it has been disabled in the cluster configuration.
  *

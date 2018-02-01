@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * A connection to a *quasardb* cluster.
  *

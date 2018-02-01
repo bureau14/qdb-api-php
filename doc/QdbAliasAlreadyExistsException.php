@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * Thrown when an entry with the same alias is already present in the database.
  *
