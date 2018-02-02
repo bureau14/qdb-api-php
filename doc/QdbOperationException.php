@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * Thrown when a database operation failed.
  */

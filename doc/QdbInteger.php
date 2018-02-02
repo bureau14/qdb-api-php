@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * A signed 64-bit integer in the database.
  *

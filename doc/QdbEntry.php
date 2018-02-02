@@ -1,5 +1,5 @@
 <?php
-
+namespace qdb;
 /**
  * An entry in the database
  */

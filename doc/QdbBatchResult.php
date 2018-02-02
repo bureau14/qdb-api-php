@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * A result of a batch query.
  *

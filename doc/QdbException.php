@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * Base class of all quasardb exceptions.
  */

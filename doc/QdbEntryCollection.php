@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * A traversable collection of {@link QdbEntry}.
  *

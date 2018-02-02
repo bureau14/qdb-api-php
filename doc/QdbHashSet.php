@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * An unordered set of blob in the database.
  *

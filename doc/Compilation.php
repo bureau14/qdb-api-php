@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * This page explains how to manually compile the extension. Most users don't need to follow this procedure and should use the simple  {@see Installation} instructions.
  *

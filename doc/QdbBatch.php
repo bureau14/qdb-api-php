@@ -1,5 +1,5 @@
 <?php
-
+namespace qdb;
 /**
  * A collection of operation that can be executed with a single query.
  *

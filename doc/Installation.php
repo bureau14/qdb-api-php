@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * ## Installation on Linux
  *

@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * A tag in the database.
  *

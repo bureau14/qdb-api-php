@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * Thrown when an entry cannot be found in the database.
  *

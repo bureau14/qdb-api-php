@@ -1,4 +1,5 @@
 <?php
+namespace qdb;
 /**
  * The following settings can be changed in `php.ini`.
  *

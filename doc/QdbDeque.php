@@ -1,5 +1,5 @@
 <?php
-
+namespace qdb;
 /**
  * A queue of blob in the database.
  *
