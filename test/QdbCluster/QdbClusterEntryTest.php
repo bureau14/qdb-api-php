@@ -53,13 +53,6 @@ class QdbClusterEntryTest extends QdbTestBase
         $this->assertInstanceOf('QdbDeque', $entry);
     }
 
-    public function testHashSet()
-    {
-        $hset = $this->createHashSet();
-        $entry = $this->cluster->entry($hset->alias());
-        $this->assertInstanceOf('QdbHashSet', $entry);
-    }
-
     public function testInteger()
     {
         $integer = $this->createInteger();

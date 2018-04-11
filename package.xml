@@ -73,8 +73,6 @@
         <file role="src" name="QdbEntryFactory.h"/>
         <file role="src" name="QdbExpirableEntry.c"/>
         <file role="src" name="QdbExpirableEntry.h"/>
-        <file role="src" name="QdbHashSet.c"/>
-        <file role="src" name="QdbHashSet.h"/>
         <file role="src" name="QdbInteger.c"/>
         <file role="src" name="QdbInteger.h"/>
         <file role="src" name="QdbTag.c"/>

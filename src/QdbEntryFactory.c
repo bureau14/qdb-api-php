@@ -8,7 +8,6 @@
 #include "QdbBlob.h"
 #include "QdbDeque.h"
 #include "QdbEntryFactory.h"
-#include "QdbHashSet.h"
 #include "QdbInteger.h"
 #include "QdbTag.h"
 #include "exceptions.h"
@@ -24,10 +23,6 @@ void QdbEntryFactory_createFromType(
     {
         case qdb_entry_blob:
             QdbBlob_createInstance(destination, handle, zalias TSRMLS_CC);
-            break;
-
-        case qdb_entry_hset:
-            QdbHashSet_createInstance(destination, handle, zalias TSRMLS_CC);
             break;
 
         case qdb_entry_integer:

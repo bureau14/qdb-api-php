@@ -42,7 +42,6 @@ if (PHP_QUASARDB != "no") {
         QdbEntryCollection.c \
         QdbEntryFactory.c \
         QdbExpirableEntry.c \
-        QdbHashSet.c \
         QdbInteger.c \
         QdbTag.c \
         QdbTagCollection.c \

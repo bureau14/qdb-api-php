@@ -37,12 +37,6 @@ abstract class QdbTestBase extends PHPUnit_Framework_TestCase
         return $blob;
     }
 
-    protected function createEmptyHashSet($alias = NULL)
-    {
-        $blob = $this->cluster->hashSet($alias ?: createUniqueAlias());
-        return $blob;
-    }
-
     protected function createEmptyInteger($alias = NULL)
     {
         $blob = $this->cluster->integer($alias ?: createUniqueAlias());
@@ -59,13 +53,6 @@ abstract class QdbTestBase extends PHPUnit_Framework_TestCase
     {
         $tag = $this->cluster->tag($alias ?: createUniqueAlias());
         return $tag;
-    }
-
-    protected function createHashSet($alias = NULL)
-    {
-        $hashSet = $this->createEmptyHashSet($alias);
-        $hashSet->insert(createRandomContent());
-        return $hashSet;
     }
 
     protected function createInteger($alias = NULL)

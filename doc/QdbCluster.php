@@ -10,7 +10,6 @@ namespace qdb;
  * $cluster->blob('key 0')->put('value 0');
  * $cluster->deque('key 1')->pushBack('value 1');
  * $cluster->integer('key 2')->add(42);
- * $cluster->hashSet('key 3')->insert('value 2');
  * </code>
  */
 class QdbCluster
@@ -63,7 +62,7 @@ class QdbCluster
     function deque($alias);
 
     /**
-     * Create a {@link QdbBlob}, a {@link QdbDeque}, a {@link QdbHashSet}, a {@link QdbInteger} or a {@link QdbTag}
+     * Create a {@link QdbBlob}, a {@link QdbDeque}, a {@link QdbInteger} or a {@link QdbTag}
      * depending on the actual type of the entry.
      *
      * The entry must exist in the database.
@@ -82,21 +81,6 @@ class QdbCluster
      * </code>
      */
     function entry($alias);
-
-    /**
-     * Creates a {@link QdbHashSet} associated with the specified alias.
-     *
-     * No query is performed at this point.
-     *
-     * @example
-     * <code>
-     * $cluster->hashSet('alias')->insert('content');
-     * </code>
-     *
-     * @param string $alias The alias of the hash-set (alias starting with `qdb` are reserved).
-     * @return QdbHashSet
-     */
-    function hashSet($alias);
 
     /**
      * Creates a {@link QdbInteger} associated with the specified alias.

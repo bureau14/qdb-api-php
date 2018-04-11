@@ -34,15 +34,6 @@ namespace qdb;
  * $total = $integer->add(12);
  * </code>
  *
- * We also provide distributed sets.
- * <code>
- * $set = $cluster->hashSet('Janet the set');
- *
- * $set->insert('value');
- * $set->erase('value');
- * $hasValue = $set->contains('value');
- * </code>
- *
  * Here's how you can easily find your data, using tags:
  * <code>
  * $cluster->blob('Bob the blob')->attachTag('Male');
@@ -51,7 +42,7 @@ namespace qdb;
  * $males = $cluster->tag('Male')->getEntries();
  * </code>
  *
- * The source code of this library can by found on <a href='https://github.com/bureau14/qdb-api-php'>GitHub</a>.
- * @see QdbBlob, QdbHashSet, QdbInteger, QdbDeque, QdbTag
+ * The source code of this library can be found on <a href='https://github.com/bureau14/qdb-api-php'>GitHub</a>.
+ * @see QdbBlob, QdbInteger, QdbDeque, QdbTag
  */
 function Introduction();

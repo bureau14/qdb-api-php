@@ -49,19 +49,6 @@ class QdbTagGetEntriesTest extends QdbTestBase
         $this->assertEquals($blob->alias(), $entry->alias());
     }
 
-    public function testOneHashSet()
-    {
-        $tag = $this->createEmptyTag();
-        $hashSet = $this->createHashSet();
-
-        $tag->attachEntry($hashSet);
-        $entries = $tag->getEntries();
-
-        $entry = $this->getSingleElement($entries);
-        $this->assertInstanceOf('QdbHashSet', $entry);
-        $this->assertEquals($hashSet->alias(), $entry->alias());
-    }
-
     public function testOneInteger()
     {
         $tag = $this->createEmptyTag();

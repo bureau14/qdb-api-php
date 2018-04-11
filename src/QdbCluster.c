@@ -9,7 +9,6 @@
 #include "QdbCluster.h"
 #include "QdbDeque.h"
 #include "QdbEntryFactory.h"
-#include "QdbHashSet.h"
 #include "QdbInteger.h"
 #include "QdbTag.h"
 #include "class_definition.h"
@@ -52,11 +51,6 @@ CLASS_METHOD_1(entry, STRING_ARG(alias))
     qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, Z_STRVAL_P(alias) TSRMLS_CC);
 
     if (error) throw_qdb_error(error);
-}
-
-CLASS_METHOD_1(hashSet, STRING_ARG(alias))
-{
-    QdbHashSet_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
 
 CLASS_METHOD_1(integer, STRING_ARG(alias))
@@ -104,7 +98,6 @@ BEGIN_CLASS_MEMBERS()
     ADD_METHOD(blob)
     ADD_METHOD(deque)
     ADD_METHOD(entry)
-    ADD_METHOD(hashSet)
     ADD_METHOD(integer)
     ADD_METHOD(purgeAll)
     ADD_METHOD(runBatch)

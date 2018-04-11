@@ -6,9 +6,6 @@
 
 #include "php_qdb.h"
 
-#include "src/connection.h"
-#include "src/exceptions.h"
-#include "src/globals.h"
 #include "src/QdbBatch.h"
 #include "src/QdbBatchResult.h"
 #include "src/QdbBlob.h"
@@ -17,10 +14,12 @@
 #include "src/QdbEntry.h"
 #include "src/QdbEntryCollection.h"
 #include "src/QdbExpirableEntry.h"
-#include "src/QdbHashSet.h"
 #include "src/QdbInteger.h"
 #include "src/QdbTag.h"
 #include "src/QdbTagCollection.h"
+#include "src/connection.h"
+#include "src/exceptions.h"
+#include "src/globals.h"
 #include "src/settings.h"
 
 static PHP_MINIT_FUNCTION(quasardb)
@@ -37,7 +36,6 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbBlob_registerClass(TSRMLS_C);
     QdbCluster_registerClass(TSRMLS_C);
     QdbDeque_registerClass(TSRMLS_C);
-    QdbHashSet_registerClass(TSRMLS_C);
     QdbInteger_registerClass(TSRMLS_C);
     QdbTag_registerClass(TSRMLS_C);
     QdbTagCollection_registerClass(TSRMLS_C);
