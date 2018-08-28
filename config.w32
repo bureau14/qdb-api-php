@@ -37,7 +37,6 @@ if (PHP_QUASARDB != "no") {
         QdbBatchResult.c \
         QdbBlob.c \
         QdbCluster.c \
-        QdbDeque.c \
         QdbEntry.c \
         QdbEntryCollection.c \
         QdbEntryFactory.c \

@@ -62,19 +62,6 @@ class QdbTagGetEntriesTest extends QdbTestBase
         $this->assertEquals($integer->alias(), $entry->alias());
     }
 
-    public function testOneQueue()
-    {
-        $tag = $this->createEmptyTag();
-        $queue = $this->createQueue();
-
-        $tag->attachEntry($queue);
-        $entries = $tag->getEntries();
-
-        $entry = $this->getSingleElement($entries);
-        $this->assertInstanceOf('QdbDeque', $entry);
-        $this->assertEquals($queue->alias(), $entry->alias());
-    }
-
     public function testOneTag()
     {
         $tag1 = $this->createEmptyTag();

@@ -12,7 +12,6 @@ PHP_QUASARDB_SOURCES="\
   src/QdbBatchResult.c \
   src/QdbBlob.c \
   src/QdbCluster.c \
-  src/QdbDeque.c \
   src/QdbEntry.c \
   src/QdbEntryCollection.c \
   src/QdbEntryFactory.c \

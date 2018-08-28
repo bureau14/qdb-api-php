@@ -43,12 +43,6 @@ abstract class QdbTestBase extends PHPUnit_Framework_TestCase
         return $blob;
     }
 
-    protected function createEmptyQueue($alias = NULL)
-    {
-        $blob = $this->cluster->deque($alias ?: createUniqueAlias());
-        return $blob;
-    }
-
     protected function createEmptyTag($alias = NULL)
     {
         $tag = $this->cluster->tag($alias ?: createUniqueAlias());

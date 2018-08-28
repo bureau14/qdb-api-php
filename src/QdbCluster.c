@@ -7,7 +7,6 @@
 #include "QdbBatchResult.h"
 #include "QdbBlob.h"
 #include "QdbCluster.h"
-#include "QdbDeque.h"
 #include "QdbEntryFactory.h"
 #include "QdbInteger.h"
 #include "QdbTag.h"
@@ -39,11 +38,6 @@ CLASS_METHOD_0(__destruct)
 CLASS_METHOD_1(blob, STRING_ARG(alias))
 {
     QdbBlob_createInstance(return_value, this->handle, alias TSRMLS_CC);
-}
-
-CLASS_METHOD_1(deque, STRING_ARG(alias))
-{
-    QdbDeque_createInstance(return_value, this->handle, alias TSRMLS_CC);
 }
 
 CLASS_METHOD_1(entry, STRING_ARG(alias))
@@ -96,7 +90,6 @@ BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
     ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(blob)
-    ADD_METHOD(deque)
     ADD_METHOD(entry)
     ADD_METHOD(integer)
     ADD_METHOD(purgeAll)

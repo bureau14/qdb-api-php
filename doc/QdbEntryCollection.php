@@ -5,7 +5,7 @@ namespace qdb;
  *
  * A `QdbEntryCollection` is returned by {@link \QdbTag::getEntries()}.
  *
- * Entries in the collection have a concrete type like {@link QdbBlob}, {@link QdbInteger}, {@link QdbDeque} or {@link QdbTag}
+ * Entries in the collection have a concrete type like {@link QdbBlob}, {@link QdbInteger}, or {@link QdbTag}
  *
  * @example
  * <code>

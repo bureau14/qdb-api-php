@@ -17,15 +17,6 @@ namespace qdb;
  * $value = $blob->get();
  * </code>
  *
- * Quasardb provides concurrent double-ended queue, or "deque"
- * <code>
- * $queue = $cluster->deque('Andrew the queue');
- *
- * $queue->pushBack('firstValue');
- * $queue->pushBack('secondValue');
- * $value = $queue->popFront();
- * </code>
- *
  * quasardb comes out of the box with server-side atomic integers:
  * <code>
  * $integer = $cluster->integer('Roger the integer');

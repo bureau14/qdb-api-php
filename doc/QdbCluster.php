@@ -8,7 +8,6 @@ namespace qdb;
  * $cluster = new QdbCluster('qdb://127.0.0.1:2836');
  *
  * $cluster->blob('key 0')->put('value 0');
- * $cluster->deque('key 1')->pushBack('value 1');
  * $cluster->integer('key 2')->add(42);
  * </code>
  */
@@ -47,22 +46,7 @@ class QdbCluster
     function blob($alias);
 
     /**
-     * Creates a {@link QdbDeque} associated with the specified alias.
-     *
-     * No query is performed at this point.
-     *
-     * @example
-     * <code>
-     * $cluster->deque('alias')->pushBack('content');
-     * </code>
-     *
-     * @param string $alias The alias of the queue (alias starting with `qdb` are reserved).
-     * @return QdbDeque
-     */
-    function deque($alias);
-
-    /**
-     * Create a {@link QdbBlob}, a {@link QdbDeque}, a {@link QdbInteger} or a {@link QdbTag}
+     * Create a {@link QdbBlob}, a {@link QdbInteger} or a {@link QdbTag}
      * depending on the actual type of the entry.
      *
      * The entry must exist in the database.
@@ -70,14 +54,12 @@ class QdbCluster
      * @example
      * <code>
      * $cluster->blob('alias1')->put('content');
-     * $cluster->deque('alias2')->pushBack('content');
      *
      * @param string $alias The alias of the entry (alias starting with `qdb` are reserved).
      * @return QdbEntry
      * @throws QdbAliasNotFoundException
      *
      * $entry1 = $cluster->entry('alias1'); // $entry1 is a QdbBlob
-     * $entry2 = $cluster->entry('alias2'); // $entry2 is a QdbDeque
      * </code>
      */
     function entry($alias);

@@ -6,7 +6,6 @@
 #include <zend_interfaces.h>
 
 #include "QdbBlob.h"
-#include "QdbDeque.h"
 #include "QdbEntryFactory.h"
 #include "QdbInteger.h"
 #include "QdbTag.h"
@@ -27,10 +26,6 @@ void QdbEntryFactory_createFromType(
 
         case qdb_entry_integer:
             QdbInteger_createInstance(destination, handle, zalias TSRMLS_CC);
-            break;
-
-        case qdb_entry_deque:
-            QdbDeque_createInstance(destination, handle, zalias TSRMLS_CC);
             break;
 
         case qdb_entry_tag:

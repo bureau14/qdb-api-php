@@ -46,13 +46,6 @@ class QdbClusterEntryTest extends QdbTestBase
         $this->assertInstanceOf('QdbBlob', $entry);
     }
 
-    public function testDeque()
-    {
-        $deque = $this->createQueue();
-        $entry = $this->cluster->entry($deque->alias());
-        $this->assertInstanceOf('QdbDeque', $entry);
-    }
-
     public function testInteger()
     {
         $integer = $this->createInteger();
