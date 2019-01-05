@@ -2,7 +2,7 @@
 
 $PROJECT_ROOT = dirname(__FILE__) . '/../../../..';
 
-$DAEMON_FLAGS = "--security=false --transient --address 127.0.0.1:20552";
+$DAEMON_FLAGS = "--security=false --storage-engine=transient --address 127.0.0.1:20552";
 
 echo 'Check extension... ';
 if (!extension_loaded('quasardb')) {
