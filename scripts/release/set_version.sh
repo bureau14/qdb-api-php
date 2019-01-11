@@ -20,6 +20,12 @@ XYZ_VERSION="${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}"
 
 CURRENT_DATE=`date +%Y-%m-%d`
 
+if [[ "${INPUT_VERSION}" == *-* ]] ; then
+    STABILITY='beta'
+else
+    STABILITY='stable'
+fi
+
 cd $(dirname -- $0)
 cd ${PWD}/../..
 
@@ -35,4 +41,13 @@ sed -i \
     -e '/<version>/,/<\/version>/ { s|<api>[^<]*</api>|<api>'"${XY_VERSION}"'</api>| }' \
     -e 's!<date>[^<]*</date>!<date>'"${CURRENT_DATE}"'</date>!' \
     -e '/<notes>/,/<\/notes>/ { s/\(This version targets quasardb \)[0-9.]*/\1'"${XY_VERSION}"'/ }' \
+    package.xml
+
+# <stability>
+#   <release>beta</release>
+#   <api>beta</api>
+# </stability>
+sed -i \
+    -e '/<stability>/,/<\/stability>/ { s|<release>[^<]*</release>|<release>'"${STABILITY}"'</release>| }' \
+    -e '/<stability>/,/<\/stability>/ { s|<api>[^<]*</api>|<api>'"${STABILITY}"'</api>| }' \
     package.xml
