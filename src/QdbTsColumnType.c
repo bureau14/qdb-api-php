@@ -5,7 +5,10 @@
 #include <qdb/ts.h>
 #include "class_definition.h"
 
-struct zval_empty_class_t { char unused; };
+struct zval_empty_class_t
+{ 
+    zend_object std;
+};
 
 #define class_name QdbTsColumnType
 #define class_storage struct zval_empty_class_t

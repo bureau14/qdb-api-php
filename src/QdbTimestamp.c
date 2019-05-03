@@ -8,6 +8,7 @@
 #include "exceptions.h"
 
 struct zval_timestamp_t {
+    zend_object std;
     zval* seconds;
     zval* nanoseconds;
 };

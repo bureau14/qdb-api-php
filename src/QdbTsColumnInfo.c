@@ -8,6 +8,7 @@
 
 struct zval_column_info_t
 {
+    zend_object std;
     zval* name;
     zval* type;
 };

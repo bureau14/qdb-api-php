@@ -8,6 +8,7 @@
 
 struct batch_column_info_t
 {
+    zend_object std;
     zval* timeseries;
     zval* column;
 };
