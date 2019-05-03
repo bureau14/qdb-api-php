@@ -60,8 +60,8 @@ void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
     ADD_DESTRUCTOR(__destruct)
-    ADD_METHOD(timeseries)
-    ADD_METHOD(column)
+    ADD_METHOD(name)
+    ADD_METHOD(type)
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"
