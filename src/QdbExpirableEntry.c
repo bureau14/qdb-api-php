@@ -51,6 +51,10 @@ CLASS_METHOD_0(getExpiryTime)
     }
 }
 
+qdb_time_t to_expiry_unit(long long seconds) {
+    return (qdb_time_t)1000ll * (qdb_time_t)seconds;
+}
+
 BEGIN_CLASS_MEMBERS()
     ADD_METHOD(expiresAt)
     ADD_METHOD(expiresFromNow)
