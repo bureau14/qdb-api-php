@@ -3,44 +3,44 @@
 
 #include <php.h>  // include first to avoid conflict with stdint.h
 
-#include "QdbTsBatchColumnInfo.h"
+#include "QdbTsColumnInfo.h"
 #include "class_definition.h"
 
-struct batch_column_info_t
+struct zval_column_info_t
 {
-    zval* timeseries;
-    zval* column;
+    zval* name;
+    zval* type;
 };
 
-#define class_name QdbTsBatchColumnInfo
-#define class_storage struct batch_column_info_t
+#define class_name QdbTsColumnInfo
+#define class_storage struct zval_column_info_t
 
-CLASS_METHOD_0(__construct, STRING_ARG(timeseries), STRING_ARG(column))
+CLASS_METHOD_2(__construct, STRING_ARG(name), LONG_ARG(type))
 {
-    Z_ADDREF_P(timeseries);
-    Z_ADDREF_P(column);
+    Z_ADDREF_P(name);
+    Z_ADDREF_P(type);
 
-    this->timeseries = timeseries;
-    this->column     = column;
+    this->name = name;
+    this->type = type;
 }
 
 CLASS_METHOD_0(__destruct)
 {
-    Z_DELREF_P(this->timeseries);
-    Z_DELREF_P(this->column);
+    Z_DELREF_P(this->name);
+    Z_DELREF_P(this->type);
 }
 
-CLASS_METHOD_0(timeseries)
+CLASS_METHOD_0(name)
 {
-    RETURN_ZVAL(this->timeseries, 0, 0);
+    RETURN_ZVAL(this->name, 0, 0);
 }
 
-CLASS_METHOD_0(column)
+CLASS_METHOD_0(type)
 {
-    RETURN_ZVAL(this->column, 0, 0);
+    RETURN_ZVAL(this->type, 0, 0);
 }
 
-void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_info_t* dst TSRMLS_CC)
+void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst TSRMLS_CC)
 {
     zval** pcolumn;
     int i = 0;
@@ -48,12 +48,12 @@ void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_
          zend_hash_get_current_data(src, (void**)&pcolumn) == SUCCESS;
          zend_hash_move_forward(src))
     {
-        CHECK_TYPE_OF_OBJECT_ARG(QdbTsBatchColumnInfo, *pcolumn);
+        CHECK_TYPE_OF_OBJECT_ARG(QdbTsColumnInfo, *pcolumn);
         class_storage* column = (class_storage*) zend_object_store_get_object(*pcolumn TSRMLS_CC);
 
-        qdb_ts_batch_column_info_t* col_copy = dst + i++;
-        col_copy->timeseries = Z_STRVAL_P(column->timeseries);
-        col_copy->column     = Z_STRVAL_P(column->column);
+        qdb_ts_column_info_t* col_copy = dst + i++;
+        col_copy->name = Z_STRVAL_P(column->name);
+        col_copy->type = Z_LVAL_P(column->type);
     }
 }
 

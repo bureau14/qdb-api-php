@@ -15,7 +15,7 @@ struct batch_column_info_t
 #define class_name QdbTsBatchColumnInfo
 #define class_storage struct batch_column_info_t
 
-CLASS_METHOD_0(__construct, STRING_ARG(timeseries), STRING_ARG(column))
+CLASS_METHOD_2(__construct, STRING_ARG(timeseries), STRING_ARG(column))
 {
     Z_ADDREF_P(timeseries);
     Z_ADDREF_P(column);

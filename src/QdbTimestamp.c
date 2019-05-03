@@ -15,7 +15,7 @@ struct zval_timestamp_t {
 #define class_name QdbTimestamp
 #define class_storage struct zval_timestamp_t
 
-CLASS_METHOD_0(__construct, LONG_ARG(seconds), LONG_ARG(nanoseconds))
+CLASS_METHOD_2(__construct, LONG_ARG(seconds), LONG_ARG(nanoseconds))
 {
     Z_ADDREF_P(seconds);
     Z_ADDREF_P(nanoseconds);
