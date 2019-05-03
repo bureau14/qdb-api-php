@@ -12,7 +12,7 @@ struct zval_empty_class_t {};
 
 extern zend_class_entry* ce_QdbTsColumnType;
 
-bool init_column_types() {
+int init_column_types() {
     return zend_declare_class_constant_long(ce_QdbTsColumnType, "BLOB", 4, qdb_ts_column_blob TSRMLS_DC) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbTsColumnType, "DOUBLE", 6, qdb_ts_column_double TSRMLS_DC) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbTsColumnType, "INT64", 5, qdb_ts_column_int64 TSRMLS_DC) == SUCCESS
