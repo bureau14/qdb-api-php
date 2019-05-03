@@ -5,7 +5,7 @@
 #include <qdb/ts.h>
 #include "class_definition.h"
 
-struct zval_empty_class_t {};
+struct zval_empty_class_t { char unused; };
 
 #define class_name QdbTsColumnType
 #define class_storage struct zval_empty_class_t

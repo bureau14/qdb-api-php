@@ -8,4 +8,6 @@
 
 void QdbTsColumnType_registerClass(TSRMLS_D);
 
+int init_column_types();
+
 #endif /* QDB_TS_COLUMN_TYPE_H */

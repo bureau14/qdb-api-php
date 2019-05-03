@@ -47,6 +47,7 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbTsBatchTable_registerClass(TSRMLS_C);
     QdbTsColumnInfo_registerClass(TSRMLS_C);
     QdbTsColumnType_registerClass(TSRMLS_C);
+    init_column_types();
     return SUCCESS;
 }
 
