@@ -49,10 +49,8 @@ void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst
          zend_hash_get_current_data(src, (void**)&pcolumn) == SUCCESS;
          zend_hash_move_forward(src))
     {
-        printf("4.1");
         CHECK_TYPE_OF_OBJECT_ARG(QdbTsColumnInfo, *pcolumn);
         class_storage* column = (class_storage*) zend_object_store_get_object(*pcolumn TSRMLS_CC);
-        printf("4.2");
 
         qdb_ts_column_info_t* col_copy = dst + i++;
         col_copy->name = Z_STRVAL_P(column->name);

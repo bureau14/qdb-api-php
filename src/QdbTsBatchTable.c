@@ -26,16 +26,11 @@ void QdbTsBatchTable_createInstance(zval* destination,
                                     qdb_size_t column_cnt TSRMLS_DC)
 {
     qdb_batch_table_t table;
-    printf("5.1");
     qdb_error_t err = qdb_ts_batch_table_init(handle, columns, column_cnt, &table);
-    printf("5.2");
     if (QDB_FAILURE(err)) throw_qdb_error(err);
 
-    printf("5.3");
     object_init_ex(destination, ce_QdbTsBatchTable);
-    printf("5.4");
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
-    printf("5.5");
     this->handle = handle;
     this->table  = table;
 }

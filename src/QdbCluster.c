@@ -9,6 +9,7 @@
 #include "QdbCluster.h"
 #include "QdbEntryFactory.h"
 #include "QdbInteger.h"
+#include "QdbQuery.h"
 #include "QdbTag.h"
 #include "QdbTsBatchTable.h"
 #include "QdbTsBatchColumnInfo.h"
@@ -39,10 +40,8 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_1(makeBatchTable, ARRAY_ARG(columns_info))
 {
-    printf("1");
     HashTable* range = Z_ARRVAL_P(columns_info);
     int columns_cnt  = zend_hash_num_elements(range);
-    printf("2");
 
     if (columns_cnt <= 0) throw_invalid_argument
         ("cluster.make_batch_table(columns_info) must get at least one column info");
@@ -51,14 +50,15 @@ CLASS_METHOD_1(makeBatchTable, ARRAY_ARG(columns_info))
         ("cluster.make_batch_table(columns_info) cannot use more than 10000 one column info");
 
     // Allocate data on stack on free the memory automatically when exceptions are occuring.
-    printf("3");
     qdb_ts_batch_column_info_t* info_copy = alloca(columns_cnt * sizeof(qdb_ts_batch_column_info_t));
-    printf("4");
     QdbTsBatchColumnInfo_make_native_array(range, info_copy);
-    printf("5");
 
     QdbTsBatchTable_createInstance(return_value, this->handle, info_copy, columns_cnt);
-    printf("6");
+}
+
+CLASS_METHOD_1(makeQuery, STRING_ARG(query))
+{
+    QdbTsQuery_createInstance(return_value, this->handle, Z_STRVAL_P(query));
 }
 
 CLASS_METHOD_1(blob, STRING_ARG(alias))
