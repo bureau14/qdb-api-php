@@ -42,6 +42,12 @@ qdb_ts_batch_table_extra_columns(qdb_batch_table_t table,
                                     const qdb_ts_batch_column_info_t * columns,
                                     qdb_size_t column_count);
 
+CLASS_METHOD_1(start_row, OBJECT_ARG(QdbTimestamp, timestamp))
+{
+    qdb_timespec_t* ts = (qdb_timespec_t*) zend_object_store_get_object(timestamp TSRMLS_CC);
+    qdb_error_t err = qdb_ts_batch_start_row(this->table, ts);
+}
+
 qdb_error_t
 qdb_ts_batch_start_row(qdb_batch_table_t table,
                         const qdb_timespec_t * timestamp);

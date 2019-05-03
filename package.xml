@@ -76,6 +76,12 @@
         <file role="src" name="QdbTag.h"/>
         <file role="src" name="QdbTagCollection.c"/>
         <file role="src" name="QdbTagCollection.h"/>
+        <file role="src" name="QdbTimestamp.c"/>
+        <file role="src" name="QdbTimestamp.h"/>
+        <file role="src" name="QdbTsBatchColumnInfo.c"/>
+        <file role="src" name="QdbTsBatchColumnInfo.h"/>
+        <file role="src" name="QdbTsBatchTable.c"/>
+        <file role="src" name="QdbTsBatchTable.h"/>
         <file role="src" name="settings.c"/>
         <file role="src" name="settings.h"/>
       </dir>

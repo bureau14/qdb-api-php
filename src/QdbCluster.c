@@ -11,6 +11,7 @@
 #include "QdbInteger.h"
 #include "QdbTag.h"
 #include "QdbTsBatchTable.h"
+#include "QdbTsBatchColumnInfo.h"
 #include "class_definition.h"
 #include "connection.h"
 
@@ -36,7 +37,7 @@ CLASS_METHOD_0(__destruct)
     connection_close(this->handle TSRMLS_CC);
 }
 
-CLASS_METHOD_1(make_batch_table, ARRAY_ARG(columns_info))
+CLASS_METHOD_1(makeBatchTable, ARRAY_ARG(columns_info))
 {
     HashTable* range = Z_ARRVAL_P(columns_info);
     int columns_cnt  = zend_hash_num_elements(range);
@@ -44,7 +45,7 @@ CLASS_METHOD_1(make_batch_table, ARRAY_ARG(columns_info))
     if (columns_cnt <= 0) throw_invalid_argument
         ("cluster.make_batch_table(columns_info) must get at least one column info");
     // Guard against the stack allocation.
-    else if (column_cnt > 10000) throw_invalid_argument
+    else if (columns_cnt > 10000) throw_invalid_argument
         ("cluster.make_batch_table(columns_info) cannot use more than 10000 one column info");
 
     // Allocate data on stack on free the memory automatically when exceptions are occuring.
@@ -108,6 +109,7 @@ CLASS_METHOD_1(tag, STRING_ARG(alias))
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
     ADD_DESTRUCTOR(__destruct)
+    ADD_METHOD(makeBatchTable)
     ADD_METHOD(blob)
     ADD_METHOD(entry)
     ADD_METHOD(integer)
