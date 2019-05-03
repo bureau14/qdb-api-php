@@ -16,6 +16,11 @@
 #include "src/QdbInteger.h"
 #include "src/QdbTag.h"
 #include "src/QdbTagCollection.h"
+#include "src/QdbTimestamp.h"
+#include "src/QdbTsBatchColumnInfo.h"
+#include "src/QdbTsBatchTable.h"
+#include "src/QdbTsColumnInfo.h"
+#include "src/QdbTsColumnType.h"
 #include "src/connection.h"
 #include "src/exceptions.h"
 #include "src/globals.h"
@@ -37,6 +42,11 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbInteger_registerClass(TSRMLS_C);
     QdbTag_registerClass(TSRMLS_C);
     QdbTagCollection_registerClass(TSRMLS_C);
+    QdbTimestamp_registerClass(TSRMLS_C);
+    QdbTsBatchColumnInfo_registerClass(TSRMLS_C);
+    QdbTsBatchTable_registerClass(TSRMLS_C);
+    QdbTsColumnInfo_registerClass(TSRMLS_C);
+    QdbTsColumnType_registerClass(TSRMLS_C);
     return SUCCESS;
 }
 

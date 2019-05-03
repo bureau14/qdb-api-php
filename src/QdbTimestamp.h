@@ -7,6 +7,8 @@
 #include <zend.h>  // include first to avoid conflict with stdint.h
 #include <qdb/client.h>
 
+void QdbTimestamp_registerClass(TSRMLS_D);
+
 qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp TSRMLS_CC);
 
 #endif /* QDB_TIMESTAMP_H */
