@@ -22,6 +22,7 @@ PHP_QUASARDB_SOURCES="\
   src/QdbTimestamp.c \
   src/QdbTsBatchColumnInfo.c \
   src/QdbTsBatchTable.c \
+  src/QdbTsColumnInfo.c \
   src/QdbTsColumnType.c \
   src/settings.c \
 "
