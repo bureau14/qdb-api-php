@@ -46,13 +46,14 @@ qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp TSRMLS_CC)
     class_storage* this = (class_storage*) zend_object_store_get_object(timestamp TSRMLS_CC);
 
     qdb_timespec_t ts;
-    ts->seconds     = Z_LVAL_P(this->seconds);
-    ts->nanoseconds = Z_LVAL_P(this->nanoseconds);
+    ts.seconds     = Z_LVAL_P(this->seconds);
+    ts.nanoseconds = Z_LVAL_P(this->nanoseconds);
     return ts;
 }
 
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
+    ADD_CONSTRUCTOR(__destruct)
     ADD_METHOD(seconds)
     ADD_METHOD(nanoseconds)
 END_CLASS_MEMBERS()
