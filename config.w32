@@ -44,6 +44,10 @@ if (PHP_QUASARDB != "no") {
         QdbInteger.c \
         QdbTag.c \
         QdbTagCollection.c \
+        QdbTimestamp.c \
+        QdbTsBatchColumnInfo.c \
+        QdbTsBatchTable.c \
+        QdbTsColumnType.c \
         settings.c \
         ", "quasardb");
 }

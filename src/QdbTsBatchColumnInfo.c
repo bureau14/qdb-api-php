@@ -5,16 +5,15 @@
 
 #include "QdbTsBatchColumnInfo.h"
 #include "class_definition.h"
-#include "exceptions.h"
 
-typedef struct
+struct batch_column_info_t
 {
     zval* timeseries;
     zval* column;
-} batch_column_info_t;
+};
 
 #define class_name QdbTsBatchColumnInfo
-#define class_storage batch_column_info_t
+#define class_storage struct batch_column_info_t
 
 CLASS_METHOD_0(__construct, STRING_ARG(timeseries), STRING_ARG(column))
 {
@@ -33,15 +32,15 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(timeseries)
 {
-    RETURN_ZVAL(this->timeseries, 1, 0);
+    RETURN_ZVAL(this->timeseries, 0, 0);
 }
 
 CLASS_METHOD_0(column)
 {
-    RETURN_ZVAL(this->column, 1, 0);
+    RETURN_ZVAL(this->column, 0, 0);
 }
 
-void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_info_t* dst)
+void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_info_t* dst TSRMLS_CC)
 {
     zval** pcolumn;
     int i = 0;
@@ -50,9 +49,9 @@ void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_
          zend_hash_move_forward(src))
     {
         CHECK_TYPE_OF_OBJECT_ARG(QdbTsBatchColumnInfo, *pcolumn);
-        batch_column_info_t*        column   = (batch_column_info_t*) zend_object_store_get_object(*pcolumn TSRMLS_CC);
-        qdb_ts_batch_column_info_t* col_copy = dst + i++;
+        class_storage* column = (class_storage*) zend_object_store_get_object(*pcolumn TSRMLS_CC);
 
+        qdb_ts_batch_column_info_t* col_copy = dst + i++;
         col_copy->timeseries = Z_STRVAL_P(column->timeseries);
         col_copy->column     = Z_STRVAL_P(column->column);
     }

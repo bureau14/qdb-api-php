@@ -20,18 +20,21 @@ int check_arg_count(int actual, int min, int max TSRMLS_DC);
 #define XPHP_METHOD(X, Y) PHP_METHOD(X, Y)
 
 #define ARRAY_ARG(name) name
+#define DOUBLE_ARG(name) name
 #define LONG_ARG(name) name
 #define MIXED_ARG(name) name
 #define OBJECT_ARG(classname, name) name
 #define STRING_ARG(name) name
 
 #define NAME_OF_ARRAY_ARG(name) name
+#define NAME_OF_DOUBLE_ARG(name) name
 #define NAME_OF_LONG_ARG(name) name
 #define NAME_OF_MIXED_ARG(name) name
 #define NAME_OF_OBJECT_ARG(classname, name) name
 #define NAME_OF_STRING_ARG(name) name
 
 #define DECLARE_ARRAY_ARG(name) zval* name = NULL;
+#define DECLARE_DOUBLE_ARG(name) zval* name = NULL;
 #define DECLARE_LONG_ARG(name) zval* name = NULL;
 #define DECLARE_MIXED_ARG(name) zval* name = NULL;
 #define DECLARE_OBJECT_ARG(classname, name) zval* name = NULL;
@@ -39,6 +42,7 @@ int check_arg_count(int actual, int min, int max TSRMLS_DC);
 #define DECLARE_THIS() class_storage* this = (class_storage*)zend_object_store_get_object(getThis() TSRMLS_CC)
 
 #define INFO_FOR_ARRAY_ARG(name) ZEND_ARG_ARRAY_INFO(0, name, 0)
+#define INFO_FOR_DOUBLE_ARG(name) ZEND_ARG_INFO(0, name)
 #define INFO_FOR_LONG_ARG(name) ZEND_ARG_INFO(0, name)
 #define INFO_FOR_MIXED_ARG(name) ZEND_ARG_INFO(0, name)
 #define INFO_FOR_OBJECT_ARG(classname, name) ZEND_ARG_OBJ_INFO(0, name, classname, 0)
@@ -57,6 +61,7 @@ int check_arg_count(int actual, int min, int max TSRMLS_DC);
     }
 
 #define CHECK_TYPE_OF_ARRAY_ARG(name) CHECK_TYPE(name, IS_ARRAY, "array")
+#define CHECK_TYPE_OF_DOUBLE_ARG(name) CHECK_TYPE(name, IS_DOUBLE, "double")
 #define CHECK_TYPE_OF_LONG_ARG(name) CHECK_TYPE(name, IS_LONG, "integer")
 #define CHECK_TYPE_OF_MIXED_ARG(name)
 #define CHECK_TYPE_OF_OBJECT_ARG(classname, name)

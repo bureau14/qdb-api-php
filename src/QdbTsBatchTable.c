@@ -17,6 +17,8 @@ typedef struct
 #define class_name QdbTsBatchTable
 #define class_storage ts_batch_table_t
 
+extern zend_class_entry* ce_QdbTsBatchTable;
+
 void QdbTsBatchTable_createInstance(zval* destination,
                                     qdb_handle_t handle,
                                     const qdb_ts_batch_column_info_t* columns,
@@ -37,40 +39,39 @@ CLASS_METHOD_0(__destruct)
     qdb_release(this->handle, this->table);
 }
 
-qdb_error_t
-qdb_ts_batch_table_extra_columns(qdb_batch_table_t table,
-                                    const qdb_ts_batch_column_info_t * columns,
-                                    qdb_size_t column_count);
-
 CLASS_METHOD_1(start_row, OBJECT_ARG(QdbTimestamp, timestamp))
 {
-    qdb_timespec_t* ts = (qdb_timespec_t*) zend_object_store_get_object(timestamp TSRMLS_CC);
-    qdb_error_t err = qdb_ts_batch_start_row(this->table, ts);
+    qdb_timespec_t ts = QdbTsBatchColumnInfo_make_timespec(timestamp TSRMLS_CC);
+
+    qdb_error_t err = qdb_ts_batch_start_row(this->table, &ts);
+    if (QDB_FAILURE(err)) throw_qdb_error(err);
 }
 
-qdb_error_t
-qdb_ts_batch_start_row(qdb_batch_table_t table,
-                        const qdb_timespec_t * timestamp);
+CLASS_METHOD_2(set_blob, LONG_ARG(index), STRING_ARG(blob))
+{
+    qdb_error_t err = qdb_ts_batch_row_set_blob(this->table, Z_LVAL_P(index), Z_STRVAL_P(blob), Z_STRLEN_P(blob));
+    if (QDB_FAILURE(err)) throw_qdb_error(err);
+}
 
-                        
-qdb_error_t
-qdb_ts_batch_row_set_blob(qdb_batch_table_t table,
-                            qdb_size_t index,
-                            const void * content,
-                            qdb_size_t content_length);
-                            
-qdb_error_t
-qdb_ts_batch_row_set_double(qdb_batch_table_t table,
-                            qdb_size_t index,
-                            double value);
+CLASS_METHOD_2(set_double, LONG_ARG(index), DOUBLE_ARG(num))
+{
+    qdb_error_t err = qdb_ts_batch_row_set_double(this->table, Z_LVAL_P(index), Z_DVAL_P(num));
+    if (QDB_FAILURE(err)) throw_qdb_error(err);
+}
 
-qdb_error_t qdb_ts_batch_row_set_int64(qdb_batch_table_t table,
-                                        qdb_size_t index,
-                                        qdb_int_t value);
+CLASS_METHOD_2(set_int64, LONG_ARG(index), LONG_ARG(num))
+{
+    qdb_error_t err = qdb_ts_batch_row_set_int64(this->table, Z_LVAL_P(index), Z_LVAL_P(num));
+    if (QDB_FAILURE(err)) throw_qdb_error(err);
+}
 
-qdb_error_t qdb_ts_batch_row_set_timestamp(qdb_batch_table_t table,
-                                            qdb_size_t index,
-                                            const qdb_timespec_t * value);
+CLASS_METHOD_2(set_timestamp, LONG_ARG(index), OBJECT_ARG(QdbTimestamp, timestamp))
+{
+    qdb_timespec_t ts = QdbTsBatchColumnInfo_make_timespec(timestamp TSRMLS_CC);
+
+    qdb_error_t err = qdb_ts_batch_row_set_timestamp(this->table, Z_LVAL_P(index), &ts);
+    if (QDB_FAILURE(err)) throw_qdb_error(err);
+}
 
 CLASS_METHOD_0(push_values)
 {
@@ -86,6 +87,11 @@ CLASS_METHOD_0(push_values_async)
 
 BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)
+    ADD_METHOD(start_row)
+    ADD_METHOD(set_blob)
+    ADD_METHOD(set_double)
+    ADD_METHOD(set_int64)
+    ADD_METHOD(set_timestamp)
     ADD_METHOD(push_values)
     ADD_METHOD(push_values_async)
 END_CLASS_MEMBERS()
