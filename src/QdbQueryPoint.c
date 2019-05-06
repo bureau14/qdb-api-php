@@ -43,7 +43,7 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point T
     {
     case qdb_query_result_blob:
         ALLOC_INIT_ZVAL(this->value);
-        ZVAL_STRING(this->value, point->payload.blob.content, true);
+        ZVAL_STRING(this->value, point->payload.blob.content, 1);
         return;
     case qdb_query_result_double:
         ALLOC_INIT_ZVAL(this->value);

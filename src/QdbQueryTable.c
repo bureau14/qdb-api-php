@@ -28,7 +28,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
 
 	ALLOC_INIT_ZVAL(this->table_name);
-    ZVAL_STRING(this->table_name, result->table_name.data, true);
+    ZVAL_STRING(this->table_name, result->table_name.data, 1);
 
 	ALLOC_INIT_ZVAL(this->columns_names);
     array_init_size(this->columns_names, result->columns_count);
@@ -36,7 +36,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
     {
         zval* name;
         ALLOC_INIT_ZVAL(name);
-        ZVAL_STRING(name, result->columns_names[i]);
+        ZVAL_STRING(name, result->columns_names[i], 1);
 		zend_hash_next_index_insert(this->columns_names->value.ht, &name, sizeof(zval*), NULL);
     }
 
@@ -89,7 +89,7 @@ CLASS_METHOD_2(get_point, LONG_ARG(row_index), LONG_ARG(col_index))
 }
 
 BEGIN_CLASS_MEMBERS()
-    ADD_METHOD(tables_name)
+    ADD_METHOD(table_name)
     ADD_METHOD(columns_names)
     ADD_METHOD(rows_count)
     ADD_METHOD(get_point)
