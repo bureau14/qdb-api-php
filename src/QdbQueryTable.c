@@ -3,6 +3,7 @@
 
 #include <php.h>  // include first to avoid conflict with stdint.h
 
+#include "QdbQueryPoint.h"
 #include "QdbQueryTable.h"
 #include "QdbTimestamp.h"
 #include "class_definition.h"
@@ -36,7 +37,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
     {
         zval* name;
         ALLOC_INIT_ZVAL(name);
-        ZVAL_STRING(name, result->columns_names[i], 1);
+        ZVAL_STRING(name, result->columns_names[i].data, 1);
 		zend_hash_next_index_insert(this->columns_names->value.ht, &name, sizeof(zval*), NULL);
     }
 
@@ -79,12 +80,12 @@ CLASS_METHOD_2(get_point, LONG_ARG(row_index), LONG_ARG(col_index))
         ("the row index must be between 0 and rows_count");
 
     long j = Z_LVAL_P(col_index);
-    long columns_cnt = zend_hash_num_elements(Z_ARRVAL_P(columns_names));
+    long columns_cnt = zend_hash_num_elements(Z_ARRVAL_P(this->columns_names));
     if (j < 0 || j >= columns_cnt) throw_invalid_argument
         ("the column index must be between 0 and columns_names size");
     
     zval* point;
-    zend_hash_index_find(this->rows->value.ht, i * (col_count) + j, &point);
+    zend_hash_index_find(this->rows->value.ht, i * columns_cnt + j, &(void**)point);
     RETURN_ZVAL(point, 0, 0);
 }
 
