@@ -8,20 +8,14 @@ class QdbQueryEffectsTest extends QdbTestBase
     public function testFillTable()
     {
         $query = $this->cluster->makeQuery('CREATE TABLE persons(name BLOB, age INT64)');
-        echo('1');
         $this->assertEquals(count($query->tables()), 0);
-        echo('2');
         $this->assertEquals($query->scannedPointCount(), 0);
-        echo('3');
 
         $query = $this->cluster->makeQuery('INSERT INTO persons($timestamp, name, age)'.
                                            'VALUES (now, "Alice", 21), (now, "Bob", 22)');
-        echo('4');
         $this->assertEquals(count($query->tables()), 0);
-        echo('5');
         $this->assertEquals($query->scannedPointCount(), 0);
-        echo('6');
-        /*
+        
         $query = $this->cluster->makeQuery('SELECT * FROM persons');
         $this->assertEquals(count($query->tables()), 1);
         $this->assertEquals($query->scannedPointCount(), 0);
@@ -39,7 +33,7 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals($table->get_point(0, 1).value(), 'Alice');
         $this->assertEquals($table->get_point(1, 1).value(), 'Bob');
         $this->assertEquals($table->get_point(0, 2).value(), 21);
-        $this->assertEquals($table->get_point(1, 2).value(), 22);*/
+        $this->assertEquals($table->get_point(1, 2).value(), 22);
     }
 }
 
