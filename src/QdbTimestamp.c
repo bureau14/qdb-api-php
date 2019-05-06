@@ -58,7 +58,7 @@ zval* QdbTimestamp_from_timespec(qdb_timespec_t* ts TSRMLS_CC)
 {
     zval* destination;
     ALLOC_INIT_ZVAL(destination);
-    object_init_ex(destination, ce_QdbQueryTimestamp);
+    object_init_ex(destination, ce_QdbTimestamp);
     class_storage* this = (class_storage*)zend_object_store_get_object(destination TSRMLS_CC);
 
     ALLOC_INIT_ZVAL(this->seconds);
