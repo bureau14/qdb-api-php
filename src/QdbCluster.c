@@ -58,7 +58,7 @@ CLASS_METHOD_1(makeBatchTable, ARRAY_ARG(columns_info))
 
 CLASS_METHOD_1(makeQuery, STRING_ARG(query))
 {
-    QdbTsQuery_createInstance(return_value, this->handle, Z_STRVAL_P(query));
+    QdbQuery_createInstance(return_value, this->handle, Z_STRVAL_P(query));
 }
 
 CLASS_METHOD_1(blob, STRING_ARG(alias))
@@ -116,6 +116,7 @@ BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
     ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(makeBatchTable)
+    ADD_METHOD(makeQuery)
     ADD_METHOD(blob)
     ADD_METHOD(entry)
     ADD_METHOD(integer)
