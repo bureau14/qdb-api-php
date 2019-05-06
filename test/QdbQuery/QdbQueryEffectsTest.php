@@ -11,7 +11,7 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals(count($query->tables()), 0);
         $this->assertEquals($query->scannedPointCount(), 0);
 
-        $query = $this->cluster->makeQuery('INSERT INTO persons($timestamp, name, age)'
+        $query = $this->cluster->makeQuery('INSERT INTO persons($timestamp, name, age)'.
                                            'VALUES (now, Alice, 21), (now, Bob, 22)');
         $this->assertEquals(count($query->tables()), 0);
         $this->assertEquals($query->scannedPointCount(), 0);
