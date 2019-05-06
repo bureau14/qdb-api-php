@@ -15,7 +15,7 @@ class QdbQueryEffectsTest extends QdbTestBase
         echo('3');
 
         $query = $this->cluster->makeQuery('INSERT INTO persons($timestamp, name, age)'.
-                                           'VALUES (now, Alice, 21), (now, Bob, 22)');
+                                           'VALUES (now, "Alice", 21), (now, "Bob", 22)');
         echo('4');
         $this->assertEquals(count($query->tables()), 0);
         echo('5');
