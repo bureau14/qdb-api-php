@@ -9,16 +9,16 @@ class QdbQueryEffectsTest extends QdbTestBase
     {
         $query = $this->cluster->makeQuery('CREATE TABLE persons(BLOB name INT64 age)');
         $this->assertEquals(count($query->tables()), 0);
-        $this->assertEquals($query->scannedPointCount(), 0));
+        $this->assertEquals($query->scannedPointCount(), 0);
 
         $query = $this->cluster->makeQuery('INSERT INTO persons($timestamp, name, age)'
                                            'VALUES (now, Alice, 21), (now, Bob, 22)');
         $this->assertEquals(count($query->tables()), 0);
-        $this->assertEquals($query->scannedPointCount(), 0));
+        $this->assertEquals($query->scannedPointCount(), 0);
         
         $query = $this->cluster->makeQuery('SELECT * FROM persons');
         $this->assertEquals(count($query->tables()), 1);
-        $this->assertEquals($query->scannedPointCount(), 0));
+        $this->assertEquals($query->scannedPointCount(), 0);
 
         $table = $query->tables()[0];
         $this->assertEquals($table->table_name(), 'persons');
