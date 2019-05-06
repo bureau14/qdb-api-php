@@ -8,12 +8,12 @@ class QdbQueryEffectsTest extends QdbTestBase
     public function testFillTable()
     {
         $query = $this->cluster->makeQuery('CREATE TABLE persons(BLOB name INT64 age)');
-        $this->assertTrue(empty($query->tables()));
+        $this->assertEquals(count($query->tables()), 0);
         $this->assertEquals($query->scannedPointCount(), 0));
 
         $query = $this->cluster->makeQuery('INSERT INTO persons($timestamp, name, age)'
                                            'VALUES (now, Alice, 21), (now, Bob, 22)');
-        $this->assertTrue(empty($query->tables()));
+        $this->assertEquals(count($query->tables()), 0);
         $this->assertEquals($query->scannedPointCount(), 0));
         
         $query = $this->cluster->makeQuery('SELECT * FROM persons');
