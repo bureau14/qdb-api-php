@@ -51,7 +51,6 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbTsBatchColumnInfo_registerClass(TSRMLS_C);
     QdbTsBatchTable_registerClass(TSRMLS_C);
     QdbTsColumnInfo_registerClass(TSRMLS_C);
-    QdbTsColumnType_registerClass(TSRMLS_C);
     init_query_point_types();
     return SUCCESS;
 }
