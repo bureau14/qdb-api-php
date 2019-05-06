@@ -12,6 +12,8 @@ class QdbTsBatchTableStartRowTest extends QdbTestBase
             new QdbTsBatchColumnInfo('table', 'col2'),
             new QdbTsBatchColumnInfo('table', 'col3')
         ]);*/
+
+        $this->assertTrue(0);
     }
 
 }

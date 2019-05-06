@@ -3,7 +3,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQueryEffects extends QdbTestBase
+class QdbQueryEffectsTest extends QdbTestBase
 {
     public function testFillTable()
     {

@@ -3,7 +3,7 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbQuerySignature extends QdbTestBase
+class QdbQuerySignatureTest extends QdbTestBase
 {
     /**
      * @expectedException               InvalidArgumentException
