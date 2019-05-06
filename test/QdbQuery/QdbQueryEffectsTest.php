@@ -30,7 +30,7 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals(QdbQueryPoint::BLOB,      $table->get_point(1, 1).type());
         $this->assertEquals(QdbQueryPoint::INT64,     $table->get_point(0, 2).type());
         $this->assertEquals(QdbQueryPoint::INT64,     $table->get_point(1, 2).type());
-        $this->assertEquals(new QdbTimestamp(0, 0), $table->get_point(0, 0).value()));
+        $this->assertEquals(new QdbTimestamp(0, 0), $table->get_point(0, 0).value());
         $this->assertEquals(new QdbTimestamp(1, 0), $table->get_point(1, 0).value());
         $this->assertEquals('Alice',                $table->get_point(0, 1).value());
         $this->assertEquals('Bob',                  $table->get_point(1, 1).value());
