@@ -59,7 +59,7 @@ CLASS_METHOD_0(tables)
     RETURN_ZVAL(this->tables, 0, 0);
 }
 
-CLASS_METHOD_0(scanned_point_count)
+CLASS_METHOD_0(scannedPointCount)
 {
     RETURN_ZVAL(this->scanned_point_count, 0, 0);
 }
@@ -67,7 +67,7 @@ CLASS_METHOD_0(scanned_point_count)
 BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(tables)
-    ADD_METHOD(scanned_point_count)
+    ADD_METHOD(scannedPointCount)
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"
