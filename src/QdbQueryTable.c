@@ -85,7 +85,7 @@ CLASS_METHOD_2(get_point, LONG_ARG(row_index), LONG_ARG(col_index))
         ("the column index must be between 0 and columns_names size");
     
     zval* point;
-    zend_hash_index_find(this->rows->value.ht, i * columns_cnt + j, &(void**)point);
+    zend_hash_index_find(this->rows->value.ht, i * columns_cnt + j, (void**) &point);
     RETURN_ZVAL(point, 0, 0);
 }
 
