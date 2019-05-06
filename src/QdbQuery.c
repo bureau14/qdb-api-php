@@ -36,6 +36,15 @@ void QdbQuery_createInstance(zval* destination,
     this->handle = handle;
     this->result = result;
     
+    if (result == NULL) {
+        ALLOC_INIT_ZVAL(this->scanned_point_count);
+        ZVAL_LONG(this->scanned_point_count, 0);
+        
+        ALLOC_INIT_ZVAL(this->tables);
+        array_init_size(this->tables, 0);
+        return;
+    }
+
     ALLOC_INIT_ZVAL(this->scanned_point_count);
 	ZVAL_LONG(this->scanned_point_count, this->result->scanned_point_count);
 
