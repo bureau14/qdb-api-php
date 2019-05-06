@@ -8,39 +8,6 @@
 #include "class_definition.h"
 #include "exceptions.h"
 
-typedef struct
-{
-    qdb_query_result_value_type_t type;
-
-    union {
-        struct
-        {
-            double value;
-        } double_;
-
-        struct
-        {
-            qdb_int_t value;
-        } int64_;
-
-        struct
-        {
-            const void * content;
-            qdb_size_t content_length;
-        } blob;
-
-        struct
-        {
-            qdb_timespec_t value;
-        } timestamp;
-
-        struct
-        {
-            qdb_size_t value;
-        } count;
-    } payload;
-} qdb_point_result_t;
-
 struct zval_query_point_t
 {
     zend_object std;
@@ -61,7 +28,7 @@ int init_query_point_types() {
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "TIMESTAMP", 9, qdb_query_result_timestamp TSRMLS_DC) == SUCCESS;
 }
 
-void QdbTsQueryPoint_createInstance(zval* destination, qdb_point_result_t* point TSRMLS_DC)
+void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point TSRMLS_DC)
 {
     if (point->type < qdb_query_result_double || point->type > qdb_query_result_count)
         throw_invalid_argument("Got invalid query point");

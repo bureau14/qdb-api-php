@@ -13,7 +13,7 @@ struct zval_query_t
 {
     zend_object std;
     qdb_handle_t handle;
-    qdb_query_t* result;
+    qdb_query_result_t* result;
     zval* tables;
     zval* scanned_point_count;
 };
