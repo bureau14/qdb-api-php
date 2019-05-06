@@ -16,7 +16,7 @@ struct zval_timestamp_t {
 #define class_name QdbTimestamp
 #define class_storage struct zval_timestamp_t
 
-extern zend_class_entry* ce_QdbQueryTimestamp;
+extern zend_class_entry* ce_QdbTimestamp;
 
 CLASS_METHOD_2(__construct, LONG_ARG(seconds), LONG_ARG(nanoseconds))
 {
