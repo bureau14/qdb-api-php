@@ -43,6 +43,10 @@ class QdbTsBatchTableStartRowTest extends QdbTestBase
         $this->assertEquals('Bob',                  $table->get_point(1, 1).value());
         $this->assertEquals(21,                     $table->get_point(0, 2).value());
         $this->assertEquals(22,                     $table->get_point(1, 2).value());
+        
+        $query = $this->cluster->makeQuery('DROP TABLE persons');
+        $this->assertEquals(0, count($query->tables()));
+        $this->assertEquals(0, $query->scannedPointCount());
     }
 }
 
