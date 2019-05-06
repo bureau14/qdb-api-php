@@ -18,7 +18,7 @@ class QdbQueryEffectsTest extends QdbTestBase
         
         $query = $this->cluster->makeQuery('SELECT * FROM persons');
         $this->assertEquals(1, count($query->tables()));
-        $this->assertEquals(6, $query->scannedPointCount());
+        $this->assertEquals(4, $query->scannedPointCount());
 
         $table = $query->tables()[0];
         $this->assertEquals('persons',                      $table->table_name());
