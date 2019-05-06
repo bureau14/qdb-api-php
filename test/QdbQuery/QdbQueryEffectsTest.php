@@ -7,7 +7,7 @@ class QdbQueryEffectsTest extends QdbTestBase
 {
     public function testFillTable()
     {
-        $query = $this->cluster->makeQuery('CREATE TABLE persons(BLOB name INT64 age)');
+        $query = $this->cluster->makeQuery('CREATE TABLE persons(name BLOB, age INT64)');
         $this->assertEquals(count($query->tables()), 0);
         $this->assertEquals($query->scannedPointCount(), 0);
 
@@ -34,13 +34,11 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals($table->get_point(1, 1).value(), 'Bob');
         $this->assertEquals($table->get_point(0, 2).value(), 21);
         $this->assertEquals($table->get_point(1, 2).value(), 22);
-
-        $this->assertTrue(0);
     }
     
     public function testFail()
     {
-        $this->assertTrue(0);
+        
     }
 }
 

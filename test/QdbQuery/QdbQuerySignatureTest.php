@@ -24,7 +24,7 @@ class QdbQuerySignatureTest extends QdbTestBase
     }
 
     /**
-     * @expectedException               QdbIncompatibleTypeException
+     * @expectedException               InvalidArgumentException
      */
     public function testIncompatibleType()
     {
