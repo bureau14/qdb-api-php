@@ -43,9 +43,9 @@ void QdbQuery_createInstance(zval* destination,
     array_init_size(this->tables, result->tables_count);
 	for (int i = 0; i < result->tables_count; i++)
     {
-        zval* element;
-        QdbQueryTable_createInstance(element);
-		zend_hash_next_index_insert(this->tables->value.ht, &element, sizeof(zval*), NULL);
+        zval* table;
+        QdbQueryTable_createInstance(table, &result->tables[i]);
+		zend_hash_next_index_insert(this->tables->value.ht, &table, sizeof(zval*), NULL);
     }
 }
 
