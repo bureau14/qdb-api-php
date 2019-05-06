@@ -16,6 +16,8 @@ struct zval_timestamp_t {
 #define class_name QdbTimestamp
 #define class_storage struct zval_timestamp_t
 
+extern zend_class_entry* ce_QdbQueryTimestamp;
+
 CLASS_METHOD_2(__construct, LONG_ARG(seconds), LONG_ARG(nanoseconds))
 {
     Z_ADDREF_P(seconds);
@@ -50,6 +52,22 @@ qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp TSRMLS_CC)
     ts.tv_sec  = Z_LVAL_P(this->seconds);
     ts.tv_nsec = Z_LVAL_P(this->nanoseconds);
     return ts;
+}
+
+zval* QdbTimestamp_from_timespec(qdb_timespec_t* ts TSRMLS_CC)
+{
+    zval* destination;
+    ALLOC_INIT_ZVAL(this->value);
+    object_init_ex(destination, ce_QdbQueryTimestamp);
+    class_storage* this = (class_storage*)zend_object_store_get_object(destination TSRMLS_CC);
+
+    ALLOC_INIT_ZVAL(this->seconds);
+    ZVAL_LONG(this->seconds, ts->tv_sec);
+
+    ALLOC_INIT_ZVAL(this->nanoseconds);
+    ZVAL_LONG(this->nanoseconds, ts->tv_nsec);
+
+    RETURN_ZVAL(this, 0, 0);
 }
 
 BEGIN_CLASS_MEMBERS()

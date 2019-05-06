@@ -14,6 +14,9 @@
 #include "src/QdbEntryCollection.h"
 #include "src/QdbExpirableEntry.h"
 #include "src/QdbInteger.h"
+#include "src/QdbQuery.h"
+#include "src/QdbQueryPoint.h"
+#include "src/QdbQueryTable.h"
 #include "src/QdbTag.h"
 #include "src/QdbTagCollection.h"
 #include "src/QdbTimestamp.h"
@@ -40,6 +43,9 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbBlob_registerClass(TSRMLS_C);
     QdbCluster_registerClass(TSRMLS_C);
     QdbInteger_registerClass(TSRMLS_C);
+    QdbQuery_registerClass(TSRMLS_C);
+    QdbQueryPoint_registerClass(TSRMLS_C);
+    QdbQueryTable_registerClass(TSRMLS_C);
     QdbTag_registerClass(TSRMLS_C);
     QdbTagCollection_registerClass(TSRMLS_C);
     QdbTimestamp_registerClass(TSRMLS_C);
@@ -48,6 +54,7 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbTsColumnInfo_registerClass(TSRMLS_C);
     QdbTsColumnType_registerClass(TSRMLS_C);
     init_column_types();
+    init_query_point_types();
     return SUCCESS;
 }
 

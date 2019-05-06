@@ -42,6 +42,9 @@ if (PHP_QUASARDB != "no") {
         QdbEntryFactory.c \
         QdbExpirableEntry.c \
         QdbInteger.c \
+        QdbQuery.c \
+        QdbQueryTable.c \
+        QdbQueryPoint.c \
         QdbTag.c \
         QdbTagCollection.c \
         QdbTimestamp.c \

@@ -3,7 +3,7 @@
 
 #include <php.h>  // include first to avoid conflict with stdint.h
 
-#include "QdbQuery.h"
+#include "QdbQueryTable.h"
 #include "QdbTimestamp.h"
 #include "class_definition.h"
 #include "exceptions.h"
@@ -27,34 +27,32 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
     object_init_ex(destination, ce_QdbQueryTable);
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
 
-	MAKE_STD_ZVAL(this->table_name);
-    Z_STRVAL_P(this->table_name) = strdup(result->table_name.data);
-    Z_STRLEN_P(this->table_name) = result->table_name.length;
+	ALLOC_INIT_ZVAL(this->table_name);
+    ZVAL_STRING(this->table_name, result->table_name.data, true);
 
-	MAKE_STD_ZVAL(this->columns_names);
+	ALLOC_INIT_ZVAL(this->columns_names);
     array_init_size(this->columns_names, result->columns_count);
 	for (int i = 0; i < result->columns_count; ++i)
     {
         zval* name;
-        MAKE_STD_ZVAL(name);
-        Z_STRVAL_P(name) = strdup(result->columns_names[i]);
-        Z_STRLEN_P(name) = strlen(result->columns_names[i]);
+        ALLOC_INIT_ZVAL(name);
+        ZVAL_STRING(name, result->columns_names[i]);
 		zend_hash_next_index_insert(this->columns_names->value.ht, &name, sizeof(zval*), NULL);
     }
 
-	MAKE_STD_ZVAL(this->rows);
+	ALLOC_INIT_ZVAL(this->rows);
     array_init_size(this->rows, result->rows_count * result->columns_count);
 	for (int i = 0; i < result->rows_count; ++i)
     {
         for (int j = 0; j < result->columns_count; ++j)
         {
             zval* point;
-            QdbQueryPoint_createInstance(point, result->rows[i][j]);
+            QdbQueryPoint_createInstance(point, &result->rows[i][j]);
             zend_hash_next_index_insert(this->rows->value.ht, &point, sizeof(zval*), NULL);
         }
     }
     
-	MAKE_STD_ZVAL(this->rows_count);
+	ALLOC_INIT_ZVAL(this->rows_count);
 	ZVAL_LONG(this->rows_count, result->rows_count);
 }
 
@@ -75,8 +73,19 @@ CLASS_METHOD_0(rows_count)
 
 CLASS_METHOD_2(get_point, LONG_ARG(row_index), LONG_ARG(col_index))
 {
-    // check row index & col index
-    zend_hash_index_find(this->rows->value.ht, i * (col_count) + j, &point)
+    long i = Z_LVAL_P(row_index);
+    long rows_cnt = Z_LVAL_P(this->rows_count);
+    if (i < 0 || i >= rows_cnt) throw_invalid_argument
+        ("the row index must be between 0 and rows_count");
+
+    long j = Z_LVAL_P(col_index);
+    long columns_cnt = zend_hash_num_elements(Z_ARRVAL_P(columns_names));
+    if (j < 0 || j >= columns_cnt) throw_invalid_argument
+        ("the column index must be between 0 and columns_names size");
+    
+    zval* point;
+    zend_hash_index_find(this->rows->value.ht, i * (col_count) + j, &point);
+    RETURN_ZVAL(point, 0, 0);
 }
 
 BEGIN_CLASS_MEMBERS()

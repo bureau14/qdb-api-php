@@ -41,7 +41,7 @@ CLASS_METHOD_0(__destruct)
 CLASS_METHOD_1(makeBatchTable, ARRAY_ARG(columns_info))
 {
     HashTable* range = Z_ARRVAL_P(columns_info);
-    int columns_cnt  = zend_hash_num_elements(range);
+    long columns_cnt = zend_hash_num_elements(range);
 
     if (columns_cnt <= 0) throw_invalid_argument
         ("cluster.make_batch_table(columns_info) must get at least one column info");
