@@ -57,7 +57,7 @@ qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp TSRMLS_CC)
 zval* QdbTimestamp_from_timespec(qdb_timespec_t* ts TSRMLS_CC)
 {
     zval* destination;
-    ALLOC_INIT_ZVAL(this->value);
+    ALLOC_INIT_ZVAL(destination);
     object_init_ex(destination, ce_QdbQueryTimestamp);
     class_storage* this = (class_storage*)zend_object_store_get_object(destination TSRMLS_CC);
 
@@ -67,7 +67,7 @@ zval* QdbTimestamp_from_timespec(qdb_timespec_t* ts TSRMLS_CC)
     ALLOC_INIT_ZVAL(this->nanoseconds);
     ZVAL_LONG(this->nanoseconds, ts->tv_nsec);
 
-    RETURN_ZVAL(this, 0, 0);
+    return destination;
 }
 
 BEGIN_CLASS_MEMBERS()
