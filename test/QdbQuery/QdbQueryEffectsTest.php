@@ -12,7 +12,7 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals($query->scannedPointCount(), 0);
 
         $query = $this->cluster->makeQuery('INSERT INTO persons($timestamp, name, age)'.
-                                           'VALUES (now, "Alice", 21), (now, "Bob", 22)');
+                                           'VALUES (1970, "Alice", 21), (1970, "Bob", 22)');
         $this->assertEquals(count($query->tables()), 0);
         $this->assertEquals($query->scannedPointCount(), 0);
         
@@ -30,6 +30,8 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals($table->get_point(1, 1).type(), QdbQueryPoint::BLOB);
         $this->assertEquals($table->get_point(0, 2).type(), QdbQueryPoint::INT64);
         $this->assertEquals($table->get_point(1, 2).type(), QdbQueryPoint::INT64);
+        $this->assertEquals($table->get_point(0, 0).value(), new QdbTimestamp(0, 0));
+        $this->assertEquals($table->get_point(1, 0).value(), new QdbTimestamp(0, 0));
         $this->assertEquals($table->get_point(0, 1).value(), 'Alice');
         $this->assertEquals($table->get_point(1, 1).value(), 'Bob');
         $this->assertEquals($table->get_point(0, 2).value(), 21);

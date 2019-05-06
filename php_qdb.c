@@ -23,7 +23,6 @@
 #include "src/QdbTsBatchColumnInfo.h"
 #include "src/QdbTsBatchTable.h"
 #include "src/QdbTsColumnInfo.h"
-#include "src/QdbTsColumnType.h"
 #include "src/connection.h"
 #include "src/exceptions.h"
 #include "src/globals.h"
@@ -53,7 +52,6 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbTsBatchTable_registerClass(TSRMLS_C);
     QdbTsColumnInfo_registerClass(TSRMLS_C);
     QdbTsColumnType_registerClass(TSRMLS_C);
-    init_column_types();
     init_query_point_types();
     return SUCCESS;
 }
