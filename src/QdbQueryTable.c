@@ -48,6 +48,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
         for (int j = 0; j < result->columns_count; ++j)
         {
             zval* point;
+	        ALLOC_INIT_ZVAL(point);
             QdbQueryPoint_createInstance(point, &result->rows[i][j]);
             zend_hash_next_index_insert(this->rows->value.ht, &point, sizeof(zval*), NULL);
         }

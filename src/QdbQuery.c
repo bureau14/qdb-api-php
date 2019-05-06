@@ -44,6 +44,7 @@ void QdbQuery_createInstance(zval* destination,
 	for (int i = 0; i < result->tables_count; i++)
     {
         zval* table;
+	    ALLOC_INIT_ZVAL(table);
         QdbQueryTable_createInstance(table, &result->tables[i]);
 		zend_hash_next_index_insert(this->tables->value.ht, &table, sizeof(zval*), NULL);
     }
