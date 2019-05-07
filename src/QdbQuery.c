@@ -76,7 +76,7 @@ CLASS_METHOD_0(scannedPointCount)
 
 BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)
-    ADD_METHOD(tables)
+    ADD_METHOD(tablees)
     ADD_METHOD(scannedPointCount)
 END_CLASS_MEMBERS()
 

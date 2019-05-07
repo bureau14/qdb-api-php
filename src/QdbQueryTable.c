@@ -91,7 +91,7 @@ CLASS_METHOD_2(get_point, LONG_ARG(row_index), LONG_ARG(col_index))
 }
 
 BEGIN_CLASS_MEMBERS()
-    ADD_METHOD(table_name)
+    ADD_METHOD(table_namee)
     ADD_METHOD(columns_names)
     ADD_METHOD(rows_count)
     ADD_METHOD(get_point)
