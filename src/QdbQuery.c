@@ -35,7 +35,9 @@ void QdbQuery_createInstance(zval* destination,
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
     this->handle = handle;
     this->result = result;
-    
+
+    php_printf("Created a %s", what, ce_QdbQuery);
+
     if (result == NULL) {
         ALLOC_INIT_ZVAL(this->scanned_point_count);
         ZVAL_LONG(this->scanned_point_count, 0);
