@@ -64,7 +64,7 @@ CLASS_METHOD_0(__destruct)
     qdb_release(this->handle, this->result);
 }
 
-CLASS_METHOD_0(tables)
+CLASS_METHOD_0(tablees)
 {
     RETURN_ZVAL(this->tables, 0, 0);
 }
