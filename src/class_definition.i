@@ -33,6 +33,8 @@ void XCONCAT(class_name, _registerClass)(TSRMLS_D)
     memcpy(&object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
     object_handlers.clone_obj = NULL;
 
+    zend_register_class_alias(#class_name, &ce);
+
 #ifdef class_interfaces
     zend_class_implements(CLASS_ENTRY TSRMLS_CC, class_interfaces);
 #endif
