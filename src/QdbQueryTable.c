@@ -28,7 +28,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
     object_init_ex(destination, ce_QdbQueryTable);
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
 
-    php_printf("Created a %s", what, ce_QdbQueryTable);
+    php_printf("Created a %s", ce_QdbQueryTable);
 
 	ALLOC_INIT_ZVAL(this->table_name);
     ZVAL_STRING(this->table_name, result->table_name.data, 1);

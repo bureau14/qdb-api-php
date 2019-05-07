@@ -36,7 +36,7 @@ void QdbQuery_createInstance(zval* destination,
     this->handle = handle;
     this->result = result;
 
-    php_printf("Created a %s", what, ce_QdbQuery);
+    php_printf("Created a %s", ce_QdbQuery);
 
     if (result == NULL) {
         ALLOC_INIT_ZVAL(this->scanned_point_count);
