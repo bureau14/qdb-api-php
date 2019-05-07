@@ -28,35 +28,33 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
     object_init_ex(destination, ce_QdbQueryTable);
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
 
-    php_printf("Created a %s", ce_QdbQueryTable->name);
-
-	ALLOC_INIT_ZVAL(this->table_name);
+	MAKE_STD_ZVAL(this->table_name);
     ZVAL_STRING(this->table_name, result->table_name.data, 1);
 
-	ALLOC_INIT_ZVAL(this->columns_names);
+	MAKE_STD_ZVAL(this->columns_names);
     array_init_size(this->columns_names, result->columns_count);
 	for (int i = 0; i < result->columns_count; ++i)
     {
         zval* name;
-        ALLOC_INIT_ZVAL(name);
+        MAKE_STD_ZVAL(name);
         ZVAL_STRING(name, result->columns_names[i].data, 1);
 		zend_hash_next_index_insert(this->columns_names->value.ht, &name, sizeof(zval*), NULL);
     }
 
-	ALLOC_INIT_ZVAL(this->rows);
+	MAKE_STD_ZVAL(this->rows);
     array_init_size(this->rows, result->rows_count * result->columns_count);
 	for (int i = 0; i < result->rows_count; ++i)
     {
         for (int j = 0; j < result->columns_count; ++j)
         {
             zval* point;
-	        ALLOC_INIT_ZVAL(point);
+	        MAKE_STD_ZVAL(point);
             QdbQueryPoint_createInstance(point, &result->rows[i][j]);
             zend_hash_next_index_insert(this->rows->value.ht, &point, sizeof(zval*), NULL);
         }
     }
     
-	ALLOC_INIT_ZVAL(this->rows_count);
+	MAKE_STD_ZVAL(this->rows_count);
 	ZVAL_LONG(this->rows_count, result->rows_count);
 }
 

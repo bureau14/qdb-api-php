@@ -25,8 +25,6 @@ void QdbInteger_createInstance(zval* destination, qdb_handle_t handle, zval* ali
 {
     object_init_ex(destination, ce_QdbInteger);
     QdbExpirableEntry_constructInstance(destination, handle, alias TSRMLS_CC);
-
-    php_printf("Created a %s", ce_QdbInteger->name);
 }
 
 

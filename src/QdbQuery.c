@@ -36,26 +36,24 @@ void QdbQuery_createInstance(zval* destination,
     this->handle = handle;
     this->result = result;
 
-    php_printf("Created a %s", ce_QdbQuery->name);
-
     if (result == NULL) {
-        ALLOC_INIT_ZVAL(this->scanned_point_count);
+        MAKE_STD_ZVAL(this->scanned_point_count);
         ZVAL_LONG(this->scanned_point_count, 0);
         
-        ALLOC_INIT_ZVAL(this->tables);
+        MAKE_STD_ZVAL(this->tables);
         array_init_size(this->tables, 0);
         return;
     }
 
-    ALLOC_INIT_ZVAL(this->scanned_point_count);
+    MAKE_STD_ZVAL(this->scanned_point_count);
 	ZVAL_LONG(this->scanned_point_count, this->result->scanned_point_count);
 
-	ALLOC_INIT_ZVAL(this->tables);
+	MAKE_STD_ZVAL(this->tables);
     array_init_size(this->tables, result->tables_count);
 	for (int i = 0; i < result->tables_count; i++)
     {
         zval* table;
-	    ALLOC_INIT_ZVAL(table);
+	    MAKE_STD_ZVAL(table);
         QdbQueryTable_createInstance(table, &result->tables[i]);
 		zend_hash_next_index_insert(this->tables->value.ht, &table, sizeof(zval*), NULL);
     }

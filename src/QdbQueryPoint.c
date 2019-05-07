@@ -36,27 +36,25 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point T
     object_init_ex(destination, ce_QdbQueryPoint);
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
 
-    php_printf("Created a %s", ce_QdbQueryPoint->name);
-
-    ALLOC_INIT_ZVAL(this->type);
+    MAKE_STD_ZVAL(this->type);
     ZVAL_LONG(this->type, point->type);
 
     switch (point->type)
     {
     case qdb_query_result_blob:
-        ALLOC_INIT_ZVAL(this->value);
+        MAKE_STD_ZVAL(this->value);
         ZVAL_STRING(this->value, point->payload.blob.content, 1);
         return;
     case qdb_query_result_double:
-        ALLOC_INIT_ZVAL(this->value);
+        MAKE_STD_ZVAL(this->value);
         ZVAL_DOUBLE(this->value, point->payload.double_.value);
         return;
     case qdb_query_result_int64:
-        ALLOC_INIT_ZVAL(this->value);
+        MAKE_STD_ZVAL(this->value);
         ZVAL_LONG(this->value, point->payload.int64_.value);
         return;
     case qdb_query_result_count:
-        ALLOC_INIT_ZVAL(this->value);
+        MAKE_STD_ZVAL(this->value);
         ZVAL_LONG(this->value, point->payload.count.value);
         return;
     case qdb_query_result_timestamp:
