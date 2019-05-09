@@ -77,12 +77,14 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(tables)
 {
-    RETURN_ZVAL(this->tables, 0, 0);
+    Z_ADDREF_P(this->tables);
+    *return_value = *this->tables;
 }
 
 CLASS_METHOD_0(scannedPointCount)
 {
-    RETURN_ZVAL(this->scanned_point_count, 0, 0);
+    Z_ADDREF_P(this->scanned_point_count);
+    *return_value = *this->scanned_point_count;
 }
 
 BEGIN_CLASS_MEMBERS()

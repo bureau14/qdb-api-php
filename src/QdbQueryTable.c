@@ -61,17 +61,20 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
 
 CLASS_METHOD_0(table_name)
 {
-    RETURN_ZVAL(this->table_name, 0, 0);
+    Z_ADDREF_P(this->table_name);
+    *return_value = *this->table_name;
 }
 
 CLASS_METHOD_0(columns_names)
 {
-    RETURN_ZVAL(this->columns_names, 0, 0);
+    Z_ADDREF_P(this->columns_names);
+    *return_value = *this->columns_names;
 }
 
 CLASS_METHOD_0(rows_count)
 {
-    RETURN_ZVAL(this->rows_count, 0, 0);
+    Z_ADDREF_P(this->rows_count);
+    *return_value = *this->rows_count;
 }
 
 CLASS_METHOD_2(get_point, LONG_ARG(row_index), LONG_ARG(col_index))
@@ -88,7 +91,9 @@ CLASS_METHOD_2(get_point, LONG_ARG(row_index), LONG_ARG(col_index))
     
     zval* point;
     zend_hash_index_find(this->rows->value.ht, i * columns_cnt + j, (void**) &point);
-    RETURN_ZVAL(point, 0, 0);
+    
+    Z_ADDREF_P(point);
+    *return_value = *point;
 }
 
 BEGIN_CLASS_MEMBERS()

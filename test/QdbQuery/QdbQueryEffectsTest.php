@@ -7,10 +7,12 @@ class QdbQueryEffectsTest extends QdbTestBase
 {
     public function testFillTable()
     {
+        echo '---- FIRST QUERY'."\n";
         $query = $this->cluster->makeQuery('CREATE TABLE persons(name BLOB, age INT64)');
         $this->assertEquals(0, count($query->tables()));
         $this->assertEquals(0, $query->scannedPointCount());
 
+        echo '---- SECOND QUERY'."\n";
         $query = $this->cluster->makeQuery('INSERT INTO persons($timestamp, name, age)'.
                                            'VALUES (1970, "Alice", 21), (1970-01-01T00:00:01, "Bob", 22)');
         $this->assertEquals(0, count($query->tables()));
@@ -26,7 +28,6 @@ class QdbQueryEffectsTest extends QdbTestBase
         echo '---- CREATED A '.get_class($table)."\n";
 
         $table->table_name();
-        $this->assertEquals($table->table_name(), 'persons');
         $this->assertEquals('persons',                      $table->table_name());
         $this->assertEquals(['$timestamp', 'Alice', 'Bob'], $table->columns_names());
         $this->assertEquals(2,                              $table->rows_count());

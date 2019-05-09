@@ -3,9 +3,9 @@
 
 require_once dirname(__FILE__).'/../QdbTestBase.php';
 
-class QdbTsBatchTableStartRowTest extends QdbTestBase
+class QdbTsBatchTablePushValuesTest extends QdbTestBase
 {
-    public function testEmpty()
+    public function testFillTable()
     {
         $query = $this->cluster->makeQuery('CREATE TABLE persons(name BLOB, age INT64)');
         $this->assertEquals(0, count($query->tables()));
