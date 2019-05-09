@@ -57,6 +57,16 @@ void QdbQuery_createInstance(zval* destination,
         QdbQueryTable_createInstance(table, &result->tables[i]);
 		zend_hash_next_index_insert(this->tables->value.ht, &table, sizeof(zval*), NULL);
     }
+    
+    php_printf("table content :\n");
+    zval** ptable;
+    int i = 0;
+    for (zend_hash_internal_pointer_reset(src);
+         zend_hash_get_current_data(src, (void**)&pcolumn) == SUCCESS;
+         zend_hash_move_forward(src))
+    {
+        php_printf("   | %d - %s\n", (*ptable)->value.obj.handlers->get_class_entry(*ptable)->name);
+    }
 }
 
 CLASS_METHOD_0(__destruct)
