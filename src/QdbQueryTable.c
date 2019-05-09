@@ -26,7 +26,6 @@ extern zend_class_entry* ce_QdbQueryTable;
 void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result TSRMLS_DC)
 {
     object_init_ex(destination, ce_QdbQueryTable);
-    php_printf("object_init_ex of type = %s\n", ce_QdbQueryTable->name);
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
 
 	MAKE_STD_ZVAL(this->table_name);
