@@ -16,13 +16,14 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals(0, count($query->tables()));
         $this->assertEquals(0, $query->scannedPointCount());
         
+        echo '---- THIRD QUERY'."\n";
         $query = $this->cluster->makeQuery('SELECT * FROM persons');
-        $this->assertEquals(1, count($query->tables()));
+        $tables = $query->tables();
+        $this->assertEquals(1, count($tables()));
         $this->assertEquals(4, $query->scannedPointCount());
 
-        $tables = $query->tables();
         $table = $tables[0];
-        echo '---- CREATED A '.get_class($table).'\n';
+        echo '---- CREATED A '.get_class($table)."\n";
 
         $table->table_name();
         $this->assertEquals($table->table_name(), 'persons');
