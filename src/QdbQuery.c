@@ -64,7 +64,7 @@ CLASS_METHOD_0(__destruct)
     qdb_release(this->handle, this->result);
 }
 
-CLASS_METHOD_0(tablees)
+CLASS_METHOD_0(tables)
 {
     RETURN_ZVAL(this->tables, 0, 0);
 }
@@ -76,7 +76,7 @@ CLASS_METHOD_0(scannedPointCount)
 
 BEGIN_CLASS_MEMBERS()
     ADD_DESTRUCTOR(__destruct)
-    ADD_METHOD(tablees)
+    ADD_METHOD(tables)
     ADD_METHOD(scannedPointCount)
 END_CLASS_MEMBERS()
 

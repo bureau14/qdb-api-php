@@ -58,7 +58,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
 	ZVAL_LONG(this->rows_count, result->rows_count);
 }
 
-CLASS_METHOD_0(table_namee)
+CLASS_METHOD_0(table_name)
 {
     RETURN_ZVAL(this->table_name, 0, 0);
 }
@@ -91,7 +91,7 @@ CLASS_METHOD_2(get_point, LONG_ARG(row_index), LONG_ARG(col_index))
 }
 
 BEGIN_CLASS_MEMBERS()
-    ADD_METHOD(table_namee)
+    ADD_METHOD(table_name)
     ADD_METHOD(columns_names)
     ADD_METHOD(rows_count)
     ADD_METHOD(get_point)
