@@ -65,12 +65,14 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point T
 
 CLASS_METHOD_0(type)
 {
-    RETURN_ZVAL(this->type, 0, 0);
+    Z_ADDREF_P(this->type);
+    *return_value = *this->type;
 }
 
 CLASS_METHOD_0(value)
 {
-    RETURN_ZVAL(this->value, 0, 0);
+    Z_ADDREF_P(this->value);
+    *return_value = *this->value;
 }
 
 BEGIN_CLASS_MEMBERS()

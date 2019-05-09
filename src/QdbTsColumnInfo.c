@@ -33,12 +33,14 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(name)
 {
-    RETURN_ZVAL(this->name, 0, 0);
+    Z_ADDREF_P(this->name);
+    *return_value = *this->name;
 }
 
 CLASS_METHOD_0(type)
 {
-    RETURN_ZVAL(this->type, 0, 0);
+    Z_ADDREF_P(this->type);
+    *return_value = *this->type;
 }
 
 void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst TSRMLS_CC)

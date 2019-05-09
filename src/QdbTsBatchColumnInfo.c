@@ -33,12 +33,14 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(timeseries)
 {
-    RETURN_ZVAL(this->timeseries, 0, 0);
+    Z_ADDREF_P(this->timeseries);
+    *return_value = *this->timeseries;
 }
 
 CLASS_METHOD_0(column)
 {
-    RETURN_ZVAL(this->column, 0, 0);
+    Z_ADDREF_P(this->column);
+    *return_value = *this->column;
 }
 
 void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_info_t* dst TSRMLS_CC)

@@ -35,12 +35,14 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(seconds)
 {
-    RETURN_ZVAL(this->seconds, 0, 0);
+    Z_ADDREF_P(this->seconds);
+    *return_value = *this->seconds;
 }
 
 CLASS_METHOD_0(nanoseconds)
 {
-    RETURN_ZVAL(this->nanoseconds, 0, 0);
+    Z_ADDREF_P(this->nanoseconds);
+    *return_value = *this->nanoseconds;
 }
 
 qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp TSRMLS_CC)
