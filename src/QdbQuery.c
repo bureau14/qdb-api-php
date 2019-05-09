@@ -63,7 +63,7 @@ void QdbQuery_createInstance(zval* destination,
     zval** ptable;
     int i = 0;
     for (zend_hash_internal_pointer_reset(tables_ht);
-         zend_hash_get_current_data(tables_ht, (void**)&pcolumn) == SUCCESS;
+         zend_hash_get_current_data(tables_ht, (void**)&ptable) == SUCCESS;
          zend_hash_move_forward(tables_ht))
     {
         php_printf("   | %d - %s\n", i++, (*ptable)->value.obj.handlers->get_class_entry(*ptable)->name);
