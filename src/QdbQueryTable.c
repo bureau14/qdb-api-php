@@ -90,7 +90,7 @@ BEGIN_CLASS_MEMBERS()
     ADD_METHOD(table_name)
     ADD_METHOD(columns_names)
     ADD_METHOD(rows_count)
-    ADD_METHOD(get_point)
+    ADD_METHOD(points_rows)
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"
