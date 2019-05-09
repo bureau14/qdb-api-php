@@ -77,7 +77,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
             zend_hash_get_current_data(row, (void**)&ppoint) == SUCCESS;
             zend_hash_move_forward(row))
         {
-            php_printf("    | %d Got a %s\n", i++, (*ppoint)->value.obj.handlers->get_class_name(*ppoint));
+            php_printf("    | %d Got a %s\n", i++, (*ppoint)->value.obj.handlers->get_class_entry(*ppoint)->name);
         }
     }
 }
