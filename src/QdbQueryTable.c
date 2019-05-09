@@ -29,7 +29,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
 
 	MAKE_STD_ZVAL(this->table_name);
-    ZVAL_STRING(this->table_name, result->table_name.data, 1);
+    ZVAL_STRINGL(this->table_name, result->table_name.data, result->table_name.length, 1);
 
 	MAKE_STD_ZVAL(this->columns_names);
     array_init_size(this->columns_names, result->columns_count);
@@ -37,7 +37,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
     {
         zval* name;
         MAKE_STD_ZVAL(name);
-        ZVAL_STRING(name, result->columns_names[i].data, 1);
+        ZVAL_STRINGL(name, result->columns_names[i].data, result->columns_names[i].length, 1);
 		zend_hash_next_index_insert(this->columns_names->value.ht, &name, sizeof(zval*), NULL);
     }
 

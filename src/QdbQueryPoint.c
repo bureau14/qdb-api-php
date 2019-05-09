@@ -43,7 +43,7 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point T
     {
     case qdb_query_result_blob:
         MAKE_STD_ZVAL(this->value);
-        ZVAL_STRING(this->value, point->payload.blob.content, 1);
+        ZVAL_STRINGL(this->value, point->payload.blob.content, point->payload.blob.content_length, 1);
         php_printf("Got QP string %s of size %d\n", Z_STRVAL_P(this->value), Z_STRLEN_P(this->value));
         return;
     case qdb_query_result_double:
