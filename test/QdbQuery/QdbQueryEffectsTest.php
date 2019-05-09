@@ -21,8 +21,6 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals(4, $query->scannedPointCount());
 
         $tables = $query->tables();
-        echo '---- GOT THE TABLES: '.get_class($tables).'\n';
-
         $table = $tables[0];
         echo '---- CREATED A '.get_class($table).'\n';
 
