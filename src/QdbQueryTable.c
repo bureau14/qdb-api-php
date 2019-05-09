@@ -61,25 +61,6 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
             zend_hash_next_index_insert(row->value.ht, &point, sizeof(zval*), NULL);
         }
     }
-    
-    // Print pts
-    zval** prow;
-    int i = 0;
-    HashTable* rows = this->rows->value.ht;
-    for (zend_hash_internal_pointer_reset(rows);
-        zend_hash_get_current_data(rows, (void**)&prow) == SUCCESS;
-        zend_hash_move_forward(rows))
-    {
-        HashTable* row = (*prow)->value.ht;
-
-        zval** ppoint;
-        for (zend_hash_internal_pointer_reset(row);
-            zend_hash_get_current_data(row, (void**)&ppoint) == SUCCESS;
-            zend_hash_move_forward(row))
-        {
-            php_printf("    | %d Got a %s\n", i++, (*ppoint)->value.obj.handlers->get_class_entry(*ppoint)->name);
-        }
-    }
 }
 
 CLASS_METHOD_0(table_name)
