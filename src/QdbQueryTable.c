@@ -51,6 +51,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
         zval* row;
         MAKE_STD_ZVAL(row);
         array_init_size(row, result->columns_count);
+        zend_hash_next_index_insert(this->rows->value.ht, &row, sizeof(zval*), NULL);
 
         for (int j = 0; j < result->columns_count; ++j)
         {
