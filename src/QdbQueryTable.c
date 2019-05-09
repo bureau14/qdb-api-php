@@ -80,7 +80,7 @@ CLASS_METHOD_0(rows_count)
     *return_value = *this->rows_count;
 }
 
-CLASS_METHOD_2(points_rows)
+CLASS_METHOD_0(points_rows)
 {
     Z_ADDREF_P(this->rows);
     *return_value = *this->rows;
