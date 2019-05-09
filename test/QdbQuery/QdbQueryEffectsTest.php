@@ -25,9 +25,11 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals($table->columns_names(), ['timestamp', 'name', 'age']);
         $this->assertEquals($table->rows_count(),    2);
 
-        QdbQueryPoint::TIMESTAMP;
-        echo('point type      = '.gettype  ($table->get_point(0, 0)));
-        echo('point classname = '.get_class($table->get_point(0, 0)));
+        echo('point type      = '.gettype  ($table->get_point(0, 0))."\n");
+        echo('point classname = '.get_class($table->get_point(0, 0))."\n");
+        $ts = QdbQueryPoint::TIMESTAMP;
+        echo('ts type      = '.gettype  ($ts)."\n");
+        echo('ts classname = '.get_class($ts)."\n");
 
         $this->assertEquals($table->get_point(0, 0).type(), QdbQueryPoint::TIMESTAMP);
         $this->assertEquals($table->get_point(1, 0).type(), QdbQueryPoint::TIMESTAMP);
