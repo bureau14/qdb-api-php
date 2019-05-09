@@ -31,7 +31,7 @@ int init_query_point_types() {
 void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point TSRMLS_DC)
 {
     if (point->type < qdb_query_result_double || point->type > qdb_query_result_count)
-        php_printf("BROKEN!\n"), throw_invalid_argument("Got invalid query point");
+        throw_invalid_argument("Got invalid query point");
 
     object_init_ex(destination, ce_QdbQueryPoint);
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
@@ -44,7 +44,6 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point T
     case qdb_query_result_blob:
         MAKE_STD_ZVAL(this->value);
         ZVAL_STRINGL(this->value, point->payload.blob.content, point->payload.blob.content_length, 1);
-        php_printf("Got QP string %s of size %d\n", Z_STRVAL_P(this->value), Z_STRLEN_P(this->value));
         return;
     case qdb_query_result_double:
         MAKE_STD_ZVAL(this->value);
