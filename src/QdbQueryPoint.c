@@ -34,7 +34,6 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point T
         php_printf("BROKEN!\n"), throw_invalid_argument("Got invalid query point");
 
     object_init_ex(destination, ce_QdbQueryPoint);
-    php_printf("### Created a %s\n", destination->value.obj.handlers->get_class_entry(destination)->name);
     class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
 
     MAKE_STD_ZVAL(this->type);

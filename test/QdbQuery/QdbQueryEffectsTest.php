@@ -21,6 +21,12 @@ class QdbQueryEffectsTest extends QdbTestBase
         $this->assertEquals($query->scannedPointCount(), 4);
 
         $table = $query->tables()[0];
+        print_r($table->points_rows());
+        echo "\n";
+        print_r($table->points_rows()[0]);
+        echo "\n";
+        print_r($table->points_rows()[1]);
+        echo "\n";
         $this->assertEquals($table->table_name(),    'persons');
         $this->assertEquals($table->columns_names(), ['timestamp', 'name', 'age']);
         $this->assertEquals($table->rows_count(),    2);
