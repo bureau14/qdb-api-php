@@ -41,21 +41,25 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result 
 		zend_hash_next_index_insert(this->columns_names->value.ht, &name, sizeof(zval*), NULL);
     }
 
+	MAKE_STD_ZVAL(this->rows_count);
+	ZVAL_LONG(this->rows_count, result->rows_count);
+
 	MAKE_STD_ZVAL(this->rows);
-    array_init_size(this->rows, result->rows_count * result->columns_count);
+    array_init_size(this->rows, result->rows_count);
 	for (int i = 0; i < result->rows_count; ++i)
     {
+        zval* row;
+        MAKE_STD_ZVAL(row);
+        array_init_size(row, result->columns_count);
+
         for (int j = 0; j < result->columns_count; ++j)
         {
             zval* point;
 	        MAKE_STD_ZVAL(point);
             QdbQueryPoint_createInstance(point, &result->rows[i][j]);
-            zend_hash_next_index_insert(this->rows->value.ht, &point, sizeof(zval*), NULL);
+            zend_hash_next_index_insert(row->value.ht, &point, sizeof(zval*), NULL);
         }
     }
-    
-	MAKE_STD_ZVAL(this->rows_count);
-	ZVAL_LONG(this->rows_count, result->rows_count);
 }
 
 CLASS_METHOD_0(table_name)
@@ -76,23 +80,10 @@ CLASS_METHOD_0(rows_count)
     *return_value = *this->rows_count;
 }
 
-CLASS_METHOD_2(get_point, LONG_ARG(row_index), LONG_ARG(col_index))
+CLASS_METHOD_2(points_rows)
 {
-    long i = Z_LVAL_P(row_index);
-    long rows_cnt = Z_LVAL_P(this->rows_count);
-    if (i < 0 || i >= rows_cnt) throw_invalid_argument
-        ("the row index must be between 0 and rows_count");
-
-    long j = Z_LVAL_P(col_index);
-    long columns_cnt = zend_hash_num_elements(Z_ARRVAL_P(this->columns_names));
-    if (j < 0 || j >= columns_cnt) throw_invalid_argument
-        ("the column index must be between 0 and columns_names size");
-    
-    zval* point;
-    zend_hash_index_find(this->rows->value.ht, i * columns_cnt + j, (void**) &point);
-    
-    Z_ADDREF_P(point);
-    *return_value = *point;
+    Z_ADDREF_P(this->rows);
+    *return_value = *this->rows;
 }
 
 BEGIN_CLASS_MEMBERS()
