@@ -206,11 +206,6 @@ int check_arg_count(int actual, int min, int max TSRMLS_DC);
 
 #define ADD_METHOD(method_name) ADD_METHOD_(class_name, method_name)
 
-#define END_CLASS_MEMBERS()                                                                                            \
-    {                                                                                                                  \
-        NULL, NULL, NULL                                                                                               \
-    }                                                                                                                  \
-    }                                                                                                                  \
-    ;
+#define END_CLASS_MEMBERS() ZEND_FE_END };
 
 #endif /* QDB_CLASS_DEFINITION_H */
