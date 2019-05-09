@@ -50,22 +50,23 @@ void QdbQuery_createInstance(zval* destination,
 
 	MAKE_STD_ZVAL(this->tables);
     array_init_size(this->tables, result->tables_count);
+    HashTable* tables_ht = this->tables->value.ht;
 	for (int i = 0; i < result->tables_count; i++)
     {
         zval* table;
 	    MAKE_STD_ZVAL(table);
         QdbQueryTable_createInstance(table, &result->tables[i]);
-		zend_hash_next_index_insert(this->tables->value.ht, &table, sizeof(zval*), NULL);
+		zend_hash_next_index_insert(tables_ht, &table, sizeof(zval*), NULL);
     }
     
     php_printf("table content :\n");
     zval** ptable;
     int i = 0;
-    for (zend_hash_internal_pointer_reset(src);
-         zend_hash_get_current_data(src, (void**)&pcolumn) == SUCCESS;
-         zend_hash_move_forward(src))
+    for (zend_hash_internal_pointer_reset(tables_ht);
+         zend_hash_get_current_data(tables_ht, (void**)&pcolumn) == SUCCESS;
+         zend_hash_move_forward(tables_ht))
     {
-        php_printf("   | %d - %s\n", (*ptable)->value.obj.handlers->get_class_entry(*ptable)->name);
+        php_printf("   | %d - %s\n", i++, (*ptable)->value.obj.handlers->get_class_entry(*ptable)->name);
     }
 }
 
