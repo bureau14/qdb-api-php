@@ -10,7 +10,7 @@
 typedef struct
 {
     qdb_handle_t handle;
-    zval* alias;
+    zval alias;
 } entry_t;
 
 void QdbEntry_registerClass();

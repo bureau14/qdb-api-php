@@ -10,28 +10,26 @@
 void QdbEntryFactory_createFromType(
     zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias)
 {
-    zval* zalias;
-    MAKE_STD_ZVAL(zalias);
-    ZVAL_STRING(zalias, alias);
-
+    class_entry* ce;
     switch (type)
     {
         case qdb_entry_blob:
-            QdbBlob_createInstance(destination, handle, zalias);
+            ce = ce_QdbBlob;
             break;
-
         case qdb_entry_integer:
-            QdbInteger_createInstance(destination, handle, zalias);
+            ce = ce_QdbInteger;
             break;
-
         case qdb_entry_tag:
-            QdbTag_createInstance(destination, handle, zalias);
+            ce = ce_QdbTag;
             break;
-
         default:
             throw_bad_function_call("Entry type not supported, please update quasardb PHP API.");
-            break;
     }
+    object_init_ex(destination, ce);
+    
+    zval zalias;
+    ZVAL_STRING(&zalias, alias);
+    QdbExpirableEntry_constructInstance(destination, handle, zalias);
 }
 
 qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias)

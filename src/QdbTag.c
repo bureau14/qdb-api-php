@@ -12,10 +12,6 @@
 #define class_storage entry_t
 #define class_parent QdbEntry
 
-
-extern zend_class_entry* ce_QdbTag;
-
-
 void QdbTag_createInstance(zval* destination, qdb_handle_t handle, zval* alias)
 {
     object_init_ex(destination, ce_QdbTag);

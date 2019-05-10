@@ -12,10 +12,6 @@
 #define class_storage entry_t
 #define class_parent QdbExpirableEntry
 
-
-extern zend_class_entry* ce_QdbInteger;
-
-
 void QdbInteger_createInstance(zval* destination, qdb_handle_t handle, zval* alias)
 {
     object_init_ex(destination, ce_QdbInteger);

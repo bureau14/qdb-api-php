@@ -7,6 +7,8 @@
 #include "php_include.h"
 #include <qdb/client.h>
 
+extern zend_class_entry* ce_QdbTag;
+
 void QdbTag_registerClass();
 
 void QdbTag_createInstance(zval* destination, qdb_handle_t handle, zval* alias);

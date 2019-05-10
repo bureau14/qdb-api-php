@@ -10,7 +10,6 @@
 #define class_name QdbBatch
 #define class_storage batch_t
 
-
 static void grow_buffer_if_needed(batch_t* this)
 {
     if (this->length < this->capacity) return;
@@ -30,10 +29,22 @@ static batch_operation_t* alloc_operation(batch_t* this)
     return op;
 }
 
+static batch_operation_t* create_operation(batch_t* this, qdb_operation_type_t type, zval* alias, zval* content, zval* comparand, zval* expiry)
+{
+    batch_operation_t* op = alloc_operation(this);
+
+    ZVAL_COPY(&op->alias, alias);
+    content   ? ZVAL_COPY(&op->content,   content)   : ZVAL_NULL(&op->content);
+    comparand ? ZVAL_COPY(&op->comparand, comparand) : ZVAL_NULL(&op->comparand);
+    op->type   = type;
+    op->expiry = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
+    return op;
+}
+
 static void convert_operation(qdb_operation_t* dst, const batch_operation_t* src)
 {
     dst->type = src->type;
-    dst->alias = Z_STRVAL_P(src->alias);
+    dst->alias = Z_STRVAL(src->alias);
 
     switch (dst->type)
     {
@@ -41,16 +52,16 @@ static void convert_operation(qdb_operation_t* dst, const batch_operation_t* src
             if (!src->content) break;
 
             dst->blob_put.expiry_time = src->expiry_time;
-            dst->blob_put.content = Z_STRVAL_P(src->content);
-            dst->blob_put.content_size = Z_STRLEN_P(src->content);
+            dst->blob_put.content = Z_STRVAL(src->content);
+            dst->blob_put.content_size = Z_STRLEN(src->content);
             break;
 
         case qdb_op_blob_update:
             if (!src->content) break;
 
             dst->blob_update.expiry_time = src->expiry_time;
-            dst->blob_update.content = Z_STRVAL_P(src->content);
-            dst->blob_update.content_size = Z_STRLEN_P(src->content);
+            dst->blob_update.content = Z_STRVAL(src->content);
+            dst->blob_update.content_size = Z_STRLEN(src->content);
             break;
 
         case qdb_op_blob_cas:
@@ -58,19 +69,19 @@ static void convert_operation(qdb_operation_t* dst, const batch_operation_t* src
             if (!src->comparand) break;
 
             dst->blob_cas.expiry_time = src->expiry_time;
-            dst->blob_cas.new_content = Z_STRVAL_P(src->content);
-            dst->blob_cas.new_content_size = Z_STRLEN_P(src->content);
+            dst->blob_cas.new_content = Z_STRVAL(src->content);
+            dst->blob_cas.new_content_size = Z_STRLEN(src->content);
 
-            dst->blob_cas.comparand = Z_STRVAL_P(src->comparand);
-            dst->blob_cas.comparand_size = Z_STRLEN_P(src->comparand);
+            dst->blob_cas.comparand = Z_STRVAL(src->comparand);
+            dst->blob_cas.comparand_size = Z_STRLEN(src->comparand);
             break;
 
         case qdb_op_blob_get_and_update:
             if (!src->content) break;
 
             dst->blob_get_and_update.expiry_time = src->expiry_time;
-            dst->blob_get_and_update.new_content = Z_STRVAL_P(src->content);
-            dst->blob_get_and_update.new_content_size = Z_STRLEN_P(src->content);
+            dst->blob_get_and_update.new_content = Z_STRVAL(src->content);
+            dst->blob_get_and_update.new_content_size = Z_STRLEN(src->content);
             break;
 
         default:
@@ -103,41 +114,17 @@ CLASS_METHOD_0(__construct)
 
 CLASS_METHOD_0(__destruct)
 {
-    size_t i;
-
-    for (i = 0; i < this->length; i++)
-    {
-        batch_operation_t* op = &this->operations[i];
-
-        if (op->alias) Z_DELREF_P(op->alias);
-        if (op->content) Z_DELREF_P(op->content);
-        if (op->comparand) Z_DELREF_P(op->comparand);
-    }
-
     efree(this->operations);
 }
 
 CLASS_METHOD_3_1(compareAndSwap, STRING_ARG(alias), STRING_ARG(content), STRING_ARG(comparand), LONG_ARG(expiry))
 {
-    Z_ADDREF_P(alias);
-    Z_ADDREF_P(content);
-    Z_ADDREF_P(comparand);
-
-    batch_operation_t* op = alloc_operation(this);
-    op->alias = alias;
-    op->comparand = comparand;
-    op->content = content;
-    op->expiry_time = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
-    op->type = qdb_op_blob_cas;
+    create_operation(this, qdb_op_blob_cas, alis, content, comparand, expiry);
 }
 
 CLASS_METHOD_1(get, STRING_ARG(alias))
 {
-    Z_ADDREF_P(alias);
-
-    batch_operation_t* op = alloc_operation(this);
-    op->alias = alias;
-    op->type = qdb_op_blob_get;
+    create_operation(this, qdb_op_blob_get, alias, NULL, NULL, NULL);
 }
 
 #if 0
@@ -153,26 +140,12 @@ CLASS_METHOD_1(getAndRemove, STRING_ARG(alias))
 
 CLASS_METHOD_2_1(getAndUpdate, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
-    Z_ADDREF_P(alias);
-    Z_ADDREF_P(content);
-
-    batch_operation_t* op = alloc_operation(this);
-    op->alias = alias;
-    op->content = content;
-    op->expiry_time = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
-    op->type = qdb_op_blob_get_and_update;
+    create_operation(this, qdb_op_blob_get_and_update, alias, content, NULL, expiry);
 }
 
 CLASS_METHOD_2_1(put, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
-    Z_ADDREF_P(alias);
-    Z_ADDREF_P(content);
-
-    batch_operation_t* op = alloc_operation(this);
-    op->alias = alias;
-    op->content = content;
-    op->expiry_time = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
-    op->type = qdb_op_blob_put;
+    create_operation(this, qdb_op_blob_put, alias, content, NULL, expiry);
 }
 
 #if 0
@@ -199,14 +172,7 @@ CLASS_METHOD_2(removeIf, STRING_ARG(alias), STRING_ARG(comparand))
 
 CLASS_METHOD_2_1(update, STRING_ARG(alias), STRING_ARG(content), LONG_ARG(expiry))
 {
-    Z_ADDREF_P(alias);
-    Z_ADDREF_P(content);
-
-    batch_operation_t* op = alloc_operation(this);
-    op->alias = alias;
-    op->content = content;
-    op->expiry_time = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
-    op->type = qdb_op_blob_update;
+    create_operation(this, qdb_op_blob_update, alias, content, NULL, expiry);
 }
 
 BEGIN_CLASS_MEMBERS()

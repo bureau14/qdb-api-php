@@ -10,9 +10,9 @@
 typedef struct
 {
     qdb_operation_type_t type;
-    zval* alias;
-    zval* content;
-    zval* comparand;
+    zval alias;
+    zval content;
+    zval comparand;
     qdb_time_t expiry_time;
 } batch_operation_t;
 

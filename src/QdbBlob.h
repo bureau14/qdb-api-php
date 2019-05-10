@@ -7,6 +7,8 @@
 #include "php_include.h"
 #include <qdb/client.h>
 
+extern zend_class_entry* ce_QdbBlob;
+
 void QdbBlob_registerClass();
 
 void QdbBlob_createInstance(zval* destination, qdb_handle_t handle, zval* alias);
