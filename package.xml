@@ -90,7 +90,7 @@
   <dependencies>
     <required>
       <php>
-        <min>5.1</min>
+        <min>7.2</min>
       </php>
       <pearinstaller>
         <min>1.4</min>

@@ -6,8 +6,6 @@
 #include "QdbInteger.h"
 #include "QdbTag.h"
 #include "exceptions.h"
-#include <spl/spl_iterators.h>
-#include <zend_interfaces.h>
 
 void QdbEntryFactory_createFromType(
     zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias)

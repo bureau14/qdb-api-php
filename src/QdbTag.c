@@ -6,8 +6,6 @@
 #include "QdbTag.h"
 #include "class_definition.h"
 #include "exceptions.h"
-#include <spl/spl_iterators.h>
-#include <zend_interfaces.h>
 #include <qdb/tag.h>
 
 #define class_name QdbTag

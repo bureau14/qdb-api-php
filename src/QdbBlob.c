@@ -7,8 +7,6 @@
 #include "QdbExpirableEntry.h"
 #include "class_definition.h"
 #include "exceptions.h"
-#include <spl/spl_iterators.h>
-#include <zend_interfaces.h>
 #include <qdb/blob.h>
 #include <qdb/client.h>
 

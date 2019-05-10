@@ -5,13 +5,13 @@
 #include "QdbEntryFactory.h"
 #include "class_definition.h"
 #include "exceptions.h"
-#include <spl/spl_iterators.h>
+//#include <spl/spl_iterators.h>
 #include <zend_interfaces.h>
 #include <qdb/client.h>
 
 #define class_name QdbEntryCollection
 #define class_storage tag_collection_t
-#define class_interfaces 1, spl_ce_Iterator
+//#define class_interfaces 1, spl_ce_Iterator
 
 
 typedef struct

@@ -1,8 +1,9 @@
 
 // Need the following defines :
-// #define class_storage <the class's associated struct>
-// #define class_name    <the PHP class name>
-// #define class_parent  <optional, the PHP parent class>
+// #define class_storage    <the class's associated struct>
+// #define class_name       <the PHP class name>
+// #define class_parent     <optional, the PHP parent class>
+// #define class_interfaces <optional, <number of interfaces>, <interfaces names, ...>>
 
 #define CLASS_ENTRY XCONCAT(ce_,class_name)
 zend_class_entry *CLASS_ENTRY = NULL;
