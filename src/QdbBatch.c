@@ -119,7 +119,7 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_3_1(compareAndSwap, STRING_ARG(alias), STRING_ARG(content), STRING_ARG(comparand), LONG_ARG(expiry))
 {
-    create_operation(this, qdb_op_blob_cas, alis, content, comparand, expiry);
+    create_operation(this, qdb_op_blob_cas, alias, content, comparand, expiry);
 }
 
 CLASS_METHOD_1(get, STRING_ARG(alias))
