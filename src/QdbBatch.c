@@ -49,7 +49,7 @@ static void convert_operation(qdb_operation_t* dst, const batch_operation_t* src
     switch (dst->type)
     {
         case qdb_op_blob_put:
-            if (!src->content) break;
+            if (Z_TYPE(src->content) == IS_NULL) break;
 
             dst->blob_put.expiry_time = src->expiry_time;
             dst->blob_put.content = Z_STRVAL(src->content);
@@ -57,7 +57,7 @@ static void convert_operation(qdb_operation_t* dst, const batch_operation_t* src
             break;
 
         case qdb_op_blob_update:
-            if (!src->content) break;
+            if (Z_TYPE(src->content) == IS_NULL) break;
 
             dst->blob_update.expiry_time = src->expiry_time;
             dst->blob_update.content = Z_STRVAL(src->content);
@@ -65,8 +65,8 @@ static void convert_operation(qdb_operation_t* dst, const batch_operation_t* src
             break;
 
         case qdb_op_blob_cas:
-            if (!src->content) break;
-            if (!src->comparand) break;
+            if (Z_TYPE(src->content) == IS_NULL ||
+                Z_TYPE(src->comparand) == IS_NULL) break;
 
             dst->blob_cas.expiry_time = src->expiry_time;
             dst->blob_cas.new_content = Z_STRVAL(src->content);
@@ -77,7 +77,7 @@ static void convert_operation(qdb_operation_t* dst, const batch_operation_t* src
             break;
 
         case qdb_op_blob_get_and_update:
-            if (!src->content) break;
+            if (Z_TYPE(src->content) == IS_NULL) break;
 
             dst->blob_get_and_update.expiry_time = src->expiry_time;
             dst->blob_get_and_update.new_content = Z_STRVAL(src->content);
