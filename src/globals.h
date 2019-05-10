@@ -4,7 +4,7 @@
 #ifndef QDB_GLOBALS_H
 #define QDB_GLOBALS_H
 
-#include <php.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/client.h>
 #include <qdb/log.h>
 

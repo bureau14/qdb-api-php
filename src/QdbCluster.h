@@ -4,8 +4,7 @@
 #ifndef QDB_CLUSTER_H
 #define QDB_CLUSTER_H
 
-#include <php.h>
-
+#include "php_include.h"
 #include <qdb/client.h>
 
 void QdbCluster_registerClass();

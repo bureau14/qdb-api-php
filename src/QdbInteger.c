@@ -1,16 +1,13 @@
 // Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
-#include <php.h>  // include first to avoid conflict with stdint.h
-#include <spl/spl_iterators.h>
-#include <zend_interfaces.h>
-
 #include "QdbBatchResult.h"
 #include "QdbEntry.h"
 #include "QdbExpirableEntry.h"
 #include "class_definition.h"
 #include "exceptions.h"
-
+#include <spl/spl_iterators.h>
+#include <zend_interfaces.h>
 #include <qdb/integer.h>
 
 #define class_name QdbInteger

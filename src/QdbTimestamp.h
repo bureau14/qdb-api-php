@@ -4,7 +4,7 @@
 #ifndef QDB_TIMESTAMP_H
 #define QDB_TIMESTAMP_H
 
-#include <zend.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/client.h>
 
 void QdbTimestamp_registerClass(TSRMLS_D);

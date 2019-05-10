@@ -4,7 +4,7 @@
 #ifndef QDB_ENTRY
 #define QDB_ENTRY
 
-#include <php.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/client.h>
 
 typedef struct

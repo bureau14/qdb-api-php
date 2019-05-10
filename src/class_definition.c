@@ -1,8 +1,6 @@
 // Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
-#include <php.h>
-
 #include "exceptions.h"
 
 int check_arg_count(int actual, int min, int max)

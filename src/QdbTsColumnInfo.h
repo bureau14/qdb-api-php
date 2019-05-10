@@ -4,7 +4,7 @@
 #ifndef QDB_TS_COLUMN_INFO_H
 #define QDB_TS_COLUMN_INFO_H
 
-#include <zend.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/ts.h>
 
 void QdbTsColumnInfo_registerClass(TSRMLS_D);

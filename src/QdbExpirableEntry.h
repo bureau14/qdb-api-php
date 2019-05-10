@@ -4,7 +4,7 @@
 #ifndef QDB_EXPIRABLE_ENTRY
 #define QDB_EXPIRABLE_ENTRY
 
-#include <php.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/client.h>
 
 void QdbExpirableEntry_registerClass();

@@ -4,8 +4,7 @@
 #ifndef QDB_BLOB_H
 #define QDB_BLOB_H
 
-#include <zend.h>  // include first to avoid conflict with stdint.h
-
+#include "php_include.h"
 #include <qdb/client.h>
 
 void QdbBlob_registerClass();

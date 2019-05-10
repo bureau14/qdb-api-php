@@ -1,8 +1,6 @@
 // Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
-#include <php.h>  // include first to avoid conflict with stdint.h
-
 #include "QdbBatch.h"
 #include "QdbBatchResult.h"
 #include "QdbBlob.h"
@@ -15,7 +13,6 @@
 #include "QdbTsBatchColumnInfo.h"
 #include "class_definition.h"
 #include "connection.h"
-
 #include <qdb/client.h>
 
 #define class_name QdbCluster

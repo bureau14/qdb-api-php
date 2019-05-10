@@ -1,15 +1,12 @@
 // Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
-#include <php.h>  // include first to avoid conflict with stdint.h
-
-#include <qdb/tag.h>
-
 #include "QdbEntry.h"
 #include "QdbTag.h"
 #include "QdbTagCollection.h"
 #include "class_definition.h"
 #include "exceptions.h"
+#include <qdb/tag.h>
 
 #define class_name QdbEntry
 #define class_storage entry_t

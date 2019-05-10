@@ -4,8 +4,7 @@
 #ifndef QDB_TAG_H
 #define QDB_TAG_H
 
-#include <zend.h>  // include first to avoid conflict with stdint.h
-
+#include "php_include.h"
 #include <qdb/client.h>
 
 void QdbTag_registerClass(TSRMLS_D);

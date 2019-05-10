@@ -1,15 +1,13 @@
 // Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
-#include <php.h>  // include first to avoid conflict with stdint.h
-#include <spl/spl_iterators.h>
-#include <zend_interfaces.h>
-
 #include "QdbBlob.h"
 #include "QdbEntryFactory.h"
 #include "QdbInteger.h"
 #include "QdbTag.h"
 #include "exceptions.h"
+#include <spl/spl_iterators.h>
+#include <zend_interfaces.h>
 
 void QdbEntryFactory_createFromType(
     zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias)
@@ -37,7 +35,6 @@ void QdbEntryFactory_createFromType(
             break;
     }
 }
-
 
 qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias)
 {

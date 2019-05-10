@@ -4,7 +4,7 @@
 #ifndef QDB_CONNECTION
 #define QDB_CONNECTION
 
-#include <php.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/client.h>
 
 void connection_init();

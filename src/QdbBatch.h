@@ -4,8 +4,7 @@
 #ifndef QDB_BATCH_H
 #define QDB_BATCH_H
 
-#include <zend.h>  // include first to avoid conflict with stdint.h
-
+#include "php_include.h"
 #include <qdb/batch.h>
 
 typedef struct

@@ -4,7 +4,7 @@
 #ifndef QDB_TS_BATCH_COLUMN_INFO_H
 #define QDB_TS_BATCH_COLUMN_INFO_H
 
-#include <zend.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/ts.h>
 
 void QdbTsBatchColumnInfo_registerClass(TSRMLS_D);

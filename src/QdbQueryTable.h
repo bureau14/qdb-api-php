@@ -4,7 +4,7 @@
 #ifndef QDB_QUERY_TABLE_H
 #define QDB_QUERY_TABLE_H
 
-#include <zend.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/query.h>
 
 void QdbQueryTable_registerClass(TSRMLS_D);

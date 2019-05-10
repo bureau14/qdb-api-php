@@ -1,8 +1,6 @@
 // Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
-#include <php.h>  // include first to avoid conflict with stdint.h
-
 #include "connection.h"
 #include "exceptions.h"
 #include "globals.h"

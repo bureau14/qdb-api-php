@@ -1,11 +1,9 @@
 // Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
-#include <php.h>  // include first to avoid conflict with stdint.h
+#include "exceptions.h"
 #include <spl/spl_exceptions.h>
 #include <zend_exceptions.h>
-
-#include "exceptions.h"
 
 // base for all exception
 static zend_class_entry* ce_QdbException;
