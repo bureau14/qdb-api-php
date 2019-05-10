@@ -1,6 +1,7 @@
 // Copyright (c) 2009-2016, quasardb SAS
 // All rights reserved.
 
+#include "QdbInteger.h"
 #include "QdbBatchResult.h"
 #include "QdbEntry.h"
 #include "QdbExpirableEntry.h"

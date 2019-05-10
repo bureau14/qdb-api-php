@@ -3,6 +3,7 @@
 
 
 #include "QdbBatchResult.h"
+#include "QdbBlob.h"
 #include "QdbEntry.h"
 #include "QdbExpirableEntry.h"
 #include "class_definition.h"
