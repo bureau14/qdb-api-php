@@ -47,7 +47,6 @@ static zval* getTagAlias(zval* tag)
     }
 }
 
-
 CLASS_METHOD_0(__destruct)
 {
     Z_DELREF_P(this->alias);
@@ -88,7 +87,7 @@ CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
     {
         zval* tagAlias = getTagAlias(tag);
         if (tagAlias)  tagAliases[i++] = Z_STRVAL_P(tagAlias);
-    }
+    } ZEND_HASH_FOREACH_END();
 
     qdb_error_t error = qdb_attach_tags(this->handle, Z_STRVAL_P(this->alias), tagAliases, tagCount);
     if (error) throw_qdb_error(error);

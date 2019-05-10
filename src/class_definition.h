@@ -8,10 +8,6 @@
 
 int check_arg_count(int actual, int min, int max);
 
-static void* _get_object_storage(zval* obj) {
-    return Z_OBJ_P(obj);
-}
-
 #define STR(X) #X
 #define XSTR(X) STR(X)
 #define CONCAT(X, Y) X##Y
@@ -43,7 +39,7 @@ static void* _get_object_storage(zval* obj) {
 #define DECLARE_MIXED_ARG(name) zval* name = NULL;
 #define DECLARE_OBJECT_ARG(classname, name) zval* name = NULL;
 #define DECLARE_STRING_ARG(name) zval* name = NULL;
-#define DECLARE_THIS() class_storage* this = (class_storage*)_get_object_storage(getThis())
+#define DECLARE_THIS() class_storage* this = (class_storage*)Z_OBJ_P(getThis())
 
 #define INFO_FOR_ARRAY_ARG(name) ZEND_ARG_ARRAY_INFO(0, name, 0)
 #define INFO_FOR_DOUBLE_ARG(name) ZEND_ARG_INFO(0, name)
