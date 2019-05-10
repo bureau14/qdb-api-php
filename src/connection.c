@@ -25,9 +25,7 @@ void connection_shutdown()
 static void connection_save(zval* uri, qdb_handle_t handle)
 {
 	zval hstorage;
-	ZVAL_PTR(&hstorage);
-    Z_PTR(hstorage) = handle;
-
+	ZVAL_PTR(&hstorage, handle);
     zend_hash_update(&QDB_G(connections), Z_STR_P(uri), &hstorage);
 }
 
@@ -48,7 +46,6 @@ qdb_handle_t connection_open(zval* uri)
     log_attach();
 
     qdb_handle_t handle = qdb_open_tcp();
-
     qdb_error_t error = qdb_connect(handle, Z_STRVAL_P(uri));
 
     if (error == qdb_e_invalid_argument)
