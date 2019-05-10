@@ -22,7 +22,6 @@
 #include "src/QdbTimestamp.h"
 #include "src/QdbTsBatchColumnInfo.h"
 #include "src/QdbTsBatchTable.h"
-#include "src/QdbTsColumnInfo.h"
 #include "src/connection.h"
 #include "src/exceptions.h"
 #include "src/globals.h"
@@ -50,7 +49,6 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbTimestamp_registerClass();
     QdbTsBatchColumnInfo_registerClass();
     QdbTsBatchTable_registerClass();
-    QdbTsColumnInfo_registerClass();
     init_query_point_types();
     return SUCCESS;
 }

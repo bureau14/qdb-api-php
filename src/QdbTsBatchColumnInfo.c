@@ -6,9 +6,8 @@
 
 struct batch_column_info_t
 {
-    zend_object std;
-    zval* timeseries;
-    zval* column;
+    zval timeseries;
+    zval column;
 };
 
 #define class_name QdbTsBatchColumnInfo
@@ -16,38 +15,25 @@ struct batch_column_info_t
 
 CLASS_METHOD_2(__construct, STRING_ARG(timeseries), STRING_ARG(column))
 {
-    Z_ADDREF_P(timeseries);
-    Z_ADDREF_P(column);
-
-    this->timeseries = timeseries;
-    this->column     = column;
-}
-
-CLASS_METHOD_0(__destruct)
-{
-    Z_DELREF_P(this->timeseries);
-    Z_DELREF_P(this->column);
+    ZVAL_COPY_VALUE(&this->timeseries, timeseries);
+    ZVAL_COPY_VALUE(&this->column,     column);
 }
 
 CLASS_METHOD_0(timeseries)
 {
-    Z_ADDREF_P(this->timeseries);
-    *return_value = *this->timeseries;
+    ZVAL_COPY_VALUE(return_value, &this->timeseries);
 }
 
 CLASS_METHOD_0(column)
 {
-    Z_ADDREF_P(this->column);
-    *return_value = *this->column;
+    ZVAL_COPY_VALUE(return_value, &this->column);
 }
 
 void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_info_t* dst)
 {
     int i = 0;
     zval* value;
-    for (zend_hash_internal_pointer_reset(src);
-         (value = zend_hash_get_current_data(src));
-         zend_hash_move_forward(src))
+    ZEND_HASH_FOREACH_VAL(src, value)
     {
         CHECK_TYPE_OF_OBJECT_ARG(QdbTsBatchColumnInfo, value);
         class_storage* column = (class_storage*) Z_OBJ_P(value);
@@ -60,7 +46,6 @@ void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_
 
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
-    ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(timeseries)
     ADD_METHOD(column)
 END_CLASS_MEMBERS()

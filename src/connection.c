@@ -25,8 +25,8 @@ void connection_shutdown()
 static void connection_save(zval* uri, qdb_handle_t handle)
 {
 	zval hstorage;
-	ZVAL_NULL(&hstorage);
-    hstorage.value.ptr = handle;
+	ZVAL_PTR(&hstorage);
+    Z_PTR(hstorage) = handle;
 
     zend_hash_update(&QDB_G(connections), Z_STR_P(uri), &hstorage);
 }

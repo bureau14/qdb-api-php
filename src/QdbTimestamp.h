@@ -9,8 +9,8 @@
 
 void QdbTimestamp_registerClass();
 
-qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp);
+qdb_timespec_t QdbTimestamp_make_timespec(const zval* timestamp);
 
-zval* QdbTimestamp_from_timespec(qdb_timespec_t* ts);
+zval QdbTimestamp_from_timespec(const qdb_timespec_t* ts);
 
 #endif /* QDB_TIMESTAMP_H */

@@ -9,11 +9,10 @@
 
 struct zval_query_t
 {
-    zend_object std;
     qdb_handle_t handle;
     qdb_query_result_t* result;
-    zval* tables;
-    zval* scanned_point_count;
+    zval tables;
+    zval scanned_point_count;
 };
 
 #define class_name QdbQuery
@@ -35,26 +34,20 @@ void QdbQuery_createInstance(zval* destination,
     this->result = result;
 
     if (result == NULL) {
-        MAKE_STD_ZVAL(this->scanned_point_count);
-        ZVAL_LONG(this->scanned_point_count, 0);
-        
-        MAKE_STD_ZVAL(this->tables);
-        array_init_size(this->tables, 0);
+        ZVAL_LONG(&this->scanned_point_count, 0);
+        array_init_size(&this->tables, 0);
         return;
     }
 
-    MAKE_STD_ZVAL(this->scanned_point_count);
-	ZVAL_LONG(this->scanned_point_count, this->result->scanned_point_count);
+	ZVAL_LONG(&this->scanned_point_count, this->result->scanned_point_count);
+    array_init_size(&this->tables, result->tables_count);
 
-	MAKE_STD_ZVAL(this->tables);
-    array_init_size(this->tables, result->tables_count);
-    HashTable* tables_ht = this->tables->value.ht;
+    HashTable* tables_ht = Z_ARRIVAL(this->tables);
 	for (int i = 0; i < result->tables_count; i++)
     {
-        zval* table;
-	    MAKE_STD_ZVAL(table);
-        QdbQueryTable_createInstance(table, &result->tables[i]);
-		zend_hash_next_index_insert(tables_ht, &table, sizeof(zval*), NULL);
+        zval table;
+        QdbQueryTable_createInstance(&table, &result->tables[i]);
+		zend_hash_next_index_insert(tables_ht, &table);
     }
 }
 
@@ -65,14 +58,12 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(tables)
 {
-    Z_ADDREF_P(this->tables);
-    *return_value = *this->tables;
+    ZVAL_COPY_VALUE(return_value, &this->tables);
 }
 
 CLASS_METHOD_0(scannedPointCount)
 {
-    Z_ADDREF_P(this->scanned_point_count);
-    *return_value = *this->scanned_point_count;
+    ZVAL_COPY_VALUE(return_value, &this->scanned_point_count);
 }
 
 BEGIN_CLASS_MEMBERS()

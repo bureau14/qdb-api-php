@@ -30,7 +30,7 @@ static batch_operation_t* alloc_operation(batch_t* this)
     return op;
 }
 
-static void convert_operation(qdb_operation_t* dst, batch_operation_t* src)
+static void convert_operation(qdb_operation_t* dst, const batch_operation_t* src)
 {
     dst->type = src->type;
     dst->alias = Z_STRVAL_P(src->alias);

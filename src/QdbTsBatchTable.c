@@ -8,7 +8,6 @@
 
 struct ts_batch_table_t
 {
-    zend_object std;
     qdb_batch_table_t table;
     qdb_handle_t handle;
 };

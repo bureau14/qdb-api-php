@@ -18,7 +18,6 @@ typedef struct
 
 typedef struct
 {
-    zend_object std;
     batch_operation_t* operations;
     size_t length;
     size_t capacity;

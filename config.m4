@@ -25,7 +25,6 @@ PHP_QUASARDB_SOURCES="\
   src/QdbTimestamp.c \
   src/QdbTsBatchColumnInfo.c \
   src/QdbTsBatchTable.c \
-  src/QdbTsColumnInfo.c \
   src/settings.c \
 "
 PHP_QUASARDB_CFLAGS="-Wall -fno-strict-aliasing"

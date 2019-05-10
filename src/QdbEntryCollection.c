@@ -15,7 +15,6 @@
 
 typedef struct
 {
-    zend_object std;
     qdb_handle_t handle;
     const char** entries;
     size_t entries_count;

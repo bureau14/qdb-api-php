@@ -50,7 +50,6 @@ if (PHP_QUASARDB != "no") {
         QdbTimestamp.c \
         QdbTsBatchColumnInfo.c \
         QdbTsBatchTable.c \
-        QdbTsColumnInfo.c \
         settings.c \
         ", "quasardb");
 }

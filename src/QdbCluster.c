@@ -20,7 +20,6 @@
 
 typedef struct
 {
-    zend_object std;
     qdb_handle_t handle;
 } cluster_t;
 

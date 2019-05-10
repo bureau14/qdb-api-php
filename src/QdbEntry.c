@@ -84,18 +84,13 @@ CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
     const char** tagAliases = alloca(tagCount * sizeof(char*));
     zval* tag;
     int i = 0;
-    for (zend_hash_internal_pointer_reset(Z_ARRVAL_P(tags));
-         (tag = zend_hash_get_current_data(Z_ARRVAL_P(tags)));
-         zend_hash_move_forward(Z_ARRVAL_P(tags)))
+    ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(tags), tag)
     {
         zval* tagAlias = getTagAlias(tag);
-        if (!tagAlias) return;
-
-        tagAliases[i++] = Z_STRVAL_P(tagAlias);
+        if (tagAlias)  tagAliases[i++] = Z_STRVAL_P(tagAlias);
     }
 
     qdb_error_t error = qdb_attach_tags(this->handle, Z_STRVAL_P(this->alias), tagAliases, tagCount);
-
     if (error) throw_qdb_error(error);
 }
 
