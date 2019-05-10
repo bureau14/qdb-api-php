@@ -10,7 +10,7 @@
 void QdbEntryFactory_createFromType(
     zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias)
 {
-    class_entry* ce;
+    zend_class_entry* ce;
     switch (type)
     {
         case qdb_entry_blob:
