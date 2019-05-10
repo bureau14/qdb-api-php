@@ -51,7 +51,7 @@ CLASS_METHOD_0(current)  // inherited from Iterator
     zval alias;
     ZVAL_STRING(&alias, this->tags[this->current]);
 
-    QdbTag_createInstance(return_value, this->handle, alias);
+    QdbTag_createInstance(return_value, this->handle, &alias);
 }
 
 CLASS_METHOD_0(key)  // inherited from Iterator
