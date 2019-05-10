@@ -30,7 +30,7 @@ void QdbEntryFactory_createFromType(
     
     zval zalias;
     ZVAL_STRING(&zalias, alias);
-    QdbExpirableEntry_constructInstance(destination, handle, zalias);
+    QdbExpirableEntry_constructInstance(destination, handle, &zalias);
 }
 
 qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias)
