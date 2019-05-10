@@ -25,9 +25,9 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result)
     object_init_ex(destination, ce_QdbQueryTable);
     class_storage* this = (class_storage*) Z_OBJ_P(destination);
 
-    ZVAL_STRINGL(this->table_name, result->table_name.data, result->table_name.length);
+    ZVAL_STRINGL(&this->table_name, result->table_name.data, result->table_name.length);
 
-    array_init_size(this->columns_names, result->columns_count);
+    array_init_size(&this->columns_names, result->columns_count);
 	for (int i = 0; i < result->columns_count; ++i)
     {
         zval name;
@@ -37,7 +37,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result)
 
 	ZVAL_LONG(this->rows_count, result->rows_count);
 
-    array_init_size(this->rows, result->rows_count);
+    array_init_size(&this->rows, result->rows_count);
 	for (int i = 0; i < result->rows_count; ++i)
     {
         zval row;
