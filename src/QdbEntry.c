@@ -46,11 +46,6 @@ static zval* getTagAlias(zval* tag)
     }
 }
 
-CLASS_METHOD_0(__destruct)
-{
-    GC_DELREF(&this->alias);
-}
-
 CLASS_METHOD_1(attachTag, MIXED_ARG(tag))
 {
     zval* tagAlias = getTagAlias(tag);
@@ -157,7 +152,6 @@ CLASS_METHOD_1(detachTag, MIXED_ARG(tag))
 }
 
 BEGIN_CLASS_MEMBERS()
-    ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(attachTag)
     ADD_METHOD(attachTags)
     ADD_METHOD(alias)
