@@ -7,7 +7,7 @@
 #include "php_include.h"
 #include <qdb/client.h>
 
-void exceptions_init(TSRMLS_D);
+void exceptions_init();
 
 void throw_qdb_error_(qdb_error_t error);
 #define throw_qdb_error(x) throw_qdb_error_(x)

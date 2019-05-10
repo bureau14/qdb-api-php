@@ -7,7 +7,7 @@
 #include "php_include.h"
 #include <qdb/query.h>
 
-void QdbQuery_registerClass(TSRMLS_D);
+void QdbQuery_registerClass();
 
 void QdbQuery_createInstance(zval* destination, qdb_handle_t handle, const char* query);
 

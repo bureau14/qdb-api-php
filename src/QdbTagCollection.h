@@ -7,7 +7,7 @@
 #include "php_include.h"
 #include <qdb/client.h>
 
-void QdbTagCollection_registerClass(TSRMLS_D);
+void QdbTagCollection_registerClass();
 
 void QdbTagCollection_createInstance(
     zval* destination, qdb_handle_t handle, const char** tags, size_t tags_count);

@@ -7,7 +7,7 @@
 #include "php_include.h"
 #include <qdb/ts.h>
 
-void QdbTsColumnInfo_registerClass(TSRMLS_D);
+void QdbTsColumnInfo_registerClass();
 
 void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst);
 

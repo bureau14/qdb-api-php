@@ -7,7 +7,7 @@
 #include "php_include.h"
 #include <qdb/client.h>
 
-void QdbTimestamp_registerClass(TSRMLS_D);
+void QdbTimestamp_registerClass();
 
 qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp);
 

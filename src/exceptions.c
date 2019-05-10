@@ -32,9 +32,9 @@ static zend_class_entry* register_exception_(const char* class_name, zend_class_
 
 #define register_exception(class_name, base_class) register_exception_(class_name, base_class)
 
-void exceptions_init(TSRMLS_D)
+void exceptions_init()
 {
-    ce_QdbException = register_exception("QdbException", zend_exception_get_default(TSRMLS_C));
+    ce_QdbException = register_exception("QdbException", zend_exception_get_default());
 
     ce_QdbConnectionException = register_exception("QdbConnectionException", ce_QdbException);
     ce_QdbInputException = register_exception("QdbInputException", ce_QdbException);

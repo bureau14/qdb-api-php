@@ -7,7 +7,7 @@
 #include "php_include.h"
 #include <qdb/query.h>
 
-void QdbQueryPoint_registerClass(TSRMLS_D);
+void QdbQueryPoint_registerClass();
 
 int init_query_point_types();
 

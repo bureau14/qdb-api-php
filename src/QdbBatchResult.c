@@ -10,7 +10,7 @@
 
 #define class_name QdbBatchResult
 #define class_storage batch_result_t
-#define class_interfaces 2, spl_ce_Countable, zend_ce_arrayaccess
+#define class_interfaces 2, zend_ce_countable, zend_ce_arrayaccess
 
 
 typedef struct

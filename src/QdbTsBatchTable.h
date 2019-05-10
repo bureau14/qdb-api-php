@@ -7,7 +7,7 @@
 #include "php_include.h"
 #include <qdb/ts.h>
 
-void QdbTsBatchTable_registerClass(TSRMLS_D);
+void QdbTsBatchTable_registerClass();
 
 void QdbTsBatchTable_createInstance(zval* destination,
                                     qdb_handle_t handle,
