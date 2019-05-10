@@ -85,7 +85,7 @@ CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
     zval* tag;
     int i = 0;
     for (zend_hash_internal_pointer_reset(Z_ARRVAL_P(tags));
-         zval* tag = zend_hash_get_current_data(Z_ARRVAL_P(tags));
+         tag = zend_hash_get_current_data(Z_ARRVAL_P(tags));
          zend_hash_move_forward(Z_ARRVAL_P(tags)))
     {
         zval* tagAlias = getTagAlias(tag);

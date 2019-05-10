@@ -44,8 +44,9 @@ CLASS_METHOD_0(column)
 void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_info_t* dst)
 {
     int i = 0;
+    zval* value;
     for (zend_hash_internal_pointer_reset(src);
-         zval* value = zend_hash_get_current_data(src);
+         value = zend_hash_get_current_data(src);
          zend_hash_move_forward(src))
     {
         CHECK_TYPE_OF_OBJECT_ARG(QdbTsBatchColumnInfo, value);
