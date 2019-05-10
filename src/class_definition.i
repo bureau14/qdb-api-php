@@ -56,7 +56,6 @@ void XCONCAT(class_name, _registerClass)()
     object_handlers.clone_obj = NULL;
 	object_handlers.free_obj  = free_object_storage;
 
-
 #ifdef class_interfaces
     zend_class_implements(CLASS_ENTRY, class_interfaces);
 #endif

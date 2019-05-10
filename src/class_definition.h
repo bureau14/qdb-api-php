@@ -206,6 +206,6 @@ int check_arg_count(int actual, int min, int max);
 
 #define ADD_METHOD(method_name) ADD_METHOD_(class_name, method_name)
 
-#define END_CLASS_MEMBERS() ZEND_FE_END };
+#define END_CLASS_MEMBERS() { NULL, NULL, NULL } };
 
 #endif /* QDB_CLASS_DEFINITION_H */
