@@ -19,7 +19,7 @@ extern zend_class_entry* ce_QdbEntry;
 
 void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias)
 {
-    entry_t* this = (entry_t*)zend_object_store_get_object(destination);
+    entry_t* this = (entry_t*)Z_OBJ_P(destination);
 
     Z_ADDREF_P(alias);
     this->alias = alias;
@@ -28,7 +28,7 @@ void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* al
 
 zval* QdbEntry_getAlias(zval* object)
 {
-    entry_t* this = (entry_t*)zend_object_store_get_object(object);
+    entry_t* this = (entry_t*)Z_OBJ_P(object);
     return this->alias;
 }
 

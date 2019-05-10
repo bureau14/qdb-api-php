@@ -35,7 +35,7 @@ void QdbEntryCollection_createInstance(
     tag_collection_t* this;
 
     object_init_ex(destination, ce_QdbEntryCollection);
-    this = (tag_collection_t*)zend_object_store_get_object(destination);
+    this = (tag_collection_t*)Z_OBJ_P(destination);
 
     this->handle = handle;
     this->entries = entries;

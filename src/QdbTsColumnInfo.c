@@ -51,7 +51,7 @@ void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst
          zend_hash_move_forward(src))
     {
         CHECK_TYPE_OF_OBJECT_ARG(QdbTsColumnInfo, value);
-        class_storage* column = (class_storage*) zend_object_store_get_object(value);
+        class_storage* column = (class_storage*) Z_OBJ_P(value);
 
         qdb_ts_column_info_t* col_copy = dst + i++;
         col_copy->name = Z_STRVAL_P(column->name);

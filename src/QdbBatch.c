@@ -85,7 +85,7 @@ static void convert_operation(qdb_operation_t* dst, batch_operation_t* src)
 void QdbBatch_copyOperations(zval* zbatch, qdb_operation_t** operations, size_t* operation_count)
 {
     size_t i;
-    batch_t* batch = (batch_t*)zend_object_store_get_object(zbatch);
+    batch_t* batch = (batch_t*)Z_OBJ_P(zbatch);
 
     *operation_count = batch->length;
     *operations = emalloc(batch->length * sizeof(qdb_operation_t));

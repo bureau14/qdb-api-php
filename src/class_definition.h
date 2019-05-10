@@ -39,7 +39,7 @@ int check_arg_count(int actual, int min, int max);
 #define DECLARE_MIXED_ARG(name) zval* name = NULL;
 #define DECLARE_OBJECT_ARG(classname, name) zval* name = NULL;
 #define DECLARE_STRING_ARG(name) zval* name = NULL;
-#define DECLARE_THIS() class_storage* this = (class_storage*)zend_object_store_get_object(getThis())
+#define DECLARE_THIS() class_storage* this = (class_storage*)Z_OBJ_P(getThis())
 
 #define INFO_FOR_ARRAY_ARG(name) ZEND_ARG_ARRAY_INFO(0, name, 0)
 #define INFO_FOR_DOUBLE_ARG(name) ZEND_ARG_INFO(0, name)

@@ -35,7 +35,7 @@ void QdbBatchResult_createInstance(
     batch_result_t* this;
 
     object_init_ex(destination, ce_QdbBatchResult);
-    this = (batch_result_t*)zend_object_store_get_object(destination);
+    this = (batch_result_t*)Z_OBJ_P(destination);
 
     this->handle = handle;
     this->operations = operations;
