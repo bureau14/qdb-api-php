@@ -36,7 +36,7 @@ static zend_object* create_object(zend_class_entry *ce)
 	zend_object_std_init(&box->std, ce);
 	object_properties_init(&box->std, ce);
 	box->std.handlers = &object_handlers;
-    return box->std;
+    return &box->std;
 }
 
 void XCONCAT(class_name, _registerClass)()
