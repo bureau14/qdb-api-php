@@ -35,14 +35,13 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result)
 		zend_hash_next_index_insert(Z_ARR(this->columns_names), &name);
     }
 
-	ZVAL_LONG(this->rows_count, result->rows_count);
+	ZVAL_LONG(&this->rows_count, result->rows_count);
 
     array_init_size(&this->rows, result->rows_count);
 	for (int i = 0; i < result->rows_count; ++i)
     {
         zval row;
         array_init_size(&row, result->columns_count);
-        zend_hash_next_index_insert(Z_ARR(this->rows), &row);
 
         for (int j = 0; j < result->columns_count; ++j)
         {
@@ -50,6 +49,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result)
             QdbQueryPoint_createInstance(&point, &result->rows[i][j]);
             zend_hash_next_index_insert(Z_ARR(row), &point);
         }
+        zend_hash_next_index_insert(Z_ARR(this->rows), &row);
     }
 }
 
