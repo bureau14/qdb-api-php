@@ -70,7 +70,7 @@ CLASS_METHOD_0(rowsCount)
 
 CLASS_METHOD_0(pointsRows)
 {
-    ZVAL_COPY(return_value, &this->points_rows);
+    ZVAL_COPY(return_value, &this->rows);
 }
 
 BEGIN_CLASS_MEMBERS()
