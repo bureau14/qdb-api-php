@@ -48,9 +48,8 @@ CLASS_METHOD_0(current)  // inherited from Iterator
 {
     if (this->current >= this->tags_count) return;
 
-    zval* alias;
-    MAKE_STD_ZVAL(alias);
-    ZVAL_STRING(alias, this->tags[this->current]);
+    zval alias;
+    ZVAL_STRING(&alias, this->tags[this->current]);
 
     QdbTag_createInstance(return_value, this->handle, alias);
 }
