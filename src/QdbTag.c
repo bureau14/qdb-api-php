@@ -41,7 +41,7 @@ CLASS_METHOD_1(attachEntry, MIXED_ARG(entry))
     zval* entryAlias = getEntryAlias(entry);
     if (!entryAlias) return;
 
-    qdb_error_t error = qdb_attach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
+    qdb_error_t error = qdb_attach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL(this->alias));
 
     switch (error)
     {
@@ -59,7 +59,7 @@ CLASS_METHOD_0(getEntries)
     const char** entries;
     size_t entries_count;
 
-    qdb_error_t error = qdb_get_tagged(this->handle, Z_STRVAL_P(this->alias), &entries, &entries_count);
+    qdb_error_t error = qdb_get_tagged(this->handle, Z_STRVAL(this->alias), &entries, &entries_count);
 
     if (error) throw_qdb_error(error);
 
@@ -71,7 +71,7 @@ CLASS_METHOD_1(hasEntry, MIXED_ARG(entry))
     zval* entryAlias = getEntryAlias(entry);
     if (!entryAlias) return;
 
-    qdb_error_t error = qdb_has_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
+    qdb_error_t error = qdb_has_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL(this->alias));
 
     switch (error)
     {
@@ -89,7 +89,7 @@ CLASS_METHOD_1(detachEntry, MIXED_ARG(entry))
     zval* entryAlias = getEntryAlias(entry);
     if (!entryAlias) return;
 
-    qdb_error_t error = qdb_detach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
+    qdb_error_t error = qdb_detach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL(this->alias));
 
     switch (error)
     {
