@@ -8,9 +8,10 @@
 #include "globals.h"
 #include "log.h"
 
-static void handle_dtor(void* arg)
+static void handle_dtor(zval* arg)
 {
-    qdb_close((qdb_handle_t)arg);
+    qdb_close((qdb_handle_t) arg->value.ptr);
+    zval_ptr_dtor(arg);
 }
 
 void connection_init(TSRMLS_D)
@@ -25,16 +26,17 @@ void connection_shutdown(TSRMLS_D)
 
 static void connection_save(zval* uri, qdb_handle_t handle TSRMLS_DC)
 {
-    zend_hash_update(&QDB_G(connections), Z_STRVAL_P(uri), Z_STRLEN_P(uri) + 1, &handle, sizeof(handle), NULL);
+	zval hstorage;
+	ZVAL_NULL(&hstorage);
+    hstorage.value.ptr = handle;
+
+    zend_hash_update(&QDB_G(connections), Z_STR_P(uri), &hstorage);
 }
 
 static qdb_handle_t connection_load(zval* uri TSRMLS_DC)
 {
-    qdb_handle_t* handle_ptr = NULL;
-
-    zend_hash_find(&QDB_G(connections), Z_STRVAL_P(uri), Z_STRLEN_P(uri) + 1, (void**)&handle_ptr);
-
-    return handle_ptr ? *handle_ptr : NULL;
+    zval* hstorage = zend_hash_find(&QDB_G(connections), Z_STR_P(uri));
+    return hstorage ? (qdb_handle_t) hstorage->value.ptr : NULL;
 }
 
 qdb_handle_t connection_open(zval* uri TSRMLS_DC)
