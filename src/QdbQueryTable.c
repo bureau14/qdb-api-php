@@ -32,7 +32,7 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result)
     {
         zval name;
         ZVAL_STRINGL(&name, result->columns_names[i].data, result->columns_names[i].length);
-		zend_hash_next_index_insert(this->columns_names->value.ht, &name);
+		zend_hash_next_index_insert(Z_ARR(this->columns_names), &name);
     }
 
 	ZVAL_LONG(this->rows_count, result->rows_count);
