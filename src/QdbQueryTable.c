@@ -42,13 +42,13 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result)
     {
         zval row;
         array_init_size(&row, result->columns_count);
-        zend_hash_next_index_insert(Z_ARRIVAL(this->rows), &row);
+        zend_hash_next_index_insert(Z_ARR(this->rows), &row);
 
         for (int j = 0; j < result->columns_count; ++j)
         {
             zval point;
             QdbQueryPoint_createInstance(&point, &result->rows[i][j]);
-            zend_hash_next_index_insert(Z_ARRIVAL(row), &point);
+            zend_hash_next_index_insert(Z_ARR(row), &point);
         }
     }
 }

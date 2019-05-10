@@ -66,7 +66,7 @@ CLASS_METHOD_1(attachTag, MIXED_ARG(tag))
 
 CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
 {
-    int tagCount = zend_hash_num_elements(Z_ARRVAL_P(tags));
+    int tagCount = zend_hash_num_elements(Z_ARR_P(tags));
 
     if (tagCount <= 0)
     {
@@ -77,7 +77,7 @@ CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
     const char** tagAliases = alloca(tagCount * sizeof(char*));
     zval* tag;
     int i = 0;
-    ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(tags), tag)
+    ZEND_HASH_FOREACH_VAL(Z_ARR_P(tags), tag)
     {
         zval* tagAlias = getTagAlias(tag);
         if (tagAlias)  tagAliases[i++] = Z_STRVAL_P(tagAlias);

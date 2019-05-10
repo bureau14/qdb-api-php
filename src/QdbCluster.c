@@ -36,7 +36,7 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_1(makeBatchTable, ARRAY_ARG(columns_info))
 {
-    HashTable* range = Z_ARRVAL_P(columns_info);
+    HashTable* range = Z_ARR_P(columns_info);
     long columns_cnt = zend_hash_num_elements(range);
 
     if (columns_cnt <= 0) throw_invalid_argument

@@ -42,7 +42,7 @@ void QdbQuery_createInstance(zval* destination,
 	ZVAL_LONG(&this->scanned_point_count, this->result->scanned_point_count);
     array_init_size(&this->tables, result->tables_count);
 
-    HashTable* tables_ht = Z_ARRIVAL(this->tables);
+    HashTable* tables_ht = Z_ARR(this->tables);
 	for (int i = 0; i < result->tables_count; i++)
     {
         zval table;
