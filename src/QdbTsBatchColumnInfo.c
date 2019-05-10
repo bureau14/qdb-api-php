@@ -4,14 +4,14 @@
 #include "QdbTsBatchColumnInfo.h"
 #include "class_definition.h"
 
-struct batch_column_info_t
+typedef struct
 {
     zval timeseries;
     zval column;
-};
+} _batch_column_info_t;
 
 #define class_name QdbTsBatchColumnInfo
-#define class_storage struct batch_column_info_t
+#define class_storage _batch_column_info_t
 
 CLASS_METHOD_2(__construct, STRING_ARG(timeseries), STRING_ARG(column))
 {

@@ -5,13 +5,13 @@
 #include "class_definition.h"
 #include "exceptions.h"
 
-struct zval_timestamp_t {
+typedef struct {
     zval seconds;
     zval nanoseconds;
-};
+} _zval_timestamp_t;
 
 #define class_name QdbTimestamp
-#define class_storage struct zval_timestamp_t
+#define class_storage _zval_timestamp_t
 
 extern zend_class_entry* ce_QdbTimestamp;
 

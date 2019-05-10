@@ -6,14 +6,14 @@
 #include "class_definition.h"
 #include "exceptions.h"
 
-struct ts_batch_table_t
+typedef struct
 {
     qdb_batch_table_t table;
     qdb_handle_t handle;
-};
+} ts_batch_table_t;
 
 #define class_name QdbTsBatchTable
-#define class_storage struct ts_batch_table_t
+#define class_storage ts_batch_table_t
 
 extern zend_class_entry* ce_QdbTsBatchTable;
 

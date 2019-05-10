@@ -7,16 +7,16 @@
 #include "class_definition.h"
 #include "exceptions.h"
 
-struct zval_query_t
+typedef struct
 {
     qdb_handle_t handle;
     qdb_query_result_t* result;
     zval tables;
     zval scanned_point_count;
-};
+} _zval_query_t;
 
 #define class_name QdbQuery
-#define class_storage struct zval_query_t
+#define class_storage _zval_query_t
 
 extern zend_class_entry* ce_QdbQuery;
 

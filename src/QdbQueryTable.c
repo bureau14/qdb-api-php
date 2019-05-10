@@ -7,16 +7,16 @@
 #include "class_definition.h"
 #include "exceptions.h"
 
-struct zval_query_table_t
+typedef struct
 {
     zval table_name;
     zval columns_names;
     zval rows;
     zval rows_count;
-};
+} _zval_query_table_t;
 
 #define class_name QdbQueryTable
-#define class_storage struct zval_query_table_t
+#define class_storage _zval_query_table_t
 
 extern zend_class_entry* ce_QdbQueryTable;
 

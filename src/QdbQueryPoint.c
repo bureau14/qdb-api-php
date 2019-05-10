@@ -6,14 +6,14 @@
 #include "class_definition.h"
 #include "exceptions.h"
 
-struct zval_query_point_t
+typedef struct
 {
     zval type;
     zval value;
-};
+} _zval_query_point_t;
 
 #define class_name QdbQueryPoint
-#define class_storage struct zval_query_point_t
+#define class_storage _zval_query_point_t
 
 extern zend_class_entry* ce_QdbQueryPoint;
 
