@@ -19,7 +19,7 @@ void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* al
     entry_t* this = (entry_t*)Z_OBJ_P(destination);
 
     this->handle = handle;
-    ZVAL_COPY_VALUE(this->alias, alias);
+    ZVAL_COPY(&this->alias, alias);
 }
 
 zval* QdbEntry_getAlias(zval* entry)
@@ -44,6 +44,11 @@ static zval* getTagAlias(zval* tag)
         throw_invalid_argument("Argument tag must be a QdbTag or a string");
         return NULL;
     }
+}
+
+CLASS_METHOD_0(__destruct)
+{
+    GC_DELREF(&this->alias);
 }
 
 CLASS_METHOD_1(attachTag, MIXED_ARG(tag))
@@ -89,7 +94,7 @@ CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
 
 CLASS_METHOD_0(alias)
 {
-    ZVAL_COPY_VALUE(return_value, &this->alias);
+    ZVAL_COPY(return_value, &this->alias);
 }
 
 CLASS_METHOD_0(getTags)
@@ -152,6 +157,7 @@ CLASS_METHOD_1(detachTag, MIXED_ARG(tag))
 }
 
 BEGIN_CLASS_MEMBERS()
+    ADD_DESTRUCTOR(__destruct)
     ADD_METHOD(attachTag)
     ADD_METHOD(attachTags)
     ADD_METHOD(alias)

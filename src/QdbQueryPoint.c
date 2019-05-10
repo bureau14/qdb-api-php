@@ -64,7 +64,7 @@ CLASS_METHOD_0(type)
 
 CLASS_METHOD_0(value)
 {
-    ZVAL_COPY_VALUE(return_value, &this->value);
+    ZVAL_COPY(return_value, &this->value);
 }
 
 BEGIN_CLASS_MEMBERS()

@@ -15,18 +15,18 @@ struct batch_column_info_t
 
 CLASS_METHOD_2(__construct, STRING_ARG(timeseries), STRING_ARG(column))
 {
-    ZVAL_COPY_VALUE(&this->timeseries, timeseries);
-    ZVAL_COPY_VALUE(&this->column,     column);
+    ZVAL_COPY(&this->timeseries, timeseries);
+    ZVAL_COPY(&this->column,     column);
 }
 
 CLASS_METHOD_0(timeseries)
 {
-    ZVAL_COPY_VALUE(return_value, &this->timeseries);
+    ZVAL_COPY(return_value, &this->timeseries);
 }
 
 CLASS_METHOD_0(column)
 {
-    ZVAL_COPY_VALUE(return_value, &this->column);
+    ZVAL_COPY(return_value, &this->column);
 }
 
 void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_info_t* dst)

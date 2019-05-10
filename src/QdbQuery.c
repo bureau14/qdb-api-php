@@ -58,7 +58,7 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(tables)
 {
-    ZVAL_COPY_VALUE(return_value, &this->tables);
+    ZVAL_COPY(return_value, &this->tables);
 }
 
 CLASS_METHOD_0(scannedPointCount)

@@ -55,12 +55,12 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result)
 
 CLASS_METHOD_0(tableName)
 {
-    ZVAL_COPY_VALUE(return_value, &this->table_name);
+    ZVAL_COPY(return_value, &this->table_name);
 }
 
 CLASS_METHOD_0(columnsNames)
 {
-    ZVAL_COPY_VALUE(return_value, &this->columns_names);
+    ZVAL_COPY(return_value, &this->columns_names);
 }
 
 CLASS_METHOD_0(rowsCount)
@@ -70,7 +70,7 @@ CLASS_METHOD_0(rowsCount)
 
 CLASS_METHOD_0(pointsRows)
 {
-    ZVAL_COPY_VALUE(return_value, &this->points_rows);
+    ZVAL_COPY(return_value, &this->points_rows);
 }
 
 BEGIN_CLASS_MEMBERS()
