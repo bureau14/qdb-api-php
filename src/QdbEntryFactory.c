@@ -11,8 +11,8 @@ void QdbEntryFactory_createFromType(
     zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias)
 {
     zval* zalias;
-    ALLOC_INIT_ZVAL(zalias);
-    ZVAL_STRING(zalias, alias, /*dup=*/1);
+    MAKE_STD_ZVAL(zalias);
+    ZVAL_STRING(zalias, alias);
 
     switch (type)
     {
