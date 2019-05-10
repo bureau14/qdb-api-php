@@ -113,7 +113,7 @@ CLASS_METHOD_1(hasTag, MIXED_ARG(tag))
     zval* tagAlias = getTagAlias(tag);
     if (!tagAlias) return;
 
-    qdb_error_t error = qdb_has_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
+    qdb_error_t error = qdb_has_tag(this->handle, Z_STRVAL(this->alias), Z_STRVAL_P(tagAlias));
 
     switch (error)
     {
