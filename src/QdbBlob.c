@@ -20,7 +20,6 @@ void QdbBlob_createInstance(zval* destination, qdb_handle_t handle, zval* alias)
     QdbExpirableEntry_constructInstance(destination, handle, alias);
 }
 
-
 CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content), STRING_ARG(comparand), LONG_ARG(expiry))
 {
     const char* result;

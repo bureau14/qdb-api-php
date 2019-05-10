@@ -12,7 +12,6 @@
 #define class_storage batch_result_t
 #define class_interfaces 2, zend_ce_countable, zend_ce_arrayaccess
 
-
 typedef struct
 {
     qdb_handle_t handle;
