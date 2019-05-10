@@ -36,8 +36,8 @@ static batch_operation_t* create_operation(batch_t* this, qdb_operation_type_t t
     ZVAL_COPY(&op->alias, alias);
     if (content)   ZVAL_COPY(&op->content,   content);   else ZVAL_NULL(&op->content);
     if (comparand) ZVAL_COPY(&op->comparand, comparand); else ZVAL_NULL(&op->comparand);
-    op->type   = type;
-    op->expiry = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
+    op->type        = type;
+    op->expiry_time = expiry ? to_expiry_unit(Z_LVAL_P(expiry)) : 0;
     return op;
 }
 
