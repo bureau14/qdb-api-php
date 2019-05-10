@@ -41,7 +41,7 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
     {
     case qdb_query_result_blob:
         MAKE_STD_ZVAL(this->value);
-        ZVAL_STRINGL(this->value, point->payload.blob.content, point->payload.blob.content_length, 1);
+        ZVAL_STRINGL(this->value, point->payload.blob.content, point->payload.blob.content_length);
         return;
     case qdb_query_result_double:
         MAKE_STD_ZVAL(this->value);

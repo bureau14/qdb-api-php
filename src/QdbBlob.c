@@ -48,7 +48,7 @@ CLASS_METHOD_2_1(compareAndSwap, STRING_ARG(content), STRING_ARG(comparand), LON
             break;
 
         case qdb_e_unmatched_content:
-            RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
+            RETVAL_STRINGL(result, (int)result_len);
             break;
 
         default:
@@ -71,7 +71,7 @@ CLASS_METHOD_0(get)
     }
     else
     {
-        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len);
     }
 
     qdb_release(this->handle, result);
@@ -91,7 +91,7 @@ CLASS_METHOD_0(getAndRemove)
     }
     else
     {
-        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len);
     }
 
     qdb_release(this->handle, result);
@@ -116,7 +116,7 @@ CLASS_METHOD_1_1(getAndUpdate, STRING_ARG(content), LONG_ARG(expiry))
     }
     else
     {
-        RETVAL_STRINGL(result, (int)result_len, /*duplicate=*/1);
+        RETVAL_STRINGL(result, (int)result_len);
     }
 
     qdb_release(this->handle, result);

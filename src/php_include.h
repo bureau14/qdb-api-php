@@ -3,7 +3,7 @@
 #define QDB_PHP_INCLUDE_H
 
 // Include first to avoid conflict with stdint.h and use correct PCRE include path.
-#define HAVE_BUNDLED_PCRE
+#define HAVE_BUNDLED_PCRE 1
 #include <php.h>
 
 #endif /* QDB_PHP_INCLUDE_H */
