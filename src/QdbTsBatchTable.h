@@ -12,6 +12,6 @@ void QdbTsBatchTable_registerClass(TSRMLS_D);
 void QdbTsBatchTable_createInstance(zval* destination,
                                     qdb_handle_t handle,
                                     const qdb_ts_batch_column_info_t* columns,
-                                    qdb_size_t column_count TSRMLS_DC);
+                                    qdb_size_t column_count);
 
 #endif /* QDB_TS_BATCH_TABLE_H */

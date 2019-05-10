@@ -7,10 +7,10 @@
 #include <php.h>  // include first to avoid conflict with stdint.h
 #include <qdb/client.h>
 
-void connection_init(TSRMLS_D);
-void connection_shutdown(TSRMLS_D);
+void connection_init();
+void connection_shutdown();
 
-qdb_handle_t connection_open(zval* uri TSRMLS_DC);
-void connection_close(qdb_handle_t handle TSRMLS_DC);
+qdb_handle_t connection_open(zval* uri);
+void connection_close(qdb_handle_t handle);
 
 #endif

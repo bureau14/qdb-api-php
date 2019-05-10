@@ -30,12 +30,12 @@ extern zend_class_entry* ce_QdbTagCollection;
 
 
 void QdbTagCollection_createInstance(
-    zval* destination, qdb_handle_t handle, const char** tags, size_t tags_count TSRMLS_DC)
+    zval* destination, qdb_handle_t handle, const char** tags, size_t tags_count)
 {
     tag_collection_t* this;
 
     object_init_ex(destination, ce_QdbTagCollection);
-    this = (tag_collection_t*)zend_object_store_get_object(destination TSRMLS_CC);
+    this = (tag_collection_t*)zend_object_store_get_object(destination);
 
     this->handle = handle;
     this->tags = tags;
@@ -57,7 +57,7 @@ CLASS_METHOD_0(current)  // inherited from Iterator
     ALLOC_INIT_ZVAL(alias);
     ZVAL_STRING(alias, this->tags[this->current], /*dup=*/1);
 
-    QdbTag_createInstance(return_value, this->handle, alias TSRMLS_CC);
+    QdbTag_createInstance(return_value, this->handle, alias);
 }
 
 CLASS_METHOD_0(key)  // inherited from Iterator

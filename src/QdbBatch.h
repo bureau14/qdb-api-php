@@ -25,9 +25,9 @@ typedef struct
     size_t capacity;
 } batch_t;
 
-void QdbBatch_registerClass(TSRMLS_D);
+void QdbBatch_registerClass();
 
-void QdbBatch_copyOperations(zval* zbatch, qdb_operation_t** operations, size_t* operation_count TSRMLS_DC);
+void QdbBatch_copyOperations(zval* zbatch, qdb_operation_t** operations, size_t* operation_count);
 
 extern zend_class_entry* ce_QdbBatch;
 

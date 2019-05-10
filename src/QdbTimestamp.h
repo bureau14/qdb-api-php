@@ -9,8 +9,8 @@
 
 void QdbTimestamp_registerClass(TSRMLS_D);
 
-qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp TSRMLS_CC);
+qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp);
 
-zval* QdbTimestamp_from_timespec(qdb_timespec_t* ts TSRMLS_CC);
+zval* QdbTimestamp_from_timespec(qdb_timespec_t* ts);
 
 #endif /* QDB_TIMESTAMP_H */

@@ -8,8 +8,8 @@
 
 #include <qdb/client.h>
 
-void QdbBlob_registerClass(TSRMLS_D);
+void QdbBlob_registerClass();
 
-void QdbBlob_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC);
+void QdbBlob_createInstance(zval* destination, qdb_handle_t handle, zval* alias);
 
 #endif /* QDB_BLOB_H */

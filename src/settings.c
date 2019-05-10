@@ -27,12 +27,12 @@ STD_PHP_INI_ENTRY(
 STD_PHP_INI_ENTRY("quasardb.persistent", "1", PHP_INI_ALL, OnUpdateBool, persistent, zend_qdb_globals, qdb_globals)
 PHP_INI_END()
 
-void settings_init(int module_number TSRMLS_DC)
+void settings_init(int module_number)
 {
     REGISTER_INI_ENTRIES();
 }
 
-void settings_shutdown(int module_number TSRMLS_DC)
+void settings_shutdown(int module_number)
 {
     UNREGISTER_INI_ENTRIES();
 }

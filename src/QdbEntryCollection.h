@@ -8,9 +8,9 @@
 
 #include <qdb/client.h>
 
-void QdbEntryCollection_registerClass(TSRMLS_D);
+void QdbEntryCollection_registerClass();
 
 void QdbEntryCollection_createInstance(
-    zval* destination, qdb_handle_t handle, const char** entries, size_t entries_count TSRMLS_DC);
+    zval* destination, qdb_handle_t handle, const char** entries, size_t entries_count);
 
 #endif /* QDB_ENTRY_COLLECTION_H */

@@ -12,7 +12,7 @@
 #include "exceptions.h"
 
 void QdbEntryFactory_createFromType(
-    zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias TSRMLS_DC)
+    zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias)
 {
     zval* zalias;
     ALLOC_INIT_ZVAL(zalias);
@@ -21,15 +21,15 @@ void QdbEntryFactory_createFromType(
     switch (type)
     {
         case qdb_entry_blob:
-            QdbBlob_createInstance(destination, handle, zalias TSRMLS_CC);
+            QdbBlob_createInstance(destination, handle, zalias);
             break;
 
         case qdb_entry_integer:
-            QdbInteger_createInstance(destination, handle, zalias TSRMLS_CC);
+            QdbInteger_createInstance(destination, handle, zalias);
             break;
 
         case qdb_entry_tag:
-            QdbTag_createInstance(destination, handle, zalias TSRMLS_CC);
+            QdbTag_createInstance(destination, handle, zalias);
             break;
 
         default:
@@ -39,13 +39,13 @@ void QdbEntryFactory_createFromType(
 }
 
 
-qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias TSRMLS_DC)
+qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias)
 {
     qdb_entry_metadata_t meta;
     qdb_error_t error = qdb_get_metadata(handle, alias, &meta);
 
     if (error) return error;
 
-    QdbEntryFactory_createFromType(destination, handle, meta.type, alias TSRMLS_CC);
+    QdbEntryFactory_createFromType(destination, handle, meta.type, alias);
     return qdb_e_ok;
 }

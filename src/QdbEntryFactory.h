@@ -8,7 +8,7 @@
 #include <zend.h>  // include first to avoid conflict with stdint.h
 
 void QdbEntryFactory_createFromType(
-    zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias TSRMLS_DC);
-qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias TSRMLS_DC);
+    zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias);
+qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias);
 
 #endif /* QDB_ENTRY_FACTORY_H */

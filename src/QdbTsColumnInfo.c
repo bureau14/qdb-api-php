@@ -43,16 +43,15 @@ CLASS_METHOD_0(type)
     *return_value = *this->type;
 }
 
-void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst TSRMLS_CC)
+void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst)
 {
-    zval** pcolumn;
     int i = 0;
     for (zend_hash_internal_pointer_reset(src);
-         zend_hash_get_current_data(src, (void**)&pcolumn) == SUCCESS;
+         zval* value = zend_hash_get_current_data(src);
          zend_hash_move_forward(src))
     {
-        CHECK_TYPE_OF_OBJECT_ARG(QdbTsColumnInfo, *pcolumn);
-        class_storage* column = (class_storage*) zend_object_store_get_object(*pcolumn TSRMLS_CC);
+        CHECK_TYPE_OF_OBJECT_ARG(QdbTsColumnInfo, value);
+        class_storage* column = (class_storage*) zend_object_store_get_object(value);
 
         qdb_ts_column_info_t* col_copy = dst + i++;
         col_copy->name = Z_STRVAL_P(column->name);

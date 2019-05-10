@@ -45,7 +45,7 @@ void XCONCAT(class_name, _registerClass)()
     INIT_CLASS_ENTRY(ce, XSTR(class_name), methods);
     ce.create_object = create_object;
 #ifdef BASE_CLASS_ENTRY
-    CLASS_ENTRY = zend_register_internal_class_ex(&ce, BASE_CLASS_ENTRY, NULL);
+    CLASS_ENTRY = zend_register_internal_class_ex(&ce, BASE_CLASS_ENTRY);
 #else
     CLASS_ENTRY = zend_register_internal_class(&ce);
 #endif
@@ -57,11 +57,11 @@ void XCONCAT(class_name, _registerClass)()
 
 
 #ifdef class_interfaces
-    zend_class_implements(CLASS_ENTRY TSRMLS_CC, class_interfaces);
+    zend_class_implements(CLASS_ENTRY, class_interfaces);
 #endif
 }
 
-int XCONCAT(class_name, _isInstance)(zval* object TSRMLS_DC)
+int XCONCAT(class_name, _isInstance)(zval* object)
 {
-    return Z_TYPE_P(object) == IS_OBJECT && instanceof_function(Z_OBJCE_P(object), CLASS_ENTRY TSRMLS_CC);
+    return Z_TYPE_P(object) == IS_OBJECT && instanceof_function(Z_OBJCE_P(object), CLASS_ENTRY);
 }

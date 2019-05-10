@@ -11,6 +11,6 @@ void QdbQueryPoint_registerClass(TSRMLS_D);
 
 int init_query_point_types();
 
-void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point TSRMLS_DC);
+void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point);
 
 #endif /* QDB_QUERY_POINT_H */

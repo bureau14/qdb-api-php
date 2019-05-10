@@ -21,21 +21,21 @@
 extern zend_class_entry* ce_QdbTag;
 
 
-void QdbTag_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC)
+void QdbTag_createInstance(zval* destination, qdb_handle_t handle, zval* alias)
 {
     object_init_ex(destination, ce_QdbTag);
-    QdbEntry_constructInstance(destination, handle, alias TSRMLS_CC);
+    QdbEntry_constructInstance(destination, handle, alias);
 }
 
-static zval* getEntryAlias(zval* entry TSRMLS_DC)
+static zval* getEntryAlias(zval* entry)
 {
     if (Z_TYPE_P(entry) == IS_STRING)
     {
         return entry;
     }
-    else if (QdbEntry_isInstance(entry TSRMLS_CC))
+    else if (QdbEntry_isInstance(entry))
     {
-        return QdbEntry_getAlias(entry TSRMLS_CC);
+        return QdbEntry_getAlias(entry);
     }
     else
     {
@@ -47,7 +47,7 @@ static zval* getEntryAlias(zval* entry TSRMLS_DC)
 
 CLASS_METHOD_1(attachEntry, MIXED_ARG(entry))
 {
-    zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
+    zval* entryAlias = getEntryAlias(entry);
     if (!entryAlias) return;
 
     qdb_error_t error = qdb_attach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
@@ -72,12 +72,12 @@ CLASS_METHOD_0(getEntries)
 
     if (error) throw_qdb_error(error);
 
-    QdbEntryCollection_createInstance(return_value, this->handle, entries, entries_count TSRMLS_CC);
+    QdbEntryCollection_createInstance(return_value, this->handle, entries, entries_count);
 }
 
 CLASS_METHOD_1(hasEntry, MIXED_ARG(entry))
 {
-    zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
+    zval* entryAlias = getEntryAlias(entry);
     if (!entryAlias) return;
 
     qdb_error_t error = qdb_has_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));
@@ -95,7 +95,7 @@ CLASS_METHOD_1(hasEntry, MIXED_ARG(entry))
 
 CLASS_METHOD_1(detachEntry, MIXED_ARG(entry))
 {
-    zval* entryAlias = getEntryAlias(entry TSRMLS_CC);
+    zval* entryAlias = getEntryAlias(entry);
     if (!entryAlias) return;
 
     qdb_error_t error = qdb_detach_tag(this->handle, Z_STRVAL_P(entryAlias), Z_STRVAL_P(this->alias));

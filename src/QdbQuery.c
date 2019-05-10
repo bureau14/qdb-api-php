@@ -25,14 +25,14 @@ extern zend_class_entry* ce_QdbQuery;
 
 void QdbQuery_createInstance(zval* destination,
                              qdb_handle_t handle,
-                             const char* query TSRMLS_DC)
+                             const char* query)
 {
     qdb_query_result_t* result = NULL;
     qdb_error_t err = qdb_query(handle, query, &result);
     if (QDB_FAILURE(err)) throw_qdb_error(err);
 
     object_init_ex(destination, ce_QdbQuery);
-    class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
+    class_storage* this = (class_storage*) zend_object_store_get_object(destination);
     this->handle = handle;
     this->result = result;
 

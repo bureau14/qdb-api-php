@@ -5,7 +5,7 @@
 
 #include "exceptions.h"
 
-int check_arg_count(int actual, int min, int max TSRMLS_DC)
+int check_arg_count(int actual, int min, int max)
 {
     if (min <= actual && actual <= max) return SUCCESS;
 

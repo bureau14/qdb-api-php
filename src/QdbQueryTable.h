@@ -9,6 +9,6 @@
 
 void QdbQueryTable_registerClass(TSRMLS_D);
 
-void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result TSRMLS_DC);
+void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result);
 
 #endif /* QDB_QUERY_TABLE_H */

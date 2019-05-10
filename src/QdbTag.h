@@ -10,8 +10,8 @@
 
 void QdbTag_registerClass(TSRMLS_D);
 
-void QdbTag_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC);
+void QdbTag_createInstance(zval* destination, qdb_handle_t handle, zval* alias);
 
-int QdbTag_isInstance(zval* object TSRMLS_DC);
+int QdbTag_isInstance(zval* object);
 
 #endif /* QDB_TAG_H */

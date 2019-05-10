@@ -45,10 +45,10 @@ CLASS_METHOD_0(nanoseconds)
     *return_value = *this->nanoseconds;
 }
 
-qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp TSRMLS_CC)
+qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp)
 {
     CHECK_TYPE_OF_OBJECT_ARG(QdbTimestamp, timestamp);
-    class_storage* this = (class_storage*) zend_object_store_get_object(timestamp TSRMLS_CC);
+    class_storage* this = (class_storage*) zend_object_store_get_object(timestamp);
 
     qdb_timespec_t ts;
     ts.tv_sec  = Z_LVAL_P(this->seconds);
@@ -56,12 +56,12 @@ qdb_timespec_t QdbTimestamp_make_timespec(zval* timestamp TSRMLS_CC)
     return ts;
 }
 
-zval* QdbTimestamp_from_timespec(qdb_timespec_t* ts TSRMLS_CC)
+zval* QdbTimestamp_from_timespec(qdb_timespec_t* ts)
 {
     zval* destination;
     MAKE_STD_ZVAL(destination);
     object_init_ex(destination, ce_QdbTimestamp);
-    class_storage* this = (class_storage*)zend_object_store_get_object(destination TSRMLS_CC);
+    class_storage* this = (class_storage*)zend_object_store_get_object(destination);
 
     MAKE_STD_ZVAL(this->seconds);
     ZVAL_LONG(this->seconds, ts->tv_sec);

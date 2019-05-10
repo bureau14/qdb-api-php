@@ -24,15 +24,15 @@ static zend_class_entry* ce_QdbContainerEmptyException;  // <- TODO: return null
 static zend_class_entry* ce_QdbIncompatibleTypeException;
 static zend_class_entry* ce_QdbOperationDisabledException;
 
-static zend_class_entry* register_exception_(const char* class_name, zend_class_entry* base_class TSRMLS_DC)
+static zend_class_entry* register_exception_(const char* class_name, zend_class_entry* base_class)
 {
     zend_class_entry ce;
 
     INIT_CLASS_ENTRY_EX(ce, class_name, strlen(class_name), NULL);
-    return zend_register_internal_class_ex(&ce, base_class, NULL TSRMLS_CC);
+    return zend_register_internal_class_ex(&ce, base_class);
 }
 
-#define register_exception(class_name, base_class) register_exception_(class_name, base_class TSRMLS_CC)
+#define register_exception(class_name, base_class) register_exception_(class_name, base_class)
 
 void exceptions_init(TSRMLS_D)
 {
@@ -98,27 +98,27 @@ static zend_class_entry* get_exception_ce(qdb_error_t code)
     return ce_QdbException;
 }
 
-void throw_qdb_error_(qdb_error_t code TSRMLS_DC)
+void throw_qdb_error_(qdb_error_t code)
 {
-    zend_throw_exception(get_exception_ce(code), (char*)qdb_error(code), 0 TSRMLS_CC);
+    zend_throw_exception(get_exception_ce(code), (char*)qdb_error(code), 0);
 }
 
-void throw_invalid_argument_(const char* message TSRMLS_DC)
+void throw_invalid_argument_(const char* message)
 {
-    zend_throw_exception(spl_ce_InvalidArgumentException, (char*)message, 0 TSRMLS_CC);
+    zend_throw_exception(spl_ce_InvalidArgumentException, (char*)message, 0);
 }
 
-void throw_out_of_range_(const char* message TSRMLS_DC)
+void throw_out_of_range_(const char* message)
 {
-    zend_throw_exception(spl_ce_OutOfRangeException, (char*)message, 0 TSRMLS_CC);
+    zend_throw_exception(spl_ce_OutOfRangeException, (char*)message, 0);
 }
 
-void throw_out_of_bounds_(const char* message TSRMLS_DC)
+void throw_out_of_bounds_(const char* message)
 {
-    zend_throw_exception(spl_ce_OutOfBoundsException, (char*)message, 0 TSRMLS_CC);
+    zend_throw_exception(spl_ce_OutOfBoundsException, (char*)message, 0);
 }
 
-void throw_bad_function_call_(const char* message TSRMLS_DC)
+void throw_bad_function_call_(const char* message)
 {
-    zend_throw_exception(spl_ce_BadFunctionCallException, (char*)message, 0 TSRMLS_CC);
+    zend_throw_exception(spl_ce_BadFunctionCallException, (char*)message, 0);
 }

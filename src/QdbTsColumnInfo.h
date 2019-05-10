@@ -9,6 +9,6 @@
 
 void QdbTsColumnInfo_registerClass(TSRMLS_D);
 
-void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst TSRMLS_CC);
+void QdbTsColumnInfo_make_native_array(HashTable* src, qdb_ts_column_info_t* dst);
 
 #endif /* QDB_TS_COLUMN_INFO_H */

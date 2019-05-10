@@ -30,12 +30,12 @@ extern zend_class_entry* ce_QdbEntryCollection;
 
 
 void QdbEntryCollection_createInstance(
-    zval* destination, qdb_handle_t handle, const char** entries, size_t entries_count TSRMLS_DC)
+    zval* destination, qdb_handle_t handle, const char** entries, size_t entries_count)
 {
     tag_collection_t* this;
 
     object_init_ex(destination, ce_QdbEntryCollection);
-    this = (tag_collection_t*)zend_object_store_get_object(destination TSRMLS_CC);
+    this = (tag_collection_t*)zend_object_store_get_object(destination);
 
     this->handle = handle;
     this->entries = entries;
@@ -53,7 +53,7 @@ CLASS_METHOD_0(current)  // inherited from Iterator
     if (this->current >= this->entries_count) return;
 
     const char* alias = this->entries[this->current];
-    qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, alias TSRMLS_CC);
+    qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, alias);
 
     if (error) throw_qdb_error(error);
 }

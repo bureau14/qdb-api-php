@@ -21,20 +21,20 @@ struct zval_query_point_t
 extern zend_class_entry* ce_QdbQueryPoint;
 
 int init_query_point_types() {
-    return zend_declare_class_constant_long(ce_QdbQueryPoint, "BLOB", 4, qdb_query_result_blob TSRMLS_DC) == SUCCESS
-        && zend_declare_class_constant_long(ce_QdbQueryPoint, "DOUBLE", 6, qdb_query_result_double TSRMLS_DC) == SUCCESS
-        && zend_declare_class_constant_long(ce_QdbQueryPoint, "INT64", 5, qdb_query_result_int64 TSRMLS_DC) == SUCCESS
-        && zend_declare_class_constant_long(ce_QdbQueryPoint, "COUNT", 5, qdb_query_result_count TSRMLS_DC) == SUCCESS
-        && zend_declare_class_constant_long(ce_QdbQueryPoint, "TIMESTAMP", 9, qdb_query_result_timestamp TSRMLS_DC) == SUCCESS;
+    return zend_declare_class_constant_long(ce_QdbQueryPoint, "BLOB", 4, qdb_query_result_blob) == SUCCESS
+        && zend_declare_class_constant_long(ce_QdbQueryPoint, "DOUBLE", 6, qdb_query_result_double) == SUCCESS
+        && zend_declare_class_constant_long(ce_QdbQueryPoint, "INT64", 5, qdb_query_result_int64) == SUCCESS
+        && zend_declare_class_constant_long(ce_QdbQueryPoint, "COUNT", 5, qdb_query_result_count) == SUCCESS
+        && zend_declare_class_constant_long(ce_QdbQueryPoint, "TIMESTAMP", 9, qdb_query_result_timestamp) == SUCCESS;
 }
 
-void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point TSRMLS_DC)
+void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
 {
     if (point->type < qdb_query_result_double || point->type > qdb_query_result_count)
         throw_invalid_argument("Got invalid query point");
 
     object_init_ex(destination, ce_QdbQueryPoint);
-    class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
+    class_storage* this = (class_storage*) zend_object_store_get_object(destination);
 
     MAKE_STD_ZVAL(this->type);
     ZVAL_LONG(this->type, point->type);
@@ -58,7 +58,7 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point T
         ZVAL_LONG(this->value, point->payload.count.value);
         return;
     case qdb_query_result_timestamp:
-        this->value = QdbTimestamp_from_timespec(&point->payload.timestamp.value TSRMLS_CC);
+        this->value = QdbTimestamp_from_timespec(&point->payload.timestamp.value);
         return;
     }
 }

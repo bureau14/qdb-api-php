@@ -14,12 +14,12 @@ typedef struct
     zval* alias;
 } entry_t;
 
-void QdbEntry_registerClass(TSRMLS_D);
+void QdbEntry_registerClass();
 
-void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC);
+void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias);
 
-zval* QdbEntry_getAlias(zval* object TSRMLS_DC);
+zval* QdbEntry_getAlias(zval* object);
 
-int QdbEntry_isInstance(zval* object TSRMLS_DC);
+int QdbEntry_isInstance(zval* object);
 
 #endif /* QDB_ENTRY */

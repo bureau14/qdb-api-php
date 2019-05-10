@@ -17,30 +17,30 @@
 
 extern zend_class_entry* ce_QdbEntry;
 
-void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC)
+void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias)
 {
-    entry_t* this = (entry_t*)zend_object_store_get_object(destination TSRMLS_CC);
+    entry_t* this = (entry_t*)zend_object_store_get_object(destination);
 
     Z_ADDREF_P(alias);
     this->alias = alias;
     this->handle = handle;
 }
 
-zval* QdbEntry_getAlias(zval* object TSRMLS_DC)
+zval* QdbEntry_getAlias(zval* object)
 {
-    entry_t* this = (entry_t*)zend_object_store_get_object(object TSRMLS_CC);
+    entry_t* this = (entry_t*)zend_object_store_get_object(object);
     return this->alias;
 }
 
-static zval* getTagAlias(zval* tag TSRMLS_DC)
+static zval* getTagAlias(zval* tag)
 {
     if (Z_TYPE_P(tag) == IS_STRING)
     {
         return tag;
     }
-    else if (QdbTag_isInstance(tag TSRMLS_CC))
+    else if (QdbTag_isInstance(tag))
     {
-        return QdbEntry_getAlias(tag TSRMLS_CC);
+        return QdbEntry_getAlias(tag);
     }
     else
     {
@@ -58,7 +58,7 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_1(attachTag, MIXED_ARG(tag))
 {
-    zval* tagAlias = getTagAlias(tag TSRMLS_CC);
+    zval* tagAlias = getTagAlias(tag);
     if (!tagAlias) return;
 
     qdb_error_t error = qdb_attach_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
@@ -85,14 +85,13 @@ CLASS_METHOD_1(attachTags, ARRAY_ARG(tags))
     }
 
     const char** tagAliases = alloca(tagCount * sizeof(char*));
-    zval** tag;
+    zval* tag;
     int i = 0;
-
     for (zend_hash_internal_pointer_reset(Z_ARRVAL_P(tags));
-         zend_hash_get_current_data(Z_ARRVAL_P(tags), (void**)&tag) == SUCCESS;
+         zval* tag = zend_hash_get_current_data(Z_ARRVAL_P(tags));
          zend_hash_move_forward(Z_ARRVAL_P(tags)))
     {
-        zval* tagAlias = getTagAlias(*tag TSRMLS_CC);
+        zval* tagAlias = getTagAlias(tag);
         if (!tagAlias) return;
 
         tagAliases[i++] = Z_STRVAL_P(tagAlias);
@@ -122,12 +121,12 @@ CLASS_METHOD_0(getTags)
         return;
     }
 
-    QdbTagCollection_createInstance(return_value, this->handle, tags, tags_count TSRMLS_CC);
+    QdbTagCollection_createInstance(return_value, this->handle, tags, tags_count);
 }
 
 CLASS_METHOD_1(hasTag, MIXED_ARG(tag))
 {
-    zval* tagAlias = getTagAlias(tag TSRMLS_CC);
+    zval* tagAlias = getTagAlias(tag);
     if (!tagAlias) return;
 
     qdb_error_t error = qdb_has_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));
@@ -152,7 +151,7 @@ CLASS_METHOD_0(remove)
 
 CLASS_METHOD_1(detachTag, MIXED_ARG(tag))
 {
-    zval* tagAlias = getTagAlias(tag TSRMLS_CC);
+    zval* tagAlias = getTagAlias(tag);
     if (!tagAlias) return;
 
     qdb_error_t error = qdb_detach_tag(this->handle, Z_STRVAL_P(this->alias), Z_STRVAL_P(tagAlias));

@@ -8,8 +8,8 @@
 
 #include <qdb/client.h>
 
-void QdbInteger_registerClass(TSRMLS_D);
+void QdbInteger_registerClass();
 
-void QdbInteger_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC);
+void QdbInteger_createInstance(zval* destination, qdb_handle_t handle, zval* alias);
 
 #endif /* QDB_INTEGER_H */

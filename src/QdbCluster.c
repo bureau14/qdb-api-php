@@ -30,12 +30,12 @@ typedef struct
 
 CLASS_METHOD_1(__construct, STRING_ARG(uri))
 {
-    this->handle = connection_open(uri TSRMLS_CC);
+    this->handle = connection_open(uri);
 }
 
 CLASS_METHOD_0(__destruct)
 {
-    connection_close(this->handle TSRMLS_CC);
+    connection_close(this->handle);
 }
 
 CLASS_METHOD_1(makeBatchTable, ARRAY_ARG(columns_info))
@@ -63,19 +63,19 @@ CLASS_METHOD_1(makeQuery, STRING_ARG(query))
 
 CLASS_METHOD_1(blob, STRING_ARG(alias))
 {
-    QdbBlob_createInstance(return_value, this->handle, alias TSRMLS_CC);
+    QdbBlob_createInstance(return_value, this->handle, alias);
 }
 
 CLASS_METHOD_1(entry, STRING_ARG(alias))
 {
-    qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, Z_STRVAL_P(alias) TSRMLS_CC);
+    qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, Z_STRVAL_P(alias));
 
     if (error) throw_qdb_error(error);
 }
 
 CLASS_METHOD_1(integer, STRING_ARG(alias))
 {
-    QdbInteger_createInstance(return_value, this->handle, alias TSRMLS_CC);
+    QdbInteger_createInstance(return_value, this->handle, alias);
 }
 
 CLASS_METHOD_0_1(purgeAll, LONG_ARG(timeout))
@@ -100,16 +100,16 @@ CLASS_METHOD_1(runBatch, OBJECT_ARG(QdbBatch, batch))
     qdb_operation_t* ops;
     size_t ops_count;
 
-    QdbBatch_copyOperations(batch, &ops, &ops_count TSRMLS_CC);
+    QdbBatch_copyOperations(batch, &ops, &ops_count);
 
     qdb_run_batch(this->handle, ops, ops_count);
 
-    QdbBatchResult_createInstance(return_value, this->handle, ops, ops_count TSRMLS_CC);
+    QdbBatchResult_createInstance(return_value, this->handle, ops, ops_count);
 }
 
 CLASS_METHOD_1(tag, STRING_ARG(alias))
 {
-    QdbTag_createInstance(return_value, this->handle, alias TSRMLS_CC);
+    QdbTag_createInstance(return_value, this->handle, alias);
 }
 
 BEGIN_CLASS_MEMBERS()

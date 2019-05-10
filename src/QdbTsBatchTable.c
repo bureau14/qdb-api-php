@@ -23,14 +23,14 @@ extern zend_class_entry* ce_QdbTsBatchTable;
 void QdbTsBatchTable_createInstance(zval* destination,
                                     qdb_handle_t handle,
                                     const qdb_ts_batch_column_info_t* columns,
-                                    qdb_size_t column_cnt TSRMLS_DC)
+                                    qdb_size_t column_cnt)
 {
     qdb_batch_table_t table;
     qdb_error_t err = qdb_ts_batch_table_init(handle, columns, column_cnt, &table);
     if (QDB_FAILURE(err)) throw_qdb_error(err);
 
     object_init_ex(destination, ce_QdbTsBatchTable);
-    class_storage* this = (class_storage*) zend_object_store_get_object(destination TSRMLS_CC);
+    class_storage* this = (class_storage*) zend_object_store_get_object(destination);
     this->handle = handle;
     this->table  = table;
 }
@@ -42,7 +42,7 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_1(start_row, OBJECT_ARG(QdbTimestamp, timestamp))
 {
-    qdb_timespec_t ts = QdbTimestamp_make_timespec(timestamp TSRMLS_CC);
+    qdb_timespec_t ts = QdbTimestamp_make_timespec(timestamp);
 
     qdb_error_t err = qdb_ts_batch_start_row(this->table, &ts);
     if (QDB_FAILURE(err)) throw_qdb_error(err);
@@ -68,7 +68,7 @@ CLASS_METHOD_2(set_int64, LONG_ARG(index), LONG_ARG(num))
 
 CLASS_METHOD_2(set_timestamp, LONG_ARG(index), OBJECT_ARG(QdbTimestamp, timestamp))
 {
-    qdb_timespec_t ts = QdbTimestamp_make_timespec(timestamp TSRMLS_CC);
+    qdb_timespec_t ts = QdbTimestamp_make_timespec(timestamp);
 
     qdb_error_t err = qdb_ts_batch_row_set_timestamp(this->table, Z_LVAL_P(index), &ts);
     if (QDB_FAILURE(err)) throw_qdb_error(err);

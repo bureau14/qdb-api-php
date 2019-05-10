@@ -21,10 +21,10 @@
 extern zend_class_entry* ce_QdbInteger;
 
 
-void QdbInteger_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC)
+void QdbInteger_createInstance(zval* destination, qdb_handle_t handle, zval* alias)
 {
     object_init_ex(destination, ce_QdbInteger);
-    QdbExpirableEntry_constructInstance(destination, handle, alias TSRMLS_CC);
+    QdbExpirableEntry_constructInstance(destination, handle, alias);
 }
 
 

@@ -11,6 +11,6 @@
 void QdbTagCollection_registerClass(TSRMLS_D);
 
 void QdbTagCollection_createInstance(
-    zval* destination, qdb_handle_t handle, const char** tags, size_t tags_count TSRMLS_DC);
+    zval* destination, qdb_handle_t handle, const char** tags, size_t tags_count);
 
 #endif /* QDB_TAG_COLLECTION_H */

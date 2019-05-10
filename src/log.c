@@ -47,8 +47,6 @@ qdb_log_level_t log_level_from_name(const char* name)
 static void log_callback(qdb_log_level_t level, const unsigned long* date, unsigned long pid, unsigned long tid,
     const char* msg, size_t msg_len)
 {
-    TSRMLS_FETCH();
-
     if (level < QDB_G(log_level)) return;
 
     php_printf("qdb: %02ld/%02ld/%04ld-%02ld:%02ld:%02ld %s: %s\n",

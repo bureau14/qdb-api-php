@@ -17,9 +17,9 @@
 
 extern zend_class_entry* ce_QdbExpirableEntry;
 
-void QdbExpirableEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC)
+void QdbExpirableEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias)
 {
-    QdbEntry_constructInstance(destination, handle, alias TSRMLS_CC);
+    QdbEntry_constructInstance(destination, handle, alias);
 }
 
 CLASS_METHOD_1(expiresAt, LONG_ARG(expiry))
