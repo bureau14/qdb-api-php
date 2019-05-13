@@ -6,7 +6,7 @@
 
 #include "exceptions.h"
 
-static class_storage* get_class_storage(zval* this);
+#define get_class_storage(pzval) ((class_storage*) _get_class_storage(pzval))
 
 int check_arg_count(int actual, int min, int max);
 
