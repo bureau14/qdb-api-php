@@ -31,21 +31,27 @@ static class_storage* get_class_storage(zval* this) {
 }
 
 static void free_boxed_storage(zend_object* obj) {
+    php_printf("Destroy " #class_name "...");
     BOXED_STORAGE* box = get_boxed_storage(obj);
 	zend_object_std_dtor(&box->std);
+    php_printf(" Finished\n");
 }
 
 static zend_object* create_object(zend_class_entry* ce)
 {
+    php_printf("Create " #class_name "...");
 	zend_object* obj_std = &zend_object_alloc(sizeof(BOXED_STORAGE), ce)->std;
 	zend_object_std_init(obj_std, ce);
 	object_properties_init(obj_std, ce);
 	obj_std->handlers = &object_handlers;
     return obj_std;
+    php_printf(" Finished\n");
 }
 
 void XCONCAT(class_name, _registerClass)()
 {
+    php_printf("Register " #class_name "...");
+
     zend_class_entry ce;
     INIT_CLASS_ENTRY(ce, XSTR(class_name), methods);
     ce.create_object = create_object;
@@ -63,6 +69,7 @@ void XCONCAT(class_name, _registerClass)()
 #ifdef class_interfaces
     zend_class_implements(CLASS_ENTRY, class_interfaces);
 #endif
+    php_printf(" Finished\n");
 }
 
 int XCONCAT(class_name, _isInstance)(zval* object)
