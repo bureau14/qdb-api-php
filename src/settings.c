@@ -14,7 +14,7 @@ static ZEND_INI_MH(OnUpdateLogLevel)
 #endif
 
     int* log_level = (int*)(base + (size_t)mh_arg1);
-    *log_level = log_level_from_name(new_value);
+    *log_level = log_level_from_name(new_value->val);
 
     return SUCCESS;
 }
