@@ -1,6 +1,8 @@
 <?php
 
-class QdbClusterConstructorTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class QdbClusterConstructorTest extends TestCase
 {
     /**
      * @expectedException               InvalidArgumentException

@@ -1,6 +1,8 @@
 <?php
 
-class QdbBatchConstructTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class QdbBatchConstructTest extends TestCase
 {
     /**
      * @expectedException               InvalidArgumentException

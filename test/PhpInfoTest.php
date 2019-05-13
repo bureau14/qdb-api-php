@@ -1,6 +1,8 @@
 <?php
 
-class PhpInfoTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PhpInfoTest extends TestCase
 {
     private $info;
 
