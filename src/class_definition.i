@@ -40,12 +40,12 @@ static void free_boxed_storage(zend_object* obj) {
 static zend_object* create_object(zend_class_entry* ce)
 {
     php_printf("Create " XSTR(class_name) "...");
-	zend_object* obj_std = &zend_object_alloc(sizeof(BOXED_STORAGE), ce)->std;
-	zend_object_std_init(obj_std, ce);
-	object_properties_init(obj_std, ce);
-	obj_std->handlers = &object_handlers;
-    return obj_std;
+    BOXED_STORAGE* box = zend_object_alloc(sizeof(BOXED_STORAGE), ce);
+	zend_object_std_init(&box->std, ce);
+	object_properties_init(&box->std, ce);
+	box->std.handlers = &object_handlers;
     php_printf(" Finished\n");
+    return &box->std;
 }
 
 void XCONCAT(class_name, _registerClass)()
