@@ -31,7 +31,9 @@ CLASS_METHOD_1(__construct, STRING_ARG(uri))
 
 CLASS_METHOD_0(__destruct)
 {
+    php_printf("Closing QdbCluster...");
     connection_close(this->handle);
+    php_printf(" Finished\n");
 }
 
 CLASS_METHOD_1(makeBatchTable, ARRAY_ARG(columns_info))

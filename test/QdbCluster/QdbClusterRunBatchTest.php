@@ -23,7 +23,7 @@ class QdbClusterRunBatchTest extends QdbTestBase
     }
 
     /**
-     * @expectedException               PHPUnit_Framework_Error
+     * @expectedException               InvalidArgumentException
      * @expectedExceptionMessageRegExp  /must be an instance of QdbBatch/
      */
     public function testWrongBatchType()
