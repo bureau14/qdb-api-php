@@ -12,7 +12,6 @@ typedef struct
     zval table_name;
     zval columns_names;
     zval rows;
-    zval rows_count;
 } _zval_query_table_t;
 
 #define class_name QdbQueryTable
@@ -34,8 +33,6 @@ void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result)
         ZVAL_STRINGL(&name, result->columns_names[i].data, result->columns_names[i].length);
 		zend_hash_next_index_insert(Z_ARR(this->columns_names), &name);
     }
-
-	ZVAL_LONG(&this->rows_count, result->rows_count);
 
     array_init_size(&this->rows, result->rows_count);
 	for (int i = 0; i < result->rows_count; ++i)
@@ -61,11 +58,6 @@ CLASS_METHOD_0(tableName)
 CLASS_METHOD_0(columnsNames)
 {
     ZVAL_COPY(return_value, &this->columns_names);
-}
-
-CLASS_METHOD_0(rowsCount)
-{
-    ZVAL_COPY_VALUE(return_value, &this->rows_count);
 }
 
 CLASS_METHOD_0(pointsRows)

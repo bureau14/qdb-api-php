@@ -19,9 +19,9 @@ extern zend_class_entry* ce_QdbQueryPoint;
 
 int init_query_point_types() {
     return zend_declare_class_constant_long(ce_QdbQueryPoint, "BLOB", sizeof("BLOB")-1, qdb_query_result_blob) == SUCCESS
+        && zend_declare_class_constant_long(ce_QdbQueryPoint, "COUNT", sizeof("COUNT")-1, qdb_query_result_count) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "DOUBLE", sizeof("DOUBLE")-1, qdb_query_result_double) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "INT64", sizeof("INT64")-1, qdb_query_result_int64) == SUCCESS
-        && zend_declare_class_constant_long(ce_QdbQueryPoint, "COUNT", sizeof("COUNT")-1, qdb_query_result_count) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "TIMESTAMP", sizeof("TIMESTAMP")-1, qdb_query_result_timestamp) == SUCCESS;
 }
 

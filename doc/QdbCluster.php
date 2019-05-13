@@ -31,6 +31,24 @@ class QdbCluster
     function __construct($uri);
 
     /**
+     * Create a batch table to insert data in timeseries.
+     * 
+     * @param QdbTsBatchColumnInfo[] $columnsInfo The columns and their timeseries names.
+     * @return QdbTsBatchTable
+     * @throws QdbException If one of the columns does not exists, or another error (connection, ...).
+     */
+    function makeBatchTable($columnsInfo);
+
+    /**
+     * Run the given query. Return it's result on success.
+     * 
+     * @param string $command The query string.
+     * @return QdbQuery
+     * @throws QdbException If the query fails, on or another error (connection, ...).
+     */
+    function makeQuery($command);
+
+    /**
      * Creates a {@link QdbBlob} associated with the specified alias.
      *
      * No query is performed at this point.
