@@ -26,7 +26,7 @@ static BOXED_STORAGE* get_boxed_storage(zend_object* obj) {
     return (BOXED_STORAGE*)((char*)(obj) - offsetof(BOXED_STORAGE, std));
 }
 
-static void* _get_class_storage(zval* this) {
+static void* _get_class_storage(const zval* this) {
 	return &get_boxed_storage(Z_OBJ_P(this))->storage;
 }
 

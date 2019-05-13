@@ -46,7 +46,7 @@ zval QdbTimestamp_from_timespec(const qdb_timespec_t* ts)
 {
     zval destination;
     object_init_ex(&destination, ce_QdbTimestamp);
-    class_storage* this = get_class_storage(destination);
+    class_storage* this = get_class_storage(&destination);
 
     ZVAL_LONG(&this->seconds, ts->tv_sec);
     ZVAL_LONG(&this->nanoseconds, ts->tv_nsec);
