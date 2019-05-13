@@ -68,7 +68,6 @@ CLASS_METHOD_0(pointsRows)
 BEGIN_CLASS_MEMBERS()
     ADD_METHOD(tableName)
     ADD_METHOD(columnsNames)
-    ADD_METHOD(rowsCount)
     ADD_METHOD(pointsRows)
 END_CLASS_MEMBERS()
 
