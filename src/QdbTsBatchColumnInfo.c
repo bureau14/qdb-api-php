@@ -36,7 +36,7 @@ void QdbTsBatchColumnInfo_make_native_array(HashTable* src, qdb_ts_batch_column_
     ZEND_HASH_FOREACH_VAL(src, value)
     {
         CHECK_TYPE_OF_OBJECT_ARG(QdbTsBatchColumnInfo, value);
-        class_storage* column = (class_storage*) Z_OBJ_P(value);
+        class_storage* column = get_class_storage(value);
 
         qdb_ts_batch_column_info_t* col_copy = dst + i++;
         col_copy->timeseries = Z_STRVAL(column->timeseries);

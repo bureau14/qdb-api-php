@@ -27,10 +27,8 @@ static void getOperationResult(zval* return_value, qdb_operation_t* op);
 void QdbBatchResult_createInstance(
     zval* destination, qdb_handle_t handle, qdb_operation_t* operations, size_t operations_count)
 {
-    batch_result_t* this;
-
     object_init_ex(destination, ce_QdbBatchResult);
-    this = (batch_result_t*)Z_OBJ_P(destination);
+    batch_result_t* this = get_class_storage(destination);
 
     this->handle = handle;
     this->operations = operations;

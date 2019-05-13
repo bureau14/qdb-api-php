@@ -6,11 +6,11 @@
 // #define class_interfaces <optional, <number of interfaces>, <interfaces names, ...>>
 
 #define CLASS_ENTRY XCONCAT(ce_,class_name)
-zend_class_entry *CLASS_ENTRY = NULL;
+zend_class_entry* CLASS_ENTRY = NULL;
 
 #ifdef class_parent
 #define BASE_CLASS_ENTRY XCONCAT(ce_,class_parent)
-extern zend_class_entry *BASE_CLASS_ENTRY;
+extern zend_class_entry* BASE_CLASS_ENTRY;
 #endif
 
 static zend_object_handlers object_handlers;
@@ -22,22 +22,26 @@ typedef struct {
     zend_object std;
 } BOXED_STORAGE;
 
-static BOXED_STORAGE* get_boxed_storage(zend_object *obj) {
+static BOXED_STORAGE* get_boxed_storage(zend_object* obj) {
     return (BOXED_STORAGE*)((char*)(obj) - offsetof(BOXED_STORAGE, std));
 }
 
-static void free_object_storage(zend_object *obj) {
+static class_storage* get_class_storage(zval* this) {
+	return &get_boxed_storage(Z_OBJ_P(this))->storage;
+}
+
+static void free_boxed_storage(zend_object* obj) {
     BOXED_STORAGE* box = get_boxed_storage(obj);
 	zend_object_std_dtor(&box->std);
 }
 
-static zend_object* create_object(zend_class_entry *ce)
+static zend_object* create_object(zend_class_entry* ce)
 {
-	BOXED_STORAGE* box = zend_object_alloc(sizeof(BOXED_STORAGE), ce);
-	zend_object_std_init(&box->std, ce);
-	object_properties_init(&box->std, ce);
-	box->std.handlers = &object_handlers;
-    return &box->std;
+	zend_object* obj_std = &zend_object_alloc(sizeof(BOXED_STORAGE), ce)->std;
+	zend_object_std_init(obj_std, ce);
+	object_properties_init(obj_std, ce);
+	obj_std->handlers = &object_handlers;
+    return obj_std;
 }
 
 void XCONCAT(class_name, _registerClass)()
@@ -54,7 +58,7 @@ void XCONCAT(class_name, _registerClass)()
     memcpy(&object_handlers, &std_object_handlers, sizeof(zend_object_handlers));
     object_handlers.offset    = offsetof(BOXED_STORAGE, std);
     object_handlers.clone_obj = NULL;
-	object_handlers.free_obj  = free_object_storage;
+	object_handlers.free_obj  = free_boxed_storage;
 
 #ifdef class_interfaces
     zend_class_implements(CLASS_ENTRY, class_interfaces);

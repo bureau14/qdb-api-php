@@ -31,7 +31,7 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
         throw_invalid_argument("Got invalid query point");
 
     object_init_ex(destination, ce_QdbQueryPoint);
-    class_storage* this = (class_storage*) Z_OBJ_P(destination);
+    class_storage* this = get_class_storage(destination);
 
     ZVAL_LONG(&this->type, point->type);
 

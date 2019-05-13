@@ -6,6 +6,8 @@
 
 #include "exceptions.h"
 
+static class_storage* get_class_storage(zval* this);
+
 int check_arg_count(int actual, int min, int max);
 
 #define STR(X) #X
@@ -39,7 +41,7 @@ int check_arg_count(int actual, int min, int max);
 #define DECLARE_MIXED_ARG(name) zval* name = NULL;
 #define DECLARE_OBJECT_ARG(classname, name) zval* name = NULL;
 #define DECLARE_STRING_ARG(name) zval* name = NULL;
-#define DECLARE_THIS() class_storage* this = (class_storage*)Z_OBJ_P(getThis())
+#define DECLARE_THIS() class_storage* this = get_class_storage(getThis())
 
 #define INFO_FOR_ARRAY_ARG(name) ZEND_ARG_ARRAY_INFO(0, name, 0)
 #define INFO_FOR_DOUBLE_ARG(name) ZEND_ARG_INFO(0, name)
@@ -206,6 +208,6 @@ int check_arg_count(int actual, int min, int max);
 
 #define ADD_METHOD(method_name) ADD_METHOD_(class_name, method_name)
 
-#define END_CLASS_MEMBERS() { NULL, NULL, NULL } };
+#define END_CLASS_MEMBERS() PHP_FE_END };
 
 #endif /* QDB_CLASS_DEFINITION_H */

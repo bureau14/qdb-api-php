@@ -23,7 +23,7 @@ extern zend_class_entry* ce_QdbQueryTable;
 void QdbQueryTable_createInstance(zval* destination, qdb_table_result_t* result)
 {
     object_init_ex(destination, ce_QdbQueryTable);
-    class_storage* this = (class_storage*) Z_OBJ_P(destination);
+    class_storage* this = get_class_storage(destination);
 
     ZVAL_STRINGL(&this->table_name, result->table_name.data, result->table_name.length);
 

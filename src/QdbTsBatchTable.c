@@ -27,7 +27,7 @@ void QdbTsBatchTable_createInstance(zval* destination,
     if (QDB_FAILURE(err)) throw_qdb_error(err);
 
     object_init_ex(destination, ce_QdbTsBatchTable);
-    class_storage* this = (class_storage*) Z_OBJ_P(destination);
+    class_storage* this = get_class_storage(destination);
     this->handle = handle;
     this->table  = table;
 }

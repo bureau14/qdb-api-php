@@ -34,7 +34,7 @@ CLASS_METHOD_0(nanoseconds)
 qdb_timespec_t QdbTimestamp_make_timespec(const zval* timestamp)
 {
     CHECK_TYPE_OF_OBJECT_ARG(QdbTimestamp, timestamp);
-    class_storage* this = (class_storage*) Z_OBJ_P(timestamp);
+    class_storage* this = get_class_storage(timestamp);
 
     qdb_timespec_t ts;
     ts.tv_sec  = Z_LVAL_P(&this->seconds);
@@ -46,7 +46,7 @@ zval QdbTimestamp_from_timespec(const qdb_timespec_t* ts)
 {
     zval destination;
     object_init_ex(&destination, ce_QdbTimestamp);
-    class_storage* this = (class_storage*)Z_OBJ(destination);
+    class_storage* this = get_class_storage(destination);
 
     ZVAL_LONG(&this->seconds, ts->tv_sec);
     ZVAL_LONG(&this->nanoseconds, ts->tv_nsec);

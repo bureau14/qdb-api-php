@@ -27,10 +27,8 @@ extern zend_class_entry* ce_QdbEntryCollection;
 void QdbEntryCollection_createInstance(
     zval* destination, qdb_handle_t handle, const char** entries, size_t entries_count)
 {
-    tag_collection_t* this;
-
     object_init_ex(destination, ce_QdbEntryCollection);
-    this = (tag_collection_t*)Z_OBJ_P(destination);
+    tag_collection_t* this = get_class_storage(destination);
 
     this->handle = handle;
     this->entries = entries;
