@@ -6,7 +6,7 @@ class PhpInfoTest extends TestCase
 {
     private $info;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         ob_start();
         date_default_timezone_set("Europe/Paris");

@@ -6,7 +6,7 @@ class QdbBatchResultTest extends QdbTestBase
 {
     protected $result;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

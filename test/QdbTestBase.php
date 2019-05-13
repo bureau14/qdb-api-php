@@ -16,7 +16,7 @@ abstract class QdbTestBase extends TestCase
 {
     protected $cluster;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cluster = new QdbCluster('qdb://127.0.0.1:20552/');
     }
