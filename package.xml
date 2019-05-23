@@ -73,6 +73,12 @@
         <file role="src" name="QdbExpirableEntry.h"/>
         <file role="src" name="QdbInteger.c"/>
         <file role="src" name="QdbInteger.h"/>
+        <file role="src" name="QdbQuery.c"/>
+        <file role="src" name="QdbQuery.h"/>
+        <file role="src" name="QdbQueryPoint.c"/>
+        <file role="src" name="QdbQueryPoint.h"/>
+        <file role="src" name="QdbQueryTable.c"/>
+        <file role="src" name="QdbQueryTable.h"/>
         <file role="src" name="QdbTag.c"/>
         <file role="src" name="QdbTag.h"/>
         <file role="src" name="QdbTagCollection.c"/>
