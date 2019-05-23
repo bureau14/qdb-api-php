@@ -5,6 +5,7 @@
 #define QDB_CLASS_DEFINITION_H
 
 #include "exceptions.h"
+#include "zend_objects_API.h"
 
 static void* _get_class_storage(const zval* this);
 #define get_class_storage(pzval) ((class_storage*) _get_class_storage(pzval))
