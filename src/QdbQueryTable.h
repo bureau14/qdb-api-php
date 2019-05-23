@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
 
 #ifndef QDB_QUERY_TABLE_H

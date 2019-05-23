@@ -1,4 +1,4 @@
-QDB_API_URL=https://download.quasardb.net/quasardb/nightly/api/c/qdb-2.0.0master-linux-64bit-c-api.tar.gz
+QDB_API_URL=https://download.quasardb.net/quasardb/nightly/api/c/qdb-3.3.0master-linux-64bit-c-api.tar.gz
 
 sudo apt-get update
 sudo apt-get install -y git php5-dev libpcre3-dev
