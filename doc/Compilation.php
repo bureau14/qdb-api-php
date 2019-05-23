@@ -56,7 +56,7 @@ namespace qdb;
  *
  * You may want to customize `configure`'s flags, for instance `--enable-zts` or `--disable-zts` to control thread-safety.
  *
- * Also if `qdb_api.dll` is not available on the `PATH`, you'll need to copy it to `C:\php\`.
+ * Also if `qdb_api.dll` is not available on the `PATH`, you'll need to copy it to `C:\php-src\`.
  */
 function Compilation();
 ?>

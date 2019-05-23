@@ -10,7 +10,7 @@ namespace qdb;
  * Then enumerate entry having this tag:
  * <code>
  * $users = $cluster->tag('user')->getEntries();
- * foreach ($user as $user) {
+ * foreach ($users as $user) {
  *     echo($user->alias());
  * }
  * </code>

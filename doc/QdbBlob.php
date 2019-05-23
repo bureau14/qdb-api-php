@@ -104,7 +104,7 @@ class QdbBlob extends QdbExpirableEntry
      * @throws QdbAliasNotFoundException
      * @throws QdbIncompatibleTypeException
      */
-    function removeIf();
+    function removeIf($comparand);
 
     /**
      * Sets the blob's content, creates the blob if needed.

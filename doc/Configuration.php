@@ -9,7 +9,7 @@ namespace qdb;
  *
  * Allowed values are `detailed`, `debug`, `info`, `warning`, `error`, `panic`. The default is `panic`.
  *
- * ### `quasardb.persitent`
+ * ### `quasardb.persistent`
  *
  * Enables persistent connections.
  *
