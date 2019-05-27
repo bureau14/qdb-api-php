@@ -16,12 +16,12 @@
 #include <qdb/client.h>
 
 #define class_name QdbCluster
-#define class_storage cluster_t
+#define class_storage _cluster_t
 
 typedef struct
 {
     qdb_handle_t handle;
-} cluster_t;
+} _cluster_t;
 
 
 CLASS_METHOD_1(__construct, STRING_ARG(uri))
@@ -32,6 +32,18 @@ CLASS_METHOD_1(__construct, STRING_ARG(uri))
 CLASS_METHOD_0(__destruct)
 {
     connection_close(this->handle);
+}
+
+CLASS_METHOD_2(setUserCredentials, STRING_ARG(userName), STRING_ARG(secretKey))
+{
+    qdb_error_t err = qdb_option_set_user_credentials(Z_STRVAL_P(userName), Z_STRVAL_P(secretKey));
+    if (err) throw_qdb_error(err);
+}
+
+CLASS_METHOD_1(setClusterPublicKey, STRING_ARG(publicKey))
+{
+    qdb_error_t err = qdb_option_set_cluster_public_key(Z_STRVAL_P(publicKey));
+    if (err) throw_qdb_error(err);
 }
 
 CLASS_METHOD_1(makeBatchTable, ARRAY_ARG(columns_info))
@@ -65,8 +77,7 @@ CLASS_METHOD_1(blob, STRING_ARG(alias))
 CLASS_METHOD_1(entry, STRING_ARG(alias))
 {
     qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, Z_STRVAL_P(alias));
-
-    if (error) throw_qdb_error(error);
+    if (err) throw_qdb_error(err);
 }
 
 CLASS_METHOD_1(integer, STRING_ARG(alias))
@@ -83,12 +94,9 @@ CLASS_METHOD_0_1(purgeAll, LONG_ARG(timeout))
         throw_invalid_argument("Argument timeout must be a positive (non-zero) integer");
         return;
     }
-    qdb_error_t error = qdb_purge_all(this->handle, timeout_value);
 
-    if (error)
-    {
-        throw_qdb_error(error);
-    }
+    qdb_error_t error = qdb_purge_all(this->handle, timeout_value);
+    if (err) throw_qdb_error(err);
 }
 
 CLASS_METHOD_1(runBatch, OBJECT_ARG(QdbBatch, batch))
@@ -111,6 +119,8 @@ CLASS_METHOD_1(tag, STRING_ARG(alias))
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
     ADD_DESTRUCTOR(__destruct)
+    ADD_METHOD(setUserCredentials)
+    ADD_METHOD(setClusterPublicKey)
     ADD_METHOD(makeBatchTable)
     ADD_METHOD(makeQuery)
     ADD_METHOD(blob)
