@@ -1,4 +1,6 @@
 
+// The documentation has been moved to the 'qdb-documentation' repository.
+
 // The API is object-oriented.
 // Each new class must be implemented in it's own source file (an example is given below).
 // For advanced usage :
