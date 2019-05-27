@@ -36,13 +36,13 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_2(setUserCredentials, STRING_ARG(userName), STRING_ARG(secretKey))
 {
-    qdb_error_t err = qdb_option_set_user_credentials(Z_STRVAL_P(userName), Z_STRVAL_P(secretKey));
+    qdb_error_t err = qdb_option_set_user_credentials(this->handle, Z_STRVAL_P(userName), Z_STRVAL_P(secretKey));
     if (err) throw_qdb_error(err);
 }
 
 CLASS_METHOD_1(setClusterPublicKey, STRING_ARG(publicKey))
 {
-    qdb_error_t err = qdb_option_set_cluster_public_key(Z_STRVAL_P(publicKey));
+    qdb_error_t err = qdb_option_set_cluster_public_key(this->handle, Z_STRVAL_P(publicKey));
     if (err) throw_qdb_error(err);
 }
 
