@@ -76,7 +76,7 @@ CLASS_METHOD_1(blob, STRING_ARG(alias))
 
 CLASS_METHOD_1(entry, STRING_ARG(alias))
 {
-    qdb_error_t error = QdbEntryFactory_createFromAlias(return_value, this->handle, Z_STRVAL_P(alias));
+    qdb_error_t err = QdbEntryFactory_createFromAlias(return_value, this->handle, Z_STRVAL_P(alias));
     if (err) throw_qdb_error(err);
 }
 
@@ -95,7 +95,7 @@ CLASS_METHOD_0_1(purgeAll, LONG_ARG(timeout))
         return;
     }
 
-    qdb_error_t error = qdb_purge_all(this->handle, timeout_value);
+    qdb_error_t err = qdb_purge_all(this->handle, timeout_value);
     if (err) throw_qdb_error(err);
 }
 
