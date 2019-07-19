@@ -16,10 +16,10 @@
     <email>benoit@quasardb.net</email>
     <active>yes</active>
   </lead>
-  <date>2019-05-07</date>
+  <date>2019-07-19</date>
   <version>
-    <release>3.4.0</release>
-    <api>3.4</api>
+    <release>3.5.0</release>
+    <api>3.5</api>
   </version>
   <stability>
     <release>beta</release>
@@ -27,7 +27,7 @@
   </stability>
   <license uri="https://github.com/bureau14/qdb-api-php/blob/master/LICENSE.md">BSD License</license>
   <notes>
-    This version targets quasardb 3.4
+    This version targets quasardb 3.5
     It supports:
     * batchs
     * blobs
