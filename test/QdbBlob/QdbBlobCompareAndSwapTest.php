@@ -4,76 +4,69 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbBlobCompareAndSwapTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->compareAndSwap('content');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->compareAndSwap('content', 'comparand', 0, 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /content/i
-     */
     public function testWrongContentType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/content/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->compareAndSwap(array(), 'comparand');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /comparand/i
-     */
     public function testWrongComparandType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/comparand/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->compareAndSwap('content', array());
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /expiry/i
-     */
     public function testWrongExpiryType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/expiry/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->compareAndSwap('content', 'comparand', array());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->compareAndSwap('content', 'comparand');
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
     public function DISABLED_testIncompatibleType()
     {
+        $this->expectException('QdbIncompatibleTypeException');
+        
         $alias = createUniqueAlias();
         $int = $this->createInteger($alias);
         $blob = $this->createEmptyBlob($alias);

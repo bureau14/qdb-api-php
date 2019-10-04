@@ -4,45 +4,40 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbClusterAuthentificationTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $this->cluster->setUserCredentials('');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $this->cluster->setUserCredentials('', '', '');
     }
 
-    /**
-     * @expectedException  InvalidArgumentException
-     */
     public function testWrongType()
     {
+        $this->expectException('InvalidArgumentException');
+        
         $this->cluster->tag(array());
     }
 
-    /**
-     * @expectedException  QdbException
-     */
     public function testBadCredentials()
     {
+        $this->expectException('QdbException');
+        
         $this->cluster->setUserCredentials('12', '34');
     }
 
-    /**
-     * @expectedException  QdbException
-     */
     public function testBadPublicKey()
     {
+        $this->expectException('QdbException');
+        
         $this->cluster->setClusterPublicKey('123');
     }
 }

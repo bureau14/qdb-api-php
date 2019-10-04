@@ -4,22 +4,20 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbTagGetEntriesTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $tag = $this->createEmptyTag();
 
         $tag->getEntries('i should not be there');
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
     public function testIncompatibleType()
     {
+        $this->expectException('QdbIncompatibleTypeException');
+        
         $alias = createUniqueAlias();
         $tag = $this->createEmptyTag($alias);
         $blob = $this->createBlob($alias);

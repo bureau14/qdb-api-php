@@ -4,30 +4,27 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbClusterRunBatchTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $this->cluster->runBatch();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $this->cluster->runBatch(new QdbBatch(), 0);
     }
 
-    /**
-     * @expectedException               TypeError
-     * @expectedExceptionMessageRegExp  /must be an instance of QdbBatch/
-     */
     public function testWrongBatchType()
     {
+        $this->expectException('TypeError');
+        $this->expectExceptionMessageRegExp('/must be an instance of QdbBatch/');
+        
         $this->cluster->runBatch(new stdClass);
     }
 

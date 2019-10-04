@@ -4,45 +4,41 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbBatchRemoveIfTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+$this->expectException('InvalidArgumentException');
+$this->expectExceptionMessageRegExp('/not enough/i');
+
         $batch = $this->createBatch();
 
         $batch->removeIf('alias');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+$this->expectException('InvalidArgumentException');
+$this->expectExceptionMessageRegExp('/too many/i');
+
         $batch = $this->createBatch();
 
         $batch->removeIf('alias', 'comparand', 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /alias/i
-     */
     public function testWrongAliasType()
     {
+$this->expectException('InvalidArgumentException');
+$this->expectExceptionMessageRegExp('/alias/i');
+
         $batch = $this->createBatch();
 
         $batch->removeIf(array(), 'comparand');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /comparand/i
-     */
     public function testWrongComparandType()
     {
+$this->expectException('InvalidArgumentException');
+$this->expectExceptionMessageRegExp('/comparand/i');
+
         $batch = $this->createBatch();
 
         $batch->removeIf('alias', array());
@@ -70,11 +66,10 @@ class QdbBatchRemoveIfTest extends QdbTestBase
         $this->assertEquals('first', $blob->get());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testSideEffect2()
     {
+$this->expectException('QdbAliasNotFoundException');
+
         $batch = $this->createBatch();
         $blob = $this->createEmptyBlob();
 
@@ -113,11 +108,10 @@ class QdbBatchRemoveIfTest extends QdbTestBase
         $this->assertTrue($result[0]);
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testException()
     {
+$this->expectException('QdbAliasNotFoundException');
+
         $batch = $this->createBatch();
 
         $comparand = 'comparand';

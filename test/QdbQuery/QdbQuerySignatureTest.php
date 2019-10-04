@@ -5,29 +5,26 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbQuerySignatureTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $query = $this->cluster->makeQuery();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $query = $this->cluster->makeQuery('CREATE', 'CHOCOLATE');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     */
     public function testIncompatibleType()
     {
+        $this->expectException('InvalidArgumentException');
+        
         $query = $this->cluster->makeQuery(42);
     }
 }

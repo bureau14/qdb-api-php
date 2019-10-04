@@ -38,37 +38,33 @@ class QdbBatchResultTest extends QdbTestBase
         $this->assertFalse(isset($this->result[0]));
     }
 
-    /**
-     * @expectedException   OutOfRangeException
-     */
     public function testOutOfRange()
     {
+        $this->expectException('OutOfRangeException');
+        
         $this->result[-1];
     }
 
-    /**
-     * @expectedException   OutOfBoundsException
-     */
     public function testOutOfBounds()
     {
+        $this->expectException('OutOfBoundsException');
+        
         $this->result[0];
     }
 
-    /**
-     * @expectedException               BadFunctionCallException
-     * @expectedExceptionMessageRegExp  /read-only/i
-     */
     public function testSetForbidden()
     {
+        $this->expectException('BadFunctionCallException');
+        $this->expectExceptionMessageRegExp('/read-only/i');
+        
         $this->result[0] = 1;
     }
 
-    /**
-     * @expectedException               BadFunctionCallException
-     * @expectedExceptionMessageRegExp  /read-only/i
-     */
     public function testUnsetForbidden()
     {
+        $this->expectException('BadFunctionCallException');
+        $this->expectExceptionMessageRegExp('/read-only/i');
+        
         unset($this->result[0]);
     }
 }

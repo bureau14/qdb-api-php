@@ -4,56 +4,50 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbClusterPurgeAllTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $this->cluster->purgeAll(80, "i should not be there");
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /timeout/i
-     */
     public function testNegativeTimeout()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/timeout/i');
+        
         $this->cluster->purgeAll(-120);
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /timeout/i
-     */
     public function testNullTimeout()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/timeout/i');
+        
         $this->cluster->purgeAll(0);
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     */
     public function testInvalidType()
     {
+        $this->expectException('InvalidArgumentException');
+        
         $this->cluster->purgeAll('120 seconds');
     }
 
-    /**
-     * @expectedException               QdbOperationDisabledException
-     * @expectedExceptionMessageRegExp  /disabled/i
-     */
     public function testPositiveTimeout()
     {
+        $this->expectException('QdbOperationDisabledException');
+        $this->expectExceptionMessageRegExp('/disabled/i');
+        
         $this->cluster->purgeAll(120);
     }
 
-    /**
-     * @expectedException               QdbOperationDisabledException
-     * @expectedExceptionMessageRegExp  /disabled/i
-     */
     public function testDefaultTimeout()
     {
+        $this->expectException('QdbOperationDisabledException');
+        $this->expectExceptionMessageRegExp('/disabled/i');
+        
         $this->cluster->purgeAll();
     }
 }

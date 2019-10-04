@@ -4,39 +4,35 @@ use PHPUnit\Framework\TestCase;
 
 class QdbClusterConstructorTest extends TestCase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $qdb = new QdbCluster();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $qdb = new QdbCluster('qdb://127.0.0.1:20552/', 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /must be a string/
-     */
     public function testWrongArgumentype()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/must be a string/');
+        
         $qdb = new QdbCluster(array());
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /URI/
-     */
     public function testInvalidUri()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/URI/');
+        
         $qdb = new QdbCluster('http://www.quasardb.net/');
     }
 

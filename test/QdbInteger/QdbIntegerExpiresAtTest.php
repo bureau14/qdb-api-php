@@ -4,45 +4,41 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbIntegerExpiresAtTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->expiresAt();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->expiresAt(0, 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /expiry/i
-     */
     public function testWrongExpiryType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/expiry/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->expiresAt("i'm an expiry... NOT!");
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     * @expectedExceptionMessageRegExp  /found/i
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        $this->expectExceptionMessageRegExp('/found/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->expiresAt(0);
@@ -79,11 +75,10 @@ class QdbIntegerExpiresAtTest extends QdbTestBase
         $this->assertEquals(0, $integer->getExpiryTime());
     }
 
-    /**
-     * @expectedException           QdbAliasNotFoundException
-     */
     public function testExpiryInThePast()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $integer = $this->createEmptyInteger();
         $expiry = time() - 60;
 

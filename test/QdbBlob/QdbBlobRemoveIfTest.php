@@ -4,54 +4,49 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbBlobRemoveIfTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->removeIf();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->removeIf('comparand', 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /comparand/i
-     */
     public function testWrongComparandType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/comparand/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->removeIf(array());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->removeIf('comparand');
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
     public function DISABLED_testIncompatibleType()
     {
+        $this->expectException('QdbIncompatibleTypeException');
+        
         $alias = createUniqueAlias();
         $this->createInteger($alias);
         $blob = $this->createEmptyBlob($alias);
@@ -59,11 +54,10 @@ class QdbBlobRemoveIfTest extends QdbTestBase
         $blob->removeIf('comparand');
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testRemoveMatching()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->put('comparand');
