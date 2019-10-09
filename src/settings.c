@@ -1,7 +1,5 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
-
-#include <php.h>  // include first to avoid conflict with stdint.h
 
 #include "globals.h"
 #include "log.h"
@@ -16,7 +14,7 @@ static ZEND_INI_MH(OnUpdateLogLevel)
 #endif
 
     int* log_level = (int*)(base + (size_t)mh_arg1);
-    *log_level = log_level_from_name(new_value);
+    *log_level = log_level_from_name(new_value->val);
 
     return SUCCESS;
 }
@@ -27,12 +25,12 @@ STD_PHP_INI_ENTRY(
 STD_PHP_INI_ENTRY("quasardb.persistent", "1", PHP_INI_ALL, OnUpdateBool, persistent, zend_qdb_globals, qdb_globals)
 PHP_INI_END()
 
-void settings_init(int module_number TSRMLS_DC)
+void settings_init(int module_number)
 {
     REGISTER_INI_ENTRIES();
 }
 
-void settings_shutdown(int module_number TSRMLS_DC)
+void settings_shutdown(int module_number)
 {
     UNREGISTER_INI_ENTRIES();
 }

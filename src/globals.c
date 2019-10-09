@@ -1,7 +1,5 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
-
-#include <php.h>  // include first to avoid conflict with stdint.h
 
 #include "globals.h"
 #include "log.h"

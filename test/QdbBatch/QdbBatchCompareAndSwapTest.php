@@ -4,67 +4,61 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbBatchCompareAndSwapTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $batch = $this->createBatch();
 
         $batch->compareAndSwap('alias', 'content');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $batch = $this->createBatch();
 
         $batch->compareAndSwap('alias', 'content', 'comparand', 0, 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /alias/i
-     */
     public function testWrongAliasType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/alias/i');
+        
         $batch = $this->createBatch();
 
         $batch->compareAndSwap(array(), 'content', 'comparand');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /content/i
-     */
     public function testWrongContentType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/content/i');
+        
         $batch = $this->createBatch();
 
         $batch->compareAndSwap('alias', array(), 'comparand');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /comparand/i
-     */
     public function testWrongComparandType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/comparand/i');
+        
         $batch = $this->createBatch();
 
         $batch->compareAndSwap('alias', 'content', array());
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /expiry/i
-     */
     public function testWrongExpiryType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/expiry/i');
+        
         $batch = $this->createBatch();
 
         $batch->compareAndSwap('alias', 'content', 'comparand', array());
@@ -129,11 +123,10 @@ class QdbBatchCompareAndSwapTest extends QdbTestBase
         $this->assertEquals($expiry1, $blob->getExpiryTime());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testException()
     {
+        $this->expectException('QdbAliasNotFoundException');
+
         $batch = $this->createBatch();
 
         $batch->compareAndSwap(createUniqueAlias(), 'content', 'comparand');

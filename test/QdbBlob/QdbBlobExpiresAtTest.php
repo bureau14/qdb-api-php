@@ -4,45 +4,41 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbBlobExpiresAtTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->expiresAt();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->expiresAt(0, 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /expiry/i
-     */
     public function testWrongExpiryType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/expiry/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->expiresAt(array());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     * @expectedExceptionMessageRegExp  /found/i
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        $this->expectExceptionMessageRegExp('/found/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->expiresAt(0);
@@ -80,11 +76,10 @@ class QdbBlobExpiresAtTest extends QdbTestBase
         $this->assertEquals(0, $blob->getExpiryTime());
     }
 
-    /**
-     * @expectedException           QdbAliasNotFoundException
-     */
     public function testExpiryInThePast()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $blob = $this->createEmptyBlob();
 
         $expiry = time() - 60;

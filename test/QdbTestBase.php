@@ -10,11 +10,13 @@ function createRandomContent()
     return md5(rand());
 }
 
-abstract class QdbTestBase extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class QdbTestBase extends TestCase
 {
     protected $cluster;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cluster = new QdbCluster('qdb://127.0.0.1:20552/');
     }

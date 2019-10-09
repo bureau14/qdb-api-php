@@ -1,10 +1,12 @@
 <?php
 
-class PhpInfoTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PhpInfoTest extends TestCase
 {
     private $info;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         ob_start();
         date_default_timezone_set("Europe/Paris");

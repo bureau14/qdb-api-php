@@ -1,25 +1,20 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
-
-#include <php.h>  // include first to avoid conflict with stdint.h
-#include <spl/spl_iterators.h>
-#include <zend_interfaces.h>
 
 #include "QdbTag.h"
 #include "QdbTagCollection.h"
 #include "class_definition.h"
 #include "exceptions.h"
-
+#include <zend_interfaces.h>
 #include <qdb/client.h>
 
 #define class_name QdbTagCollection
 #define class_storage tag_collection_t
-#define class_interfaces 1, spl_ce_Iterator
+#define class_interfaces 1, zend_ce_iterator
 
 
 typedef struct
 {
-    zend_object std;
     qdb_handle_t handle;
     const char** tags;
     size_t tags_count;
@@ -30,12 +25,10 @@ extern zend_class_entry* ce_QdbTagCollection;
 
 
 void QdbTagCollection_createInstance(
-    zval* destination, qdb_handle_t handle, const char** tags, size_t tags_count TSRMLS_DC)
+    zval* destination, qdb_handle_t handle, const char** tags, size_t tags_count)
 {
-    tag_collection_t* this;
-
     object_init_ex(destination, ce_QdbTagCollection);
-    this = (tag_collection_t*)zend_object_store_get_object(destination TSRMLS_CC);
+    tag_collection_t* this = get_class_storage(destination);
 
     this->handle = handle;
     this->tags = tags;
@@ -53,11 +46,10 @@ CLASS_METHOD_0(current)  // inherited from Iterator
 {
     if (this->current >= this->tags_count) return;
 
-    zval* alias;
-    ALLOC_INIT_ZVAL(alias);
-    ZVAL_STRING(alias, this->tags[this->current], /*dup=*/1);
+    zval alias;
+    ZVAL_STRING(&alias, this->tags[this->current]);
 
-    QdbTag_createInstance(return_value, this->handle, alias TSRMLS_CC);
+    QdbTag_createInstance(return_value, this->handle, &alias);
 }
 
 CLASS_METHOD_0(key)  // inherited from Iterator

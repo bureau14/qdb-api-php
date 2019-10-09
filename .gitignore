@@ -34,3 +34,6 @@
 
 # Sublime Text files
 /sftp-config*.json
+
+# IDE files
+/.vscode

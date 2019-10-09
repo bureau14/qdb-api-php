@@ -4,55 +4,50 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbIntegerUpdateTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->update();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->update(42, 0, 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /value/i
-     */
     public function testWrongContentType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/value/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->update("i'm an integer... NOT!");
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /expiry/i
-     */
     public function testWrongExpiryType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/expiry/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->update(42, "i'm an expiry... NOT!");
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
     public function testIncompatibleType()
     {
+        $this->expectException('QdbIncompatibleTypeException');
+        
         $alias = createUniqueAlias();
         $blob = $this->createBlob($alias);
         $integer = $this->createEmptyInteger($alias);
@@ -105,11 +100,10 @@ class QdbIntegerUpdateTest extends QdbTestBase
         $this->assertEquals(42,  $integer->get());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testWithExpiryInThePast()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->update(42, time() - 60);

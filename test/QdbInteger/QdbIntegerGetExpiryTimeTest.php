@@ -4,23 +4,21 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbIntegerGetExpiryTimeTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->getExpiryTime('i should not be there');
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     * @expectedExceptionMessageRegExp  /found/i
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        $this->expectExceptionMessageRegExp('/found/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->getExpiryTime();

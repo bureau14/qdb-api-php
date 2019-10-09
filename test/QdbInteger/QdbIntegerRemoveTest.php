@@ -4,22 +4,20 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbIntegerRemoveTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->remove('i should not be there');
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->remove();
@@ -46,11 +44,10 @@ class QdbIntegerRemoveTest extends QdbTestBase
         $this->assertEquals(2, $integer->get());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testRemoveTwice()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->put(42);

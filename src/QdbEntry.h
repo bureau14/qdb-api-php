@@ -1,25 +1,24 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
 
 #ifndef QDB_ENTRY
 #define QDB_ENTRY
 
-#include <php.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/client.h>
 
 typedef struct
 {
-    zend_object std;
     qdb_handle_t handle;
-    zval* alias;
+    zval alias;
 } entry_t;
 
-void QdbEntry_registerClass(TSRMLS_D);
+void QdbEntry_registerClass();
 
-void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC);
+void QdbEntry_constructInstance(zval* destination, qdb_handle_t handle, zval* alias);
 
-zval* QdbEntry_getAlias(zval* object TSRMLS_DC);
+zval* QdbEntry_getAlias(zval* object);
 
-int QdbEntry_isInstance(zval* object TSRMLS_DC);
+int QdbEntry_isInstance(zval* object);
 
 #endif /* QDB_ENTRY */

@@ -4,32 +4,29 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbBlobGetAndRemoveTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->getAndRemove('i should not be there');
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->getAndRemove();
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
     public function DISABLED_testIncompatibleType()
     {
+        $this->expectException('QdbIncompatibleTypeException');
+        
         $alias = createUniqueAlias();
         $this->createInteger($alias);
         $blob = $this->createEmptyBlob($alias);
@@ -48,11 +45,10 @@ class QdbBlobGetAndRemoveTest extends QdbTestBase
         $this->assertEquals($content, $result);
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testAliasRemoved()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $blob = $this->createBlob();
 
         $blob->getAndRemove();

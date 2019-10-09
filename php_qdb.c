@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
 
 #include <php.h>  // include first to avoid conflict with stdint.h
@@ -14,8 +14,14 @@
 #include "src/QdbEntryCollection.h"
 #include "src/QdbExpirableEntry.h"
 #include "src/QdbInteger.h"
+#include "src/QdbQuery.h"
+#include "src/QdbQueryPoint.h"
+#include "src/QdbQueryTable.h"
 #include "src/QdbTag.h"
 #include "src/QdbTagCollection.h"
+#include "src/QdbTimestamp.h"
+#include "src/QdbTsBatchColumnInfo.h"
+#include "src/QdbTsBatchTable.h"
 #include "src/connection.h"
 #include "src/exceptions.h"
 #include "src/globals.h"
@@ -24,26 +30,33 @@
 static PHP_MINIT_FUNCTION(quasardb)
 {
     globals_init();
-    settings_init(module_number TSRMLS_CC);
-    exceptions_init(TSRMLS_C);
-    connection_init(TSRMLS_C);
-    QdbEntry_registerClass(TSRMLS_C);           // <- before derived classes
-    QdbExpirableEntry_registerClass(TSRMLS_C);  // <- before derived classes
-    QdbEntryCollection_registerClass(TSRMLS_C);
-    QdbBatch_registerClass(TSRMLS_C);
-    QdbBatchResult_registerClass(TSRMLS_C);
-    QdbBlob_registerClass(TSRMLS_C);
-    QdbCluster_registerClass(TSRMLS_C);
-    QdbInteger_registerClass(TSRMLS_C);
-    QdbTag_registerClass(TSRMLS_C);
-    QdbTagCollection_registerClass(TSRMLS_C);
+    settings_init(module_number);
+    exceptions_init();
+    connection_init();
+    QdbEntry_registerClass();           // <- before derived classes
+    QdbExpirableEntry_registerClass();  // <- before derived classes
+    QdbEntryCollection_registerClass();
+    QdbBatch_registerClass();
+    QdbBatchResult_registerClass();
+    QdbBlob_registerClass();
+    QdbCluster_registerClass();
+    QdbInteger_registerClass();
+    QdbQuery_registerClass();
+    QdbQueryPoint_registerClass();
+    QdbQueryTable_registerClass();
+    QdbTag_registerClass();
+    QdbTagCollection_registerClass();
+    QdbTimestamp_registerClass();
+    QdbTsBatchColumnInfo_registerClass();
+    QdbTsBatchTable_registerClass();
+    init_query_point_types();
     return SUCCESS;
 }
 
 static PHP_MSHUTDOWN_FUNCTION(quasardb)
 {
-    connection_shutdown(TSRMLS_C);
-    settings_shutdown(module_number TSRMLS_CC);
+    connection_shutdown();
+    settings_shutdown(module_number);
     return SUCCESS;
 }
 
