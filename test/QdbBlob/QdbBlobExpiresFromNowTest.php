@@ -4,44 +4,40 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbBlobExpiresFromNowTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->expiresFromNow();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->expiresFromNow(0, 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /expiry/i
-     */
     public function testWrongExpiryType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/expiry/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->expiresFromNow(array());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->expiresFromNow(0);
@@ -67,11 +63,10 @@ class QdbBlobExpiresFromNowTest extends QdbTestBase
         $this->assertGreaterThan(time(), $blob->getExpiryTime());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testExpiryInThePast()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->put('content');

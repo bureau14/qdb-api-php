@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
+<package version="2.1" xmlns="http://pear.php.net/dtd/package-3.3"
   xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+  xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-3.3 http://pear.php.net/dtd/package-3.3.xsd">
   <name>quasardb</name>
   <channel>pecl.php.net</channel>
   <summary>Quasardb PHP extension</summary>
@@ -54,6 +54,7 @@
         <file role="src" name="globals.h"/>
         <file role="src" name="log.c"/>
         <file role="src" name="log.h"/>
+        <file role="src" name="php_include.h"/>
         <file role="src" name="QdbBatch.c"/>
         <file role="src" name="QdbBatch.h"/>
         <file role="src" name="QdbBatchResult.c"/>
@@ -72,10 +73,22 @@
         <file role="src" name="QdbExpirableEntry.h"/>
         <file role="src" name="QdbInteger.c"/>
         <file role="src" name="QdbInteger.h"/>
+        <file role="src" name="QdbQuery.c"/>
+        <file role="src" name="QdbQuery.h"/>
+        <file role="src" name="QdbQueryPoint.c"/>
+        <file role="src" name="QdbQueryPoint.h"/>
+        <file role="src" name="QdbQueryTable.c"/>
+        <file role="src" name="QdbQueryTable.h"/>
         <file role="src" name="QdbTag.c"/>
         <file role="src" name="QdbTag.h"/>
         <file role="src" name="QdbTagCollection.c"/>
         <file role="src" name="QdbTagCollection.h"/>
+        <file role="src" name="QdbTimestamp.c"/>
+        <file role="src" name="QdbTimestamp.h"/>
+        <file role="src" name="QdbTsBatchColumnInfo.c"/>
+        <file role="src" name="QdbTsBatchColumnInfo.h"/>
+        <file role="src" name="QdbTsBatchTable.c"/>
+        <file role="src" name="QdbTsBatchTable.h"/>
         <file role="src" name="settings.c"/>
         <file role="src" name="settings.h"/>
       </dir>
@@ -84,7 +97,7 @@
   <dependencies>
     <required>
       <php>
-        <min>5.1</min>
+        <min>7.3</min>
       </php>
       <pearinstaller>
         <min>1.4</min>

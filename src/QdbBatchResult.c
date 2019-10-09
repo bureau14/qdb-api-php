@@ -1,24 +1,19 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
-
-#include <php.h>  // include first to avoid conflict with stdint.h
-#include <spl/spl_iterators.h>
-#include <zend_interfaces.h>
 
 #include "QdbBatchResult.h"
 #include "class_definition.h"
 #include "exceptions.h"
-
+#include <php.h>
+#include <zend_interfaces.h>
 #include <qdb/client.h>
 
 #define class_name QdbBatchResult
 #define class_storage batch_result_t
-#define class_interfaces 2, spl_ce_Countable, zend_ce_arrayaccess
-
+#define class_interfaces 2, zend_ce_countable, zend_ce_arrayaccess
 
 typedef struct
 {
-    zend_object std;
     qdb_handle_t handle;
     qdb_operation_t* operations;
     size_t operations_count;
@@ -26,16 +21,14 @@ typedef struct
 
 extern zend_class_entry* ce_QdbBatchResult;
 
-static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC);
+static void getOperationResult(zval* return_value, qdb_operation_t* op);
 
 
 void QdbBatchResult_createInstance(
-    zval* destination, qdb_handle_t handle, qdb_operation_t* operations, size_t operations_count TSRMLS_DC)
+    zval* destination, qdb_handle_t handle, qdb_operation_t* operations, size_t operations_count)
 {
-    batch_result_t* this;
-
     object_init_ex(destination, ce_QdbBatchResult);
-    this = (batch_result_t*)zend_object_store_get_object(destination TSRMLS_CC);
+    batch_result_t* this = get_class_storage(destination);
 
     this->handle = handle;
     this->operations = operations;
@@ -77,7 +70,7 @@ CLASS_METHOD_1(offsetGet, MIXED_ARG(offset))  // inherited from ArrayAccess
         return;
     }
 
-    getOperationResult(return_value, &this->operations[index] TSRMLS_CC);
+    getOperationResult(return_value, &this->operations[index]);
 }
 
 CLASS_METHOD_2(offsetSet, MIXED_ARG(offset), MIXED_ARG(value))  // inherited from ArrayAccess
@@ -106,7 +99,7 @@ END_CLASS_MEMBERS()
 
 #include "class_definition.i"
 
-static void getCompareAndSwapResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+static void getCompareAndSwapResult(zval* return_value, qdb_operation_t* op)
 {
     switch (op->error)
     {
@@ -115,7 +108,7 @@ static void getCompareAndSwapResult(zval* return_value, qdb_operation_t* op TSRM
             break;
 
         case qdb_e_unmatched_content:
-            RETVAL_STRINGL(op->blob_cas.original_content, (int)op->blob_cas.original_content_size, /*duplicate=*/1);
+            RETVAL_STRINGL(op->blob_cas.original_content, (int)op->blob_cas.original_content_size);
             break;
 
         default:
@@ -124,12 +117,12 @@ static void getCompareAndSwapResult(zval* return_value, qdb_operation_t* op TSRM
     }
 }
 
-static void getGetResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+static void getGetResult(zval* return_value, qdb_operation_t* op)
 {
     switch (op->error)
     {
         case qdb_e_ok:
-            RETVAL_STRINGL(op->blob_get.content, (int)op->blob_get.content_size, /*duplicate=*/1);
+            RETVAL_STRINGL(op->blob_get.content, (int)op->blob_get.content_size);
             break;
 
         default:
@@ -138,14 +131,12 @@ static void getGetResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
     }
 }
 
-static void getGetAndUpdateResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+static void getGetAndUpdateResult(zval* return_value, qdb_operation_t* op)
 {
     switch (op->error)
     {
         case qdb_e_ok:
-            RETVAL_STRINGL(op->blob_get_and_update.original_content,
-                (int)op->blob_get_and_update.original_content_size,
-                /*duplicate=*/1);
+            RETVAL_STRINGL(op->blob_get_and_update.original_content, (int)op->blob_get_and_update.original_content_size);
             break;
 
         default:
@@ -155,7 +146,7 @@ static void getGetAndUpdateResult(zval* return_value, qdb_operation_t* op TSRMLS
 }
 
 #if 0
-static void getRemoveIfResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+static void getRemoveIfResult(zval* return_value, qdb_operation_t* op)
 {
     switch (op->error)
     {
@@ -174,7 +165,7 @@ static void getRemoveIfResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
 }
 #endif
 
-static void getBlobUpdateResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+static void getBlobUpdateResult(zval* return_value, qdb_operation_t* op)
 {
     switch (op->error)
     {
@@ -192,7 +183,7 @@ static void getBlobUpdateResult(zval* return_value, qdb_operation_t* op TSRMLS_D
     }
 }
 
-static void getOtherOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+static void getOtherOperationResult(zval* return_value, qdb_operation_t* op)
 {
     switch (op->error)
     {
@@ -206,34 +197,34 @@ static void getOtherOperationResult(zval* return_value, qdb_operation_t* op TSRM
     }
 }
 
-static void getOperationResult(zval* return_value, qdb_operation_t* op TSRMLS_DC)
+static void getOperationResult(zval* return_value, qdb_operation_t* op)
 {
     switch (op->type)
     {
         case qdb_op_blob_cas:
-            getCompareAndSwapResult(return_value, op TSRMLS_CC);
+            getCompareAndSwapResult(return_value, op);
             break;
 
         case qdb_op_blob_get:
-            getGetResult(return_value, op TSRMLS_CC);
+            getGetResult(return_value, op);
             break;
 
         case qdb_op_blob_get_and_update:
-            getGetAndUpdateResult(return_value, op TSRMLS_CC);
+            getGetAndUpdateResult(return_value, op);
             break;
 
 #if 0
         case qdb_op_blob_remove_if:
-            getRemoveIfResult(return_value, op TSRMLS_CC);
+            getRemoveIfResult(return_value, op);
             break;
 #endif
 
         case qdb_op_blob_update:
-            getBlobUpdateResult(return_value, op TSRMLS_CC);
+            getBlobUpdateResult(return_value, op);
             break;
 
         default:
-            getOtherOperationResult(return_value, op TSRMLS_CC);
+            getOtherOperationResult(return_value, op);
             break;
     }
 }

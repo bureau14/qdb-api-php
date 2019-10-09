@@ -4,30 +4,27 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbClusterBlobTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $this->cluster->blob();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $this->cluster->blob('alias', 0);
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /alias/i
-     */
     public function testWrongAliasType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/alias/i');
+        
         $this->cluster->blob(array());
     }
 

@@ -4,38 +4,34 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbClusterEntryTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $this->cluster->entry();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $this->cluster->entry('alias', 0);
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /alias/i
-     */
     public function testWrongAliasType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/alias/i');
+        
         $this->cluster->entry(array());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $this->cluster->entry(createUniqueAlias());
     }
 

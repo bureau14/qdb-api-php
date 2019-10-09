@@ -4,55 +4,50 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbTagAttachEntryTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $tag = $this->createEmptyTag();
 
         $tag->attachEntry();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $tag = $this->createEmptyTag();
 
         $tag->attachEntry('entry', 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /entry/i
-     */
     public function testInvalidArgument()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/entry/i');
+        
         $tag = $this->createEmptyTag();
 
         $tag->attachEntry(array());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     * @expectedExceptionMessageRegExp  /found/i
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        $this->expectExceptionMessageRegExp('/found/i');
+        
         $tag = $this->createEmptyTag();
 
         $tag->attachEntry('entry');
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
     public function testIncompatibleType()
     {
+        $this->expectException('QdbIncompatibleTypeException');
+        
         $tag = $this->createEmptyTag();
         $blob = $this->createBlob($tag->alias());
 

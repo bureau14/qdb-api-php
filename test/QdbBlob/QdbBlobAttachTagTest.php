@@ -4,54 +4,49 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbBlobAttachTagTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->attachTag();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->attachTag('tag', 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /tag/i
-     */
     public function testInvalidArgument()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/tag/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->attachTag(array());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->attachTag('tag');
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
     public function testIncompatibleType()
     {
+        $this->expectException('QdbIncompatibleTypeException');
+        
         $alias = createUniqueAlias();
         $blob = $this->createBlob($alias);
         $tag = $this->createEmptyTag($alias);

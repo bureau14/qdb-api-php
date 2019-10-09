@@ -1,13 +1,14 @@
 <?php
 
-class QdbBatchConstructTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class QdbBatchConstructTest extends TestCase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $batch = new QdbBatch('hello');
     }
 }

@@ -4,56 +4,51 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbBatchPutTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $batch = $this->createBatch();
 
         $batch->put('alias');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $batch = $this->createBatch();
 
         $batch->put('alias', 'content', 0, 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /alias/i
-     */
     public function testWrongAliasType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/alias/i');
+        
         $batch = $this->createBatch();
 
         $batch->put(array(), 'content');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /content/i
-     */
     public function testWrongContentType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/content/i');
+        
         $batch = $this->createBatch();
 
         $batch->put('alias', array());
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /expiry/i
-     */
     public function testWrongExpiryType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/expiry/i');
+        
         $batch = $this->createBatch();
 
         $batch->put('alias', 'content', array());
@@ -96,11 +91,10 @@ class QdbBatchPutTest extends QdbTestBase
         $this->assertNull($result[0]);
     }
 
-    /**
-     * @expectedException               QdbAliasAlreadyExistsException
-     */
     public function testException()
     {
+        $this->expectException('QdbAliasAlreadyExistsException');
+        
         $batch = $this->createBatch();
         $blob = $this->createEmptyBlob();
 

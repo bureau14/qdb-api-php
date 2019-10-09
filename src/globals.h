@@ -1,10 +1,10 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
 
 #ifndef QDB_GLOBALS_H
 #define QDB_GLOBALS_H
 
-#include <php.h>  // include first to avoid conflict with stdint.h
+#include "php_include.h"
 #include <qdb/client.h>
 #include <qdb/log.h>
 

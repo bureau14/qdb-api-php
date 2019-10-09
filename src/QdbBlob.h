@@ -1,15 +1,16 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
 
 #ifndef QDB_BLOB_H
 #define QDB_BLOB_H
 
-#include <zend.h>  // include first to avoid conflict with stdint.h
-
+#include "php_include.h"
 #include <qdb/client.h>
 
-void QdbBlob_registerClass(TSRMLS_D);
+extern zend_class_entry* ce_QdbBlob;
 
-void QdbBlob_createInstance(zval* destination, qdb_handle_t handle, zval* alias TSRMLS_DC);
+void QdbBlob_registerClass();
+
+void QdbBlob_createInstance(zval* destination, qdb_handle_t handle, zval* alias);
 
 #endif /* QDB_BLOB_H */

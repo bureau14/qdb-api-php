@@ -1,44 +1,71 @@
-// Copyright (c) 2009-2016, quasardb SAS
-// All rights reserved.
+
+// Need the following defines :
+// #define class_storage    <the class's associated struct>
+// #define class_name       <the PHP class name>
+// #define class_parent     <optional, the PHP parent class>
+// #define class_interfaces <optional, <number of interfaces>, <interfaces names, ...>>
 
 #define CLASS_ENTRY XCONCAT(ce_,class_name)
-zend_class_entry *CLASS_ENTRY;
+zend_class_entry* CLASS_ENTRY = NULL;
 
 #ifdef class_parent
 #define BASE_CLASS_ENTRY XCONCAT(ce_,class_parent)
-extern zend_class_entry *BASE_CLASS_ENTRY;
+extern zend_class_entry* BASE_CLASS_ENTRY;
 #endif
 
 static zend_object_handlers object_handlers;
 
-// class_definition.c
-void free_object_storage(void* TSRMLS_DC);
-zend_object_value alloc_object_storage(zend_class_entry *, zend_object_handlers*, size_t TSRMLS_DC);
+#define BOXED_STORAGE XCONCAT(_boxed_,class_storage)
 
-static zend_object_value create_object(zend_class_entry *ce TSRMLS_DC)
-{
-    return alloc_object_storage(ce, &object_handlers, sizeof(class_storage) TSRMLS_CC);
+typedef struct {
+    class_storage storage;
+    zend_object std;
+} BOXED_STORAGE;
+
+static BOXED_STORAGE* get_boxed_storage(zend_object* obj) {
+    return (BOXED_STORAGE*)((char*)(obj) - offsetof(BOXED_STORAGE, std));
 }
 
-void XCONCAT(class_name, _registerClass)(TSRMLS_D)
+static void* _get_class_storage(const zval* this) {
+	return &get_boxed_storage(Z_OBJ_P(this))->storage;
+}
+
+static void free_boxed_storage(zend_object* obj) {
+    BOXED_STORAGE* box = get_boxed_storage(obj);
+	zend_object_std_dtor(&box->std);
+}
+
+static zend_object* create_object(zend_class_entry* ce)
+{
+    BOXED_STORAGE* box = zend_object_alloc(sizeof(BOXED_STORAGE), ce);
+	zend_object_std_init(&box->std, ce);
+	object_properties_init(&box->std, ce);
+	box->std.handlers = &object_handlers;
+    return &box->std;
+}
+
+void XCONCAT(class_name, _registerClass)()
 {
     zend_class_entry ce;
     INIT_CLASS_ENTRY(ce, XSTR(class_name), methods);
+    ce.create_object = create_object;
 #ifdef BASE_CLASS_ENTRY
-    CLASS_ENTRY = zend_register_internal_class_ex(&ce, BASE_CLASS_ENTRY, NULL TSRMLS_CC);
+    CLASS_ENTRY = zend_register_internal_class_ex(&ce, BASE_CLASS_ENTRY);
 #else
-    CLASS_ENTRY = zend_register_internal_class(&ce TSRMLS_CC);
+    CLASS_ENTRY = zend_register_internal_class(&ce);
 #endif
-    CLASS_ENTRY->create_object = create_object;
-    memcpy(&object_handlers, zend_get_std_object_handlers(), sizeof(zend_object_handlers));
+
+    memcpy(&object_handlers, &std_object_handlers, sizeof(zend_object_handlers));
+    object_handlers.offset    = offsetof(BOXED_STORAGE, std);
     object_handlers.clone_obj = NULL;
+	object_handlers.free_obj  = free_boxed_storage;
 
 #ifdef class_interfaces
-    zend_class_implements(CLASS_ENTRY TSRMLS_CC, class_interfaces);
+    zend_class_implements(CLASS_ENTRY, class_interfaces);
 #endif
 }
 
-int XCONCAT(class_name, _isInstance)(zval* object TSRMLS_DC)
+int XCONCAT(class_name, _isInstance)(zval* object)
 {
-    return Z_TYPE_P(object) == IS_OBJECT && instanceof_function(Z_OBJCE_P(object), CLASS_ENTRY TSRMLS_CC);
+    return Z_TYPE_P(object) == IS_OBJECT && instanceof_function(Z_OBJCE_P(object), CLASS_ENTRY);
 }

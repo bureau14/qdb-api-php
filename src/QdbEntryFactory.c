@@ -1,51 +1,45 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
-
-#include <php.h>  // include first to avoid conflict with stdint.h
-#include <spl/spl_iterators.h>
-#include <zend_interfaces.h>
 
 #include "QdbBlob.h"
 #include "QdbEntryFactory.h"
+#include "QdbExpirableEntry.h"
 #include "QdbInteger.h"
 #include "QdbTag.h"
 #include "exceptions.h"
 
 void QdbEntryFactory_createFromType(
-    zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias TSRMLS_DC)
+    zval* destination, qdb_handle_t handle, qdb_entry_type_t type, const char* alias)
 {
-    zval* zalias;
-    ALLOC_INIT_ZVAL(zalias);
-    ZVAL_STRING(zalias, alias, /*dup=*/1);
-
+    zend_class_entry* ce = NULL;
     switch (type)
     {
         case qdb_entry_blob:
-            QdbBlob_createInstance(destination, handle, zalias TSRMLS_CC);
+            ce = ce_QdbBlob;
             break;
-
         case qdb_entry_integer:
-            QdbInteger_createInstance(destination, handle, zalias TSRMLS_CC);
+            ce = ce_QdbInteger;
             break;
-
         case qdb_entry_tag:
-            QdbTag_createInstance(destination, handle, zalias TSRMLS_CC);
+            ce = ce_QdbTag;
             break;
-
         default:
             throw_bad_function_call("Entry type not supported, please update quasardb PHP API.");
-            break;
     }
+    object_init_ex(destination, ce);
+    
+    zval zalias;
+    ZVAL_STRING(&zalias, alias);
+    QdbExpirableEntry_constructInstance(destination, handle, &zalias);
 }
 
-
-qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias TSRMLS_DC)
+qdb_error_t QdbEntryFactory_createFromAlias(zval* destination, qdb_handle_t handle, const char* alias)
 {
     qdb_entry_metadata_t meta;
     qdb_error_t error = qdb_get_metadata(handle, alias, &meta);
 
     if (error) return error;
 
-    QdbEntryFactory_createFromType(destination, handle, meta.type, alias TSRMLS_CC);
+    QdbEntryFactory_createFromType(destination, handle, meta.type, alias);
     return qdb_e_ok;
 }

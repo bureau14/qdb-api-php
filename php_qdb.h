@@ -1,11 +1,11 @@
-// Copyright (c) 2009-2016, quasardb SAS
+// Copyright (c) 2009-2019, quasardb SAS
 // All rights reserved.
 
 #ifndef PHP_QUASARDB_H
 #define PHP_QUASARDB_H
 
 #define PHP_QUASARDB_EXTNAME "quasardb"
-#define PHP_QUASARDB_EXTVER "2.0.0"
+#define PHP_QUASARDB_EXTVER "3.3.0"
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"

@@ -4,33 +4,30 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbIntegerAddTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->add();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->add(42, 'i should not be there');
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
     public function testIncompatibleType()
     {
+        $this->expectException('QdbIncompatibleTypeException');
+        
         $blob = $this->createBlob();
         $integer = $this->createEmptyInteger($blob->alias());
 

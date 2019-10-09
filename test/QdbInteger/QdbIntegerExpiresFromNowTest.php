@@ -4,44 +4,40 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbIntegerExpiresFromNowTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->expiresFromNow();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->expiresFromNow(0, 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /expiry/i
-     */
     public function testWrongExpiryType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/expiry/i');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->expiresFromNow("i'm an expiry... NOT!");
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testAliasNotFound()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->expiresFromNow(0);
@@ -67,11 +63,10 @@ class QdbIntegerExpiresFromNowTest extends QdbTestBase
         $this->assertGreaterThan(time(), $integer->getExpiryTime());
     }
 
-    /**
-     * @expectedException               QdbAliasNotFoundException
-     */
     public function testExpiryInThePast()
     {
+        $this->expectException('QdbAliasNotFoundException');
+        
         $integer = $this->createEmptyInteger();
 
         $integer->put(42);

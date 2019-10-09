@@ -4,55 +4,50 @@ require_once 'QdbBlobGetTest.php';
 
 class QdbBlobGetAndUpdateTest extends QdbBlobGetTest
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->getAndUpdate();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->getAndUpdate('content', 0, 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /content/i
-     */
     public function testWrongContentType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/content/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->getAndUpdate(array());
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /expiry/i
-     */
     public function testWrongExpiryType()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/expiry/i');
+        
         $blob = $this->createEmptyBlob();
 
         $blob->getAndUpdate('content', array());
     }
 
-    /**
-     * @expectedException               QdbIncompatibleTypeException
-     */
     public function testIncompatibleType()
     {
+        $this->expectException('QdbIncompatibleTypeException');
+        
         $alias = createUniqueAlias();
         $this->createInteger($alias);
         $blob = $this->createEmptyBlob($alias);

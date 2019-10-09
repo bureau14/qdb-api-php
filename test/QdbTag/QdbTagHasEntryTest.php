@@ -4,34 +4,31 @@ require_once dirname(__FILE__).'/../QdbTestBase.php';
 
 class QdbTagHasEntryTest extends QdbTestBase
 {
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /not enough/i
-     */
     public function testNotEnoughArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/not enough/i');
+        
         $tag = $this->createEmptyTag();
 
         $tag->hasEntry();
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /too many/i
-     */
     public function testTooManyArguments()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/too many/i');
+        
         $tag = $this->createEmptyTag();
 
         $tag->hasEntry('entry', 'i should not be there');
     }
 
-    /**
-     * @expectedException               InvalidArgumentException
-     * @expectedExceptionMessageRegExp  /entry/i
-     */
     public function testInvalidArgument()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessageRegExp('/entry/i');
+        
         $tag = $this->createEmptyTag();
 
         $tag->hasEntry(array());
