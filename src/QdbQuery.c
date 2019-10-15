@@ -2,6 +2,7 @@
 // All rights reserved.
 
 #include "QdbQuery.h"
+#include "QdbQueryPoint.h"
 #include "QdbTimestamp.h"
 #include "class_definition.h"
 #include "exceptions.h"
