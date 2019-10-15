@@ -43,7 +43,6 @@ if (PHP_QUASARDB != "no") {
         QdbExpirableEntry.c \
         QdbInteger.c \
         QdbQuery.c \
-        QdbQueryTable.c \
         QdbQueryPoint.c \
         QdbTag.c \
         QdbTagCollection.c \
