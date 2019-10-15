@@ -79,7 +79,7 @@ CLASS_METHOD_0(__destruct)
 
 CLASS_METHOD_0(columnNames)
 {
-    ZVAL_COPY(return_value, &this->columns_names);
+    ZVAL_COPY(return_value, &this->column_names);
 }
 
 CLASS_METHOD_0(rows)
