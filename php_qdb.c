@@ -16,7 +16,6 @@
 #include "src/QdbInteger.h"
 #include "src/QdbQuery.h"
 #include "src/QdbQueryPoint.h"
-#include "src/QdbQueryTable.h"
 #include "src/QdbTag.h"
 #include "src/QdbTagCollection.h"
 #include "src/QdbTimestamp.h"
@@ -43,7 +42,6 @@ static PHP_MINIT_FUNCTION(quasardb)
     QdbInteger_registerClass();
     QdbQuery_registerClass();
     QdbQueryPoint_registerClass();
-    QdbQueryTable_registerClass();
     QdbTag_registerClass();
     QdbTagCollection_registerClass();
     QdbTimestamp_registerClass();
