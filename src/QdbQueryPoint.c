@@ -18,7 +18,8 @@ typedef struct
 extern zend_class_entry* ce_QdbQueryPoint;
 
 int init_query_point_types() {
-    return zend_declare_class_constant_long(ce_QdbQueryPoint, "BLOB", sizeof("BLOB")-1, qdb_query_result_blob) == SUCCESS
+    return zend_declare_class_constant_long(ce_QdbQueryPoint, "NONE", sizeof("NONE")-1, qdb_query_result_none) == SUCCESS
+        && zend_declare_class_constant_long(ce_QdbQueryPoint, "BLOB", sizeof("BLOB")-1, qdb_query_result_blob) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "COUNT", sizeof("COUNT")-1, qdb_query_result_count) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "DOUBLE", sizeof("DOUBLE")-1, qdb_query_result_double) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "INT64", sizeof("INT64")-1, qdb_query_result_int64) == SUCCESS
@@ -27,16 +28,16 @@ int init_query_point_types() {
 
 void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
 {
-    if (point->type < qdb_query_result_double || point->type > qdb_query_result_count)
+    if (point->type < qdb_query_result_none || point->type > qdb_query_result_count)
         throw_invalid_argument("Got invalid query point");
 
     object_init_ex(destination, ce_QdbQueryPoint);
     class_storage* this = get_class_storage(destination);
 
     ZVAL_LONG(&this->type, point->type);
-
     switch (point->type)
     {
+    case qdb_query_result_none: break;
     case qdb_query_result_blob:
         if (point->payload.blob.content_length == 0u) break;
         ZVAL_STRINGL(&this->value, point->payload.blob.content, point->payload.blob.content_length);
