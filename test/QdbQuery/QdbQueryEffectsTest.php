@@ -47,7 +47,7 @@ class QdbQueryEffectsTest extends QdbTestBase
             $this->assertEquals($query->rows()[1][3]->value(), 22);
         }
         finally {
-            checkEmptyQuery('DROP TABLE persons');
+            $this->checkEmptyQuery('DROP TABLE persons');
         }
     }
     
@@ -65,8 +65,8 @@ class QdbQueryEffectsTest extends QdbTestBase
             $this->assertEquals($query->columnNames(), ['count(int64)', 'blob', 'int64', 'ts', 'f64']);
 
             $this->assertEquals($query->rows()[0][0]->type(), QdbQueryPoint::COUNT);
-            $this->assertEquals($query->rows()[1][0]->type(), QdbQueryPoint::COUNT);
-            $this->assertEquals($query->rows()[2][0]->type(), QdbQueryPoint::COUNT);
+            $this->assertEquals($query->rows()[1][0]->type(), QdbQueryPoint::NONE);
+            $this->assertEquals($query->rows()[2][0]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[0][1]->type(), QdbQueryPoint::BLOB);
             $this->assertEquals($query->rows()[1][1]->type(), QdbQueryPoint::BLOB);
             $this->assertEquals($query->rows()[2][1]->type(), QdbQueryPoint::BLOB);
