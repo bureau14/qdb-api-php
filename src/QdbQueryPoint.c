@@ -47,11 +47,11 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
         ZVAL_DOUBLE(&this->value, point->payload.double_.value);
         return;
     case qdb_query_result_int64:
-        if (point->payload.int64_.value == qdb_int64_undefined) break;
+        if (point->payload.int64_.value == qdb_query_int64_undefined) break;
         ZVAL_LONG(&this->value, point->payload.int64_.value);
         return;
     case qdb_query_result_count:
-        if (point->payload.int64_.value == qdb_count_undefined) break;
+        if (point->payload.int64_.value == qdb_query_count_undefined) break;
         ZVAL_LONG(&this->value, point->payload.count.value);
         return;
     case qdb_query_result_timestamp: {
