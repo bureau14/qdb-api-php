@@ -38,23 +38,32 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
     switch (point->type)
     {
     case qdb_query_result_blob:
+        if (point->payload.blob.content_length == 0u) break;
         ZVAL_STRINGL(&this->value, point->payload.blob.content, point->payload.blob.content_length);
         return;
     case qdb_query_result_double:
+        if (isnan(point->payload.double_.value)) break;
         ZVAL_DOUBLE(&this->value, point->payload.double_.value);
         return;
     case qdb_query_result_int64:
+        if (point->payload.int64_.value == qdb_int64_undefined) break;
         ZVAL_LONG(&this->value, point->payload.int64_.value);
         return;
     case qdb_query_result_count:
+        if (point->payload.int64_.value == qdb_count_undefined) break;
         ZVAL_LONG(&this->value, point->payload.count.value);
         return;
-    case qdb_query_result_timestamp:
+    case qdb_query_result_timestamp: {
+        qdb_timespec_t ts = point->payload.timestamp.value;
+        if (ts.tv_sec == qdb_min_time && ts.tv_nsec == qdb_min_time) break;
         this->value = QdbTimestamp_from_timespec(&point->payload.timestamp.value);
         return;
+    }
     default:
         throw_out_of_bounds("Wrong point type received from QuasarDB");
     }
+
+    ZVAL_NULL(&this->value);
 }
 
 CLASS_METHOD_0(type)
