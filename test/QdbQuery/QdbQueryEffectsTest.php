@@ -56,9 +56,9 @@ class QdbQueryEffectsTest extends QdbTestBase
         try {
             $this->checkEmptyQuery('CREATE TABLE flavours(blob BLOB, int64 INT64, ts TIMESTAMP, f64 DOUBLE)');
             $this->checkEmptyQuery('INSERT INTO  flavours($timestamp, blob, int64, ts, f64) VALUES'.
-                                   '  (now, "Alice", null, null, null)'.
-                                   ', (now, "Bob",   22,   1970, null)'.
-                                   ', (now, null,    23,   null, null)');
+                                   '  (2007, "Alice", null, null, null)'.
+                                   ', (2014, "Bob",   22,   1970, null)'.
+                                   ', (2021, null,    23,   null, null)');
 
             $query = $this->cluster->makeQuery('SELECT count(int64), blob, int64, ts, f64 FROM flavours');
 
