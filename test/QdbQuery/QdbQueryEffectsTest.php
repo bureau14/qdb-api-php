@@ -56,9 +56,9 @@ class QdbQueryEffectsTest extends QdbTestBase
         try {
             $this->checkEmptyQuery('CREATE TABLE flavours(blob BLOB, int64 INT64, ts TIMESTAMP, f64 DOUBLE)');
             $this->checkEmptyQuery('INSERT INTO  flavours($timestamp, blob, int64, ts, f64) VALUES'.
-                                   '  (now, "Alice", null, null, null)'.
-                                   ', (now, "Bob",   22,   1970, null)'.
-                                   ', (now, null,    23,   null, null)');
+                                   '  (2000, "Alice", null, null, null)'.
+                                   ', (2010, "Bob",   22,   1970, null)'.
+                                   ', (2020, null,    23,   null, null)');
 
             $query = $this->cluster->makeQuery('SELECT count(int64), blob, int64, ts, f64 FROM flavours');
 
@@ -89,7 +89,7 @@ class QdbQueryEffectsTest extends QdbTestBase
 
             $this->assertEquals($query->rows()[1][0]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][1]->type(), QdbQueryPoint::BLOB);
-            $this->assertEquals($query->rows()[1][2]->type(), QdbQueryPoint::INT64);
+            $this->assertEquals($query->rows()[1][2]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][3]->type(), QdbQueryPoint::TIMESTAMP);
             $this->assertEquals($query->rows()[1][4]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][0]->value(), null);
