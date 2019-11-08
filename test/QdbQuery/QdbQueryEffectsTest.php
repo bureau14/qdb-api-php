@@ -70,13 +70,13 @@ class QdbQueryEffectsTest extends QdbTestBase
             $this->assertEquals($query->rows()[0][1]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][1]->type(), QdbQueryPoint::BLOB);
             $this->assertEquals($query->rows()[2][1]->type(), QdbQueryPoint::BLOB);
-            $this->assertEquals($query->rows()[0][2]->type(), QdbQueryPoint::INT64);
+            $this->assertEquals($query->rows()[0][2]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][2]->type(), QdbQueryPoint::INT64);
             $this->assertEquals($query->rows()[2][2]->type(), QdbQueryPoint::INT64);
-            $this->assertEquals($query->rows()[0][3]->type(), QdbQueryPoint::TIMESTAMP);
+            $this->assertEquals($query->rows()[0][3]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][3]->type(), QdbQueryPoint::TIMESTAMP);
             $this->assertEquals($query->rows()[2][3]->type(), QdbQueryPoint::TIMESTAMP);
-            $this->assertEquals($query->rows()[0][4]->type(), QdbQueryPoint::DOUBLE);
+            $this->assertEquals($query->rows()[0][4]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][4]->type(), QdbQueryPoint::DOUBLE);
             $this->assertEquals($query->rows()[2][4]->type(), QdbQueryPoint::DOUBLE);
 
