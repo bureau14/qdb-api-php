@@ -67,7 +67,7 @@ class QdbQueryEffectsTest extends QdbTestBase
             $this->assertEquals($query->rows()[0][0]->type(), QdbQueryPoint::COUNT);
             $this->assertEquals($query->rows()[1][0]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[2][0]->type(), QdbQueryPoint::NONE);
-            $this->assertEquals($query->rows()[0][1]->type(), QdbQueryPoint::BLOB);
+            $this->assertEquals($query->rows()[0][1]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][1]->type(), QdbQueryPoint::BLOB);
             $this->assertEquals($query->rows()[2][1]->type(), QdbQueryPoint::BLOB);
             $this->assertEquals($query->rows()[0][2]->type(), QdbQueryPoint::INT64);
