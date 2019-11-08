@@ -29,9 +29,6 @@ int init_query_point_types() {
 
 void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
 {
-    if (point->type < qdb_query_result_none || point->type > qdb_query_result_count)
-        throw_invalid_argument("Got invalid query point");
-
     object_init_ex(destination, ce_QdbQueryPoint);
     class_storage* this = get_class_storage(destination);
 
