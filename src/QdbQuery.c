@@ -49,9 +49,8 @@ void QdbQuery_createInstance(zval* destination,
     array_init_size(&this->column_names, result->column_count);
 	for (int i = 0; i < result->column_count; ++i)
     {
-        zval name;
-        ZVAL_STRINGL(&name, result->column_names[i].data, result->column_names[i].length);
-		zend_hash_next_index_insert(Z_ARR(this->column_names), &name);
+        qdb_string_t name = result->column_names[i];
+		add_next_index_stringl(&this->column_names, name.data, name.length, 1);
     }
 
     // Rows.
@@ -65,9 +64,9 @@ void QdbQuery_createInstance(zval* destination,
         {
             zval point;
             QdbQueryPoint_createInstance(&point, &result->rows[i][j]);
-            zend_hash_next_index_insert(Z_ARR(row), &point);
+            add_next_index_zval(&row, &point);
         }
-        zend_hash_next_index_insert(Z_ARR(this->rows), &row);
+        add_next_index_zval(&this->rows, &row);
     }
     
 	ZVAL_LONG(&this->scanned_point_count, result->scanned_point_count);
