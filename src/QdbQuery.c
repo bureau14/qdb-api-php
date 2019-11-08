@@ -50,7 +50,7 @@ void QdbQuery_createInstance(zval* destination,
 	for (int i = 0; i < result->column_count; ++i)
     {
         qdb_string_t name = result->column_names[i];
-		add_next_index_stringl(&this->column_names, name.data, name.length, 1);
+		add_next_index_stringl(&this->column_names, name.data, name.length);
     }
 
     // Rows.
