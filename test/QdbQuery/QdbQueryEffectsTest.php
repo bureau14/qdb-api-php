@@ -97,7 +97,7 @@ class QdbQueryEffectsTest extends QdbTestBase
             $this->assertEquals($query->rows()[2][4]->value(), null);
         }
         finally {
-            $this->checkEmptyQuery('DROP TABLE persons');
+            $this->checkEmptyQuery('DROP TABLE flavours');
         }
     }
 
