@@ -40,15 +40,15 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
     {
     case qdb_query_result_none: break;
     case qdb_query_result_blob:
-        if (point->payload.blob.content_length == 0u) break;
+        if (QDB_IS_NULL_BLOB(point->payload.blob)) break;
         ZVAL_STRINGL(&this->value, point->payload.blob.content, point->payload.blob.content_length);
         return;
     case qdb_query_result_double:
-        if (isnan(point->payload.double_.value)) break;
+        if (QDB_IS_NULL_DOUBLE(point->payload.double_)) break;
         ZVAL_DOUBLE(&this->value, point->payload.double_.value);
         return;
     case qdb_query_result_int64:
-        if (point->payload.int64_.value == qdb_int64_undefined) break;
+        if (QDB_IS_NULL_INT64(point->payload.int64_)) break;
         ZVAL_LONG(&this->value, point->payload.int64_.value);
         return;
     case qdb_query_result_count:
@@ -56,8 +56,7 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
         ZVAL_LONG(&this->value, point->payload.count.value);
         return;
     case qdb_query_result_timestamp: {
-        qdb_timespec_t ts = point->payload.timestamp.value;
-        if (ts.tv_sec == qdb_min_time && ts.tv_nsec == qdb_min_time) break;
+        if (QDB_IS_NULL_TIMESTAMP(point->payload.timestamp)) break;
         this->value = QdbTimestamp_from_timespec(&point->payload.timestamp.value);
         return;
     }
