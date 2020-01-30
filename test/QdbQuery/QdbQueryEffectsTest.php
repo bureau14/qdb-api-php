@@ -54,17 +54,13 @@ class QdbQueryEffectsTest extends QdbTestBase
     public function testNullValues()
     {
         try {
-            print("T1");
-            $this->checkEmptyQuery('CREATE TABLE flavours(str STRING, int64 INT64, ts TIMESTAMP, f64 DOUBLE)');
-            print("T2");
+            $this->checkEmptyQuery('CREATE TABLE flavours(str BLOB, int64 INT64, ts TIMESTAMP, f64 DOUBLE)');
             $this->checkEmptyQuery('INSERT INTO  flavours($timestamp, str, int64, ts, f64) VALUES'.
                                    '  (now, "Alice", null, null, null)'.
                                    ', (now, "Bob",   22,   1970, null)'.
                                    ', (now, null,    23,   null, null)');
-            print("T3");
 
             $query = $this->cluster->makeQuery('SELECT count(int64), str, int64, ts, f64 FROM flavours');
-            print("T4");
 
             $this->assertEquals($query->columnNames(), ['count(int64)', 'str', 'int64', 'ts', 'f64']);
             $this->assertEquals(count($query->rows()), 4);
@@ -81,7 +77,7 @@ class QdbQueryEffectsTest extends QdbTestBase
             $this->assertEquals($query->rows()[0][4]->value(), null);
 
             $this->assertEquals($query->rows()[1][0]->type(), QdbQueryPoint::NONE);
-            $this->assertEquals($query->rows()[1][1]->type(), QdbQueryPoint::STRING);
+            $this->assertEquals($query->rows()[1][1]->type(), QdbQueryPoint::BLOB);
             $this->assertEquals($query->rows()[1][2]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][3]->type(), QdbQueryPoint::NONE);
             $this->assertEquals($query->rows()[1][4]->type(), QdbQueryPoint::NONE);
@@ -92,7 +88,7 @@ class QdbQueryEffectsTest extends QdbTestBase
             $this->assertEquals($query->rows()[1][4]->value(), null);
 
             $this->assertEquals($query->rows()[2][0]->type(), QdbQueryPoint::NONE);
-            $this->assertEquals($query->rows()[2][1]->type(), QdbQueryPoint::STRING);
+            $this->assertEquals($query->rows()[2][1]->type(), QdbQueryPoint::BLOB);
             $this->assertEquals($query->rows()[2][2]->type(), QdbQueryPoint::INT64);
             $this->assertEquals($query->rows()[2][3]->type(), QdbQueryPoint::TIMESTAMP);
             $this->assertEquals($query->rows()[2][4]->type(), QdbQueryPoint::NONE);
