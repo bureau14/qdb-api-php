@@ -42,7 +42,8 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
         ZVAL_STRINGL(&this->value, point->payload.blob.content, point->payload.blob.content_length);
         return;
     case qdb_query_result_string:
-        if (QDB_IS_NULL_STRING(point->payload.string)) break;
+        // TODO(Sidney): Use QDB_IS_NULL_STRING when it doesn't use nullptr anymore in the C API.
+        if (QDB_IS_NULL_BLOB(point->payload.string)) break;
         ZVAL_STRINGL(&this->value, point->payload.string.content, point->payload.string.content_length);
         return;
     case qdb_query_result_double:
