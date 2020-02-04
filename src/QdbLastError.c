@@ -7,7 +7,6 @@
 
 typedef struct
 {
-    zval error;
     zval message;
 } _zval_last_error_t;
 
@@ -18,17 +17,10 @@ extern zend_class_entry* ce_QdbLastError;
 
 CLASS_METHOD_0(__construct)
 {
-    qdb_error_t error;
     qdb_string_t message;
-    qdb_get_last_error(&error, &message);
+    qdb_get_last_error(NULL, &message);
 
-    ZVAL_LONG(&this->error, error);
     ZVAL_STRINGL(&this->message, message.data, message.length);
-}
-
-CLASS_METHOD_0(error)
-{
-    ZVAL_COPY_VALUE(return_value, &this->error);
 }
 
 CLASS_METHOD_0(message)
@@ -38,7 +30,6 @@ CLASS_METHOD_0(message)
 
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
-    ADD_METHOD(error)
     ADD_METHOD(message)
 END_CLASS_MEMBERS()
 
