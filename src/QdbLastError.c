@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2020, quasardb SAS. All rights reserved.
 // All rights reserved.
 
-#include "QdbGetLastError.h"
+#include "QdbLastError.h"
 #include "class_definition.h"
 
 typedef struct
