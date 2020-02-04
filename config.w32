@@ -49,6 +49,7 @@ if (PHP_QUASARDB != "no") {
         QdbTimestamp.c \
         QdbTsBatchColumnInfo.c \
         QdbTsBatchTable.c \
+        QdbLastError.c \
         settings.c \
         ", "quasardb");
 }
