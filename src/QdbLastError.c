@@ -3,6 +3,7 @@
 
 #include "QdbLastError.h"
 #include "class_definition.h"
+#include <qdb/client.h>
 
 typedef struct
 {

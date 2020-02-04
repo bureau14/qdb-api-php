@@ -5,7 +5,6 @@
 #define QDB_LAST_ERROR_H
 
 #include "php_include.h"
-#include <qdb/client.h>
 
 void QdbLastError_registerClass();
 
