@@ -10,7 +10,7 @@ class QdbClusterLastErrorTest extends QdbTestBase
             $this->createEmptyBlob()->remove();
             $this->assertEquals('Should not reach this assert'. 0);
         } catch (Exception $e) {}
-        $err1 = new QdbLastError();
+        $msg1 = $this->$cluster->lastError();
         
         try {
             $integer = $this->createEmptyInteger();
@@ -18,10 +18,14 @@ class QdbClusterLastErrorTest extends QdbTestBase
             $integer->put(2);
             $this->assertEquals('Should not reach this assert'. 0);
         } catch (Exception $e) {}
-        $err2 = new QdbLastError();
+        $msg2 = $this->$cluster->lastError();
         
-        $this->assertEquals($err1->message(), 'at qdb_remove: An entry matching the provided alias cannot be found.');
-        $this->assertEquals($err2->message(), 'at qdb_int_put: An entry matching the provided alias already exists.');
+        $this->$cluster->makeQuery('SHOW TABLES');
+        $msg3 = $this->$cluster->lastError();
+        
+        $this->assertEquals($msg1, 'at qdb_remove: An entry matching the provided alias cannot be found.');
+        $this->assertEquals($msg2, 'at qdb_int_put: An entry matching the provided alias already exists.');
+        $this->assertEquals($msg3, 'at qdb_query: The operation was successful.');
     }
 }
 

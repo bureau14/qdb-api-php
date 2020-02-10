@@ -87,8 +87,6 @@
         <file role="src" name="QdbTsBatchColumnInfo.h"/>
         <file role="src" name="QdbTsBatchTable.c"/>
         <file role="src" name="QdbTsBatchTable.h"/>
-        <file role="src" name="QdbLastError.c"/>
-        <file role="src" name="QdbLastError.h"/>
         <file role="src" name="settings.c"/>
         <file role="src" name="settings.h"/>
       </dir>
