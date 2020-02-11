@@ -116,7 +116,7 @@ CLASS_METHOD_1(tag, STRING_ARG(alias))
     QdbTag_createInstance(return_value, this->handle, alias);
 }
 
-CLASS_METHOD_1(lastError)
+CLASS_METHOD_0(lastError)
 {
     qdb_string_t message;
     qdb_error_t error = qdb_get_last_error(this->handle, NULL, &message);
