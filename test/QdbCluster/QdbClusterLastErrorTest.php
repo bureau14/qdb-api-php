@@ -20,7 +20,7 @@ class QdbClusterLastErrorTest extends QdbTestBase
         } catch (Exception $e) {}
         $msg2 = $this->cluster->lastError();
         
-        $this->cluster->makeQuery('SHOW TABLES');
+        $this->cluster->makeQuery('CREATE TABLE t_a_b_l_e(col INT64)');
         $msg3 = $this->cluster->lastError();
         
         $this->assertEquals($msg1, 'at qdb_remove: An entry matching the provided alias cannot be found.');
