@@ -116,6 +116,15 @@ CLASS_METHOD_1(tag, STRING_ARG(alias))
     QdbTag_createInstance(return_value, this->handle, alias);
 }
 
+CLASS_METHOD_0(lastError)
+{
+    qdb_string_t message;
+    qdb_error_t error = qdb_get_last_error(this->handle, NULL, &message);
+    if (QDB_FAILURE(error)) throw_qdb_error(error);
+    
+    RETVAL_STRINGL(message.data, message.length);
+}
+
 BEGIN_CLASS_MEMBERS()
     ADD_CONSTRUCTOR(__construct)
     ADD_DESTRUCTOR(__destruct)
@@ -129,6 +138,7 @@ BEGIN_CLASS_MEMBERS()
     ADD_METHOD(purgeAll)
     ADD_METHOD(runBatch)
     ADD_METHOD(tag)
+    ADD_METHOD(lastError)
 END_CLASS_MEMBERS()
 
 #include "class_definition.i"
