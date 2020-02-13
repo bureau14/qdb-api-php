@@ -25,7 +25,7 @@ class QdbClusterLastErrorTest extends QdbTestBase
         
         $this->assertEquals($msg1, 'at qdb_remove: An entry matching the provided alias cannot be found.');
         $this->assertEquals($msg2, 'at qdb_int_put: An entry matching the provided alias already exists.');
-        $this->assertEquals($msg3, 'at qdb_query: The operation was successful.');
+        $this->assertEquals($msg3, 'at qdb_query: The operation completed successfully.');
     }
 }
 
