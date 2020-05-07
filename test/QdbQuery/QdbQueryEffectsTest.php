@@ -18,9 +18,9 @@ class QdbQueryEffectsTest extends QdbTestBase
         try {
             $this->checkEmptyQuery('CREATE TABLE persons(name BLOB, age INT64)');
             $this->checkEmptyQuery('INSERT INTO  persons($timestamp, name, age) VALUES'.
-                                   '  (1970-01-01T00:00:00, "Alice", 21)'.
-                                   ', (1970-01-01T00:00:01, "Bob",   22)');
-            
+                                   '  (1970-01-01T00:00:00, \'Alice\', 21)'.
+                                   ', (1970-01-01T00:00:01, \'Bob\',   22)');
+
             $query = $this->cluster->makeQuery('SELECT * FROM persons');
             $this->assertEquals(count($query->columnNames()), 4);
             $this->assertEquals(count($query->rows()), 2);
@@ -50,14 +50,14 @@ class QdbQueryEffectsTest extends QdbTestBase
             $this->checkEmptyQuery('DROP TABLE persons');
         }
     }
-    
+
     public function testNullValues()
     {
         try {
             $this->checkEmptyQuery('CREATE TABLE flavours(str BLOB, int64 INT64, ts TIMESTAMP, f64 DOUBLE)');
             $this->checkEmptyQuery('INSERT INTO  flavours($timestamp, str, int64, ts, f64) VALUES'.
-                                   '  (now, "Alice", null, null, null)'.
-                                   ', (now, "Bob",   22,   1970, null)'.
+                                   '  (now, \'Alice\', null, null, null)'.
+                                   ', (now, \'Bob\',   22,   1970, null)'.
                                    ', (now, null,    23,   null, null)');
 
             $query = $this->cluster->makeQuery('SELECT count(int64), str, int64, ts, f64 FROM flavours');
