@@ -42,8 +42,8 @@ class QdbTsBatchTablePushValuesTest extends QdbTestBase
             $this->assertEquals($query->rows()[1][2]->type(), QdbQueryPoint::BLOB);
             $this->assertEquals($query->rows()[0][3]->type(), QdbQueryPoint::INT64);
             $this->assertEquals($query->rows()[1][3]->type(), QdbQueryPoint::INT64);
-            $this->assertEquals($query->rows()[0][4]->type(), QdbQueryPoint::SYBOL);
-            $this->assertEquals($query->rows()[1][4]->type(), QdbQueryPoint::SYBOL);
+            $this->assertEquals($query->rows()[0][4]->type(), QdbQueryPoint::SYMBOL);
+            $this->assertEquals($query->rows()[1][4]->type(), QdbQueryPoint::SYMBOL);
             $this->assertEquals($query->rows()[0][0]->value(), new QdbTimestamp(0, 0));
             $this->assertEquals($query->rows()[1][0]->value(), new QdbTimestamp(1, 0));
             $this->assertEquals($query->rows()[0][1]->value(), 'persons');
