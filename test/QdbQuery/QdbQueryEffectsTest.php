@@ -16,7 +16,7 @@ class QdbQueryEffectsTest extends QdbTestBase
     public function testFillTable()
     {
         try {
-            $this->checkEmptyQuery('CREATE TABLE persons(name SYMBOL, age INT64)');
+            $this->checkEmptyQuery('CREATE TABLE persons(name SYMBOL(symtable), age INT64)');
             $this->checkEmptyQuery('INSERT INTO  persons($timestamp, name, age) VALUES'.
                                    '  (1970-01-01T00:00:00, \'Alice\', 21)'.
                                    ', (1970-01-01T00:00:01, \'Bob\',   22)');
