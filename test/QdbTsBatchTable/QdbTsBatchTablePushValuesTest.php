@@ -8,7 +8,7 @@ class QdbTsBatchTablePushValuesTest extends QdbTestBase
     public function testFillTable()
     {
         try {
-            $query = $this->cluster->makeQuery('CREATE TABLE persons(name BLOB, age INT64, class SYMBOL)');
+            $query = $this->cluster->makeQuery('CREATE TABLE persons(name BLOB, age INT64, class SYMBOL(symtable))');
             $this->assertEquals(count($query->columnNames()), 0);
             $this->assertEquals(count($query->rows()), 0);
             $this->assertEquals($query->scannedPointCount(), 0);
