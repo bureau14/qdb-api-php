@@ -16,9 +16,9 @@
     <email>benoit@quasardb.net</email>
     <active>yes</active>
   </lead>
-  <date>2021-02-04</date>
+  <date>2021-03-25</date>
   <version>
-    <release>3.9.8</release>
+    <release>3.9.9</release>
     <api>3.9</api>
   </version>
   <stability>
