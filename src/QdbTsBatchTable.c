@@ -57,12 +57,6 @@ CLASS_METHOD_2(setString, LONG_ARG(index), STRING_ARG(string))
     if (QDB_FAILURE(err)) throw_qdb_error(err);
 }
 
-CLASS_METHOD_2(setSymbol, LONG_ARG(index), STRING_ARG(symbol))
-{
-    qdb_error_t err = qdb_ts_batch_row_set_symbol(this->table, Z_LVAL_P(index), Z_STRVAL_P(symbol), Z_STRLEN_P(symbol));
-    if (QDB_FAILURE(err)) throw_qdb_error(err);
-}
-
 CLASS_METHOD_2(setDouble, LONG_ARG(index), DOUBLE_ARG(num))
 {
     qdb_error_t err = qdb_ts_batch_row_set_double(this->table, Z_LVAL_P(index), Z_DVAL_P(num));
@@ -100,7 +94,6 @@ BEGIN_CLASS_MEMBERS()
     ADD_METHOD(startRow)
     ADD_METHOD(setBlob)
     ADD_METHOD(setString)
-    ADD_METHOD(setSymbol)
     ADD_METHOD(setDouble)
     ADD_METHOD(setInt64)
     ADD_METHOD(setTimestamp)
