@@ -22,7 +22,6 @@ int init_query_point_types() {
     return zend_declare_class_constant_long(ce_QdbQueryPoint, "NONE", sizeof("NONE")-1, qdb_query_result_none) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "BLOB", sizeof("BLOB")-1, qdb_query_result_blob) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "STRING", sizeof("STRING")-1, qdb_query_result_string) == SUCCESS
-        && zend_declare_class_constant_long(ce_QdbQueryPoint, "SYMBOL", sizeof("SYMBOL")-1, qdb_query_result_symbol) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "COUNT", sizeof("COUNT")-1, qdb_query_result_count) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "DOUBLE", sizeof("DOUBLE")-1, qdb_query_result_double) == SUCCESS
         && zend_declare_class_constant_long(ce_QdbQueryPoint, "INT64", sizeof("INT64")-1, qdb_query_result_int64) == SUCCESS
@@ -45,10 +44,6 @@ void QdbQueryPoint_createInstance(zval* destination, qdb_point_result_t* point)
     case qdb_query_result_string:
         if (QDB_IS_NULL_STRING(point->payload.string)) break;
         ZVAL_STRINGL(&this->value, point->payload.string.content, point->payload.string.content_length);
-        return;
-    case qdb_query_result_symbol:
-        if (QDB_IS_NULL_SYMBOL(point->payload.symbol)) break;
-        ZVAL_STRINGL(&this->value, point->payload.symbol.content, point->payload.symbol.content_length);
         return;
     case qdb_query_result_double:
         if (QDB_IS_NULL_DOUBLE(point->payload.double_)) break;
