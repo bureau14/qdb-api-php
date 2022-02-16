@@ -16,14 +16,14 @@
     <email>benoit@quasardb.net</email>
     <active>yes</active>
   </lead>
-  <date>2021-12-27</date>
+  <date>2022-02-16</date>
   <version>
     <release>3.13.2</release>
     <api>3.13</api>
   </version>
   <stability>
-    <release>devel</release>
-    <api>devel</api>
+    <release>stable</release>
+    <api>stable</api>
   </stability>
   <license uri="https://github.com/bureau14/qdb-api-php/blob/master/LICENSE.md">BSD License</license>
   <notes>
