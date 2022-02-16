@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2021, quasardb SAS. All rights reserved.
+// Copyright (c) 2009-2022, quasardb SAS. All rights reserved.
 // All rights reserved.
 
 #ifndef QDB_EXCEPTIONS_H
