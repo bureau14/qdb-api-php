@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2022, quasardb SAS. All rights reserved.
+// Copyright (c) 2009-2023, quasardb SAS. All rights reserved.
 // All rights reserved.
 
 #ifndef QDB_TS_BATCH_COLUMN_INFO_H
